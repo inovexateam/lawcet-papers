@@ -1,0 +1,1006 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-sans)}
+.header{padding:1.5rem 0 1rem;border-bottom:0.5px solid var(--color-border-tertiary)}
+.header h1{font-size:20px;font-weight:500;color:var(--color-text-primary)}
+.header p{font-size:13px;color:var(--color-text-secondary);margin-top:4px}
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:1rem 0}
+.stat{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:.75rem;text-align:center}
+.stat-num{font-size:20px;font-weight:500;color:var(--color-text-primary)}
+.stat-lbl{font-size:11px;color:var(--color-text-secondary);margin-top:2px}
+.tabs{display:flex;gap:6px;margin:1rem 0;flex-wrap:wrap}
+.tab{padding:7px 16px;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-secondary);font-size:13px;cursor:pointer;background:var(--color-background-primary);color:var(--color-text-secondary)}
+.tab.active{background:var(--color-background-info);color:var(--color-text-info);border-color:var(--color-border-info);font-weight:500}
+.part-info{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:.75rem 1rem;margin-bottom:1rem;font-size:13px;color:var(--color-text-secondary)}
+.part-info strong{color:var(--color-text-primary);font-weight:500}
+.q-card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1rem 1.25rem;margin-bottom:.75rem}
+.q-num{font-size:11px;font-weight:500;color:var(--color-text-secondary);margin-bottom:6px}
+.q-text{font-size:14px;color:var(--color-text-primary);line-height:1.6;margin-bottom:.75rem}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:.75rem}
+.opt{padding:6px 10px;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);font-size:13px;color:var(--color-text-secondary);cursor:pointer;transition:background .15s}
+.opt:hover{background:var(--color-background-secondary)}
+.opt.correct{background:var(--color-background-success);color:var(--color-text-success);border-color:var(--color-border-success)}
+.opt.wrong{background:var(--color-background-danger);color:var(--color-text-danger);border-color:var(--color-border-danger)}
+.ans-block{display:none;border-top:0.5px solid var(--color-border-tertiary);padding-top:.75rem;margin-top:.5rem}
+.ans-block.show{display:block}
+.ans-label{font-size:12px;font-weight:500;color:var(--color-text-success);margin-bottom:4px}
+.ans-exp{font-size:13px;color:var(--color-text-secondary);line-height:1.6;margin-bottom:.5rem}
+.mnemonic{background:var(--color-background-warning);border-left:3px solid var(--color-border-warning);border-radius:0;padding:.5rem .75rem;font-size:12px;color:var(--color-text-warning);line-height:1.5}
+.mnemonic-title{font-weight:500;margin-bottom:2px;font-size:11px;text-transform:uppercase;letter-spacing:.5px}
+.toggle-btn{font-size:12px;color:var(--color-text-info);cursor:pointer;border:none;background:none;padding:0;margin-top:4px}
+.score-bar{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:.75rem 1rem;margin:1rem 0;display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+.score-text{font-size:14px;color:var(--color-text-secondary)}
+.score-num{font-size:18px;font-weight:500;color:var(--color-text-primary)}
+.reset-btn{margin-left:auto;padding:6px 14px;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-secondary);font-size:12px;cursor:pointer;background:var(--color-background-primary);color:var(--color-text-secondary)}
+</style>
+
+<h2 class="sr-only">AP and TG LAWCET 2025 Fully Solved Previous Year Paper with Explanations and Mnemonics</h2>
+
+<div class="header">
+  <h1>AP &amp; TG LAWCET 2025 — Solved Paper</h1>
+  <p>120 MCQs · 90 minutes · No negative marking · Qualifying: 42/120 (35%)</p>
+</div>
+
+<div class="stats-row">
+  <div class="stat"><div class="stat-num">30</div><div class="stat-lbl">Part A — GK &amp; Mental Ability</div></div>
+  <div class="stat"><div class="stat-num">30</div><div class="stat-lbl">Part B — Current Affairs</div></div>
+  <div class="stat"><div class="stat-num">60</div><div class="stat-lbl">Part C — Legal Aptitude</div></div>
+  <div class="stat"><div class="stat-num" id="score-display">0/0</div><div class="stat-lbl">Your score</div></div>
+</div>
+
+<div class="tabs">
+  <button class="tab active" onclick="switchPart('A')">Part A — GK &amp; Mental Ability</button>
+  <button class="tab" onclick="switchPart('B')">Part B — Current Affairs</button>
+  <button class="tab" onclick="switchPart('C')">Part C — Legal Aptitude</button>
+</div>
+
+<div id="part-container"></div>
+
+<script>
+const data = {
+A: {
+  info: "Part A: 30 Questions | General Knowledge & Mental Ability | 30 Marks | Topics: Indian Polity, History, Geography, Science, Logical Reasoning",
+  questions: [
+    {
+      q:"Who administers the oath of office to a State Governor in India?",
+      opts:["President of India","Chief Justice of India","Chief Justice of the respective High Court","Chief Minister of the State"],
+      ans:2,
+      exp:"The Chief Justice of the respective state High Court administers the oath to the Governor. In absence of CJ, the senior-most judge of that court does so. (Art. 159)",
+      mem:"Trick: 'Governor gets oath from the COURT of his state, not the country.' G → State CJ."
+    },
+    {
+      q:"Which Article of the Indian Constitution provides for the Right to Education?",
+      opts:["Article 19","Article 21","Article 21-A","Article 45"],
+      ans:2,
+      exp:"Article 21-A (inserted by 86th Amendment, 2002) makes free and compulsory education a Fundamental Right for children aged 6–14 years.",
+      mem:"Mnemonic: '21-A = Education for ALL.' 86th Amendment → 21A."
+    },
+    {
+      q:"The concept of 'Judicial Review' in India was borrowed from which country?",
+      opts:["UK","USA","Canada","Australia"],
+      ans:1,
+      exp:"Judicial Review — the power of courts to examine constitutionality of laws — was borrowed from the USA. In India it is recognised under Articles 13, 32 and 226.",
+      mem:"'USA → Review USA laws, India copied!' JR = USA."
+    },
+    {
+      q:"Which river is known as the 'Sorrow of Bihar'?",
+      opts:["Ganga","Kosi","Son","Gandak"],
+      ans:1,
+      exp:"The Kosi River is called the 'Sorrow of Bihar' due to its frequent course changes causing massive floods and devastation in Bihar.",
+      mem:"'Kosi = Crying (Sorrow) of Bihar.' K for Kosi, K for Kaand (disaster)."
+    },
+    {
+      q:"Who was the first woman Chief Justice of a High Court in India?",
+      opts:["Justice Leila Seth","Justice Fatima Beevi","Justice M. Fathima Beevi","Justice Sujata Manohar"],
+      ans:0,
+      exp:"Justice Leila Seth became the first woman Chief Justice of a High Court (Himachal Pradesh HC) in 1991, and was also the first woman judge of the Delhi High Court.",
+      mem:"'Leila = Leader among women judges.' Remember: Delhi HC → HC Chief = Leila Seth."
+    },
+    {
+      q:"If CLOCK is coded as KCOLC, then TABLE is coded as:",
+      opts:["ELBAT","ELBET","ALBAT","LABTE"],
+      ans:0,
+      exp:"The coding pattern reverses the word. CLOCK reversed = KCOLC. Applying same: TABLE reversed = ELBAT.",
+      mem:"Trick: Just REVERSE the word. Always check 'mirror/reverse' pattern first in coding questions."
+    },
+    {
+      q:"Pointing to a man in a photo, a woman says 'His mother is the only daughter of my mother.' How is the woman related to the man?",
+      opts:["Aunt","Sister","Mother","Grandmother"],
+      ans:2,
+      exp:"'Only daughter of my mother' = the woman herself. So the man's mother is the woman herself. The woman is his mother.",
+      mem:"Trick: 'Only daughter of my mother = ME.' Self-reference trap — always check if it points back to the speaker."
+    },
+    {
+      q:"The famous 'Doctrine of Lapse' was introduced by which Governor-General?",
+      opts:["Lord Wellesley","Lord Dalhousie","Lord Bentinck","Lord Curzon"],
+      ans:1,
+      exp:"Lord Dalhousie (1848–1856) introduced the Doctrine of Lapse to annex Indian princely states that had no natural male heir, annexing Satara, Jhansi, Nagpur, etc.",
+      mem:"'Dalhousie = Doctrine.' D-D. He lapsed states' rights."
+    },
+    {
+      q:"Which planet is called the 'Red Planet'?",
+      opts:["Venus","Jupiter","Mars","Saturn"],
+      ans:2,
+      exp:"Mars appears red due to iron oxide (rust) on its surface. It is called the Red Planet.",
+      mem:"'MARS = M for Maroon-Red.' Mars has Maroon colour."
+    },
+    {
+      q:"Find the odd one out: 36, 49, 64, 81, 100, 110",
+      opts:["36","100","110","81"],
+      ans:2,
+      exp:"All numbers are perfect squares: 36=6², 49=7², 64=8², 81=9², 100=10². But 110 is not a perfect square. It is the odd one out.",
+      mem:"Trick: All are perfect squares — 110 breaks the pattern. Always check squares/cubes for number series odd-one-out."
+    },
+    {
+      q:"Which Fundamental Duty was added by the 86th Constitutional Amendment?",
+      opts:["To vote in elections","To provide opportunities for education to child between 6-14 years","To protect the environment","To abide by the Constitution"],
+      ans:1,
+      exp:"The 86th Amendment (2002) added a new Fundamental Duty under Art 51-A(k) — every parent/guardian shall provide educational opportunities to their child between 6 and 14 years.",
+      mem:"'86th Amendment = Education DUTY of Parents.' Same amendment as Art 21-A. Two peas (rights + duties) in the 86th pod."
+    },
+    {
+      q:"Who among the following was NOT a member of the Constituent Assembly of India?",
+      opts:["Jawaharlal Nehru","B.R. Ambedkar","Mahatma Gandhi","Rajendra Prasad"],
+      ans:2,
+      exp:"Mahatma Gandhi was NOT a member of the Constituent Assembly. He was the moral force behind the freedom movement but did not participate as a member of the CA.",
+      mem:"'Gandhi outside, Nehru/Ambedkar/Prasad inside the CA.' Gandhi = Moral guide, not formal member."
+    },
+    {
+      q:"The latitude that passes through the centre of India is:",
+      opts:["Tropic of Cancer (23.5°N)","Equator (0°)","Tropic of Capricorn (23.5°S)","Arctic Circle"],
+      ans:0,
+      exp:"The Tropic of Cancer (23.5°N) passes roughly through the middle of India, cutting through states like Gujarat, Rajasthan, MP, Chhattisgarh, Jharkhand, West Bengal, Tripura and Mizoram.",
+      mem:"'Tropic of Cancer = Middle of India.' Remember 8 states it passes through using: 'GuRa MP CJ W TM' (Gujarat, Rajasthan, MP, Chhattisgarh, Jharkhand, WB, Tripura, Mizoram)."
+    },
+    {
+      q:"A series: 2, 6, 12, 20, 30, ? What comes next?",
+      opts:["36","40","42","44"],
+      ans:2,
+      exp:"Differences: 4, 6, 8, 10, 12. Pattern: differences increase by 2. So next number = 30 + 12 = 42.",
+      mem:"Trick: Find the difference first, then find the pattern of differences. '2 4 6 8 10 12' → add next even number."
+    },
+    {
+      q:"Which Indian state has the longest coastline?",
+      opts:["Maharashtra","Tamil Nadu","Andhra Pradesh","Gujarat"],
+      ans:3,
+      exp:"Gujarat has the longest coastline in India at approximately 1,600 km, followed by Andhra Pradesh (~974 km), Tamil Nadu (~906 km) and Maharashtra (~720 km).",
+      mem:"'Gujarat = Greatest Coastline.' G for G. Remember: Gujarat borders Pakistan AND faces Arabian Sea on two sides."
+    },
+    {
+      q:"The Preamble of the Indian Constitution was amended by which Constitutional Amendment?",
+      opts:["24th Amendment","42nd Amendment","44th Amendment","52nd Amendment"],
+      ans:1,
+      exp:"The 42nd Constitutional Amendment (1976) added the words 'Socialist', 'Secular' and 'Integrity' to the Preamble of the Indian Constitution.",
+      mem:"'42 = Socialist Secular.' Remember the 3 S's added: Socialist, Secular + Integrity. 42nd = Famous mini-constitution amendment."
+    },
+    {
+      q:"Which of the following gases is primarily responsible for the greenhouse effect?",
+      opts:["Oxygen","Nitrogen","Carbon Dioxide","Hydrogen"],
+      ans:2,
+      exp:"Carbon Dioxide (CO₂) is the primary greenhouse gas contributing to the greenhouse effect and global warming, though methane, water vapour, and nitrous oxide also contribute.",
+      mem:"'CO₂ = Climate change culprit.' C for Carbon, C for Climate."
+    },
+    {
+      q:"Antonym of 'BENEVOLENT' is:",
+      opts:["Generous","Malevolent","Charitable","Gracious"],
+      ans:1,
+      exp:"Benevolent means kind and generous. Its antonym is Malevolent, meaning having or showing a wish to do evil.",
+      mem:"'Bene = Good, Male = Bad/Evil.' Latin roots: bene (good) vs. male (bad). Common prefix trick for LAWCET vocabulary."
+    },
+    {
+      q:"Which Schedule of the Indian Constitution contains the list of recognised languages?",
+      opts:["Sixth Schedule","Seventh Schedule","Eighth Schedule","Ninth Schedule"],
+      ans:2,
+      exp:"The Eighth Schedule of the Constitution lists officially recognised languages of India. Currently there are 22 languages in the Eighth Schedule.",
+      mem:"'Eighth Schedule = 22 Languages.' 8 and languages: 'Eight languages × 2.75 ≈ 22.' Or: 8th = Language List."
+    },
+    {
+      q:"In a class of 40 students, Ravi ranks 10th from the top. What is his rank from the bottom?",
+      opts:["29","30","31","32"],
+      ans:2,
+      exp:"Rank from bottom = Total students – Rank from top + 1 = 40 – 10 + 1 = 31.",
+      mem:"Formula: Bottom rank = Total – Top rank + 1. Always add 1! A classic mistake is forgetting the +1."
+    },
+    {
+      q:"Which Article grants the Right to Constitutional Remedies?",
+      opts:["Article 19","Article 21","Article 32","Article 226"],
+      ans:2,
+      exp:"Article 32 (Right to Constitutional Remedies) allows citizens to move the Supreme Court directly for enforcement of Fundamental Rights. Dr Ambedkar called it the 'heart and soul of the Constitution'.",
+      mem:"'Article 32 = Heart of Constitution (Ambedkar's words).' 32 = 'Supreme Court's power to protect you.'"
+    },
+    {
+      q:"'Satyameva Jayate' inscribed on the State Emblem of India is taken from which scripture?",
+      opts:["Rigveda","Mundaka Upanishad","Bhagavad Gita","Arthashastra"],
+      ans:1,
+      exp:"'Satyameva Jayate' (Truth alone triumphs) is taken from the Mundaka Upanishad. It is inscribed below the Lion Capital of Ashoka, adopted as India's national emblem.",
+      mem:"'MUNDaka = MUNDA (bare/honest truth).' M-U for Mundaka Upanishad = MU = 'My Truth.'"
+    },
+    {
+      q:"If 15 workers can complete a work in 8 days, how many days will 10 workers take?",
+      opts:["10 days","12 days","14 days","16 days"],
+      ans:1,
+      exp:"Total work = 15 × 8 = 120 worker-days. Days for 10 workers = 120 ÷ 10 = 12 days.",
+      mem:"Trick: Workers × Days = Constant. W₁D₁ = W₂D₂. More workers = Less days (inverse proportion)."
+    },
+    {
+      q:"Which writ is issued to release a person from illegal detention?",
+      opts:["Mandamus","Certiorari","Habeas Corpus","Quo Warranto"],
+      ans:2,
+      exp:"Habeas Corpus (Latin: 'you may have the body') is a writ issued to bring a detained person before the court to determine if their detention is lawful.",
+      mem:"'Habeas = Have the body.' HABEAS = H for Have, B for Body. It is the MOST important writ for personal liberty."
+    },
+    {
+      q:"The Headquarters of the International Court of Justice (ICJ) is located in:",
+      opts:["New York","Geneva","The Hague","Brussels"],
+      ans:2,
+      mem:"'ICJ = Hague (Holland).' 3 H's: ICJ → International → Hague (Netherlands).",
+      exp:"The ICJ is the principal judicial organ of the United Nations and is located at The Hague, Netherlands. It was established in 1945."
+    },
+    {
+      q:"Which amendment lowered the voting age from 21 to 18 years?",
+      opts:["52nd Amendment","61st Amendment","73rd Amendment","86th Amendment"],
+      ans:1,
+      exp:"The 61st Constitutional Amendment (1988) reduced the minimum voting age from 21 to 18 years, greatly expanding India's electorate.",
+      mem:"'61 = Vote at 18.' Remember: 6+1=7, and 1+8=9 — the two digits of age 18 sum differently. Better: '61st = Sixty-One, Teen vote!' 18 is a teen."
+    },
+    {
+      q:"A man walks 5 km North, then 3 km East, then 5 km South. How far is he from the starting point?",
+      opts:["3 km","5 km","8 km","13 km"],
+      ans:0,
+      exp:"Going 5 km North and then 5 km South cancels out. He ends up 3 km East of starting point. Distance = 3 km.",
+      mem:"Trick: North–South cancel if equal. Focus only on East–West movement. Draw a quick cross diagram in rough."
+    },
+    {
+      q:"Who is the author of the book 'The Discovery of India'?",
+      opts:["Mahatma Gandhi","Jawaharlal Nehru","Subhas Chandra Bose","Rajendra Prasad"],
+      ans:1,
+      exp:"'The Discovery of India' was written by Jawaharlal Nehru while imprisoned in Ahmadnagar Fort (1944). It is a sweeping account of India's history and culture.",
+      mem:"'Discovery = Nehru.' He 'discovered' India's history in jail. Nehru also wrote 'Glimpses of World History' and 'An Autobiography.'"
+    },
+    {
+      q:"The term 'Protem Speaker' refers to:",
+      opts:["Permanent Speaker of Lok Sabha","Temporary Speaker who administers oath to new MPs","Deputy Speaker","Speaker of Rajya Sabha"],
+      ans:1,
+      exp:"A Protem Speaker is a temporary Speaker appointed by the President to administer oaths to newly elected members of Lok Sabha before the new Speaker is elected.",
+      mem:"'Protem = Pro Tempore = For the Time Being.' Latin: temporary. ProTEM = Temporary = T for Temporary Speaker."
+    },
+    {
+      q:"Which country is the largest producer of rice in the world?",
+      opts:["India","China","Thailand","Vietnam"],
+      ans:1,
+      exp:"China is the world's largest producer of rice, followed by India. However, India is the largest exporter of rice globally.",
+      mem:"'China = Largest rice PRODUCER. India = Largest rice EXPORTER.' Two different titles for two different rankings."
+    },
+    {
+      q:"What does 'Res Judicata' mean?",
+      opts:["A matter already decided by court","A pending matter","An appeal filed","A judgment reversed"],
+      ans:0,
+      exp:"Res Judicata is a Latin legal maxim meaning 'a matter already judged/decided.' It prevents re-litigation of a matter already decided by a competent court.",
+      mem:"'Res = Thing/Matter, Judicata = Judged.' RES JUDICATA = 'Already Judged Res(olved).' Prevents double jeopardy in civil suits."
+    }
+  ]
+},
+B: {
+  info: "Part B: 30 Questions | Current Affairs (2024–2025) | 30 Marks | Topics: National/International events, Legal developments, Awards, Government schemes, Important appointments",
+  questions: [
+    {
+      q:"Who was appointed as the 50th Chief Justice of India in 2024?",
+      opts:["Justice D.Y. Chandrachud","Justice Sanjiv Khanna","Justice B.R. Gavai","Justice Surya Kant"],
+      ans:1,
+      exp:"Justice Sanjiv Khanna was appointed as the 50th Chief Justice of India on November 11, 2024, succeeding Justice D.Y. Chandrachud who retired.",
+      mem:"'50th CJI = Sanjiv Khanna.' SK = 50. He took oath on 11/11/2024 — memorable repeating date."
+    },
+    {
+      q:"The 'Viksit Bharat 2047' vision aims at making India a developed nation by which year?",
+      opts:["2030","2035","2047","2050"],
+      ans:2,
+      exp:"'Viksit Bharat 2047' is the Government of India's vision to make India a developed, self-reliant nation by 2047, coinciding with 100 years of independence.",
+      mem:"'2047 = 100 years of independence.' India became free in 1947. 1947 + 100 = 2047. Viksit Bharat = Developed India."
+    },
+    {
+      q:"Which state became the first to implement the Uniform Civil Code (UCC) in 2024?",
+      opts:["Maharashtra","Himachal Pradesh","Uttarakhand","Goa"],
+      ans:2,
+      exp:"Uttarakhand became the first state in India (excluding Goa which has its own civil code historically) to legislate a Uniform Civil Code (UCC) in 2024.",
+      mem:"'Uttarakhand = First modern UCC state.' UK (Uttarakhand) made UK (Uniform Kode) first!"
+    },
+    {
+      q:"The Supreme Court's landmark verdict in 2024 on Electoral Bonds declared them as:",
+      opts:["Constitutional and valid","Unconstitutional and violative of Right to Information","Valid with modifications","Referred to Parliament"],
+      ans:1,
+      exp:"In February 2024, a Constitution Bench of the Supreme Court unanimously struck down the Electoral Bonds Scheme as unconstitutional, holding it violates the voters' right to information (Art. 19(1)(a)).",
+      mem:"'Electoral Bonds = Unconstitutional (2024).' SC = Struck it down. 5-judge bench. Historic unanimous verdict."
+    },
+    {
+      q:"India's first Indigenous aircraft carrier, INS Vikrant, was commissioned by PM Modi in which year?",
+      opts:["2021","2022","2023","2024"],
+      ans:1,
+      exp:"INS Vikrant, India's first indigenously built aircraft carrier, was commissioned by Prime Minister Narendra Modi on September 2, 2022 at Cochin Shipyard, Kochi.",
+      mem:"'Vikrant = 2022 Sept 2.' V for Victory in 2022. Built at Cochin Shipyard (Kochi, Kerala)."
+    },
+    {
+      q:"The 'One Nation, One Election' concept was recommended by which committee?",
+      opts:["Law Commission","Wanchoo Committee","Ram Nath Kovind Committee","Sarkaria Commission"],
+      ans:2,
+      exp:"The High-Level Committee on 'One Nation, One Election' was chaired by former President Ram Nath Kovind. It submitted its report in March 2024 recommending simultaneous elections.",
+      mem:"'One Nation One Election = Kovind Committee.' ONOE = President recommended by a President (Kovind was former President)."
+    },
+    {
+      q:"Which Indian won the Nobel Prize in Economics in 2024?",
+      opts:["Amartya Sen","Abhijit Banerjee","No Indian won in 2024","Raghuram Rajan"],
+      ans:2,
+      exp:"No Indian won the Nobel Prize in Economics in 2024. The 2024 Economics Nobel was awarded to Daron Acemoglu, Simon Johnson and James A. Robinson for their research on institutions and prosperity.",
+      mem:"'2024 Econ Nobel = Three non-Indians.' Acemoglu, Johnson, Robinson. Remember: Institutions determine prosperity."
+    },
+    {
+      q:"The Digital Personal Data Protection Act was passed by Indian Parliament in:",
+      opts:["2022","2023","2024","2025"],
+      ans:1,
+      exp:"The Digital Personal Data Protection (DPDP) Act was passed by the Indian Parliament in August 2023. It is a landmark law governing how personal data is collected, stored and used in India.",
+      mem:"'DPDP = 2023.' DPD = Data Protection Decade 2023. Significant for cyber law topics in LAWCET Part C."
+    },
+    {
+      q:"Which Indian city hosted the G20 Summit in 2023?",
+      opts:["Mumbai","Chennai","New Delhi","Hyderabad"],
+      ans:2,
+      exp:"India hosted the G20 Summit 2023 in New Delhi on September 9–10, 2023, under India's G20 Presidency with the theme 'Vasudhaiva Kutumbakam' (One Earth, One Family, One Future).",
+      mem:"'G20 2023 = New Delhi.' Theme: Vasudhaiva Kutumbakam. India's presidency = 2022-2023."
+    },
+    {
+      q:"India's Chandrayaan-3 successfully soft-landed on the Moon's south pole on:",
+      opts:["July 14, 2023","August 23, 2023","September 5, 2023","October 1, 2023"],
+      ans:1,
+      exp:"Chandrayaan-3's Vikram lander successfully soft-landed near the Moon's south pole on August 23, 2023, making India the 4th country and first to land near the lunar south pole.",
+      mem:"'Chandrayaan-3 = 23 August 2023.' 23/8/23 — all 23s! Easy to remember: 23rd day of 8th month of '23."
+    },
+    {
+      q:"The Prevention of Money Laundering Act (PMLA) was enacted in which year?",
+      opts:["1999","2002","2005","2010"],
+      ans:1,
+      exp:"The Prevention of Money Laundering Act (PMLA) was enacted in 2002 and came into force on July 1, 2005. It empowers the Enforcement Directorate (ED) to investigate money laundering.",
+      mem:"'PMLA = 2002 enacted, 2005 enforced.' PM-LA = 2002 (PM Vajpayee era). ED enforces PMLA."
+    },
+    {
+      q:"Who became the first woman to serve as the President of the International Criminal Court (ICC)?",
+      opts:["Fatou Bensouda","Silvia Fernández de Gurmendi","Phoebe Okowa","Tomoko Akane"],
+      ans:3,
+      exp:"Tomoko Akane of Japan became the first Asian and the President of the ICC in 2023. Silvia Fernández de Gurmendi (Argentina) was an earlier president.",
+      mem:"'ICC 2023 President = Tomoko Akane.' Japanese woman leads ICC — first Asian. T for Tomoko, T for Tokyo (Japan)."
+    },
+    {
+      q:"The Bharatiya Nagarik Suraksha Sanhita (BNSS) 2023 replaces which existing law?",
+      opts:["Indian Penal Code","Indian Evidence Act","Code of Criminal Procedure","Transfer of Property Act"],
+      ans:2,
+      exp:"The Bharatiya Nagarik Suraksha Sanhita (BNSS) 2023 replaces the Code of Criminal Procedure (CrPC) 1973. It came into effect from July 1, 2024.",
+      mem:"'BNSS = New CrPC.' B-N-S-S replaced C-r-P-C. The 3 new codes: BNS (IPC), BNSS (CrPC), BSA (Evidence Act)."
+    },
+    {
+      q:"The Bharatiya Nyaya Sanhita (BNS) 2023 replaced the:",
+      opts:["Code of Criminal Procedure","Indian Evidence Act","Indian Penal Code","Civil Procedure Code"],
+      ans:2,
+      exp:"The Bharatiya Nyaya Sanhita (BNS) 2023 replaced the Indian Penal Code (IPC) 1860 and came into force on July 1, 2024.",
+      mem:"'BNS = New IPC.' Nyaya = Justice = Penal Code. BNS-IPC. Remember: All 3 new codes effective 1 July 2024."
+    },
+    {
+      q:"India became the 4th country to achieve soft landing on Moon. Which countries achieved it before India?",
+      opts:["USA, Russia, China","USA, UK, Russia","USA, Russia, Japan","USA, China, France"],
+      ans:0,
+      exp:"The USA (1966), the USSR/Russia (1966), and China (2013) achieved soft lunar landings before India's Chandrayaan-3 in 2023.",
+      mem:"'USA-Russia-China-INDIA.' Uncle Sam, Russia, China, India = U-R-C-I. Or: 'USA first (60s), China recent (2013), India newest (2023).'"
+    },
+    {
+      q:"Who won the ICC Cricket World Cup 2023?",
+      opts:["India","Pakistan","Australia","England"],
+      ans:2,
+      exp:"Australia won the ICC Cricket World Cup 2023, defeating India in the final held at Narendra Modi Stadium, Ahmedabad on November 19, 2023.",
+      mem:"'CWC 2023 Final: Australia beat India at Ahmedabad.' Heartbreak final for India. 6th WC title for Australia."
+    },
+    {
+      q:"The 'Naari Shakti Vandan Adhiniyam' (Women's Reservation Bill) provides reservation of what percentage in Parliament?",
+      opts:["25%","30%","33%","50%"],
+      ans:2,
+      exp:"The Constitution (128th Amendment) Act, 2023, known as the Women's Reservation Bill or 'Naari Shakti Vandan Adhiniyam,' reserves 33% seats for women in Lok Sabha and State Legislative Assemblies.",
+      mem:"'Women Reservation = 33% = One-Third.' Remember: 1/3 for women. 128th Amendment. Will apply after delimitation."
+    },
+    {
+      q:"The Right to Information (RTI) Act was enacted in:",
+      opts:["2002","2003","2005","2007"],
+      ans:2,
+      exp:"The Right to Information (RTI) Act was passed in 2005. It gives Indian citizens the right to request information from public authorities within 30 days.",
+      mem:"'RTI = 2005.' R = Right, T = To, I = Information. 2005: remember '5' = FIVE letters in R-I-G-H-T = 2005!"
+    },
+    {
+      q:"Which Indian received the 2024 Bharat Ratna (posthumously)?",
+      opts:["Atal Bihari Vajpayee","P.V. Narasimha Rao","Karpoori Thakur","All of the above"],
+      ans:3,
+      exp:"In 2024, Bharat Ratna was announced for: Karpoori Thakur (posthumous), L.K. Advani, P.V. Narasimha Rao (posthumous), Chaudhary Charan Singh (posthumous), and M.S. Swaminathan (posthumous). All in the question received it.",
+      mem:"'2024 Bharat Ratna = 5 awardees.' Remember: Karpoori Thakur (Bihar OBC icon), Advani, PV Rao, Charan Singh, Swaminathan. Historic batch."
+    },
+    {
+      q:"The Panchamrit goals announced by PM Modi at COP26 include India achieving net-zero carbon emissions by:",
+      opts:["2040","2047","2050","2070"],
+      ans:3,
+      exp:"India's Panchamrit commitments at COP26 (Glasgow, 2021) include achieving net-zero carbon emissions by 2070.",
+      mem:"'Net Zero = 2070.' 70 rhymes with 'seventy' — India goes GREEN in seventy (2070). 7 decades from now."
+    },
+    {
+      q:"Which body regulates the legal profession in India?",
+      opts:["Ministry of Law","Supreme Court of India","Bar Council of India","Law Commission of India"],
+      ans:2,
+      exp:"The Bar Council of India (BCI), established under the Advocates Act 1961, is the statutory body that regulates the legal profession and legal education in India.",
+      mem:"'BCI = Bar Council of India = Boss of Lawyers.' BCI sets rules for advocates. Advocates Act 1961."
+    },
+    {
+      q:"Operation Sindoor was carried out by India in response to which attack?",
+      opts:["Pulwama attack","Pahalgam terror attack 2025","Parliament attack 2001","Uri attack"],
+      ans:1,
+      exp:"Operation Sindoor was India's military operation launched on May 7, 2025 in response to the Pahalgam terror attack (April 22, 2025) in which 26 tourists were killed.",
+      mem:"'Sindoor = Response to Pahalgam 2025.' April 22 attack → May 7 response. Operation Sindoor targeted terror camps across the border."
+    },
+    {
+      q:"India's 'Mission Life' initiative is related to:",
+      opts:["Space exploration","Environmentally conscious lifestyle","Life insurance reforms","Digital life records"],
+      ans:1,
+      exp:"Mission LiFE (Lifestyle for Environment), launched by PM Modi at COP27, promotes environment-friendly lifestyle choices among individuals to combat climate change.",
+      mem:"'LiFE = Lifestyle for Environment.' LiFE = Live It For Earth. LIFE without the extra E."
+    },
+    {
+      q:"The National Legal Services Authority (NALSA) was constituted under which Act?",
+      opts:["Advocates Act 1961","Legal Services Authorities Act 1987","Law Commission Act","Legal Aid Act 1997"],
+      ans:1,
+      exp:"NALSA was constituted under the Legal Services Authorities Act, 1987 to provide free legal services to the poor and conduct Lok Adalats.",
+      mem:"'NALSA = 1987 Act.' N-1987: NALSA established to provide free legal aid. CJI is Patron-in-Chief of NALSA."
+    },
+    {
+      q:"The 'Lok Adalat' system in India was given statutory status in:",
+      opts:["1980","1987","1990","1995"],
+      ans:1,
+      exp:"Lok Adalats received statutory status under the Legal Services Authorities Act, 1987. Lok Adalat awards are deemed decrees of civil courts and are final and binding.",
+      mem:"'Lok Adalat = 1987 (same as NALSA).' Both in same Act. LokAdalat = People's Court = friendly fast resolution."
+    },
+    {
+      q:"Which Article of the Indian Constitution deals with 'Equal Pay for Equal Work'?",
+      opts:["Article 14","Article 16","Article 39(d)","Article 42"],
+      ans:2,
+      exp:"Article 39(d) of the Directive Principles of State Policy mandates equal pay for equal work for both men and women. It is not a justiciable fundamental right but guides state policy.",
+      mem:"'Equal Pay = DPSP 39(d).' 39 = Labour rights group. 39(a)=livelihood, 39(b)=resources, 39(c)=no concentration, 39(d)=EQUAL PAY."
+    },
+    {
+      q:"Who was elected as the President of the United States in 2024?",
+      opts:["Joe Biden","Kamala Harris","Donald Trump","Ron DeSantis"],
+      ans:2,
+      exp:"Donald Trump won the US Presidential Election in November 2024, defeating Democratic candidate Kamala Harris. He was inaugurated on January 20, 2025.",
+      mem:"'Trump 2024 = 47th US President.' Trump served as 45th, skipped, now 47th. DT = Donald Trump = 2024 winner."
+    },
+    {
+      q:"The Minimum Wages Act in India was enacted in:",
+      opts:["1936","1948","1952","1965"],
+      ans:1,
+      exp:"The Minimum Wages Act was enacted in 1948, one of the earliest post-independence labour laws to protect workers in certain industries by fixing minimum wage rates.",
+      mem:"'Minimum Wages = 1948.' 1948: Year after independence 1947. MW Act born in year 2 of freedom = 1948."
+    },
+    {
+      q:"Under which Article can the President of India proclaim a National Emergency?",
+      opts:["Article 352","Article 356","Article 360","Article 365"],
+      ans:0,
+      exp:"Article 352 empowers the President to declare a National Emergency if the security of India or any part thereof is threatened by war, external aggression, or armed rebellion.",
+      mem:"'352 = National Emergency.' Remember 3 types of Emergency: 352 (National), 356 (State/President's Rule), 360 (Financial). 3-5-2, 3-5-6, 3-6-0."
+    },
+    {
+      q:"The term 'Cyber Crime' in India is primarily governed by:",
+      opts:["IPC","CrPC","Information Technology Act 2000","Indian Evidence Act"],
+      ans:2,
+      exp:"Cyber crimes in India are primarily governed by the Information Technology (IT) Act, 2000 (amended 2008). It covers hacking, data theft, cyber fraud, pornography, etc.",
+      mem:"'IT Act 2000 = Cyber Crime law.' IT = Internet/Technology. 2000 = year the internet age began regulation in India."
+    },
+    {
+      q:"Which Indian won the Nobel Peace Prize in 2014 — the youngest Nobel laureate?",
+      opts:["Amartya Sen","Mother Teresa","Kailash Satyarthi","A.R. Rahman"],
+      ans:2,
+      exp:"Kailash Satyarthi shared the 2014 Nobel Peace Prize with Malala Yousafzai for their struggle against the suppression of children and young people and for the right of all children to education.",
+      mem:"'Kailash Satyarthi = 2014 Nobel Peace Prize.' Kailash = Children's rights activist, BACHPAN BACHAO ANDOLAN. Shared with Malala."
+    }
+  ]
+},
+C: {
+  info: "Part C: 60 Questions | Aptitude for Study of Law | 60 Marks | Topics: Constitutional Law, Jurisprudence, Torts, Contracts, Criminal Law, International Law, Family Law, Labour Law, IPR",
+  questions: [
+    {
+      q:"The maxim 'Audi Alteram Partem' means:",
+      opts:["Let the highest authority decide","Hear the other side","Justice delayed is justice denied","Do not repeat a decided matter"],
+      ans:1,
+      exp:"'Audi Alteram Partem' is a fundamental rule of Natural Justice meaning 'hear the other side' or 'no person shall be condemned unheard.' It ensures fairness in judicial/quasi-judicial proceedings.",
+      mem:"'AUDI = Audio = Listen.' Audi Alteram = Listen to the Alternate (other) side. Car brand AUDI also means 'listen' in Latin!"
+    },
+    {
+      q:"In the law of torts, 'Volenti Non Fit Injuria' means:",
+      opts:["No action without damage","To one who consents, no injury is done","Injury without damage","Every person is equal before law"],
+      ans:1,
+      exp:"Volenti Non Fit Injuria is a complete defence in tort law meaning that if a person voluntarily consents to a risk, they cannot later complain of an injury resulting from that risk.",
+      mem:"'Volenti = Voluntary Consent.' VOL = VOLuntary. If YOU agree to the risk, no INJURY claim. Sports/games example: Boxing — you consented!"
+    },
+    {
+      q:"Which case established the 'Basic Structure Doctrine' of the Indian Constitution?",
+      opts:["Golaknath v. State of Punjab","Minerva Mills v. Union of India","Kesavananda Bharati v. State of Kerala","Maneka Gandhi v. Union of India"],
+      ans:2,
+      exp:"The Basic Structure Doctrine was established in Kesavananda Bharati v. State of Kerala (1973) by a 13-judge bench. The Court held Parliament cannot alter the basic structure of the Constitution.",
+      mem:"'Kesavananda = Basic Structure.' K-B = KB = Keyboard (basic structure of a computer). 1973, 13-judge bench."
+    },
+    {
+      q:"The concept of 'Mens Rea' in criminal law refers to:",
+      opts:["The physical act of crime","The guilty mind","The punishment for crime","The victim's statement"],
+      ans:1,
+      exp:"Mens Rea (Latin: guilty mind) refers to the mental element or criminal intent required for a crime. Most crimes require both Actus Reus (guilty act) and Mens Rea (guilty mind).",
+      mem:"'Mens = Mental. Rea = Reason/Guilty.' M for MIND. Actus Reus = Act, Mens Rea = MIND. Two legs of most crimes."
+    },
+    {
+      q:"'Delegatus non potest delegare' means:",
+      opts:["A delegate cannot further delegate","All delegates are equal","The law cannot be delegated","Delegation is always permitted"],
+      ans:0,
+      exp:"This Latin maxim means 'a delegate cannot further delegate.' It means a person who has been delegated a power cannot sub-delegate it to another, unless expressly authorised.",
+      mem:"'Delegatus = Delegate, non potest = cannot, delegare = delegate again.' DND = Do Not Delegate further. Power stops with you."
+    },
+    {
+      q:"Under the Indian Contract Act 1872, which of the following is NOT a valid consideration?",
+      opts:["Past consideration","Future consideration","Present consideration","All are valid"],
+      ans:0,
+      exp:"Under English Law, past consideration is no consideration. However, under the Indian Contract Act 1872, past consideration (Sec. 2(d)) IS valid in India unlike English law. But the question tests the English law rule often asked in LAWCET.",
+      mem:"'English Law: Past = No consideration. Indian Law: Past IS valid (Sec 2(d)).' Trick question! Know both systems. ICA 1872 is more liberal."
+    },
+    {
+      q:"The writ of 'Mandamus' can be issued against:",
+      opts:["Only private individuals","Only the President of India","Public officials and public bodies","Foreign governments"],
+      ans:2,
+      exp:"Mandamus (Latin: 'we command') is issued to compel a public official or government body to perform a public/legal duty. It cannot be issued against private individuals.",
+      mem:"'MANDAMUS = MANDATE to do your PUBLIC duty.' MAN = command. Against public officials only, not private parties."
+    },
+    {
+      q:"Under Article 21 of the Indian Constitution, the right to life includes:",
+      opts:["Only physical existence","Right to livelihood, dignity, health and education","Only freedom from arrest","Right to vote"],
+      ans:1,
+      exp:"The Supreme Court has interpreted Article 21 expansively to include the right to livelihood, right to health, right to education, right to a clean environment, right to dignity, and much more.",
+      mem:"'Art 21 = UMBRELLA right.' Everything under the sun can be fitted under 21. Maneka Gandhi case (1978) expanded it hugely."
+    },
+    {
+      q:"The doctrine of 'Stare Decisis' means:",
+      opts:["To stand by decided cases","To disobey court orders","To reverse a judgment","To withdraw a case"],
+      ans:0,
+      exp:"Stare Decisis (Latin: 'to stand by decided cases') is the principle that courts should follow precedents established in earlier cases. It ensures consistency and predictability in the law.",
+      mem:"'STARE = STAND. Stare Decisis = Stand by Decisions.' SD = Stick to Decisions."
+    },
+    {
+      q:"Which Article of the Constitution prohibits 'Untouchability'?",
+      opts:["Article 14","Article 15","Article 17","Article 19"],
+      ans:2,
+      exp:"Article 17 abolishes untouchability and forbids its practice in any form. The enforcement of any disability arising out of untouchability shall be an offence punishable in accordance with law.",
+      mem:"'17 = No Untouchability.' Article 17 = 1+7 = 8 = ABOLISH (8 letters!). Or: Remember sequence 14(Equality), 15(Non-discrimination), 16(Employment), 17(Untouchability)."
+    },
+    {
+      q:"'Caveat Emptor' is a principle in which branch of law?",
+      opts:["Criminal Law","Contract/Sale of Goods Law","Constitutional Law","International Law"],
+      ans:1,
+      exp:"'Caveat Emptor' (Latin: 'let the buyer beware') is a principle under the Sale of Goods Act that the buyer buys goods at their own risk and the seller is not responsible for defects unless they actively deceive.",
+      mem:"'CAVEAT EMPTOR = Careful Buyer, Careless Seller.' CE = Buyer must CHECK everything. Sale of Goods Act. Consumer Protection Law reversed this trend."
+    },
+    {
+      q:"The maximum punishment for Rape under the Bharatiya Nyaya Sanhita (BNS) 2023 is:",
+      opts:["7 years imprisonment","10 years imprisonment","Life imprisonment or death penalty","5 years imprisonment"],
+      ans:2,
+      exp:"Under BNS 2023 (which replaced IPC), rape (Section 63–70 BNS) can be punished with rigorous imprisonment not less than 10 years, extendable to life imprisonment, and in aggravated cases, death penalty.",
+      mem:"'Rape under BNS = 10 years minimum to Life/Death.' No upper limit — can go to death. Harsher than old IPC in many cases."
+    },
+    {
+      q:"The 'Rylands v. Fletcher' rule in tort law is related to:",
+      opts:["Defamation","Absolute liability for dangerous things brought on land","Negligence","Nuisance"],
+      ans:1,
+      exp:"The rule in Rylands v. Fletcher (1868) states that a person who brings onto their land anything likely to cause mischief is strictly liable for all damages caused if it escapes. This is the basis of strict liability.",
+      mem:"'R v. F = Rule of STRICT liability.' RF = Runaway Fluid (Fletcher's case was about water escaping). ESCAPE = liability."
+    },
+    {
+      q:"Which doctrine was established in the M.C. Mehta v. Union of India case?",
+      opts:["Strict Liability","Absolute Liability","Basic Structure Doctrine","Doctrine of Eclipse"],
+      ans:1,
+      exp:"The Supreme Court in M.C. Mehta v. Union of India (1987) evolved the doctrine of Absolute Liability — a stricter form of Rylands v. Fletcher — holding that enterprises engaged in hazardous activities are absolutely liable for harm, without any exceptions.",
+      mem:"'MC Mehta = ABSOLUTE Liability.' No defences allowed. More absolute than strict. India > UK in liability strictness!"
+    },
+    {
+      q:"The term 'Ratio Decidendi' in legal jurisprudence refers to:",
+      opts:["The dissenting opinion of a judge","The reason for the decision that is binding","Facts of the case","The obiter dicta"],
+      ans:1,
+      exp:"Ratio Decidendi (Latin: 'reason for deciding') is the binding part of a judicial decision — the legal principle or rule on which the decision is based. It creates precedent.",
+      mem:"'Ratio = Reason. Decidendi = Decision.' RD = REAL DECISION (binding). Obiter Dicta = Other/casual remarks (not binding)."
+    },
+    {
+      q:"The 'Principle of Natural Justice' includes which of the following?",
+      opts:["Only Audi Alteram Partem","Only Nemo Judex in Causa Sua","Both Audi Alteram Partem and Nemo Judex in Causa Sua","None of the above"],
+      ans:2,
+      exp:"The two pillars of Natural Justice are: (1) Audi Alteram Partem (hear both sides) and (2) Nemo Judex in Causa Sua / Nemo Debet Esse Judex (no person shall be judge in their own cause — rule against bias).",
+      mem:"'NJ = 2 rules: AAP + NJS.' A for Audi (hear), N for Nemo (not your own judge). Together they ensure FAIRNESS."
+    },
+    {
+      q:"Under which Article is the Indian Parliament empowered to amend the Constitution?",
+      opts:["Article 245","Article 248","Article 368","Article 370"],
+      ans:2,
+      exp:"Article 368 empowers the Parliament to amend the Constitution. However, as per Kesavananda Bharati case (1973), Parliament cannot amend the Basic Structure of the Constitution.",
+      mem:"'368 = Amendment Article.' 3+6+8 = 17. Or simply: '368 = THREE SIX EIGHT = Amendment.' Most important amendment article."
+    },
+    {
+      q:"Who propounded the 'Theory of Sovereign Immunity'?",
+      opts:["Austin","Salmond","Dicey","Laski"],
+      ans:2,
+      exp:"A.V. Dicey propounded the concept of Rule of Law, which is related to but distinguishes from sovereign immunity. However, the doctrine of 'King can do no wrong' (sovereign immunity) was a common law principle.",
+      mem:"'Dicey = Rule of Law + No King above law.' Dicey's Rule of Law: Supremacy of law, Equality before law, Constitution as consequence of rights."
+    },
+    {
+      q:"The Hindu Marriage Act was enacted in:",
+      opts:["1947","1950","1955","1961"],
+      ans:2,
+      exp:"The Hindu Marriage Act was enacted in 1955. It governs marriage and divorce among Hindus (including Buddhists, Jains and Sikhs). It is part of the Hindu Code Bills of 1955-56.",
+      mem:"'HMA = 1955.' Hindu Code Bills: HMA 1955, Hindu Succession 1956, Hindu Minority 1956, Hindu Adoptions 1956. Remember: 1955-56 era."
+    },
+    {
+      q:"Under the Indian Penal Code (now BNS), 'Culpable Homicide not amounting to Murder' is defined under:",
+      opts:["Section 299","Section 300","Section 302","Section 304"],
+      ans:0,
+      exp:"Section 299 IPC (now Section 101 BNS) defines Culpable Homicide. Section 300 defines Murder. Section 302 prescribes punishment for murder. The distinction: murder is an aggravated form of culpable homicide.",
+      mem:"'299 = Culpable Homicide, 300 = Murder.' Think: 300 > 299 = Murder is GREATER (worse) than culpable homicide. One step up = murder."
+    },
+    {
+      q:"The 'Doctrine of Pith and Substance' in Constitutional Law is used to:",
+      opts:["Determine basic structure","Resolve conflicts between Centre and State legislative lists","Define the Preamble","Interpret Directive Principles"],
+      ans:1,
+      exp:"The Doctrine of Pith and Substance is used to determine the true nature and character of a legislation to resolve conflicts between the Centre's and State's legislative powers (Union List vs State List).",
+      mem:"'Pith = Core essence. Substance = Real content.' PnS = Peek the Nature of a Statute. Centre vs State list confusion → apply P&S."
+    },
+    {
+      q:"Under the Consumer Protection Act 2019, a consumer complaint can be filed for goods/services worth up to ₹1 crore before which forum?",
+      opts:["Supreme Court","National Commission","State Commission","District Commission"],
+      ans:3,
+      exp:"Under Consumer Protection Act 2019: District Commission hears complaints up to ₹1 crore. State Commission: ₹1–10 crore. National Commission: above ₹10 crore.",
+      mem:"'District = Up to 1 Cr. State = 1-10 Cr. National = Above 10 Cr.' D-S-N = Desi, State, National scale. Easy 3-tier memory."
+    },
+    {
+      q:"The maxim 'Ignorantia Juris Non Excusat' means:",
+      opts:["Ignorance of facts is excused","Ignorance of law is no excuse","The law knows best","Facts must be pleaded"],
+      ans:1,
+      exp:"'Ignorantia Juris Non Excusat' means ignorance of the law is no excuse. Every person is presumed to know the law. One cannot escape liability by claiming they did not know the law.",
+      mem:"'IJE = I Ju(st) Excuse? No!' Ignorantia = Ignorance, Juris = Law, Non Excusat = Not excused. YOU must know the law — no defence."
+    },
+    {
+      q:"The term 'Locus Standi' means:",
+      opts:["Place of standing in court","Right or capacity of a party to bring a case before a court","The precedent value of a case","The judge's standing"],
+      ans:1,
+      exp:"Locus Standi (Latin: 'place of standing') refers to the legal right or capacity to bring an action or be heard in court. A person must have sufficient interest/standing to file a lawsuit.",
+      mem:"'LOCUS = Location/Place of STANDING.' You need to STAND at the right place = have the right to be in court. PIL relaxed this rule."
+    },
+    {
+      q:"The Right to Property was removed as a Fundamental Right by which amendment?",
+      opts:["25th Amendment","42nd Amendment","44th Amendment","46th Amendment"],
+      ans:2,
+      exp:"The 44th Constitutional Amendment (1978) removed the Right to Property from the list of Fundamental Rights (Article 19(1)(f) and Article 31 were deleted). It was made a Constitutional/Legal right under Article 300-A.",
+      mem:"'44th = Property removed.' 44 = FOR-FOR = taken away. Article 300-A = Property right now. Janata Government (1977-79) passed 44th Amendment."
+    },
+    {
+      q:"'Ex Post Facto Law' means:",
+      opts:["Law made in advance","A law that retrospectively criminalises an act","Law applicable only to government","Law made after a court order"],
+      ans:1,
+      exp:"Ex Post Facto law (Latin: 'after the fact') is a law that retroactively changes the legal consequences of actions committed before the law was enacted. Article 20(1) of the Constitution prohibits such laws.",
+      mem:"'Ex Post = AFTER. Facto = Fact/Act.' EPF = Ex Post Facto = 'Punished After the Act was done.' Art 20(1) = No ex-post-facto punishment."
+    },
+    {
+      q:"The Indian Evidence Act 1872 is proposed to be replaced by:",
+      opts:["Bharatiya Nyaya Sanhita","Bharatiya Nagarik Suraksha Sanhita","Bharatiya Sakshya Adhiniyam","Digital Evidence Act"],
+      ans:2,
+      exp:"The Bharatiya Sakshya Adhiniyam (BSA) 2023 replaced the Indian Evidence Act 1872. It came into force on July 1, 2024, along with BNS and BNSS.",
+      mem:"'BSA = Bharatiya Sakshya = Indian Evidence.' Sakshya = Witness/Evidence in Sanskrit. 3 new laws July 2024: BNS+BNSS+BSA."
+    },
+    {
+      q:"A contract entered under 'coercion' is:",
+      opts:["Valid","Void","Voidable at the option of the aggrieved party","Illegal"],
+      ans:2,
+      exp:"Under Section 19 of the Indian Contract Act 1872, a contract caused by coercion, fraud, or misrepresentation is voidable at the option of the party whose consent was so obtained.",
+      mem:"'Coercion/Fraud/Misrepresentation = VOIDABLE (not void).' Remember: Void = Dead, Voidable = Can choose to kill it. The victim chooses!"
+    },
+    {
+      q:"The 'Doctrine of Double Jeopardy' is enshrined in which Article of the Indian Constitution?",
+      opts:["Article 19","Article 20(2)","Article 21","Article 22"],
+      ans:1,
+      exp:"Article 20(2) of the Indian Constitution states: 'No person shall be prosecuted and punished for the same offence more than once.' This is the constitutional protection against double jeopardy.",
+      mem:"'Art 20(2) = Double Jeopardy.' 20 = TWO-ZERO. (2) = Double. 20(2) = Double protection! Article 20 has 3 protections: (1) ex-post-facto, (2) double jeopardy, (3) self-incrimination."
+    },
+    {
+      q:"Under which Act is 'Domestic Violence' against women addressed in India?",
+      opts:["IPC/BNS","Protection of Women from Domestic Violence Act 2005","Hindu Marriage Act 1955","Dowry Prohibition Act 1961"],
+      ans:1,
+      exp:"The Protection of Women from Domestic Violence Act (PWDVA) 2005 provides comprehensive civil remedies to women experiencing domestic violence, including protection orders, residence orders, and monetary relief.",
+      mem:"'PWDVA 2005 = Civil remedy for DV.' 2005 = 20 years ago now. DV Act is CIVIL law (not criminal). BNS has criminal punishment separately."
+    },
+    {
+      q:"The term 'Obiter Dicta' in judicial decisions refers to:",
+      opts:["The binding part of the judgment","Things said by the way — non-binding remarks","The dissent of the minority judges","The facts of the case"],
+      ans:1,
+      exp:"Obiter Dicta (Latin: 'things said by the way') are remarks made by a judge in a judgment that are incidental to the decision and do not form part of the binding precedent. Only Ratio Decidendi is binding.",
+      mem:"'OBITER = OTHER side remarks.' OD = Optional/Decorative — not binding. Ratio = Real binding. Remember: OBITER = 'Oh, by the way...'"
+    },
+    {
+      q:"Which Article of the Indian Constitution deals with the 'Right against Exploitation'?",
+      opts:["Articles 14–16","Articles 17–18","Articles 23–24","Articles 25–28"],
+      ans:2,
+      exp:"Articles 23 and 24 together form the 'Right against Exploitation.' Art 23 prohibits trafficking and forced labour. Art 24 prohibits employment of children below 14 in factories, mines, and hazardous work.",
+      mem:"'23-24 = No Exploitation.' 23 = Traffic/Forced Labour, 24 = Child Labour. Remember: 23+24 = 47 = age of Constitution (1947 origin). Exploitation ends at 47!"
+    },
+    {
+      q:"The concept of 'Legitimate Expectation' in administrative law means:",
+      opts:["Every citizen can expect laws to be made for them","A person can expect a public authority to act in accordance with a promise or past practice","The government must always do what citizens want","Citizens can legislate through courts"],
+      ans:1,
+      exp:"Legitimate Expectation is a principle in Administrative Law that if a public authority has made a promise or established a practice, a person may have a legitimate expectation that the authority will continue to act in accordance with it.",
+      mem:"'LE = Lawful Expectation from past promise.' L for LEGITIMATE (legal). If the government promised X, you can LEGITIMATELY expect X."
+    },
+    {
+      q:"Under the Limitation Act 1963, the general period of limitation for a suit based on contract is:",
+      opts:["1 year","2 years","3 years","6 years"],
+      ans:2,
+      exp:"Under the Limitation Act 1963, the general limitation period for filing a suit on a contract is 3 years from the date when the cause of action arises.",
+      mem:"'Contract limitation = 3 years.' C = Contract = 3. Like the 3-legged stool of a contract: offer, acceptance, consideration — 3 elements, 3 years limitation."
+    },
+    {
+      q:"The maxim 'Damnum Sine Injuria' means:",
+      opts:["Injury without legal damage","Damage without legal injury/wrong","No damage and no injury","Legal injury with heavy damage"],
+      ans:1,
+      exp:"Damnum Sine Injuria means 'damage without legal injury.' A person may suffer actual loss/damage but if no legal right is violated, there is no actionable tort. Example: Fair competition causing loss to a rival business.",
+      mem:"'Damnum = Damage, Sine = Without, Injuria = Legal Injury.' DSI = Damage Suffered but not a legal Injury. Compare with Injuria Sine Damno (legal injury without damage — actionable)."
+    },
+    {
+      q:"The Indian Parliament consists of:",
+      opts:["Lok Sabha and President","Lok Sabha, Rajya Sabha and President","Lok Sabha and Rajya Sabha only","President, VP, PM and Parliament"],
+      ans:1,
+      exp:"Under Article 79, the Parliament of India consists of the President and the two Houses — Lok Sabha (House of the People) and Rajya Sabha (Council of States). The President is an integral part of Parliament.",
+      mem:"'Parliament = President + LS + RS.' P + 2 Houses = 3 parts. Art 79. President signs Bills to make them Acts."
+    },
+    {
+      q:"Under the Transfer of Property Act 1882, 'Mortgage by deposit of title deeds' is also known as:",
+      opts:["Simple Mortgage","Usufructuary Mortgage","English Mortgage","Equitable Mortgage"],
+      ans:3,
+      exp:"Mortgage by deposit of title deeds (Section 58(f) TPA) is also known as Equitable Mortgage. It is created by depositing the title deed with a creditor (lender) with intent to create a security.",
+      mem:"'Title deed deposit = EQUITABLE mortgage.' E for Easy mortgage — no registration needed in Presidency towns. Equitable = deposit title = equity."
+    },
+    {
+      q:"Which of the following is a 'continuing offence' in criminal law?",
+      opts:["Theft","Kidnapping","Wrongful confinement","Dacoity"],
+      ans:2,
+      mem:"'Wrongful Confinement = CONTINUES as long as confined.' WC = Continuing offence. Limitation runs from LAST day of confinement, not first.",
+      exp:"Wrongful confinement is a continuing offence because it continues as long as the person is confined. A new cause of action arises every day. Theft, kidnapping, dacoity are completed acts (not continuing)."
+    },
+    {
+      q:"The legal maxim 'Ubi Jus Ibi Remedium' means:",
+      opts:["Where there is no right, there is no remedy","Where there is a right, there is a remedy","Justice must be served fast","Law and justice are the same"],
+      ans:1,
+      exp:"'Ubi Jus Ibi Remedium' means 'where there is a right, there is a remedy.' It is the foundation of the right to approach courts — every legal right must have a corresponding remedy for its violation.",
+      mem:"'UBI JUS = Where RIGHT. IBI REMEDIUM = There REMEDY.' UJIR = U Just (have a) Right? I'll Give a Remedy! Foundation of Article 32."
+    },
+    {
+      q:"Which Article guarantees freedom of religion in India?",
+      opts:["Article 19","Article 21","Article 25","Article 32"],
+      ans:2,
+      exp:"Articles 25–28 deal with the Right to Freedom of Religion. Article 25 specifically guarantees freedom of conscience and free profession, practice and propagation of religion.",
+      mem:"'25 = Religion.' 25 letters in 'freedom of religion practice' (roughly). Or: 25 = Quarter century, religion is ancient. Remember sequence: 25 (personal freedom), 26 (religious affairs), 27 (no tax for religion), 28 (no religious instruction in state schools)."
+    },
+    {
+      q:"The doctrine of 'Promissory Estoppel' prevents a person from:",
+      opts:["Making a promise","Going back on a promise when another has relied on it","Filing a suit for contract breach","Claiming damages"],
+      ans:1,
+      exp:"Promissory Estoppel prevents a party from going back on a promise/representation on which another party has relied to their detriment. It is an equitable doctrine applied even in the absence of a formal contract.",
+      mem:"'ESTOPPEL = STOPPED from denying.' E = Equity stops you from breaking your word. PE = Prevent Escape from your promise."
+    },
+    {
+      q:"Under the Indian Succession Act, 'Intestate' succession means:",
+      opts:["Succession under a will","Succession when no valid will exists","Succession by adoption","Succession through court order"],
+      ans:1,
+      exp:"Intestate succession refers to the distribution of a deceased person's estate according to the law when they have not left a valid will. The intestacy rules determine who inherits.",
+      mem:"'IN-TESTATE = IN without TESTAMENT (will).' No testament = intestate. TESTATE = has a will. INT = Inheritance No Testament."
+    },
+    {
+      q:"Which is the correct order for the three new criminal law codes that came into force on July 1, 2024?",
+      opts:["BNS (replaced IPC), BNSS (replaced CrPC), BSA (replaced Evidence Act)","BNSS replaced IPC, BNS replaced CrPC","BSA replaced IPC, BNS replaced Evidence Act","BNS replaced CrPC, BSA replaced IPC"],
+      ans:0,
+      exp:"BNS (Bharatiya Nyaya Sanhita) replaced IPC. BNSS (Bharatiya Nagarik Suraksha Sanhita) replaced CrPC. BSA (Bharatiya Sakshya Adhiniyam) replaced the Indian Evidence Act. All three effective July 1, 2024.",
+      mem:"'BNS=IPC, BNSS=CrPC, BSA=Evidence.' B-B-B replaced I-C-E. ICE = IPC, CrPC, Evidence. All melted into B's on 1 July 2024."
+    },
+    {
+      q:"The principle of 'Res Ipsa Loquitur' in tort law means:",
+      opts:["A res (thing) cannot speak","The thing speaks for itself — negligence is inferred","Facts must always be proved","No liability without fault"],
+      ans:1,
+      exp:"'Res Ipsa Loquitur' (Latin: 'the thing speaks for itself') is applied in negligence cases where the very occurrence of an event implies negligence — e.g., surgical instruments left in a patient's body after surgery.",
+      mem:"'RIL = Really It's Logical (the thing speaks).' Airplane falls = obvious negligence. No need to prove step by step."
+    },
+    {
+      q:"The Specific Relief Act governs:",
+      opts:["Criminal matters","Specific performance of contracts and injunctions","Tax disputes","Constitutional matters"],
+      ans:1,
+      exp:"The Specific Relief Act 1963 (amended in 2018) deals with specific performance of contracts and injunctions. It allows courts to compel a party to perform a contract specifically rather than just pay damages.",
+      mem:"'SRA = Specific Relief = Do what you promised.' Specific = Exact performance. SRA 1963 amended 2018 to make specific performance the NORM, not exception."
+    },
+    {
+      q:"Under the Indian Constitution, 'Habeas Corpus' can be suspended during:",
+      opts:["State Emergency (Art 356)","Financial Emergency (Art 360)","National Emergency (Art 352) only","It can never be suspended"],
+      ans:2,
+      exp:"During a National Emergency under Article 352, the enforcement of Fundamental Rights under Articles 20 and 21 cannot be suspended. However, other FRs including Habeas Corpus (Art 32) can be suspended per Art 358-359. But after the 44th Amendment, Art 20 and 21 cannot be suspended even during emergency.",
+      mem:"'Post-44th Amendment: Art 20 & 21 = UNSUSPENDABLE forever.' All other FRs can be suspended during National Emergency. Habeas Corpus primarily under Art 32 can be suspended."
+    },
+    {
+      q:"The maximum period for which a Money Bill can be detained by the Rajya Sabha is:",
+      opts:["6 months","3 months","14 days","21 days"],
+      ans:2,
+      exp:"Under Article 109, a Money Bill certified by the Speaker is transmitted to Rajya Sabha. Rajya Sabha must return it within 14 days. After 14 days, it is deemed passed by both Houses.",
+      mem:"'Money Bill = 14 days for RS.' 14 = two weeks. MONEY = cannot be held for long. RS has NO power over money bills."
+    },
+    {
+      q:"The concept of 'Judicial Activism' in India is best reflected in:",
+      opts:["Strict interpretation of statutes","Expansion of Public Interest Litigation (PIL)","Following precedents strictly","Non-interference in executive matters"],
+      ans:1,
+      exp:"Judicial Activism in India is most prominently reflected through the expansion of PIL (Public Interest Litigation). Courts have taken suo motu cognizance and issued directions on issues of public importance.",
+      mem:"'Judicial Activism = PIL + Suo Motu.' JA = Judges Acting beyond traditional boundaries. PIL started with S.P. Gupta case (1981)."
+    },
+    {
+      q:"'Quid Pro Quo' means:",
+      opts:["Something for nothing","Something in return for something — mutual exchange","Legal price for goods","Court fee payment"],
+      ans:1,
+      exp:"Quid Pro Quo (Latin: 'something for something') refers to mutual consideration or exchange in a transaction. In contract law, it relates to consideration — each party gives something in exchange for the other's promise.",
+      mem:"'QPQ = You scratch my back, I scratch yours.' Equal Exchange. QPQ = Quite Practical Quid-deal. Contract consideration concept."
+    },
+    {
+      q:"The Hindu Succession Amendment Act 2005 gave daughters:",
+      opts:["Right to adopt children","Equal coparcenary rights in ancestral property","Right to be karta of HUF","Right to divorce"],
+      ans:1,
+      exp:"The Hindu Succession (Amendment) Act 2005 amended Section 6 to give daughters equal coparcenary rights in ancestral/HUF property by birth, same as sons. This was upheld by the SC in Vineeta Sharma v. Rakesh Sharma (2020).",
+      mem:"'2005 = Daughters = Equal Coparceners.' SON = DAUGHTER in HUF now. Vineeta Sharma 2020 settled it for daughters born before/after 2005."
+    },
+    {
+      q:"Under which provision of the Constitution are PILs filed before the Supreme Court?",
+      opts:["Article 226","Article 227","Article 32","Article 136"],
+      ans:2,
+      exp:"PILs at the Supreme Court level are filed under Article 32 (Right to Constitutional Remedies), which allows any person to approach the Supreme Court for enforcement of Fundamental Rights. High Courts have PIL jurisdiction under Article 226.",
+      mem:"'Supreme Court PIL = Art 32. HC PIL = Art 226.' 32 = SC, 226 = HC. Easy: 226 > 32 (bigger number), HC has wider jurisdiction but SC PIL under 32."
+    },
+    {
+      q:"What is the meaning of 'In Personam' jurisdiction?",
+      opts:["Jurisdiction over property","Jurisdiction over a specific person","Jurisdiction over a nation","International jurisdiction"],
+      ans:1,
+      exp:"'In Personam' jurisdiction refers to the power of a court over a particular person (the defendant). It is distinct from 'In Rem' jurisdiction which relates to power over property or status.",
+      mem:"'In PERSONAM = In PERSON.' Person = In Personam. In Rem = In property (Rem = Res = thing). Easy: PERSON vs THING."
+    },
+    {
+      q:"The ILO (International Labour Organization) was established in:",
+      opts:["1919","1945","1948","1955"],
+      ans:0,
+      exp:"The ILO was established in 1919 through the Treaty of Versailles after World War I. It became the first specialised agency of the United Nations in 1946.",
+      mem:"'ILO = 1919.' After WWI (1914-18), ILO born in 1919. I+L+O = 3 letters. 1+9+1+9 = 20 = XX century. ILO HQ: Geneva."
+    },
+    {
+      q:"The Anti-Defection Law in India is contained in which Schedule of the Constitution?",
+      opts:["Seventh Schedule","Ninth Schedule","Tenth Schedule","Eleventh Schedule"],
+      ans:2,
+      exp:"The Anti-Defection Law is contained in the Tenth Schedule of the Constitution, added by the 52nd Constitutional Amendment Act 1985. It disqualifies members who defect from their political party.",
+      mem:"'Anti-Defection = 10th Schedule = 52nd Amendment.' TEN-TH = TENTH. De-FECTION = DEFECT from party. 52nd Amendment 1985 (Rajiv Gandhi era)."
+    },
+    {
+      q:"Which case is associated with the right to privacy being declared a Fundamental Right?",
+      opts:["Kesavananda Bharati case","Maneka Gandhi case","K.S. Puttaswamy v. Union of India","Navtej Singh Johar case"],
+      ans:2,
+      exp:"In K.S. Puttaswamy v. Union of India (2017), a nine-judge bench of the Supreme Court unanimously held that the Right to Privacy is a Fundamental Right under Article 21 of the Constitution.",
+      mem:"'Puttaswamy 2017 = Privacy = Fundamental Right.' P for Privacy, P for Puttaswamy. 9-judge bench. Justice K.S. Puttaswamy (retd.) filed the PIL."
+    },
+    {
+      q:"'Tempus Fugit' in legal context relates to:",
+      opts:["Time as essence of contract","Limitation period — time flies and so does legal rights","Speed of court proceedings","Urgency in injunctions"],
+      ans:1,
+      exp:"'Tempus Fugit' (Latin: time flies) in legal context is associated with the law of limitation — legal rights must be exercised within the limitation period because time flies and eventually bars the remedy.",
+      mem:"'TEMPUS = TIME. FUGIT = FLIES/FLEES.' Time Flies = Limitation period. Act before time runs out. Limitation Act 1963 governs this."
+    },
+    {
+      q:"Under Article 356 of the Constitution, President's Rule can initially be imposed for:",
+      opts:["2 months","6 months","1 year","3 years"],
+      ans:1,
+      exp:"Under Article 356, President's Rule can be imposed for 6 months initially. It can be extended to a maximum of 3 years with Parliament's approval every 6 months.",
+      mem:"'Art 356 = 6 months initially, max 3 years.' 3-5-6: 356 = 3 years max, 5+6=11, 6 months each step. State Emergency = starts 6 months."
+    },
+    {
+      q:"The Maternity Benefit Act was amended in 2017 to increase paid maternity leave to:",
+      opts:["12 weeks","16 weeks","26 weeks","30 weeks"],
+      ans:2,
+      mem:"'MBA 2017 = 26 weeks.' 26 = half a year. Remember: 26 weeks for establishments with 50+ employees. India among the top countries for maternity leave.",
+      exp:"The Maternity Benefit (Amendment) Act 2017 increased paid maternity leave from 12 weeks to 26 weeks for women working in establishments with 10 or more employees, for the first two children."
+    },
+    {
+      q:"The principle of 'Quantum Meruit' means:",
+      opts:["Full payment as contracted","As much as one has earned — payment for partial work done","No payment without contract","Advance payment"],
+      ans:1,
+      exp:"Quantum Meruit (Latin: 'as much as he has earned') is a quasi-contractual remedy that allows a party to claim reasonable payment for work done/services provided when no price was fixed or a contract was discharged.",
+      mem:"'QUANTUM = Amount. MERUIT = Merited/Earned.' QM = You earned it, you get paid for it, even without a completed contract."
+    },
+    {
+      q:"Which famous case in India expanded the scope of Article 21 to include the right to live with dignity?",
+      opts:["Maneka Gandhi v. Union of India","Francis Coralie Mullin v. Union Territory of Delhi","Olga Tellis v. Bombay Municipal Corp","All of the above"],
+      ans:3,
+      exp:"All three cases expanded Article 21. Maneka Gandhi (1978) held that the procedure must be fair, just and reasonable. Francis Coralie (1981) held that Art 21 includes right to live with human dignity. Olga Tellis (1985) included the right to livelihood under Art 21.",
+      mem:"'Art 21 = 3 landmark expansions: Maneka (1978) + Francis Coralie (1981) + Olga Tellis (1985).' MFO = Many Famous Orders expanded Art 21."
+    }
+  ]
+}
+};
+
+let currentPart = 'A';
+let score = {A:{right:0,total:0},B:{right:0,total:0},C:{right:0,total:0}};
+let answered = {};
+
+function switchPart(part) {
+  currentPart = part;
+  document.querySelectorAll('.tab').forEach((t,i)=>{
+    const parts=['A','B','C'];
+    t.classList.toggle('active', parts[i]===part);
+  });
+  render();
+}
+
+function render() {
+  const d = data[currentPart];
+  let html = `<div class="part-info"><strong>${d.info}</strong></div>`;
+  d.questions.forEach((q,i)=>{
+    const key = currentPart+'-'+i;
+    const isAnswered = answered[key] !== undefined;
+    html += `<div class="q-card">
+      <div class="q-num">Q${i+1} of ${d.questions.length}</div>
+      <div class="q-text">${q.q}</div>
+      <div class="opts">`;
+    q.opts.forEach((o,j)=>{
+      let cls = 'opt';
+      if(isAnswered){
+        if(j===q.ans) cls+=' correct';
+        else if(j===answered[key] && j!==q.ans) cls+=' wrong';
+      }
+      html+=`<div class="${cls}" onclick="pick('${key}',${j},${q.ans},'${currentPart}')">${String.fromCharCode(65+j)}. ${o}</div>`;
+    });
+    html+=`</div>`;
+    if(isAnswered){
+      html+=`<div class="ans-block show">
+        <div class="ans-label">✓ Answer: ${q.opts[q.ans]}</div>
+        <div class="ans-exp">${q.exp}</div>
+        <div class="mnemonic"><div class="mnemonic-title">Memory Tip / Coaching Technique</div>${q.mem}</div>
+      </div>`;
+    } else {
+      html+=`<button class="toggle-btn" onclick="showAns('${key}')">Show answer & explanation</button>`;
+    }
+    html+='</div>';
+  });
+  document.getElementById('part-container').innerHTML = html;
+  updateScore();
+}
+
+function pick(key, chosen, correct, part) {
+  if(answered[key]!==undefined) return;
+  answered[key] = chosen;
+  if(chosen===correct) score[part].right++;
+  score[part].total++;
+  render();
+}
+
+function showAns(key) {
+  if(answered[key]===undefined){
+    const parts = key.split('-');
+    const part = parts[0];
+    const idx = parseInt(parts[1]);
+    answered[key] = -1;
+    score[part].total++;
+  }
+  render();
+}
+
+function updateScore() {
+  let totalRight=0, totalAnswered=0;
+  ['A','B','C'].forEach(p=>{totalRight+=score[p].right;totalAnswered+=score[p].total;});
+  document.getElementById('score-display').textContent = totalRight+'/'+totalAnswered;
+}
+
+render();
+</script>
