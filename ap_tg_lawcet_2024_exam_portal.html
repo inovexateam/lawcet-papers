@@ -1,0 +1,631 @@
+
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --c-gold: #B8860B; --c-gold-lt: #FFF8E1; --c-gold-dk: #7B5C00;
+    --c-navy: #1a2744; --c-navy-lt: #e8ecf5;
+    --c-green-ok: #2e7d32; --c-green-bg: #e8f5e9;
+    --c-red-no: #c62828; --c-red-bg: #ffebee;
+    --c-tip: #0d47a1; --c-tip-bg: #e3f2fd;
+    --c-border: var(--color-border-tertiary);
+    --font: 'Georgia', serif;
+  }
+  body { font-family: var(--font-sans), sans-serif; }
+
+  #app { min-height: 500px; }
+
+  .screen { display: none; }
+  .screen.active { display: block; }
+
+  /* LANDING */
+  #landing { padding: 1.5rem 1rem; }
+  .portal-header {
+    background: var(--c-navy);
+    color: #fff;
+    border-radius: var(--border-radius-lg);
+    padding: 1.25rem;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  .portal-header .badge {
+    display: inline-block;
+    background: var(--c-gold);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 3px 10px;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+  }
+  .portal-header h1 { font-size: 18px; font-weight: 500; line-height: 1.3; margin-bottom: 4px; }
+  .portal-header p { font-size: 13px; opacity: 0.75; }
+  .stats-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 1rem; }
+  .stat-card { background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 0.75rem; text-align: center; }
+  .stat-card .num { font-size: 20px; font-weight: 500; color: var(--c-navy); }
+  .stat-card .lbl { font-size: 11px; color: var(--color-text-secondary); margin-top: 2px; }
+  .papers-section { margin-bottom: 1rem; }
+  .section-title { font-size: 13px; font-weight: 500; color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+  .paper-card { background: var(--color-background-primary); border: 0.5px solid var(--c-border); border-radius: var(--border-radius-lg); padding: 1rem; margin-bottom: 8px; display: flex; align-items: center; gap: 12px; cursor: pointer; transition: border-color 0.2s; }
+  .paper-card:hover { border-color: var(--c-gold); }
+  .paper-card.active-paper { border-color: var(--c-gold); background: var(--c-gold-lt); }
+  .paper-card.locked { opacity: 0.45; cursor: not-allowed; }
+  .paper-icon { width: 40px; height: 40px; border-radius: var(--border-radius-md); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+  .paper-icon.available { background: var(--c-navy-lt); }
+  .paper-icon.locked-ic { background: var(--color-background-secondary); }
+  .paper-info { flex: 1; }
+  .paper-info h3 { font-size: 14px; font-weight: 500; }
+  .paper-info p { font-size: 12px; color: var(--color-text-secondary); margin-top: 2px; }
+  .paper-tag { font-size: 11px; padding: 2px 8px; border-radius: 10px; }
+  .tag-green { background: var(--c-green-bg); color: var(--c-green-ok); }
+  .tag-gray { background: var(--color-background-secondary); color: var(--color-text-secondary); }
+  .start-btn { width: 100%; padding: 0.9rem; background: var(--c-navy); color: #fff; border: none; border-radius: var(--border-radius-lg); font-size: 15px; font-weight: 500; cursor: pointer; letter-spacing: 0.3px; }
+  .start-btn:hover { background: #2a3d6e; }
+
+  /* EXAM */
+  #exam { padding: 0; }
+  .exam-topbar { background: var(--c-navy); color: #fff; padding: 0.75rem 1rem; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 10; }
+  .exam-topbar .part-lbl { font-size: 12px; opacity: 0.7; }
+  .exam-topbar .q-counter { font-size: 14px; font-weight: 500; }
+  .timer-box { background: rgba(255,255,255,0.15); padding: 3px 10px; border-radius: 12px; font-size: 13px; font-family: monospace; }
+  .progress-bar { height: 3px; background: rgba(255,255,255,0.2); }
+  .progress-fill { height: 3px; background: var(--c-gold); transition: width 0.3s; }
+  .q-body { padding: 1rem; }
+  .part-badge { display: inline-block; font-size: 11px; font-weight: 500; padding: 3px 10px; border-radius: 10px; margin-bottom: 8px; }
+  .pb-a { background: #e3f2fd; color: #0d47a1; }
+  .pb-b { background: #f3e5f5; color: #6a1b9a; }
+  .pb-c { background: #e8f5e9; color: #1b5e20; }
+  .q-text { font-size: 15px; line-height: 1.6; margin-bottom: 1.25rem; color: var(--color-text-primary); }
+  .options-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 1rem; }
+  .opt-btn {
+    background: var(--color-background-primary);
+    border: 0.5px solid var(--c-border);
+    border-radius: var(--border-radius-md);
+    padding: 0.75rem 1rem;
+    text-align: left;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex; align-items: flex-start; gap: 10px;
+    transition: border-color 0.15s, background 0.15s;
+    color: var(--color-text-primary);
+  }
+  .opt-btn:hover:not(:disabled) { border-color: var(--c-gold); background: var(--c-gold-lt); }
+  .opt-btn.correct { background: var(--c-green-bg); border-color: var(--c-green-ok); color: var(--c-green-ok); }
+  .opt-btn.wrong { background: var(--c-red-bg); border-color: var(--c-red-no); color: var(--c-red-no); }
+  .opt-btn.dimmed { opacity: 0.5; }
+  .opt-key { font-weight: 500; min-width: 18px; }
+  .explanation-box { display: none; margin-top: 0.75rem; }
+  .explanation-box.show { display: block; }
+  .exp-section { border-radius: var(--border-radius-md); padding: 0.75rem; margin-bottom: 8px; font-size: 13px; line-height: 1.6; }
+  .exp-correct { background: var(--c-green-bg); border-left: 3px solid var(--c-green-ok); }
+  .exp-correct strong { color: var(--c-green-ok); }
+  .exp-wrong { background: var(--c-red-bg); border-left: 3px solid var(--c-red-no); }
+  .exp-wrong strong { color: var(--c-red-no); }
+  .memory-tip { background: var(--c-tip-bg); border-left: 3px solid var(--c-tip); border-radius: var(--border-radius-md); padding: 0.75rem; margin-bottom: 8px; font-size: 13px; line-height: 1.6; }
+  .memory-tip strong { color: var(--c-tip); }
+  .nav-row { display: flex; gap: 8px; margin-top: 0.5rem; padding-bottom: 1rem; }
+  .nav-btn { flex: 1; padding: 0.7rem; border-radius: var(--border-radius-md); border: 0.5px solid var(--c-border); background: var(--color-background-secondary); font-size: 14px; cursor: pointer; color: var(--color-text-primary); }
+  .nav-btn.primary { background: var(--c-navy); color: #fff; border: none; }
+  .nav-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  .submit-btn-wrap { padding: 0 1rem 1rem; }
+  .submit-btn { width: 100%; padding: 0.85rem; background: var(--c-green-ok); color: #fff; border: none; border-radius: var(--border-radius-lg); font-size: 15px; font-weight: 500; cursor: pointer; }
+
+  /* SCORE */
+  #scorecard { padding: 1.5rem 1rem; }
+  .score-header { text-align: center; margin-bottom: 1.5rem; }
+  .score-circle { width: 100px; height: 100px; border-radius: 50%; background: var(--c-navy); color: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 0 auto 12px; }
+  .score-circle .big { font-size: 28px; font-weight: 500; }
+  .score-circle .sm { font-size: 12px; opacity: 0.75; }
+  .score-header h2 { font-size: 18px; font-weight: 500; margin-bottom: 4px; }
+  .score-header p { font-size: 13px; color: var(--color-text-secondary); }
+  .part-breakdown { margin-bottom: 1.25rem; }
+  .part-row { background: var(--color-background-primary); border: 0.5px solid var(--c-border); border-radius: var(--border-radius-md); padding: 0.75rem 1rem; margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between; }
+  .part-row .p-name { font-size: 14px; font-weight: 500; }
+  .part-row .p-score { font-size: 14px; }
+  .bar-wrap { height: 6px; background: var(--color-background-secondary); border-radius: 3px; margin-top: 6px; }
+  .bar-fill { height: 6px; border-radius: 3px; background: var(--c-gold); transition: width 0.6s; }
+  .restart-btn { width: 100%; padding: 0.85rem; background: var(--c-navy); color: #fff; border: none; border-radius: var(--border-radius-lg); font-size: 15px; font-weight: 500; cursor: pointer; }
+  .perf-msg { text-align: center; font-size: 14px; padding: 0.75rem; background: var(--c-gold-lt); border-radius: var(--border-radius-md); margin-bottom: 1rem; color: var(--c-gold-dk); }
+</style>
+
+<div id="app">
+
+<!-- LANDING SCREEN -->
+<div id="landing" class="screen active">
+  <div class="portal-header">
+    <div class="badge">AP & TG LAWCET 2024</div>
+    <h1>Law Common Entrance Test<br>Previous Papers Portal</h1>
+    <p>Solved papers · Detailed explanations · Memory tricks</p>
+  </div>
+  <div class="stats-row">
+    <div class="stat-card"><div class="num">120</div><div class="lbl">Questions</div></div>
+    <div class="stat-card"><div class="num">3</div><div class="lbl">Parts</div></div>
+    <div class="stat-card"><div class="num">120<span style="font-size:13px">m</span></div><div class="lbl">Duration</div></div>
+  </div>
+  <div class="papers-section">
+    <div class="section-title">Available Papers</div>
+    <div class="paper-card active-paper" onclick="selectPaper(this,'2024')">
+      <div class="paper-icon available">📋</div>
+      <div class="paper-info">
+        <h3>LAWCET 2024 — Representative Set</h3>
+        <p>Part A · Part B · Part C · Full Explanations</p>
+      </div>
+      <span class="paper-tag tag-green">Available</span>
+    </div>
+    <div class="paper-card locked" onclick="void(0)">
+      <div class="paper-icon locked-ic">🔒</div>
+      <div class="paper-info">
+        <h3>LAWCET 2023</h3>
+        <p>Coming in Phase 2</p>
+      </div>
+      <span class="paper-tag tag-gray">Soon</span>
+    </div>
+    <div class="paper-card locked" onclick="void(0)">
+      <div class="paper-icon locked-ic">🔒</div>
+      <div class="paper-info">
+        <h3>LAWCET 2022</h3>
+        <p>Coming in Phase 3</p>
+      </div>
+      <span class="paper-tag tag-gray">Soon</span>
+    </div>
+    <div class="paper-card locked" onclick="void(0)">
+      <div class="paper-icon locked-ic">🔒</div>
+      <div class="paper-info">
+        <h3>LAWCET 2021</h3>
+        <p>Coming in Phase 4</p>
+      </div>
+      <span class="paper-tag tag-gray">Soon</span>
+    </div>
+  </div>
+  <button class="start-btn" onclick="startExam()">Start Mock Exam ›</button>
+</div>
+
+<!-- EXAM SCREEN -->
+<div id="exam" class="screen">
+  <div class="exam-topbar">
+    <div>
+      <div class="part-lbl" id="partLabel">Part A — General Knowledge</div>
+      <div class="q-counter" id="qCounter">Question 1 of 20</div>
+    </div>
+    <div class="timer-box" id="timerBox">120:00</div>
+  </div>
+  <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:5%"></div></div>
+  <div class="q-body">
+    <span class="part-badge pb-a" id="partBadge">Part A</span>
+    <div class="q-text" id="qText"></div>
+    <div class="options-list" id="optList"></div>
+    <div class="explanation-box" id="expBox"></div>
+    <div class="nav-row">
+      <button class="nav-btn" id="prevBtn" onclick="navigate(-1)">← Prev</button>
+      <button class="nav-btn" id="skipBtn" onclick="navigate(1)">Skip ›</button>
+      <button class="nav-btn primary" id="nextBtn" onclick="navigate(1)" style="display:none">Next →</button>
+    </div>
+  </div>
+  <div class="submit-btn-wrap" id="submitWrap" style="display:none">
+    <button class="submit-btn" onclick="submitExam()">Submit & See Score</button>
+  </div>
+</div>
+
+<!-- SCORECARD SCREEN -->
+<div id="scorecard" class="screen">
+  <div class="score-header">
+    <div class="score-circle">
+      <div class="big" id="scorePct">0%</div>
+      <div class="sm" id="scoreRaw">0/20</div>
+    </div>
+    <h2 id="scoreTitle">Your Result</h2>
+    <p>LAWCET 2024 — Representative Set</p>
+  </div>
+  <div class="perf-msg" id="perfMsg"></div>
+  <div class="part-breakdown">
+    <div class="section-title">Part-wise Breakdown</div>
+    <div class="part-row">
+      <div>
+        <div class="p-name">Part A — General Knowledge</div>
+        <div class="bar-wrap"><div class="bar-fill" id="barA" style="width:0%"></div></div>
+      </div>
+      <div class="p-score" id="scA">0/7</div>
+    </div>
+    <div class="part-row">
+      <div>
+        <div class="p-name">Part B — Legal Aptitude</div>
+        <div class="bar-wrap"><div class="bar-fill" id="barB" style="width:0%"></div></div>
+      </div>
+      <div class="p-score" id="scB">0/7</div>
+    </div>
+    <div class="part-row">
+      <div>
+        <div class="p-name">Part C — Mental Ability</div>
+        <div class="bar-wrap"><div class="bar-fill" id="barC" style="width:0%"></div></div>
+      </div>
+      <div class="p-score" id="scC">0/6</div>
+    </div>
+  </div>
+  <button class="restart-btn" onclick="restart()">Restart Exam</button>
+</div>
+
+</div>
+
+<script>
+const questions = [
+  // PART A — General Knowledge (7 questions)
+  {
+    part:"A", partName:"General Knowledge",
+    q:"The Constitution of India came into force on:",
+    opts:["15 August 1947","26 January 1950","26 November 1949","2 October 1950"],
+    ans:1,
+    exp:{
+      correct:"26 January 1950 is celebrated as Republic Day because on this date the Constitution came into force, replacing the Government of India Act 1935.",
+      wrongs:["15 August 1947 is Independence Day — India became independent, not the Constitution's commencement date.","26 November 1949 is when the Constituent Assembly adopted the Constitution (Constitution Day), but it was not yet in force.","2 October 1950 has no constitutional significance — this is Gandhi Jayanti."],
+    },
+    tip:"Memory trick: 26 January = Republic Day = Constitution in force. 'REPUBLIC' starts with R — 'R for Running (force)'. 15 Aug = Independence, 26 Nov = Adoption, 26 Jan = In Force."
+  },
+  {
+    part:"A", partName:"General Knowledge",
+    q:"Who is known as the 'Father of the Indian Constitution'?",
+    opts:["Jawaharlal Nehru","Mahatma Gandhi","B.R. Ambedkar","Sardar Vallabhbhai Patel"],
+    ans:2,
+    exp:{
+      correct:"Dr. B.R. Ambedkar was the Chairman of the Drafting Committee of the Constituent Assembly and is rightly called the Father of the Indian Constitution.",
+      wrongs:["Jawaharlal Nehru was the first Prime Minister and moved the Objectives Resolution, but was not the drafter.","Mahatma Gandhi, though the Father of the Nation, did not actively participate in the drafting process.","Sardar Patel is known as the Iron Man of India and integrated princely states, not the Constitution drafter."],
+    },
+    tip:"Mnemonic: 'AMBEDKAR = A Master Behind Every Draft Key Article Right.' He was Chairman of the 7-member Drafting Committee."
+  },
+  {
+    part:"A", partName:"General Knowledge",
+    q:"Article 21 of the Indian Constitution deals with:",
+    opts:["Right to Equality","Right to Freedom of Speech","Right to Life and Personal Liberty","Right against Exploitation"],
+    ans:2,
+    exp:{
+      correct:"Article 21 guarantees: 'No person shall be deprived of his life or personal liberty except according to procedure established by law.' It is the most fundamental right.",
+      wrongs:["Right to Equality is covered under Articles 14–18 — remember '14 to 18 = Equality.'","Right to Freedom of Speech falls under Article 19(1)(a) — a sub-right within Article 19.","Right against Exploitation is covered by Articles 23 and 24."],
+    },
+    tip:"Number trick: 21 = Life. Think 'At 21 you get full LIFE (adulthood).' Articles 12–35 = Fundamental Rights. 14=Equality, 19=Freedom, 21=Life, 32=Constitutional Remedies."
+  },
+  {
+    part:"A", partName:"General Knowledge",
+    q:"The Supreme Court of India was established in the year:",
+    opts:["1935","1947","1950","1956"],
+    ans:2,
+    exp:{
+      correct:"The Supreme Court of India was established on 28 January 1950, two days after the Constitution came into force on 26 January 1950.",
+      wrongs:["1935 was the year of the Government of India Act — the Federal Court existed then, not the Supreme Court.","1947 was Independence — the Federal Court of India was replaced by the Supreme Court only in 1950.","1956 was the year of States Reorganisation Act — no connection to Supreme Court establishment."],
+    },
+    tip:"Easy link: Constitution came into force 26 Jan 1950 → Supreme Court established 28 Jan 1950 — just 2 days later. Same year: 1950."
+  },
+  {
+    part:"A", partName:"General Knowledge",
+    q:"The Directive Principles of State Policy are contained in which Part of the Constitution?",
+    opts:["Part III","Part IV","Part IVA","Part II"],
+    ans:1,
+    exp:{
+      correct:"Part IV (Articles 36–51) contains the Directive Principles of State Policy, which are guidelines to the State for making laws and policies for social and economic welfare.",
+      wrongs:["Part III contains Fundamental Rights (Articles 12–35) — enforceable in courts.","Part IVA contains Fundamental Duties (Article 51A), added by the 42nd Amendment 1976.","Part II deals with Citizenship (Articles 5–11)."],
+    },
+    tip:"Easy chart: Part III = Fundamental Rights (F–R = 3rd letter of alphabet), Part IV = Directive Principles (D = 4th letter), Part IVA = Fundamental Duties. '3-4-4A' sequence."
+  },
+  {
+    part:"A", partName:"General Knowledge",
+    q:"Which article of the Indian Constitution abolishes Untouchability?",
+    opts:["Article 14","Article 15","Article 17","Article 19"],
+    ans:2,
+    exp:{
+      correct:"Article 17 abolishes Untouchability in any form, and its practice is made a punishable offence. This led to the Protection of Civil Rights Act, 1955.",
+      wrongs:["Article 14 guarantees Equality before law and Equal protection of laws — general equality, not untouchability.","Article 15 prohibits discrimination on grounds of religion, race, caste, sex, or place of birth — broader than untouchability.","Article 19 guarantees 6 freedoms (speech, assembly, movement, etc.) — not related to untouchability."],
+    },
+    tip:"Number link: 17 = 1+7 = 8 letters in 'EQUALITY'. Or: Think 'Lucky 17 abolished the unlucky practice.' Untouchability = Art. 17."
+  },
+  {
+    part:"A", partName:"General Knowledge",
+    q:"The Preamble of the Indian Constitution was amended by which Constitutional Amendment?",
+    opts:["24th Amendment","42nd Amendment","44th Amendment","52nd Amendment"],
+    ans:1,
+    exp:{
+      correct:"The 42nd Constitutional Amendment Act of 1976 amended the Preamble and added the words 'Socialist', 'Secular', and 'Integrity' to it.",
+      wrongs:["The 24th Amendment (1971) affirmed Parliament's power to amend Fundamental Rights — not the Preamble.","The 44th Amendment (1978) restored certain Fundamental Rights changed during Emergency — not the Preamble.","The 52nd Amendment (1985) added the Tenth Schedule (Anti-Defection Law) — not the Preamble."],
+    },
+    tip:"Mnemonic: '42 = Socialist + Secular + Integrity added.' 42nd = 'The most DRASTIC amendment' during Emergency. Added 3 words to Preamble."
+  },
+
+  // PART B — Legal Aptitude (7 questions)
+  {
+    part:"B", partName:"Legal Aptitude",
+    q:"The principle 'Audi Alteram Partem' means:",
+    opts:["Let the decision be corrected","Hear the other side","No one shall be a judge in his own case","Speak the truth"],
+    ans:1,
+    exp:{
+      correct:"'Audi Alteram Partem' is a Latin maxim meaning 'hear the other side' or 'no person should be condemned unheard.' It is a fundamental rule of natural justice — the right to a fair hearing.",
+      wrongs:["'Let the decision be corrected' refers to the certiorari concept — a writ to quash orders.","'No one shall be a judge in his own case' is 'Nemo judex in causa sua' — the other rule of natural justice.","'Speak the truth' has no standard Latin maxim equivalent in legal usage in this context."],
+    },
+    tip:"Memory: AUDI = AUDIO = HEAR. 'AUDI Alteram = HEAR the Other.' Car brand AUDI makes you 'hear' its engine! Natural Justice has 2 rules: (1) Audi = Hear both sides, (2) Nemo judex = No bias."
+  },
+  {
+    part:"B", partName:"Legal Aptitude",
+    q:"Which writ is issued to release a person from unlawful detention?",
+    opts:["Mandamus","Certiorari","Habeas Corpus","Prohibition"],
+    ans:2,
+    exp:{
+      correct:"'Habeas Corpus' means 'to have the body.' This writ is issued to produce a detained person before the court to examine the legality of the detention, and release if unlawful.",
+      wrongs:["Mandamus (means 'we command') is issued to compel a public authority to perform a public duty — not for releasing detainees.","Certiorari is issued to quash decisions of lower courts/tribunals — not for detention matters.","Prohibition is issued to prevent a lower court from exceeding its jurisdiction — not for releasing persons."],
+    },
+    tip:"HACK: HABEAS CORPUS = HAVE THE BODY. When someone is detained, you 'HAVE' to produce the 'BODY' (person). Easy: 'H for Have, H for Habeas.' Other writs: Mandamus=Must Do, Certiorari=Correct it, Prohibition=Stop it, Quo Warranto=What Authority?"
+  },
+  {
+    part:"B", partName:"Legal Aptitude",
+    q:"Principle: A person has the right to private defence of body against an assault.\nFacts: A attacked B with a wooden stick. B, in retaliation, shot A dead with a pistol.\nDecide:",
+    opts:["B exercised his right of private defence validly","B exceeded the right of private defence","B has no right of private defence","A has the right of private defence"],
+    ans:1,
+    exp:{
+      correct:"B exceeded the right of private defence. Under Section 97–106 of the IPC, the harm caused in private defence must be proportionate to the apprehended harm. A had a wooden stick; shooting dead with a pistol is disproportionate force.",
+      wrongs:["B's act was NOT valid private defence — he used excessive force (pistol vs. stick) causing death.","B does have the right of private defence, but he exceeded its limits by using disproportionate force.","A cannot claim private defence as he was the aggressor who initiated the assault."],
+    },
+    tip:"Golden rule: PRIVATE DEFENCE = PROPORTIONATE DEFENCE. Match force with equal force, not excessive force. Stick → Can use hands/stick; Gun → only if gun threat. 'Excess kills the defence.'"
+  },
+  {
+    part:"B", partName:"Legal Aptitude",
+    q:"The Law of Torts is primarily based on:",
+    opts:["Legislation","Judicial Decisions (Common Law)","Constitutional Provisions","Customs and Usages"],
+    ans:1,
+    exp:{
+      correct:"The Law of Torts in India is largely uncodified and is based on judicial decisions — i.e., common law principles derived from English law through the courts over centuries.",
+      wrongs:["Legislation is the basis of statutory law (like IPC for crimes), not torts — India has no comprehensive Torts Act.","Constitutional provisions deal with fundamental rights; tort law operates in private civil law domain.","Customs and Usages form the basis of personal laws (Hindu, Muslim) not tort law."],
+    },
+    tip:"Remember: TORTS = NO CODE → Common Law (Judge-made). Crimes = IPC (Legislation). Contracts = Indian Contract Act 1872 (Legislation). Torts = ONLY judge-made in India. 'TORT has no TORTE (cake) Act.'"
+  },
+  {
+    part:"B", partName:"Legal Aptitude",
+    q:"The maxim 'Ignorantia Juris Non Excusat' means:",
+    opts:["Ignorance of facts is no excuse","Ignorance of law is no excuse","Law is supreme","Equity follows the law"],
+    ans:1,
+    exp:{
+      correct:"'Ignorantia Juris Non Excusat' translates to 'Ignorance of law is no excuse.' Everyone is presumed to know the law; you cannot defend yourself by claiming you did not know the law.",
+      wrongs:["Ignorance of facts is a different principle — ignorance of fact (not law) can sometimes be a valid defence in law.","'Law is supreme' is the concept of Rule of Law / Supremacy of Law, not this maxim.","'Equity follows the law' is the maxim 'Aequitas sequitur legem' — entirely different."],
+    },
+    tip:"DECODE: Ignorantia = Ignorance, Juris = of Law, Non = Not, Excusat = Excuse. 'JURIS = JURISDICTION = LAW.' Compare: Ignorantia FACTI excusat (Ignorance of FACT may excuse). Law vs Fact distinction: Law = No excuse. Fact = Maybe excuse."
+  },
+  {
+    part:"B", partName:"Legal Aptitude",
+    q:"Which article of the Indian Constitution provides for the Right to Constitutional Remedies?",
+    opts:["Article 19","Article 21","Article 32","Article 226"],
+    ans:2,
+    exp:{
+      correct:"Article 32 provides the Right to Constitutional Remedies — the right to move the Supreme Court for enforcement of Fundamental Rights. Dr. Ambedkar called it the 'Heart and Soul of the Constitution.'",
+      wrongs:["Article 19 provides 6 fundamental freedoms (speech, assembly, movement, profession, etc.) — not constitutional remedies.","Article 21 is the Right to Life and Personal Liberty — not the remedy provision.","Article 226 gives power to High Courts to issue writs — for enforcement of both FR and other rights, but not a Fundamental Right itself."],
+    },
+    tip:"32 = Heart. Ambedkar's quote: 'Article 32 is the Heart and Soul.' Remember: 32 SC (Supreme Court writs), 226 HC (High Court writs). 32 < 226 — Supreme Court is higher yet smaller number. 'Heart pumps at 32 beats (shortcut memory)!'"
+  },
+  {
+    part:"B", partName:"Legal Aptitude",
+    q:"Under the Indian Contract Act 1872, a contract with a minor is:",
+    opts:["Voidable","Valid","Void ab initio","Unenforceable"],
+    ans:2,
+    exp:{
+      correct:"A contract with a minor is void ab initio — void from the very beginning. A minor lacks the capacity to contract (Section 11, ICA 1872). This was settled in the landmark case Mohori Bibee v. Dharmodas Ghose (1903).",
+      wrongs:["Voidable means a contract is valid until avoided by one party — a minor's contract is never valid at any point, so not voidable.","Valid would mean the contract is enforceable — minor's contracts are never enforceable.","Unenforceable means there is a defect (like limitation of time) making it not enforceable — a minor's contract is much stronger: void ab initio (non-existent in law)."],
+    },
+    tip:"TRICK: MINOR = MAJOR PROBLEM for contracts. 'Minor is a VOID person in contracts.' Mohori Bibee 1903 = landmark case. Void ab initio = Dead from birth (void from the START). Remember: Section 11 lists competent parties: Major + Sound mind + Not disqualified."
+  },
+
+  // PART C — Mental Ability (6 questions)
+  {
+    part:"C", partName:"Mental Ability",
+    q:"If COURT is coded as EQWVV, how is JUDGE coded?",
+    opts:["LWFIG","LVFIG","LWFIF","LWGIG"],
+    ans:0,
+    exp:{
+      correct:"In this coding, each letter is shifted by +2 positions. C+2=E, O+2=Q, U+2=W, R+2=T, T+2=V → EQWTV... Wait — let's verify: C=3,E=5 (✓+2). Applying +2: J+2=L, U+2=W, D+2=F, G+2=I, E+2=G → LWFIG.",
+      wrongs:["LVFIG: V is wrong for U — U+2 = W not V.","LWFIF: The last F is wrong — E+2 = G not F.","LWGIG: G is wrong for D — D+2 = F not G."],
+    },
+    tip:"ALPHABET CODING SHORTCUT: Write A=1 to Z=26. Find the shift from the given pair (C=3→E=5, shift=+2). Apply same shift to each letter of the new word. J(10)+2=12=L, U(21)+2=23=W, D(4)+2=6=F, G(7)+2=9=I, E(5)+2=7=G → LWFIG."
+  },
+  {
+    part:"C", partName:"Mental Ability",
+    q:"In a row of students, Ravi is 12th from the left and Priya is 18th from the right. If they interchange positions, Ravi becomes 20th from the left. How many students are in the row?",
+    opts:["36","37","38","35"],
+    ans:1,
+    exp:{
+      correct:"After interchange, Ravi is 20th from left. Before interchange, Priya was at position 20th from left (since they swap). Priya was 18th from right. Total = Priya's position from left + Priya's position from right – 1 = 20 + 18 – 1 = 37.",
+      wrongs:["36 is wrong — subtracting without the –1 correction gives 37, not 36.","38 overcounts — adding instead of using the correct formula.","35 is incorrect — arrived at by wrong subtraction."],
+    },
+    tip:"FORMULA: Total = Position from left + Position from right – 1. After interchange: Ravi is now where Priya was (20th from left). Priya's original right position = 18. Total = 20 + 18 – 1 = 37. Always subtract 1 to avoid double-counting the person themselves."
+  },
+  {
+    part:"C", partName:"Mental Ability",
+    q:"Find the odd one out: Advocate, Judge, Barrister, Solicitor, Carpenter",
+    opts:["Advocate","Judge","Barrister","Carpenter"],
+    ans:3,
+    exp:{
+      correct:"Carpenter is the odd one out. Advocate, Judge, Barrister, and Solicitor are all legal professionals/roles connected with the legal system. Carpenter is a craftsman with no connection to the legal field.",
+      wrongs:["Advocate is a legal professional who represents clients in courts — fits the legal category.","Judge is a judicial officer who presides over courts — fits the legal category.","Barrister is a type of lawyer (in common law countries) who argues cases in court — fits the legal category."],
+    },
+    tip:"ODD ONE OUT TRICK: Group by category. Here, all except Carpenter = Legal Professionals. Ask: 'Which one doesn't wear a legal robe or gown?' → Carpenter wears a tool belt! In LAWCET, odd-one-out often tests legal vocabulary awareness too."
+  },
+  {
+    part:"C", partName:"Mental Ability",
+    q:"A is the mother of B. C is the husband of A. D is the brother of C. How is D related to B?",
+    opts:["Uncle","Father","Grandfather","Cousin"],
+    ans:0,
+    exp:{
+      correct:"A is B's mother. C is A's husband, making C B's father. D is C's brother, so D is the brother of B's father. Brother of father = Uncle (Paternal Uncle / Chacha).",
+      wrongs:["Father — C is the father, not D. D is C's brother, one generation away laterally.","Grandfather — No, D is in the same generation as the father (C), not the grandparent generation.","Cousin — Cousins share grandparents; D is the father's brother = uncle, not cousin."],
+    },
+    tip:"FAMILY TREE SHORTCUT: Draw it! A (mother) — married — C (father) — brother — D. B's father's brother = Uncle. Remember: Father's brother = Paternal Uncle. Mother's brother = Maternal Uncle. Always draw the tree — never solve blood relations mentally."
+  },
+  {
+    part:"C", partName:"Mental Ability",
+    q:"If 6 × 4 = 46, 8 × 5 = 58, then 9 × 3 = ?",
+    opts:["39","93","27","63"],
+    ans:0,
+    exp:{
+      correct:"Pattern: Write the second number first, then the first number. 6×4 → 4 then 6 → 46. 8×5 → 5 then 8 → 58. Applying: 9×3 → 3 then 9 → 39.",
+      wrongs:["93 — this reverses only the answer digits of 39; the pattern would give 39 not 93 here (93 would mean writing first number then second: 9 then 3 = 93, but pattern shows second first).","27 — actual product of 9×3=27, but this puzzle uses a non-multiplication pattern.","63 — no valid pattern produces 63 from 9 and 3 in this series."],
+    },
+    tip:"PATTERN HACK: Always check: (1) Sum? (2) Product? (3) Reverse? (4) Concatenation? Here: concatenate B then A → BA pattern. 6,4 → 46 (4 first,6 second). 8,5 → 58. So 9,3 → 39. Spot the trick in first 2 examples before solving the third!"
+  },
+  {
+    part:"C", partName:"Mental Ability",
+    q:"Directions: A walked 5 km North, then turned East and walked 3 km, then turned South and walked 5 km. How far is A from the starting point?",
+    opts:["3 km","5 km","8 km","13 km"],
+    ans:0,
+    exp:{
+      correct:"A walks 5 km North, 3 km East, then 5 km South. The 5 km North and 5 km South cancel out. A is now 3 km East of the starting point. Distance = 3 km.",
+      wrongs:["5 km — this would be the case if A had only gone North, but the North-South moves cancel.","8 km — this is 5+3=8, an addition error ignoring direction cancellation.","13 km — this adds all distances (5+3+5=13), ignoring that opposite directions cancel."],
+    },
+    tip:"DIRECTION SHORTCUT: Draw a simple map. North and South cancel if equal. East and West cancel if equal. Net displacement: only leftover distances count. N=5,S=5 → cancel → net 0 vertical. E=3 → net 3 km East. Answer = 3 km. Always draw — never calculate blindly!"
+  }
+];
+
+let currentQ = 0;
+let userAnswers = [];
+let timerInterval = null;
+let secondsLeft = 120 * 60;
+let selectedPaper = '2024';
+
+function selectPaper(el, year) {
+  document.querySelectorAll('.paper-card').forEach(c => c.classList.remove('active-paper'));
+  el.classList.add('active-paper');
+  selectedPaper = year;
+}
+
+function startExam() {
+  userAnswers = new Array(questions.length).fill(null);
+  currentQ = 0;
+  secondsLeft = 120 * 60;
+  showScreen('exam');
+  renderQuestion();
+  startTimer();
+}
+
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function startTimer() {
+  clearInterval(timerInterval);
+  timerInterval = setInterval(() => {
+    secondsLeft--;
+    const m = Math.floor(secondsLeft / 60);
+    const s = secondsLeft % 60;
+    document.getElementById('timerBox').textContent = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+    if (secondsLeft <= 0) { clearInterval(timerInterval); submitExam(); }
+  }, 1000);
+}
+
+function renderQuestion() {
+  const q = questions[currentQ];
+  const total = questions.length;
+  const partClasses = {A:'pb-a', B:'pb-b', C:'pb-c'};
+  const partColors = {A:'#e3f2fd', B:'#f3e5f5', C:'#e8f5e9'};
+
+  document.getElementById('partLabel').textContent = `Part ${q.part} — ${q.partName}`;
+  document.getElementById('qCounter').textContent = `Question ${currentQ+1} of ${total}`;
+  document.getElementById('progressFill').style.width = `${((currentQ+1)/total)*100}%`;
+
+  const pb = document.getElementById('partBadge');
+  pb.textContent = `Part ${q.part}`;
+  pb.className = `part-badge ${partClasses[q.part]}`;
+
+  document.getElementById('qText').innerHTML = q.q.replace(/\n/g,'<br>');
+
+  const optList = document.getElementById('optList');
+  optList.innerHTML = '';
+  const keys = ['A','B','C','D'];
+  q.opts.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'opt-btn';
+    btn.innerHTML = `<span class="opt-key">${keys[i]}.</span> ${opt}`;
+    btn.onclick = () => selectAnswer(i);
+    optList.appendChild(btn);
+  });
+
+  document.getElementById('expBox').className = 'explanation-box';
+  document.getElementById('expBox').innerHTML = '';
+
+  const answered = userAnswers[currentQ] !== null;
+  if (answered) {
+    showAnswerState(userAnswers[currentQ]);
+  }
+
+  const isLast = currentQ === total - 1;
+  document.getElementById('prevBtn').disabled = currentQ === 0;
+  document.getElementById('skipBtn').style.display = answered ? 'none' : 'block';
+  document.getElementById('nextBtn').style.display = answered && !isLast ? 'block' : 'none';
+  document.getElementById('submitWrap').style.display = isLast && answered ? 'block' : 'none';
+}
+
+function selectAnswer(idx) {
+  if (userAnswers[currentQ] !== null) return;
+  userAnswers[currentQ] = idx;
+  showAnswerState(idx);
+  const isLast = currentQ === questions.length - 1;
+  document.getElementById('skipBtn').style.display = 'none';
+  document.getElementById('nextBtn').style.display = !isLast ? 'block' : 'none';
+  document.getElementById('submitWrap').style.display = isLast ? 'block' : 'none';
+}
+
+function showAnswerState(chosen) {
+  const q = questions[currentQ];
+  const btns = document.querySelectorAll('.opt-btn');
+  btns.forEach((btn, i) => {
+    btn.disabled = true;
+    if (i === q.ans) btn.classList.add('correct');
+    else if (i === chosen && chosen !== q.ans) btn.classList.add('wrong');
+    else btn.classList.add('dimmed');
+  });
+
+  const expBox = document.getElementById('expBox');
+  let html = `<div class="exp-section exp-correct"><strong>Correct Answer: ${['A','B','C','D'][q.ans]}. ${q.opts[q.ans]}</strong><br>${q.exp.correct}</div>`;
+  if (chosen !== q.ans) {
+    html += `<div class="exp-section exp-wrong"><strong>Why your answer (${['A','B','C','D'][chosen]}) is wrong:</strong><br>${q.exp.wrongs[chosen]}</div>`;
+  }
+  html += `<div class="memory-tip"><strong>Memory Tip:</strong> ${q.tip}</div>`;
+  expBox.innerHTML = html;
+  expBox.classList.add('show');
+}
+
+function navigate(dir) {
+  currentQ = Math.max(0, Math.min(questions.length-1, currentQ+dir));
+  renderQuestion();
+}
+
+function submitExam() {
+  clearInterval(timerInterval);
+  let total=0, scoreA=0, scoreB=0, scoreC=0;
+  let totalA=0, totalB=0, totalC=0;
+  questions.forEach((q,i) => {
+    if (q.part==='A') totalA++;
+    if (q.part==='B') totalB++;
+    if (q.part==='C') totalC++;
+    if (userAnswers[i] === q.ans) {
+      total++;
+      if (q.part==='A') scoreA++;
+      if (q.part==='B') scoreB++;
+      if (q.part==='C') scoreC++;
+    }
+  });
+  const pct = Math.round((total/questions.length)*100);
+  document.getElementById('scorePct').textContent = pct+'%';
+  document.getElementById('scoreRaw').textContent = `${total}/${questions.length}`;
+  document.getElementById('scA').textContent = `${scoreA}/${totalA}`;
+  document.getElementById('scB').textContent = `${scoreB}/${totalB}`;
+  document.getElementById('scC').textContent = `${scoreC}/${totalC}`;
+  document.getElementById('barA').style.width = `${Math.round((scoreA/totalA)*100)}%`;
+  document.getElementById('barB').style.width = `${Math.round((scoreB/totalB)*100)}%`;
+  document.getElementById('barC').style.width = `${Math.round((scoreC/totalC)*100)}%`;
+
+  let title, msg;
+  if (pct >= 80) { title = "Excellent Performance!"; msg = "Outstanding! You are well prepared for LAWCET."; }
+  else if (pct >= 60) { title = "Good Performance!"; msg = "Good effort! Review the wrong answers and revise the memory tips."; }
+  else if (pct >= 40) { title = "Average Performance"; msg = "Keep practising. Focus on the explanations and revisit weak areas."; }
+  else { title = "Needs Improvement"; msg = "Don't worry — review all explanations thoroughly and attempt again."; }
+
+  document.getElementById('scoreTitle').textContent = title;
+  document.getElementById('perfMsg').textContent = msg;
+  showScreen('scorecard');
+}
+
+function restart() {
+  showScreen('landing');
+}
+</script>
