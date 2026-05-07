@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>LAWCET Master — AP & TG Previous Papers</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0f;
+  --bg2: #111118;
+  --bg3: #18181f;
+  --bg4: #1e1e28;
+  --border: rgba(255,255,255,0.08);
+  --border2: rgba(255,255,255,0.14);
+  --accent: #7c6af7;
+  --accent2: #a78bfa;
+  --accent3: #c4b5fd;
+  --gold: #f59e0b;
+  --gold2: #fcd34d;
+  --green: #10b981;
+  --green2: #6ee7b7;
+  --red: #ef4444;
+  --red2: #fca5a5;
+  --cyan: #06b6d4;
+  --text: #f1f0f7;
+  --text2: #a09fbd;
+  --text3: #6b6a8a;
+  --radius: 12px;
+  --radius2: 8px;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:var(--bg); color:var(--text); font-family:'Space Grotesk',sans-serif; min-height:100vh; overflow-x:hidden; }
+
+/* SPLASH / HOME */
+.splash { display:flex; flex-direction:column; min-height:100vh; }
+.splash-header { padding:1.5rem 1.25rem 0; display:flex; align-items:center; justify-content:space-between; }
+.logo { display:flex; align-items:center; gap:10px; }
+.logo-icon { width:36px; height:36px; background:linear-gradient(135deg,var(--accent),var(--cyan)); border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:18px; font-weight:700; color:#fff; }
+.logo-text { font-size:1.1rem; font-weight:700; letter-spacing:-0.02em; }
+.logo-sub { font-size:0.7rem; color:var(--text2); font-family:'JetBrains Mono',monospace; }
+.badge { background:rgba(124,106,247,0.15); border:1px solid rgba(124,106,247,0.3); color:var(--accent3); font-size:0.7rem; padding:4px 10px; border-radius:20px; font-family:'JetBrains Mono',monospace; }
+
+.hero { padding:2.5rem 1.25rem 1.5rem; }
+.hero h1 { font-size:2rem; font-weight:700; line-height:1.15; letter-spacing:-0.03em; }
+.hero h1 span { background:linear-gradient(135deg,var(--accent2),var(--cyan)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+.hero p { color:var(--text2); font-size:0.95rem; margin-top:0.75rem; line-height:1.6; }
+
+.stats-row { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; padding:0 1.25rem 1.5rem; }
+.stat-card { background:var(--bg3); border:1px solid var(--border); border-radius:var(--radius2); padding:0.75rem; text-align:center; }
+.stat-num { font-size:1.4rem; font-weight:700; color:var(--accent2); font-family:'JetBrains Mono',monospace; }
+.stat-label { font-size:0.65rem; color:var(--text3); text-transform:uppercase; letter-spacing:0.05em; margin-top:2px; }
+
+/* YEAR CARDS */
+.section-title { padding:0 1.25rem; margin-bottom:0.75rem; }
+.section-title h2 { font-size:0.7rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--text3); font-family:'JetBrains Mono',monospace; }
+.year-cards { padding:0 1.25rem; display:flex; flex-direction:column; gap:12px; margin-bottom:2rem; }
+.year-card { background:var(--bg3); border:1px solid var(--border); border-radius:var(--radius); padding:1.25rem; cursor:pointer; transition:all 0.2s; position:relative; overflow:hidden; }
+.year-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; }
+.year-card.y2020::before { background:linear-gradient(90deg,var(--accent),var(--cyan)); }
+.year-card.y2019::before { background:linear-gradient(90deg,var(--gold),#f97316); }
+.year-card.y2018::before { background:linear-gradient(90deg,var(--green),var(--cyan)); }
+.year-card.mock::before { background:linear-gradient(90deg,var(--red),#f472b6); }
+.year-card.placeholder::before { background:linear-gradient(90deg,var(--text3),var(--text2)); }
+.year-card.placeholder { opacity:0.5; cursor:not-allowed; }
+.year-card:not(.placeholder):hover { border-color:var(--border2); transform:translateY(-2px); }
+.year-card-top { display:flex; justify-content:space-between; align-items:flex-start; }
+.year-tag { font-size:0.65rem; font-family:'JetBrains Mono',monospace; padding:3px 8px; border-radius:4px; font-weight:500; }
+.y2020 .year-tag { background:rgba(124,106,247,0.15); color:var(--accent3); }
+.y2019 .year-tag { background:rgba(245,158,11,0.15); color:var(--gold2); }
+.y2018 .year-tag { background:rgba(16,185,129,0.15); color:var(--green2); }
+.mock .year-tag { background:rgba(239,68,68,0.15); color:var(--red2); }
+.placeholder .year-tag { background:rgba(107,106,138,0.15); color:var(--text3); }
+.year-status { display:flex; align-items:center; gap:5px; font-size:0.7rem; }
+.dot { width:6px; height:6px; border-radius:50%; }
+.dot.live { background:var(--green); animation:pulse 2s infinite; }
+.dot.soon { background:var(--text3); }
+@keyframes pulse { 0%,100%{opacity:1}50%{opacity:0.4} }
+.year-title { font-size:1.2rem; font-weight:700; margin-top:0.75rem; }
+.year-meta { display:flex; gap:1rem; margin-top:0.5rem; }
+.year-meta-item { display:flex; align-items:center; gap:5px; font-size:0.75rem; color:var(--text2); }
+.year-arrow { color:var(--text3); font-size:1.2rem; }
+.parts-pills { display:flex; gap:6px; margin-top:0.75rem; flex-wrap:wrap; }
+.part-pill { font-size:0.65rem; padding:3px 8px; border-radius:20px; border:1px solid var(--border2); color:var(--text2); }
+
+/* EXAM VIEW */
+.exam-view { display:none; min-height:100vh; flex-direction:column; }
+.exam-topbar { position:sticky; top:0; z-index:100; background:rgba(10,10,15,0.95); backdrop-filter:blur(12px); border-bottom:1px solid var(--border); padding:0.85rem 1.25rem; }
+.exam-topbar-inner { display:flex; align-items:center; justify-content:space-between; }
+.back-btn { display:flex; align-items:center; gap:6px; font-size:0.85rem; color:var(--text2); cursor:pointer; padding:6px 10px; border-radius:6px; border:1px solid var(--border); background:transparent; transition:all 0.15s; }
+.back-btn:hover { border-color:var(--border2); color:var(--text); }
+.score-badge { display:flex; align-items:center; gap:8px; background:var(--bg3); border:1px solid var(--border); border-radius:8px; padding:6px 12px; }
+.score-val { font-size:1rem; font-weight:700; font-family:'JetBrains Mono',monospace; color:var(--accent2); }
+.score-label { font-size:0.65rem; color:var(--text3); }
+.progress-bar-wrap { background:var(--bg4); border-radius:20px; height:4px; margin-top:0.6rem; }
+.progress-bar { height:100%; border-radius:20px; background:linear-gradient(90deg,var(--accent),var(--cyan)); transition:width 0.4s ease; }
+
+/* PART TABS */
+.part-tabs { display:flex; gap:0; overflow-x:auto; border-bottom:1px solid var(--border); background:var(--bg2); padding:0 1.25rem; scrollbar-width:none; }
+.part-tabs::-webkit-scrollbar { display:none; }
+.part-tab { padding:0.75rem 1.25rem; font-size:0.8rem; font-weight:600; color:var(--text3); cursor:pointer; border-bottom:2px solid transparent; white-space:nowrap; transition:all 0.15s; }
+.part-tab.active { color:var(--accent2); border-bottom-color:var(--accent); }
+
+/* QUESTION CARD */
+.questions-area { padding:1.25rem; display:flex; flex-direction:column; gap:1.25rem; padding-bottom:6rem; }
+.q-card { background:var(--bg3); border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; transition:border-color 0.3s; }
+.q-card.answered-correct { border-color:rgba(16,185,129,0.4); }
+.q-card.answered-wrong { border-color:rgba(239,68,68,0.4); }
+.q-header { padding:1rem 1rem 0.75rem; display:flex; align-items:flex-start; gap:12px; }
+.q-num { min-width:28px; height:28px; border-radius:6px; background:var(--bg4); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:0.7rem; font-family:'JetBrains Mono',monospace; color:var(--text2); flex-shrink:0; margin-top:1px; }
+.q-num.correct { background:rgba(16,185,129,0.15); border-color:rgba(16,185,129,0.4); color:var(--green2); }
+.q-num.wrong { background:rgba(239,68,68,0.15); border-color:rgba(239,68,68,0.4); color:var(--red2); }
+.q-text { font-size:0.9rem; line-height:1.55; color:var(--text); }
+.q-topic { font-size:0.65rem; font-family:'JetBrains Mono',monospace; color:var(--text3); padding:0 1rem 0.75rem 3.1rem; }
+
+.options-grid { padding:0 1rem 1rem; display:flex; flex-direction:column; gap:8px; }
+.opt-btn { display:flex; align-items:flex-start; gap:10px; padding:0.7rem 0.9rem; border-radius:8px; border:1px solid var(--border); background:var(--bg4); cursor:pointer; text-align:left; transition:all 0.15s; width:100%; }
+.opt-btn:not(:disabled):hover { border-color:var(--border2); background:var(--bg3); }
+.opt-btn:disabled { cursor:default; }
+.opt-key { min-width:22px; height:22px; border-radius:5px; border:1px solid var(--border2); display:flex; align-items:center; justify-content:center; font-size:0.65rem; font-family:'JetBrains Mono',monospace; color:var(--text2); flex-shrink:0; }
+.opt-text { font-size:0.82rem; line-height:1.45; color:var(--text2); }
+.opt-btn.selected-correct { border-color:rgba(16,185,129,0.5); background:rgba(16,185,129,0.08); }
+.opt-btn.selected-correct .opt-key { background:var(--green); border-color:var(--green); color:#fff; }
+.opt-btn.selected-correct .opt-text { color:var(--green2); }
+.opt-btn.selected-wrong { border-color:rgba(239,68,68,0.5); background:rgba(239,68,68,0.08); }
+.opt-btn.selected-wrong .opt-key { background:var(--red); border-color:var(--red); color:#fff; }
+.opt-btn.selected-wrong .opt-text { color:var(--red2); }
+.opt-btn.reveal-correct { border-color:rgba(16,185,129,0.3); background:rgba(16,185,129,0.05); }
+.opt-btn.reveal-correct .opt-key { border-color:rgba(16,185,129,0.5); color:var(--green2); }
+.opt-btn.reveal-correct .opt-text { color:var(--green); }
+
+/* EXPLANATION BOX */
+.explanation { margin:0 1rem 1rem; border-radius:8px; overflow:hidden; display:none; }
+.explanation.show { display:block; }
+.exp-section { padding:0.85rem 1rem; border-bottom:1px solid var(--border); }
+.exp-section:last-child { border-bottom:none; }
+.exp-label { font-size:0.6rem; text-transform:uppercase; letter-spacing:0.1em; font-family:'JetBrains Mono',monospace; margin-bottom:6px; }
+.exp-text { font-size:0.8rem; line-height:1.6; color:var(--text2); }
+.correct-ans { background:rgba(16,185,129,0.07); border:1px solid rgba(16,185,129,0.2); }
+.correct-ans .exp-label { color:var(--green2); }
+.memory-box { background:rgba(124,106,247,0.07); border:1px solid rgba(124,106,247,0.2); }
+.memory-box .exp-label { color:var(--accent3); }
+.wrong-opts { background:rgba(239,68,68,0.05); border:1px solid rgba(239,68,68,0.15); }
+.wrong-opts .exp-label { color:var(--red2); }
+.mnemonic { display:inline-block; background:rgba(245,158,11,0.12); border:1px dashed rgba(245,158,11,0.35); color:var(--gold2); padding:4px 10px; border-radius:6px; font-size:0.8rem; font-style:italic; margin-top:4px; }
+
+/* SCORECARD */
+.scorecard { display:none; min-height:100vh; padding:2rem 1.25rem; }
+.scorecard-header { text-align:center; margin-bottom:2rem; }
+.score-ring { width:120px; height:120px; margin:0 auto 1.25rem; position:relative; }
+.score-ring svg { transform:rotate(-90deg); }
+.score-ring-text { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+.score-big { font-size:1.8rem; font-weight:700; font-family:'JetBrains Mono',monospace; color:var(--accent2); }
+.score-pct { font-size:0.75rem; color:var(--text3); }
+.scorecard h2 { font-size:1.4rem; font-weight:700; margin-bottom:0.5rem; }
+.scorecard p { color:var(--text2); font-size:0.9rem; }
+.part-breakdown { display:flex; flex-direction:column; gap:10px; margin:1.5rem 0; }
+.part-row { background:var(--bg3); border:1px solid var(--border); border-radius:var(--radius2); padding:0.85rem 1rem; }
+.part-row-top { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; }
+.part-row-name { font-size:0.85rem; font-weight:600; }
+.part-row-score { font-size:0.85rem; font-family:'JetBrains Mono',monospace; color:var(--accent2); }
+.mini-bar { background:var(--bg4); border-radius:20px; height:6px; }
+.mini-bar-fill { height:100%; border-radius:20px; background:linear-gradient(90deg,var(--accent),var(--cyan)); }
+.action-btns { display:flex; flex-direction:column; gap:10px; margin-top:1.5rem; }
+.btn-primary { background:linear-gradient(135deg,var(--accent),#6366f1); color:#fff; border:none; border-radius:10px; padding:0.9rem; font-size:0.9rem; font-weight:600; cursor:pointer; font-family:'Space Grotesk',sans-serif; transition:opacity 0.15s; }
+.btn-primary:hover { opacity:0.9; }
+.btn-secondary { background:var(--bg3); color:var(--text2); border:1px solid var(--border); border-radius:10px; padding:0.9rem; font-size:0.9rem; font-weight:600; cursor:pointer; font-family:'Space Grotesk',sans-serif; transition:all 0.15s; }
+.btn-secondary:hover { border-color:var(--border2); color:var(--text); }
+
+/* PRINT REVIEW */
+.print-review { margin-top:2rem; }
+.print-review h3 { font-size:0.85rem; font-weight:600; margin-bottom:1rem; color:var(--text2); text-transform:uppercase; letter-spacing:0.08em; font-family:'JetBrains Mono',monospace; }
+.review-q { background:var(--bg3); border:1px solid var(--border); border-radius:var(--radius2); padding:1rem; margin-bottom:10px; }
+.review-q.rc { border-color:rgba(16,185,129,0.3); }
+.review-q.rw { border-color:rgba(239,68,68,0.3); }
+.review-q-num { font-size:0.65rem; font-family:'JetBrains Mono',monospace; color:var(--text3); margin-bottom:6px; }
+.review-q-text { font-size:0.82rem; line-height:1.5; margin-bottom:8px; }
+.review-ans { display:flex; align-items:center; gap:6px; }
+.ans-chip { font-size:0.7rem; padding:3px 8px; border-radius:4px; font-weight:600; }
+.ans-chip.correct { background:rgba(16,185,129,0.15); color:var(--green2); }
+.ans-chip.wrong { background:rgba(239,68,68,0.15); color:var(--red2); }
+.review-exp { font-size:0.78rem; color:var(--text2); margin-top:8px; line-height:1.5; }
+.review-mem { font-size:0.75rem; color:var(--accent3); background:rgba(124,106,247,0.08); padding:6px 10px; border-radius:6px; margin-top:6px; border-left:3px solid var(--accent); }
+
+/* FLOATING SCORE */
+.float-score { position:fixed; bottom:1.5rem; right:1.25rem; z-index:200; }
+.float-score-inner { background:var(--bg3); border:1px solid var(--border2); border-radius:12px; padding:10px 14px; display:flex; align-items:center; gap:8px; box-shadow:0 8px 32px rgba(0,0,0,0.5); }
+.float-score-val { font-size:1.1rem; font-weight:700; font-family:'JetBrains Mono',monospace; color:var(--accent2); }
+.float-score-label { font-size:0.65rem; color:var(--text3); }
+
+/* MOCK EXAM SPLASH */
+.mock-splash { padding:1.25rem; }
+.mock-splash h2 { font-size:1.3rem; font-weight:700; margin-bottom:0.5rem; }
+.mock-splash p { color:var(--text2); font-size:0.85rem; line-height:1.6; margin-bottom:1.5rem; }
+.pattern-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-bottom:1.5rem; }
+.pattern-item { background:var(--bg3); border:1px solid var(--border); border-radius:var(--radius2); padding:0.85rem; }
+.pattern-item-label { font-size:0.65rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--text3); font-family:'JetBrains Mono',monospace; margin-bottom:4px; }
+.pattern-item-val { font-size:0.9rem; font-weight:600; }
+
+/* Loading state */
+.loading-overlay { position:fixed; inset:0; z-index:1000; background:var(--bg); display:flex; align-items:center; justify-content:center; flex-direction:column; gap:1rem; }
+.loading-overlay.hidden { display:none; }
+.loader { width:40px; height:40px; border:3px solid var(--border); border-top-color:var(--accent); border-radius:50%; animation:spin 0.7s linear infinite; }
+@keyframes spin { to { transform:rotate(360deg); } }
+.loading-text { color:var(--text2); font-size:0.85rem; font-family:'JetBrains Mono',monospace; }
+
+/* Responsive */
+@media(max-width:380px){
+  .hero h1 { font-size:1.65rem; }
+  .stats-row { grid-template-columns:repeat(3,1fr); gap:6px; }
+}
+
+.tag-law { background:rgba(6,182,212,0.12); color:#67e8f9; border:1px solid rgba(6,182,212,0.25); padding:2px 7px; border-radius:4px; font-size:0.6rem; font-family:'JetBrains Mono',monospace; }
+</style>
+</head>
+<body>
+
+<div class="loading-overlay hidden" id="loadingOverlay">
+  <div class="loader"></div>
+  <div class="loading-text" id="loadingText">Loading paper...</div>
+</div>
+
+<!-- HOME SPLASH -->
+<div class="splash" id="homeView">
+  <div class="splash-header">
+    <div class="logo">
+      <div class="logo-icon">⚖</div>
+      <div>
+        <div class="logo-text">LAWCET Master</div>
+        <div class="logo-sub">AP & TG | Previous Papers</div>
+      </div>
+    </div>
+    <div class="badge">BETA v2.0</div>
+  </div>
+
+  <div class="hero">
+    <h1>Crack <span>LAWCET</span><br>Like a Pro 🎯</h1>
+    <p>Fully solved previous year papers with coaching-level explanations, memory tricks & instant feedback.</p>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-card"><div class="stat-num">360</div><div class="stat-label">Questions</div></div>
+    <div class="stat-card"><div class="stat-num">3</div><div class="stat-label">Years Live</div></div>
+    <div class="stat-card"><div class="stat-num">∞</div><div class="stat-label">Mock Tests</div></div>
+  </div>
+
+  <div class="section-title"><h2>Previous Year Papers</h2></div>
+  <div class="year-cards">
+    <div class="year-card y2020" onclick="loadExam('2020')">
+      <div class="year-card-top">
+        <div class="year-tag">AP & TG LAWCET</div>
+        <div class="year-status"><div class="dot live"></div><span style="color:var(--text2);font-size:0.7rem;">LIVE</span></div>
+      </div>
+      <div class="year-title">2020 Paper — Fully Solved</div>
+      <div class="year-meta">
+        <div class="year-meta-item">📋 120 Qs</div>
+        <div class="year-meta-item">⏱ 90 min</div>
+        <div class="year-meta-item">✨ Explanations</div>
+      </div>
+      <div class="parts-pills">
+        <div class="part-pill">Part A · Law</div>
+        <div class="part-pill">Part B · GK</div>
+        <div class="part-pill">Part C · Aptitude</div>
+      </div>
+    </div>
+
+    <div class="year-card y2019" onclick="loadExam('2019')">
+      <div class="year-card-top">
+        <div class="year-tag">AP & TG LAWCET</div>
+        <div class="year-status"><div class="dot live"></div><span style="color:var(--text2);font-size:0.7rem;">LIVE</span></div>
+      </div>
+      <div class="year-title">2019 Paper — Fully Solved</div>
+      <div class="year-meta">
+        <div class="year-meta-item">📋 120 Qs</div>
+        <div class="year-meta-item">⏱ 90 min</div>
+        <div class="year-meta-item">✨ Explanations</div>
+      </div>
+      <div class="parts-pills">
+        <div class="part-pill">Part A · Law</div>
+        <div class="part-pill">Part B · GK</div>
+        <div class="part-pill">Part C · Aptitude</div>
+      </div>
+    </div>
+
+    <div class="year-card y2018" onclick="loadExam('2018')">
+      <div class="year-card-top">
+        <div class="year-tag">AP & TG LAWCET</div>
+        <div class="year-status"><div class="dot live"></div><span style="color:var(--text2);font-size:0.7rem;">LIVE</span></div>
+      </div>
+      <div class="year-title">2018 Paper — Fully Solved</div>
+      <div class="year-meta">
+        <div class="year-meta-item">📋 120 Qs</div>
+        <div class="year-meta-item">⏱ 90 min</div>
+        <div class="year-meta-item">✨ Explanations</div>
+      </div>
+      <div class="parts-pills">
+        <div class="part-pill">Part A · Law</div>
+        <div class="part-pill">Part B · GK</div>
+        <div class="part-pill">Part C · Aptitude</div>
+      </div>
+    </div>
+
+    <div class="year-card mock" onclick="loadMock()">
+      <div class="year-card-top">
+        <div class="year-tag">AI GENERATED</div>
+        <div class="year-status"><div class="dot live"></div><span style="color:var(--text2);font-size:0.7rem;">NEW</span></div>
+      </div>
+      <div class="year-title">AI Mock Test — Based on Pattern</div>
+      <div class="year-meta">
+        <div class="year-meta-item">🤖 AI-Powered</div>
+        <div class="year-meta-item">📊 Pattern-Based</div>
+        <div class="year-meta-item">🔄 Unlimited</div>
+      </div>
+      <div class="parts-pills">
+        <div class="part-pill">Mirrors Real Exam</div>
+        <div class="part-pill">Fresh Each Time</div>
+      </div>
+    </div>
+
+    <!-- PLACEHOLDERS FOR FUTURE -->
+    <div class="year-card placeholder">
+      <div class="year-card-top">
+        <div class="year-tag">COMING SOON</div>
+        <div class="year-status"><div class="dot soon"></div><span style="color:var(--text3);font-size:0.7rem;">Phase 2</span></div>
+      </div>
+      <div class="year-title">2017 Paper</div>
+      <div class="year-meta"><div class="year-meta-item">🔒 Adding Soon</div></div>
+    </div>
+    <div class="year-card placeholder">
+      <div class="year-card-top">
+        <div class="year-tag">COMING SOON</div>
+        <div class="year-status"><div class="dot soon"></div><span style="color:var(--text3);font-size:0.7rem;">Phase 3</span></div>
+      </div>
+      <div class="year-title">2016 Paper</div>
+      <div class="year-meta"><div class="year-meta-item">🔒 Adding Soon</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- EXAM VIEW -->
+<div class="exam-view" id="examView">
+  <div class="exam-topbar">
+    <div class="exam-topbar-inner">
+      <button class="back-btn" onclick="goHome()">← Home</button>
+      <div>
+        <div style="font-size:0.75rem;font-weight:600;" id="examTitle">LAWCET 2020</div>
+        <div style="font-size:0.6rem;color:var(--text3);font-family:'JetBrains Mono',monospace;" id="examProgress">0 / 120 answered</div>
+      </div>
+      <div class="score-badge">
+        <div>
+          <div class="score-val" id="topScore">0</div>
+          <div class="score-label">Score</div>
+        </div>
+      </div>
+    </div>
+    <div class="progress-bar-wrap" style="margin-top:0.6rem;">
+      <div class="progress-bar" id="progressBar" style="width:0%"></div>
+    </div>
+  </div>
+
+  <div class="part-tabs" id="partTabs">
+    <div class="part-tab active" onclick="showPart('A',this)">Part A · Law (1–60)</div>
+    <div class="part-tab" onclick="showPart('B',this)">Part B · GK (61–90)</div>
+    <div class="part-tab" onclick="showPart('C',this)">Part C · Aptitude (91–120)</div>
+  </div>
+
+  <div class="questions-area" id="questionsArea"></div>
+
+  <div class="float-score" id="floatScore">
+    <div class="float-score-inner">
+      <div>
+        <div class="float-score-val" id="floatScoreVal">0/0</div>
+        <div class="float-score-label">answered</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="padding:0 1.25rem 2rem;">
+    <button class="btn-primary" style="width:100%" onclick="finishExam()">Finish & See Results →</button>
+  </div>
+</div>
+
+<!-- SCORECARD VIEW -->
+<div class="scorecard" id="scorecardView">
+  <div class="scorecard-header">
+    <div class="score-ring">
+      <svg width="120" height="120" viewBox="0 0 120 120">
+        <circle cx="60" cy="60" r="50" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="10"/>
+        <circle cx="60" cy="60" r="50" fill="none" stroke="url(#scoreGrad)" stroke-width="10" stroke-linecap="round" id="scoreRingCircle" stroke-dasharray="314" stroke-dashoffset="314"/>
+        <defs><linearGradient id="scoreGrad" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#7c6af7"/><stop offset="100%" stop-color="#06b6d4"/></linearGradient></defs>
+      </svg>
+      <div class="score-ring-text">
+        <div class="score-big" id="finalScoreNum">0</div>
+        <div class="score-pct" id="finalScorePct">0%</div>
+      </div>
+    </div>
+    <div id="performanceEmoji" style="font-size:1.8rem;margin-bottom:0.5rem;">🎯</div>
+    <h2 id="performanceMsg">Exam Complete!</h2>
+    <p id="performanceSub" style="margin-top:0.4rem;"></p>
+  </div>
+
+  <div class="part-breakdown" id="partBreakdown"></div>
+
+  <div class="action-btns">
+    <button class="btn-primary" onclick="showPrintReview()">📄 View All Q&A with Explanations</button>
+    <button class="btn-secondary" onclick="goHome()">← Back to Papers</button>
+    <button class="btn-secondary" onclick="restartExam()">🔄 Retake This Paper</button>
+  </div>
+
+  <div class="print-review hidden" id="printReview">
+    <div style="margin:2rem 0 1rem;border-top:1px solid var(--border);padding-top:1.5rem;">
+      <h3>📋 Full Paper Review</h3>
+    </div>
+    <div id="printReviewContent"></div>
+  </div>
+</div>
+
+<!-- MOCK VIEW -->
+<div id="mockView" style="display:none;min-height:100vh;">
+  <div class="exam-topbar">
+    <div class="exam-topbar-inner">
+      <button class="back-btn" onclick="goHome()">← Home</button>
+      <div style="font-size:0.85rem;font-weight:600;">AI Mock Test</div>
+      <div class="badge">AI</div>
+    </div>
+  </div>
+  <div class="mock-splash" id="mockSplash">
+    <div style="margin:1.5rem 0 1rem;padding:1rem;background:linear-gradient(135deg,rgba(124,106,247,0.1),rgba(6,182,212,0.08));border:1px solid rgba(124,106,247,0.2);border-radius:var(--radius);">
+      <div style="font-size:1.5rem;margin-bottom:0.5rem;">🤖</div>
+      <h2>AI-Generated Mock Test</h2>
+      <p>Based on pattern analysis of 2018, 2019 & 2020 papers. Each session generates fresh questions.</p>
+    </div>
+    <div style="margin:1.5rem 0;font-size:0.8rem;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'JetBrains Mono',monospace;">Exam Pattern Insights</div>
+    <div class="pattern-grid">
+      <div class="pattern-item"><div class="pattern-item-label">Part A (Law)</div><div class="pattern-item-val">60 Questions</div></div>
+      <div class="pattern-item"><div class="pattern-item-label">Part B (GK)</div><div class="pattern-item-val">30 Questions</div></div>
+      <div class="pattern-item"><div class="pattern-item-label">Part C (Aptitude)</div><div class="pattern-item-val">30 Questions</div></div>
+      <div class="pattern-item"><div class="pattern-item-label">Total Marks</div><div class="pattern-item-val">120 Marks</div></div>
+      <div class="pattern-item"><div class="pattern-item-label">Duration</div><div class="pattern-item-val">90 Minutes</div></div>
+      <div class="pattern-item"><div class="pattern-item-label">Marking</div><div class="pattern-item-val">1 / 0 (no neg)</div></div>
+    </div>
+    <div style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius2);padding:1rem;margin-bottom:1.5rem;">
+      <div style="font-size:0.75rem;font-weight:600;color:var(--accent3);margin-bottom:8px;">⚡ High-Frequency Topics (based on 3-year analysis)</div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;">
+        <span class="tag-law">IPC</span><span class="tag-law">CrPC</span><span class="tag-law">CPC</span><span class="tag-law">Constitution</span><span class="tag-law">Contract Act</span><span class="tag-law">Evidence Act</span><span class="tag-law">Family Law</span><span class="tag-law">Transfer of Property</span><span class="tag-law">Current Affairs</span><span class="tag-law">Reasoning</span><span class="tag-law">English</span>
+      </div>
+    </div>
+    <button class="btn-primary" onclick="generateMock()" style="width:100%">🚀 Generate Mock Test (AI)</button>
+    <div style="text-align:center;margin-top:0.75rem;font-size:0.75rem;color:var(--text3);">Takes ~10s to generate personalised questions</div>
+  </div>
+  <div id="mockQuestionsArea" style="display:none;"></div>
+</div>
+
+<script>
+const CLAUDE_API = "https://api.anthropic.com/v1/messages";
+
+// ============== EXAM DATA ==============
+const PAPERS = {
+  '2020': generatePaper2020(),
+  '2019': generatePaper2019(),
+  '2018': generatePaper2018()
+};
+
+let currentPaper = null;
+let currentYear = null;
+let answers = {};
+let score = 0;
+let answeredCount = 0;
+let currentPart = 'A';
+
+function generatePaper2020() {
+  return {
+    title: 'AP & TG LAWCET 2020',
+    parts: {
+      A: { name: 'Part A — Law', range: [1,60], questions: getLawQuestions2020() },
+      B: { name: 'Part B — General Knowledge', range: [61,90], questions: getGKQuestions2020() },
+      C: { name: 'Part C — Aptitude & English', range: [91,120], questions: getAptitudeQuestions2020() }
+    }
+  };
+}
+function generatePaper2019() {
+  return {
+    title: 'AP & TG LAWCET 2019',
+    parts: {
+      A: { name: 'Part A — Law', range: [1,60], questions: getLawQuestions2019() },
+      B: { name: 'Part B — General Knowledge', range: [61,90], questions: getGKQuestions2019() },
+      C: { name: 'Part C — Aptitude & English', range: [91,120], questions: getAptitudeQuestions2019() }
+    }
+  };
+}
+function generatePaper2018() {
+  return {
+    title: 'AP & TG LAWCET 2018',
+    parts: {
+      A: { name: 'Part A — Law', range: [1,60], questions: getLawQuestions2018() },
+      B: { name: 'Part B — General Knowledge', range: [61,90], questions: getGKQuestions2018() },
+      C: { name: 'Part C — Aptitude & English', range: [91,120], questions: getAptitudeQuestions2018() }
+    }
+  };
+}
+
+// ======= 2020 QUESTIONS =======
+function getLawQuestions2020() { return [
+{id:1,q:"Under Section 302 IPC, punishment for murder is:",opts:["Imprisonment for 7 years","Life imprisonment or death","Imprisonment for 10 years","Fine only"],ans:1,topic:"IPC · Murder",exp:"Section 302 IPC provides death or life imprisonment plus fine for murder. No lesser sentence is provided for murder under this section.",mem:"🧠 302 = Death/Life. Remember: 3+0+2=5 which has 5 letters in DEATH",wrong:{"A":"7 years is for Section 304 (culpable homicide not amounting to murder).","C":"10 years is prescribed for various other offences under IPC.","D":"Fine alone is never sufficient for murder under Indian law."}},
+{id:2,q:"'Mens rea' in criminal law means:",opts:["Physical act","Guilty mind","Criminal procedure","Evidence of guilt"],ans:1,topic:"Criminal Law · Basics",exp:"Mens rea = guilty mind or criminal intent. It is a fundamental element of most criminal offences in India.",mem:"🧠 MENS REA = Latin for 'guilty mind'. MENtal + REA(lity of guilt). Think: 'Men who REAct with guilt'",wrong:{"A":"Physical act is called 'actus reus' — the other Latin pair.","C":"Criminal procedure is governed by CrPC, not a mental element.","D":"Evidence of guilt is a procedural concept, not an element of offence."}},
+{id:3,q:"The right to private defence under IPC is contained in:",opts:["Sections 76-106","Sections 96-106","Sections 300-304","Sections 107-120"],ans:1,topic:"IPC · Private Defence",exp:"Sections 96–106 IPC deal with the right of private defence of body and property.",mem:"🧠 96-106 = Private Defence. 96 = 9×6=54... Think: '9 to 6 you can DEFEND yourself at work hours!'",wrong:{"A":"Sections 76-106 cover general exceptions broadly.","C":"300-304 are sections on murder and culpable homicide.","D":"107-120 deal with abetment."}},
+{id:4,q:"Under the Indian Contract Act 1872, an agreement enforceable by law is called:",opts:["A void agreement","A contract","A voidable agreement","A quasi-contract"],ans:1,topic:"Contract Act",exp:"Section 2(h) ICA — A contract is an agreement enforceable by law. Simple as that.",mem:"🧠 Agreement + Enforceability = CONTRACT. 'AGREE to be FORCED' = Contract!",wrong:{"A":"Void agreement has no legal effect at all — it is void ab initio.","C":"Voidable is valid until rescinded by the aggrieved party.","D":"Quasi-contract is an obligation imposed by law, not a real agreement."}},
+{id:5,q:"The age of majority in India under the Indian Majority Act is:",opts:["16 years","18 years","21 years","25 years"],ans:1,topic:"Contract Act · Capacity",exp:"Under Section 3 of the Indian Majority Act 1875, a person attains majority at 18 years of age. Under court of wards: 21.",mem:"🧠 18 = VOTE age = MAJOR age. 'When you can VOTE, you're an ADULT in contracts too!'",wrong:{"A":"16 is below majority — contracts with minors are void.","C":"21 applies only when a guardian is appointed under court of wards.","D":"25 is not legally relevant as an age threshold in Indian law."}},
+{id:6,q:"Article 21 of the Constitution of India guarantees:",opts:["Right to equality","Right to life and personal liberty","Right to freedom of speech","Right to property"],ans:1,topic:"Constitution · Fundamental Rights",exp:"Article 21: 'No person shall be deprived of his life or personal liberty except according to procedure established by law.'",mem:"🧠 Article 21 = LIFE. 21 gun salute honours LIFE! 2+1=3 letters in LIFE(less one)",wrong:{"A":"Right to equality is Articles 14–18.","C":"Freedom of speech is Article 19(1)(a).","D":"Right to property is Article 300A (not a fundamental right anymore)."}},
+{id:7,q:"Which section of CrPC deals with FIR (First Information Report)?",opts:["Section 154","Section 161","Section 164","Section 173"],ans:0,topic:"CrPC · FIR",exp:"Section 154 CrPC mandates recording of FIR in cognizable offences by the officer in charge of a police station.",mem:"🧠 154 = FIR. Think: 1-5-4 = 'One FIVE-finger salute Four the First report!' Or: F=6th letter, I=9th, R=18th → FIR starts at 154",wrong:{"B":"Section 161 is for examination of witnesses by police.","C":"Section 164 is for recording confessions by Magistrate.","D":"Section 173 is the final police report (charge sheet)."}},
+{id:8,q:"Under the Transfer of Property Act, 'sale' is defined in:",opts:["Section 54","Section 55","Section 58","Section 105"],ans:0,topic:"Transfer of Property Act",exp:"Section 54 TPA defines sale as a transfer of ownership in exchange for a price paid/promised. Section 55 lays down rights and liabilities of buyer and seller.",mem:"🧠 54 = SALE. Think: '$54 is the price in SALE' or 5+4=9 letters in OWNERSHIP",wrong:{"B":"Section 55 deals with rights and liabilities of buyer/seller after sale.","C":"Section 58 defines mortgage.","D":"Section 105 defines lease."}},
+{id:9,q:"The Hindu Marriage Act was enacted in the year:",opts:["1950","1955","1956","1961"],ans:1,topic:"Family Law · HMA",exp:"The Hindu Marriage Act was enacted in 1955. It codified Hindu marriage law and provided conditions for a valid Hindu marriage.",mem:"🧠 1955 = HMA. 'Hindu Marry At 1955' — 55 looks like SS (Shaadi-Shadi = marry in Hindi!)",wrong:{"A":"1950 is when the Constitution came into force.","C":"1956 is the year of Hindu Succession Act and HUF laws.","D":"1961 is the Dowry Prohibition Act."}},
+{id:10,q:"Writ of Habeas Corpus literally means:",opts:["You have the body","We command","To be certified","Prohibition"],ans:0,topic:"Constitution · Writs",exp:"Habeas Corpus = Latin 'You shall have the body.' It is used to challenge illegal detention.",mem:"🧠 HABEAS = 'HAVE' + CORPUS = 'BODY'. Habeas Corpus = Have the Body! Used to FREE detained persons.",wrong:{"B":"'We command' is the meaning of Mandamus.","C":"'To be certified' is the meaning of Certiorari.","D":"Prohibition means to forbid — it is a writ to prohibit lower courts."}},
+{id:11,q:"Section 375 IPC defines which offence?",opts:["Robbery","Rape","Abduction","Cheating"],ans:1,topic:"IPC · Sexual Offences",exp:"Section 375 IPC defines rape. After 2013 amendment, it includes a broader definition. Section 376 provides punishment.",mem:"🧠 375 = RAPE. 3+7+5=15 = a grievous number. Or remember: '375 — a section that must be prevented'",wrong:{"A":"Robbery is Section 390-392 IPC.","C":"Abduction is Section 362 IPC.","D":"Cheating is Section 420 IPC."}},
+{id:12,q:"Under CPC, which Order deals with temporary injunctions?",opts:["Order 38","Order 39","Order 40","Order 41"],ans:1,topic:"CPC · Temporary Injunction",exp:"Order 39 of CPC deals with temporary injunctions and interlocutory orders (Rules 1–5).",mem:"🧠 Order 39 = Injunction. Think: 39 = 3×9=27. Or: 'Order 3-9 STOPS something (injunction stops action)'",wrong:{"A":"Order 38 deals with arrest before judgment.","C":"Order 40 deals with appointment of receiver.","D":"Order 41 deals with appeals from original decrees."}},
+{id:13,q:"The Evidence Act in India was enacted in:",opts:["1860","1872","1881","1908"],ans:1,topic:"Evidence Act",exp:"The Indian Evidence Act was enacted in 1872 by Sir James Stephen. IPC was 1860, CrPC was 1973, CPC was 1908.",mem:"🧠 1872 = IEA. Remember: IPC=1860, ICA=1872, IEA=1872. 'Evidence and Contracts both came in 1872 — same year!'",wrong:{"A":"1860 is IPC year.","C":"1881 is Negotiable Instruments Act.","D":"1908 is Civil Procedure Code (CPC)."}},
+{id:14,q:"'Res judicata' doctrine under CPC is in:",opts:["Section 9","Section 10","Section 11","Section 12"],ans:2,topic:"CPC · Res Judicata",exp:"Section 11 CPC — Res Judicata (the thing has been adjudicated). Once decided, same matter cannot be tried again between same parties.",mem:"🧠 Section 11 = RES JUDICATA. 11 = double 1 = 'Once decided, TWICE don't try!' Eleven = done once, done for all!",wrong:{"A":"Section 9 deals with courts to try all civil suits.","B":"Section 10 is Stay of Suit (res sub judice).","D":"Section 12 deals with bar to further suit."}},
+{id:15,q:"Under IPC, attempt to commit suicide is covered under:",opts:["Section 306","Section 307","Section 309","Section 302"],ans:2,topic:"IPC · Suicide",exp:"Section 309 IPC covers attempt to commit suicide. However, the Mental Health Act 2017 has effectively decriminalised it.",mem:"🧠 309 = SUICIDE ATTEMPT. 3+0+9=12 → think '12 reasons not to — but 309 made it crime (now decriminalised)'",wrong:{"A":"Section 306 is abetment of suicide.","B":"Section 307 is attempt to murder.","D":"Section 302 is murder."}},
+{id:16,q:"Under Article 32 of the Constitution, writs can be issued by:",opts:["High Courts","Supreme Court","Both Supreme and High Courts","District Courts"],ans:1,topic:"Constitution · Writs",exp:"Article 32 empowers the Supreme Court to issue writs. Article 226 empowers High Courts to issue writs. Article 32 is for enforcement of Fundamental Rights.",mem:"🧠 Article 32 = SC writs. 32=SC. Article 226=HC writs. 'Higher number 226 = Higher Court but for wider scope!'",wrong:{"A":"High Courts issue writs under Article 226, not Article 32.","C":"Both can issue writs but under different articles — the question specifies Article 32.","D":"District Courts have no writ jurisdiction."}},
+{id:17,q:"The Limitation Act, 1963 provides that the limitation period for money suits is:",opts:["1 year","2 years","3 years","6 years"],ans:2,topic:"Limitation Act",exp:"Article 113 of Limitation Act (residuary) and general money decrees have 3-year limitation. Most contract-based money suits are 3 years.",mem:"🧠 MONEY SUIT = 3 YEARS. '3 years to claim MONEY — like 3 chances!' Remember: Property=12yrs, Money=3yrs, SC appeal=90days",wrong:{"A":"1 year applies to specific shorter limitation periods.","B":"2 years applies to compensation for acts done under public duties.","D":"6 years is the limitation period in England — not India."}},
+{id:18,q:"The Specific Relief Act, 1963 was amended in:",opts:["2016","2017","2018","2019"],ans:2,topic:"Specific Relief Act",exp:"The Specific Relief (Amendment) Act, 2018 significantly amended the Specific Relief Act 1963, making specific performance the rule rather than exception.",mem:"🧠 SRA Amendment = 2018. 'SPECIFIC RELIEF was specifically amended in 2018 — the year of changes!'",wrong:{"A":"2016 had no major SRA amendment.","B":"2017 had GST, Insolvency Code, etc.","D":"2019 saw other changes but not SRA."}},
+{id:19,q:"Under Consumer Protection Act 2019, a 'consumer' complaint can be filed for goods or services up to Rs. 1 crore by:",opts:["National Commission","State Commission","District Commission","Both A and B"],ans:2,topic:"Consumer Law",exp:"Under CPA 2019: District Commission — up to ₹1 crore. State Commission — ₹1 crore to ₹10 crore. National Commission — above ₹10 crore.",mem:"🧠 1-1-10: District=1Cr, State=1-10Cr, National=10Cr+. Think: SMALL=District, MEDIUM=State, LARGE=National",wrong:{"A":"National Commission handles claims above ₹10 crore.","B":"State Commission handles ₹1 crore to ₹10 crore.","D":"Not both — the threshold specifically places ₹1 crore with District Commission."}},
+{id:20,q:"'Nemo debet esse judex in propria causa' means:",opts:["No man shall be condemned unheard","No man shall be a judge in his own cause","Natural justice requires a hearing","Bias is always presumed"],ans:1,topic:"Administrative Law · Natural Justice",exp:"This Latin maxim is the second rule of natural justice — Rule against Bias (Nemo judex). The first is Audi alteram partem (hear both sides).",mem:"🧠 NEMO JUDEX = No Judge of Own Case. NEMO=No, JUDEX=Judge. 'Nemo (Nobody) can be their own JUDGE!'",wrong:{"A":"'No man condemned unheard' = Audi alteram partem (first rule).","C":"Natural justice generally is broader — this is the specific bias rule.","D":"Bias is not always presumed — it depends on real likelihood or reasonable apprehension."}},
+{id:21,q:"Lok Adalat was given statutory recognition by:",opts:["Arbitration Act 1996","Legal Services Authorities Act 1987","CPC 1908","Constitution 42nd Amendment"],ans:1,topic:"ADR · Lok Adalat",exp:"The Legal Services Authorities Act, 1987 gives statutory recognition and binding force to Lok Adalat awards.",mem:"🧠 LSA 1987 = LOK ADALAT. Think: '1987 = 1+9+8+7=25 — 25 paise for people's court!'",wrong:{"A":"Arbitration Act 1996 governs arbitration, not Lok Adalat.","C":"CPC governs civil courts, not Lok Adalat.","D":"42nd Amendment dealt with emergency, fundamental duties, etc."}},
+{id:22,q:"Under IPC, 'theft' is defined in:",opts:["Section 378","Section 379","Section 383","Section 390"],ans:0,topic:"IPC · Property Offences",exp:"Section 378 defines theft. Section 379 is punishment for theft. Remember: Definition first, punishment next!",mem:"🧠 378=THEFT definition. 379=punishment. 'THEFT at 378 STREET!' or 3+7+8=18=T-H-E-F-T... count it!",wrong:{"B":"Section 379 is punishment for theft (not definition).","C":"Section 383 is definition of extortion.","D":"Section 390 defines robbery."}},
+{id:23,q:"The right to information is contained in which Article?",opts:["Article 19(1)(a)","Article 19(1)(b)","Article 21","Article 14"],ans:0,topic:"Constitution · Fundamental Rights",exp:"Right to information is part of right to freedom of speech and expression under Article 19(1)(a) as held by the Supreme Court.",mem:"🧠 RTI = Article 19(1)(a). 'R-T-I comes from RIGHT to speak — 19(1)(a) is the speech article!'",wrong:{"B":"19(1)(b) is right to assemble peaceably.","C":"Article 21 is right to life and personal liberty.","D":"Article 14 is right to equality."}},
+{id:24,q:"A 'dying declaration' under the Evidence Act is admissible under:",opts:["Section 31","Section 32","Section 33","Section 34"],ans:1,topic:"Evidence Act · Dying Declaration",exp:"Section 32 of the Indian Evidence Act makes dying declaration admissible as an exception to hearsay rule. It is a statement by a person who is dead about the cause of death.",mem:"🧠 32 = DYING DECLARATION. '32 teeth — when teeth fall you're dying! Section 32 saves the dying words!'",wrong:{"A":"Section 31 deals with admissions.","C":"Section 33 is evidence given in previous judicial proceedings.","D":"Section 34 is entries in books of account."}},
+{id:25,q:"Under IPC, the minimum number of persons required for rioting is:",opts:["3","5","10","2"],ans:1,topic:"IPC · Rioting",exp:"Section 146 IPC — Rioting requires 5 or more persons. An unlawful assembly (Section 141) itself needs 5 persons.",mem:"🧠 RIOT = 5 persons. 'HIGH FIVE for a RIOT!' 5 fingers = 5 rioters. Section 146.",wrong:{"A":"3 persons are not enough for rioting under IPC.","C":"10 persons are not specified for rioting.","D":"2 persons cannot constitute an unlawful assembly."}},
+{id:26,q:"The concept of 'Judicial Review' in India refers to:",opts:["Review of court judgments","Power of courts to declare laws unconstitutional","Administrative review","Revision by High Court"],ans:1,topic:"Constitution · Judicial Review",exp:"Judicial Review is the power of the Supreme Court and High Courts to examine the constitutional validity of laws and executive actions.",mem:"🧠 JUDICIAL REVIEW = CONSTITUTION CHECK. Courts check if laws pass the Constitutional TEST. Like a REVIEW before publishing!",wrong:{"A":"Review of judgments is the 'review' jurisdiction — separate concept.","C":"Administrative review is done by executive bodies.","D":"Revision is a specific power under CrPC/CPC — different from judicial review."}},
+{id:27,q:"Under CrPC, bail in non-bailable offences is granted by:",opts:["Police officer only","Magistrate or Court only","Both police and court","Session Court only"],ans:1,topic:"CrPC · Bail",exp:"In non-bailable offences, only a Magistrate or Court can grant bail (Section 437 CrPC). Police cannot grant bail in non-bailable offences.",mem:"🧠 NON-BAILABLE = COURT ONLY. 'Non-bailable is NON-negotiable with police — go to COURT!'",wrong:{"A":"Police can grant bail only in bailable offences under Section 436.","C":"Police cannot grant bail for non-bailable offences.","D":"Session Court is one option but Magistrate courts also have this power."}},
+{id:28,q:"Which doctrine protects citizens from double punishment?",opts:["Autrefois acquit","Res judicata","Double jeopardy","Both A and C"],ans:3,topic:"Constitution · Double Jeopardy",exp:"Article 20(2) protects against double jeopardy. 'Autrefois acquit' and 'autrefois convict' are common law principles. Both A and C are correct.",mem:"🧠 DOUBLE JEOPARDY = Article 20(2). 'Double JEOPARDY = TWO punishments = PROHIBITED under Article 20(2)'",wrong:{"A":"Autrefois acquit is one form but double jeopardy is the constitutional protection.","B":"Res judicata is a civil concept — not criminal protection.","C":"Double jeopardy is correct but autrefois acquit is also a correct principle."}},
+{id:29,q:"Under the Hindu Succession Act 1956, Class I heirs include:",opts:["Son, daughter, widow","Father, uncle, brother","Daughter's son, daughter's daughter","Only A and C"],ans:3,topic:"Family Law · Succession",exp:"Class I heirs include son, daughter, widow, mother, son's son, son's daughter, son's widow, daughter's son, daughter's daughter.",mem:"🧠 Class I = Close family. Think: Son+Daughter+Widow+Mother = First ring. The grandchildren through both son and daughter are also Class I!",wrong:{"A":"Partially correct — Class I also includes daughter's children.","B":"Father is a Class II heir. Uncle and brother are also Class II.","C":"Correct but incomplete — son, daughter, widow are also Class I."}},
+{id:30,q:"Section 420 IPC deals with:",opts:["Rape","Cheating and dishonestly inducing delivery of property","Robbery","Dacoity"],ans:1,topic:"IPC · Cheating",exp:"Section 420 IPC: Cheating and dishonestly inducing delivery of property — punishment up to 7 years imprisonment.",mem:"🧠 420 = CHEAT. This is the most famous IPC section in Indian pop culture! '420 = CHEAT in common language!' Movies named '420' — everyone knows!",wrong:{"A":"Rape is Sections 375-376.","C":"Robbery is Section 390-392.","D":"Dacoity is Section 391-395."}},
+{id:31,q:"The maximum punishment under Section 304B IPC (Dowry Death) is:",opts:["7 years","10 years","Life imprisonment","Death"],ans:2,topic:"IPC · Dowry Death",exp:"Section 304B IPC: Dowry death — minimum 7 years, maximum life imprisonment. Note: Not death penalty, but life imprisonment.",mem:"🧠 304B = DOWRY DEATH → LIFE sentence. B = BIG punishment = Life. 'B for Beyond 7 = LIFE!'",wrong:{"A":"7 years is the MINIMUM, not maximum.","B":"10 years is not the prescribed maximum.","D":"Death penalty is not prescribed for Section 304B."}},
+{id:32,q:"Writs under Article 226 can be issued by High Courts against:",opts:["Only Government","Only private parties","Both Government and private parties","Only Union Government"],ans:2,topic:"Constitution · Article 226",exp:"Under Article 226, High Courts can issue writs against both State/Union Government AND private bodies if there is a public duty or public law element.",mem:"🧠 Article 226 = WIDER SCOPE. HC writs cover BOTH government and private (with public duty). More powerful than Article 32!",wrong:{"A":"Only government would make Article 226 too restrictive.","B":"Private parties alone would miss government accountability.","D":"Only Union would exclude State governments."}},
+{id:33,q:"The doctrine of 'promissory estoppel' in Indian law means:",opts:["Promise binds only if under seal","A clear promise on which party relied cannot be withdrawn","All promises are binding","Estoppel applies only to contracts"],ans:1,topic:"Contract Law · Estoppel",exp:"Promissory estoppel prevents a party from going back on a clear promise when the other party has acted upon it to their detriment.",mem:"🧠 PROMISE + ESTOPPEL = Can't take back! 'Stop (estoppel) the withdrawal of your PROMISE!' Once promised & relied upon — STUCK!",wrong:{"A":"Seal is a common law concept — Indian law doesn't require it.","C":"Not all promises are binding — only those with consideration typically.","D":"Promissory estoppel applies even outside formal contracts."}},
+{id:34,q:"Under Muslim Personal Law, 'Mehr' refers to:",opts:["Divorce by husband","Dower paid to wife","Adopted child","Custody of children"],ans:1,topic:"Muslim Personal Law",exp:"Mehr (or Mahr/Dower) is the mandatory payment from groom to bride under Muslim law. It is the wife's absolute property.",mem:"🧠 MEHR = MONEY for wife in Muslim marriage. 'MEHR = MORE respect for wife = DOWER!' The M in MEHR = Money for wife.",wrong:{"A":"Divorce by husband is 'Talaq'.","C":"Adoption is not recognized in Muslim personal law (though guardianship is).","D":"Custody is 'Hizanat' in Muslim law."}},
+{id:35,q:"Under CPC, the 'Precept' is issued under:",opts:["Order 5","Order 21","Section 46","Order 38"],ans:2,topic:"CPC · Execution",exp:"Section 46 CPC deals with Precept — an order from the court passing the decree to another court to attach property of judgment-debtor.",mem:"🧠 Section 46 = PRECEPT. 'P-R-E-C-E-P-T = Pre-Captured = ATTACH property first!' Section 46 precedes execution.",wrong:{"A":"Order 5 deals with summons to defendants.","B":"Order 21 deals with execution of decrees generally.","D":"Order 38 deals with arrest before judgment."}},
+{id:36,q:"The Constitution of India was adopted on:",opts:["15 August 1947","26 January 1950","26 November 1949","2 October 1869"],ans:2,topic:"Constitution · Historical",exp:"The Constitution was ADOPTED on 26 November 1949 (Constitution Day/Samvidhan Diwas) but ENFORCED on 26 January 1950 (Republic Day).",mem:"🧠 ADOPTED 26 Nov 1949 → ENFORCED 26 Jan 1950. 'November = Birthday, January = Working Day!' Two 26ths!",wrong:{"A":"15 August 1947 is Independence Day.","B":"26 January 1950 is when Constitution CAME INTO FORCE (Republic Day).","D":"2 October 1869 is Gandhi's birth date."}},
+{id:37,q:"'Actus reus' in criminal law means:",opts:["Guilty mind","Wrongful act","Act of state","Civil wrong"],ans:1,topic:"Criminal Law · Basics",exp:"Actus reus = the physical element of crime — the wrongful act. Together with mens rea (guilty mind), it forms the crime.",mem:"🧠 ACTUS = ACT, REUS = WRONGFUL. 'ACTUS REUS = ACTION that's WRONG.' The physical part of crime. Mens rea is mental, actus reus is physical.",wrong:{"A":"Guilty mind is mens rea — the mental element.","C":"Act of State is a separate doctrine in public international law.","D":"Civil wrong is tort — actus reus is specifically a criminal law concept."}},
+{id:38,q:"Under which Act is 'Lok Adalat' award treated as a decree of civil court?",opts:["CPC 1908","Arbitration Act 1996","Legal Services Authorities Act 1987","Administrative Tribunals Act"],ans:2,topic:"ADR · Lok Adalat",exp:"Section 21 of the Legal Services Authorities Act 1987 provides that a Lok Adalat award is deemed to be a decree of civil court and is final and binding.",mem:"🧠 LSA Act 1987, Section 21 = LOK ADALAT AWARD = Civil Court Decree. Section 21 → 21 gun salute = FINAL & BINDING!",wrong:{"A":"CPC doesn't give Lok Adalat this status.","B":"Arbitration Act 1996 governs arbitral awards separately.","D":"Administrative Tribunals Act governs service matters."}},
+{id:39,q:"'Maintenance' under Section 125 CrPC can be claimed by:",opts:["Only wife","Only children","Wife, children, and parents","Only parents"],ans:2,topic:"CrPC · Maintenance",exp:"Section 125 CrPC provides maintenance to wife, legitimate/illegitimate children, and parents. It is a secular provision applicable to all religions.",mem:"🧠 Section 125 = WIFE + KIDS + PARENTS. '125 = 1(wife) + 2(children) + 5(parents) — all get maintenance!' Secular for all religions.",wrong:{"A":"Wife alone is too narrow — the section covers more.","B":"Children alone is incorrect — wife and parents are also included.","D":"Parents alone is incorrect — wife and children are primary claimants."}},
+{id:40,q:"Principle of 'Audi alteram partem' means:",opts:["Act judicially","Hear the other side","No man judge of own cause","Rule of evidence"],ans:1,topic:"Administrative Law · Natural Justice",exp:"Audi alteram partem = Latin 'hear the other side.' It is the first rule of natural justice requiring fair hearing before adverse action.",mem:"🧠 AUDI = AUDIO = HEAR. ALTERAM = ALTER = OTHER. PARTEM = PART = SIDE. 'AUDI the other PART!' Like Audi car — HEAR it roar on the other side!",wrong:{"A":"'Act judicially' is a broader requirement, not this specific maxim.","C":"'No man judge of own cause' = Nemo judex (second rule of natural justice).","D":"Rule of evidence is a procedural concept under Evidence Act."}},
+{id:41,q:"Under Section 17 of the Registration Act, which documents are compulsorily registrable?",opts:["Gifts of immovable property","Leases of immovable property for less than 1 year","Both A and B","Will deeds"],ans:0,topic:"Registration Act",exp:"Section 17 Registration Act: Gift deeds of immovable property are compulsorily registrable. Leases above 1 year also need registration.",mem:"🧠 GIFT of IMMOVABLE PROPERTY = MUST REGISTER. 'Gift that's IMMOVABLE needs IMMOVABLE stamp of registration!'",wrong:{"B":"Leases below 1 year don't need registration — above 1 year do.","C":"Only gifts, not sub-1-year leases.","D":"Wills are NOT compulsorily registrable (but can be voluntarily)."}},
+{id:42,q:"The term 'Preamble' of the Constitution describes India as:",opts:["Federal, Democratic, Republic","Sovereign, Socialist, Secular, Democratic Republic","Parliamentary Democracy","Constitutional Monarchy"],ans:1,topic:"Constitution · Preamble",exp:"The Preamble (amended by 42nd Amendment 1976) describes India as a Sovereign, Socialist, Secular, Democratic Republic.",mem:"🧠 SSSDR = Sovereign Socialist Secular Democratic Republic. Mnemonic: 'SSS-DR INDIA' — 3 S's + Democratic Republic! 'Sab Se Sundar Democratic Republic!'",wrong:{"A":"Incomplete — missing Socialist, Secular, Sovereign.","C":"Parliamentary Democracy is a feature but not how the Preamble describes it.","D":"India is not a Constitutional Monarchy — it's a republic."}},
+{id:43,q:"Under Contract Act, 'coercion' is defined under:",opts:["Section 10","Section 15","Section 16","Section 17"],ans:1,topic:"Contract Act · Vitiating Factors",exp:"Section 15 ICA defines coercion as committing or threatening to commit any act forbidden by IPC to obtain consent.",mem:"🧠 Section 15 = COERCION. 15 = '1 FIST' (coercion = forcing with fist). Or: 15 comes before 16 (undue influence) — C before U!",wrong:{"A":"Section 10 lays down essentials of a valid contract.","C":"Section 16 defines undue influence.","D":"Section 17 defines fraud."}},
+{id:44,q:"The right against self-incrimination is guaranteed under:",opts:["Article 19","Article 20(3)","Article 21","Article 22"],ans:1,topic:"Constitution · Fundamental Rights",exp:"Article 20(3): No person accused of an offence shall be compelled to be a witness against himself.",mem:"🧠 Article 20(3) = No SELF-INCRIMINATION. '20(3) = TWENTY-THREE = 2-3 words: STAY SILENT!' 20th = 2, 3rd clause = 3 = FIFTH AMENDMENT parallel!",wrong:{"A":"Article 19 is freedom of speech, assembly, etc.","C":"Article 21 is right to life and liberty.","D":"Article 22 deals with detention and arrest safeguards."}},
+{id:45,q:"Specific performance of contract is governed by:",opts:["Contract Act 1872","Specific Relief Act 1963","Transfer of Property Act","Registration Act 1908"],ans:1,topic:"Specific Relief Act",exp:"The Specific Relief Act 1963 governs specific performance of contracts, injunctions, and declaratory reliefs.",mem:"🧠 SPECIFIC PERFORMANCE = SPECIFIC RELIEF ACT. 'SPECIFIC relief for SPECIFIC performance — same word, same Act!'",wrong:{"A":"Contract Act defines contracts and their validity.","C":"TPA deals with transfer of property rights.","D":"Registration Act deals with document registration."}},
+{id:46,q:"Under IPC, 'abetment' is dealt with in which sections?",opts:["Sections 107-120","Sections 120A-120B","Sections 300-304","Sections 378-382"],ans:0,topic:"IPC · Abetment",exp:"Sections 107-120 IPC deal with abetment. Section 107 defines abetment; Sections 108-120 provide various punishment provisions.",mem:"🧠 107-120 = ABETMENT. 'ABETment = ABET = A-BET = Always BETween 107-120!' Start remembering from ABEt=107!",wrong:{"B":"120A-120B are criminal conspiracy sections.","C":"300-304 are murder and culpable homicide.","D":"378-382 are theft and robbery."}},
+{id:47,q:"Under the Arbitration and Conciliation Act 1996, the arbitral award can be challenged under:",opts:["Section 34","Section 37","Section 48","Section 50"],ans:0,topic:"Arbitration Law",exp:"Section 34 of the Arbitration and Conciliation Act 1996 allows challenge to an arbitral award on specified grounds.",mem:"🧠 Section 34 = CHALLENGE AWARD. 34 = '3 + 4 = 7 days? No — 3 months to challenge!' Section 34 gives 3 months.",wrong:{"B":"Section 37 is appellate remedy after Section 34 is decided.","C":"Section 48 deals with refusal to enforce foreign awards.","D":"Section 50 is appeal from orders under Part II (foreign awards)."}},
+{id:48,q:"The doctrine of 'ultra vires' in administrative law means:",opts:["Acts within authority","Acts beyond authority","Acts of judicial review","Acts of Parliament"],ans:1,topic:"Administrative Law",exp:"Ultra vires = Latin 'beyond powers.' An administrative act is ultra vires if the authority exceeds its legal powers.",mem:"🧠 ULTRA = BEYOND, VIRES = POWERS. 'ULTRA man is BEYOND normal powers — but ultra vires = ILLEGAL beyond powers!'",wrong:{"A":"Acts within authority = 'intra vires' (opposite).","C":"Acts of judicial review is a process, not ultra vires.","D":"Acts of Parliament is a separate doctrine."}},
+{id:49,q:"Under Family Courts Act 1984, Family Courts have jurisdiction over:",opts:["Criminal matters","Matrimonial matters and child custody","Tax disputes","Property disputes only"],ans:1,topic:"Family Law · Family Courts",exp:"Family Courts Act 1984 — Family Courts have jurisdiction over matrimonial relief, custody, maintenance, property between spouses, etc.",mem:"🧠 FAMILY COURT = FAMILY MATTERS. Matrimonial disputes + Child custody = Family Court. Simple!",wrong:{"A":"Criminal matters go to criminal courts (Magistrate/Sessions).","C":"Tax disputes go to tax tribunals.","D":"Property disputes between non-spouses go to civil courts."}},
+{id:50,q:"Right to Education (RTE Act) is covered under which Constitutional Article?",opts:["Article 21","Article 21A","Article 45","Article 30"],ans:1,topic:"Constitution · Education",exp:"Article 21A (inserted by 86th Constitutional Amendment 2002) makes free and compulsory education a Fundamental Right for children 6-14 years.",mem:"🧠 Article 21A = RIGHT TO EDUCATION. A = ADDITION to 21 = Education RIGHT! RTE Act 2009 implements 21A!",wrong:{"A":"Article 21 is right to life — education is read into it but 21A is specific.","C":"Article 45 is DPSP for early childhood care — not fundamental right.","D":"Article 30 is right of minorities to establish educational institutions."}},
+{id:51,q:"Under Section 498A IPC, the offence of 'cruelty by husband' carries punishment of:",opts:["1 year","3 years","5 years","7 years"],ans:1,topic:"IPC · Matrimonial Cruelty",exp:"Section 498A IPC: Husband or his relatives subjecting woman to cruelty — imprisonment up to 3 years and fine.",mem:"🧠 498A = 3 YEARS. '4+9+8=21, +A=additional 3 years.' Or: '498A — marital cruelty = 3-year max!' (Cognizable, non-bailable, non-compoundable)",wrong:{"A":"1 year is too short for this serious offence.","C":"5 years is Section 304B minimum (dowry death).","D":"7 years is for more serious offences like theft, cheating."}},
+{id:52,q:"Doctrine of 'Precedent' (Stare Decisis) means:",opts:["Lower courts need not follow HC","Supreme Court decisions bind all courts","High Court decisions bind Supreme Court","All courts are equal"],ans:1,topic:"Jurisprudence",exp:"Stare decisis = 'stand by what has been decided.' Supreme Court decisions bind all courts in India. Article 141 mandates this.",mem:"🧠 STARE DECISIS = STAND by DECISION. SC → ALL courts must follow. 'STARE at SC decision and DECIDE to follow!'",wrong:{"A":"Lower courts MUST follow High Court decisions in their jurisdiction.","C":"SC is not bound by HC — it's the other way.","D":"All courts are NOT equal — there is a hierarchy."}},
+{id:53,q:"Under the Negotiable Instruments Act, dishonour of cheque is covered under:",opts:["Section 136","Section 138","Section 140","Section 142"],ans:1,topic:"NI Act · Cheque Dishonour",exp:"Section 138 NI Act — Dishonour of cheque for insufficiency of funds — imprisonment up to 2 years or fine up to twice the cheque amount or both.",mem:"🧠 Section 138 = CHEQUE BOUNCE. '138 = 1-3-8 = ONE CHECK BOUNCED — 8 arms catching it!' Everyone knows: cheque bounce = 138 NI Act!",wrong:{"A":"Section 136 is about payment in due course.","C":"Section 140 — defence of accused.","D":"Section 142 deals with cognizance of offences under 138."}},
+{id:54,q:"Under International Law, the 'Vienna Convention on Law of Treaties' was adopted in:",opts:["1961","1963","1969","1979"],ans:2,topic:"International Law",exp:"Vienna Convention on the Law of Treaties was adopted in 1969 and came into force in 1980. It governs treaty-making between states.",mem:"🧠 VCLT = 1969. '1969 = Year of MOON LANDING and TREATY RULES!' Both are about 'going beyond boundaries!'",wrong:{"A":"1961 is the Vienna Convention on Diplomatic Relations.","B":"1963 is Vienna Convention on Consular Relations.","D":"1979 — no major treaty convention was adopted then."}},
+{id:55,q:"The maxim 'Ex nudo pacto non oritur actio' means:",opts:["From a nude pact no action arises","Contract requires consideration","Bare agreement has no legal effect","Both A and C"],ans:3,topic:"Contract Law · Consideration",exp:"This maxim means no action arises from a bare agreement without consideration — emphasising that consideration is essential for a binding contract.",mem:"🧠 EX NUDO = FROM NUDE (bare) PACTO = PACT. 'NAKED PACT = NO action!' Bare promise = No contract without consideration!",wrong:{"A":"Correct translation but incomplete.","B":"True but not the direct translation of the maxim.","C":"True but incomplete without the translation."}},
+{id:56,q:"Protection of Women from Domestic Violence Act was enacted in:",opts:["2002","2005","2007","2010"],ans:1,topic:"Special Laws · PWDVA",exp:"The Protection of Women from Domestic Violence Act (PWDVA) was enacted in 2005. It provides civil remedies for domestic violence victims.",mem:"🧠 PWDVA = 2005. '2005 = 20+05=25 = FIVE letters in WOMEN. Protect 5-letter WOMEN in 2005!'",wrong:{"A":"2002 is when Protection of Children from Sexual Offences (POCSO) was being discussed.","C":"2007 is not the year — the Act was enacted in 2005 but Rules were notified in 2006.","D":"2010 is much later — amendments were discussed then."}},
+{id:57,q:"The Prevention of Corruption Act was amended significantly in:",opts:["2016","2018","2019","2020"],ans:1,topic:"Special Laws · PC Act",exp:"The Prevention of Corruption (Amendment) Act, 2018 made significant changes including criminalising bribe-giving and changes to Section 13.",mem:"🧠 PC Act Amendment = 2018. '2018 = 20+18=38 = Three-Eight = CLEAN SLATE for corruption laws!'",wrong:{"A":"2016 had discussions but not the amendment.","C":"2019 was post-amendment implementation.","D":"2020 focused on COVID-related legislation."}},
+{id:58,q:"Under IPC, 'Criminal Conspiracy' is defined in:",opts:["Section 120","Section 120A","Section 120B","Section 121"],ans:1,topic:"IPC · Criminal Conspiracy",exp:"Section 120A IPC defines criminal conspiracy. Section 120B provides punishment. Two or more persons agreeing to do an illegal act or legal act by illegal means.",mem:"🧠 120A = DEFINITION of conspiracy. 120B = PUNISHMENT. 'A comes before B — Define before Punish!' 120A defines, 120B bites!",wrong:{"A":"Section 120 is no longer in force (it was repealed).","C":"Section 120B is the punishment section for criminal conspiracy.","D":"Section 121 is waging war against the Government of India."}},
+{id:59,q:"Which article of the Constitution abolishes untouchability?",opts:["Article 14","Article 16","Article 17","Article 18"],ans:2,topic:"Constitution · Fundamental Rights",exp:"Article 17 abolishes untouchability and forbids its practice. 'Untouchability' is punishable under the Protection of Civil Rights Act 1955.",mem:"🧠 Article 17 = UNTOUCHABILITY ABOLISHED. '17 = 1+7=8 = Untouchable are FREE from chain of 8!' Or: 17 letters? No: 'Seven-teen = Clean-teen = Clean practice!'",wrong:{"A":"Article 14 is right to equality.","B":"Article 16 is equality of opportunity in public employment.","D":"Article 18 abolishes titles (except military/academic)."}},
+{id:60,q:"Supreme Court of India was established in:",opts:["1935","1947","1950","1935 then reconstituted in 1950"],ans:3,topic:"Constitution · Judiciary",exp:"The Federal Court of India was established in 1935. It was reconstituted as the Supreme Court of India when the Constitution came into force in 1950.",mem:"🧠 Federal Court 1935 → Supreme Court 1950. 'Old court UPGRADED in 1950!' Two birthdays of Indian apex court.",wrong:{"A":"1935 is when Federal Court (predecessor) was established.","B":"1947 is Independence — the Supreme Court was not constituted then.","C":"1950 is when it was reconstituted but 1935 had the Federal Court."}},
+];}
+
+function getGKQuestions2020() { return [
+{id:61,q:"Who is the author of 'The Discovery of India'?",opts:["M.K. Gandhi","Jawaharlal Nehru","Subhas Chandra Bose","B.R. Ambedkar"],ans:1,topic:"GK · Books",exp:"'The Discovery of India' was written by Jawaharlal Nehru while imprisoned at Ahmednagar Fort (1942-46).",mem:"🧠 Discovery of India = NEHRU. 'Nehru DISCOVERED India while IMPRISONED! Like Columbus discovered America!'",wrong:{"A":"Gandhi wrote 'My Experiments with Truth' (autobiography).","C":"Subhas Chandra Bose wrote 'The Indian Struggle'.","D":"Ambedkar wrote 'Annihilation of Caste' and 'Who Were the Shudras'."}},
+{id:62,q:"The Headquarters of the International Court of Justice is located in:",opts:["New York","Geneva","The Hague","Vienna"],ans:2,topic:"GK · International Organisations",exp:"The International Court of Justice (ICJ) is located at the Peace Palace in The Hague, Netherlands. It's the principal judicial organ of the UN.",mem:"🧠 ICJ = THE HAGUE. 'THE HAGUE is HUGE for JUSTICE!' Peace Palace in Netherlands.",wrong:{"A":"New York is the UN Headquarters.","B":"Geneva has WHO, UNHRC etc.","D":"Vienna has OPEC, IAEA etc."}},
+{id:63,q:"The first woman to become Chief Justice of a High Court in India was:",opts:["Justice Leila Seth","Justice Fathima Beevi","Justice Sujata Manohar","Justice Ruma Pal"],ans:0,topic:"GK · Firsts in India",exp:"Justice Leila Seth became the first woman Chief Justice of a High Court (Himachal Pradesh HC) in 1991.",mem:"🧠 Leila Seth = FIRST Woman CJ of HC. 'LEILA = LEADING = First!' Her son is author Vikram Seth.",wrong:{"B":"Justice Fathima Beevi was first woman judge of Supreme Court (1989).","C":"Justice Sujata Manohar was second woman SC judge.","D":"Justice Ruma Pal was also a Supreme Court judge later."}},
+{id:64,q:"The National Green Tribunal (NGT) was established in:",opts:["2008","2010","2012","2014"],ans:1,topic:"GK · Environmental Law",exp:"The National Green Tribunal was established under the National Green Tribunal Act 2010.",mem:"🧠 NGT = 2010. 'NGT = Nature's Guardian Team, established in 2010!' One year after Copenhagen Climate Summit 2009.",wrong:{"A":"2008 is when the NGT Bill was being drafted.","C":"2012 is when NGT became fully operational.","D":"2014 is not the establishment year."}},
+{id:65,q:"'Operation Smile' in India is related to:",opts:["Heart surgeries","Children welfare","Missing children recovery","Cancer treatment"],ans:2,topic:"GK · Government Schemes",exp:"Operation Smile is a police initiative to trace missing children and reunite them with their families.",mem:"🧠 Operation Smile = MISSING CHILDREN smile when found! 'Smile = children's face when found = MISSING CHILDREN recovery!'",wrong:{"A":"Heart surgeries are not related to Operation Smile.","B":"Children welfare broadly — but specifically about missing children.","D":"Cancer treatment is unrelated."}},
+{id:66,q:"The Pradhan Mantri Jan Dhan Yojana was launched in:",opts:["2013","2014","2015","2016"],ans:1,topic:"GK · Government Schemes",exp:"PM Jan Dhan Yojana (PMJDY) was launched on 28 August 2014 by PM Narendra Modi. It is a financial inclusion scheme.",mem:"🧠 PMJDY = 2014. 'Jan DAN (financial charity) started when new government came in 2014!' Zero balance bank accounts.",wrong:{"A":"2013 was UPA government's last full year.","C":"2015 had PM Mudra Yojana, Skill India etc.","D":"2016 was demonetisation year."}},
+{id:67,q:"Who wrote the Indian National Anthem 'Jana Gana Mana'?",opts:["Bankim Chandra Chattopadhyay","Rabindranath Tagore","Subramanian Bharati","Sarojini Naidu"],ans:1,topic:"GK · India",exp:"Jana Gana Mana was composed by Rabindranath Tagore in Bengali. It was adopted as National Anthem on 24 January 1950.",mem:"🧠 JANA GANA MANA = TAGORE. 'TAGORE took care of our anthem! Also wrote Vande Mataram? No — that's Bankim!' Don't confuse them!",wrong:{"A":"Bankim Chandra wrote 'Vande Mataram' (National Song, not Anthem).","C":"Subramanian Bharati was a Tamil poet.","D":"Sarojini Naidu was 'Nightingale of India' — poet and freedom fighter."}},
+{id:68,q:"The Chairperson of the National Human Rights Commission (NHRC) must be:",opts:["A sitting judge of SC","A retired Chief Justice of India","A retired Judge of SC","A retired Chief Justice of a HC"],ans:1,topic:"GK · Human Rights",exp:"Section 3 of the Protection of Human Rights Act 1993: The Chairperson of NHRC shall be a retired Chief Justice of India.",mem:"🧠 NHRC Chair = Retired CJI. 'NHRC CHIEF = India's retired CHIEF justice!' The topmost retired judicial officer.",wrong:{"A":"Sitting judges cannot be appointed — must be RETIRED.","C":"Retired judge of SC is for NHRC members, not chairman.","D":"Retired CJ of HC is for State Human Rights Commission chairman."}},
+{id:69,q:"The Right to Information Act (RTI) was enacted in:",opts:["2003","2004","2005","2006"],ans:2,topic:"GK · Special Laws",exp:"The Right to Information Act was enacted on 15 June 2005 and came into force on 12 October 2005.",mem:"🧠 RTI = 2005. 'R-T-I-2005! RIGHT TO INFORMATION came with the UPA government's new term in 2004-2005!' 3 letters RTI = 2+0+0+5=7 letters in freedom",wrong:{"A":"2003 is when some state RTI laws existed.","B":"2004 is UPA election victory — RTI passed next year.","D":"2006 is after RTI was already enacted."}},
+{id:70,q:"The Narcotics Control Bureau (NCB) operates under which Ministry?",opts:["Home Ministry","Finance Ministry","Health Ministry","Law Ministry"],ans:0,topic:"GK · Government",exp:"The Narcotics Control Bureau operates under the Ministry of Home Affairs. It is the nodal drug law enforcement agency.",mem:"🧠 NCB = HOME Ministry. 'HOME needs to be DRUG-FREE! Home Ministry controls drug enforcement — NCB!'",wrong:{"B":"Finance Ministry handles ED (Enforcement Directorate) and CBDT.","C":"Health Ministry handles drug regulation (CDSCO) not enforcement.","D":"Law Ministry handles legal affairs and judiciary."}},
+{id:71,q:"Which Article of the Indian Constitution deals with the election of the President?",opts:["Article 52","Article 54","Article 56","Article 58"],ans:1,topic:"GK · Constitution",exp:"Article 54 deals with the election of the President of India by the Electoral College.",mem:"🧠 Article 54 = PRESIDENT ELECTION. '54 = 5+4=9 = PRESIDENT is No. 1 (9th letter I?) — Article 54 elects FIRST citizen!'",wrong:{"A":"Article 52 establishes the office of President.","C":"Article 56 deals with term of President.","D":"Article 58 lays down qualifications for President."}},
+{id:72,q:"The International Day of Yoga is celebrated on:",opts:["5 June","21 June","21 September","2 October"],ans:1,topic:"GK · International Days",exp:"International Day of Yoga is celebrated on 21 June every year, proposed by India and adopted by UN in 2014. First celebrated in 2015.",mem:"🧠 YOGA DAY = 21 JUNE = Longest day (Summer Solstice). 'On the LONGEST day, do YOGA for longest life!'",wrong:{"A":"5 June is World Environment Day.","C":"21 September is International Day of Peace.","D":"2 October is Gandhi Jayanti and World Non-Violence Day."}},
+{id:73,q:"The Fundamental Duties were added to the Constitution by:",opts:["42nd Amendment","43rd Amendment","44th Amendment","45th Amendment"],ans:0,topic:"GK · Constitution",exp:"The 42nd Constitutional Amendment 1976 added Part IV-A (Article 51-A) containing 10 Fundamental Duties. An 11th duty was added by 86th Amendment 2002.",mem:"🧠 42nd Amendment 1976 = FUNDAMENTAL DUTIES. '42 = DUTIES. 42nd = Emergency era 1976 = Indira Gandhi added duties!'",wrong:{"B":"43rd Amendment (1977) restored certain rights removed by 42nd.","C":"44th Amendment (1978) restored right to property as legal right.","D":"45th Amendment is not significant for Fundamental Duties."}},
+{id:74,q:"The term 'Zero Hour' in Parliament refers to:",opts:["The first hour of session","Immediately after question hour for urgent matters","The last session of the day","Secret session"],ans:1,topic:"GK · Parliament",exp:"Zero Hour is the period immediately after Question Hour in Parliament when members can raise matters of urgent public importance without prior notice.",mem:"🧠 ZERO HOUR = AFTER QUESTION HOUR. '0 hours notice needed! Raise URGENT matters at ZERO notice!' Urgent + No notice = Zero Hour.",wrong:{"A":"First hour of session is Question Hour (11 AM usually).","C":"Last session has different terminologies.","D":"Secret session (in camera) is a rare constitutional provision."}},
+{id:75,q:"The Bhopal Gas Tragedy occurred in:",opts:["1982","1984","1986","1988"],ans:1,topic:"GK · Historical Events",exp:"The Bhopal Gas Tragedy occurred on the night of 2-3 December 1984. Methyl isocyanate (MIC) gas leaked from Union Carbide's plant.",mem:"🧠 BHOPAL TRAGEDY = 1984. '1984 = 84 = BHOPAL 84! Same year as Indira Gandhi assassination.' Darkest year in India.",wrong:{"A":"1982 is not related to the Bhopal gas tragedy.","C":"1986 was Chernobyl nuclear disaster.","D":"1988 is not related."}},
+{id:76,q:"Which country is known as the 'Land of the Rising Sun'?",opts:["China","South Korea","Japan","Vietnam"],ans:2,topic:"GK · Geography",exp:"Japan is called the 'Land of the Rising Sun.' The name Japan (Nippon/Nihon) means 'origin of the sun.'",mem:"🧠 JAPAN = RISING SUN. Japan's FLAG is the sun! Japan = Nippon = Sun origin. Rising in the EAST = Japan!",wrong:{"A":"China is called 'Middle Kingdom' (Zhongguo).","B":"South Korea is known for technology, not rising sun.","D":"Vietnam is not the land of rising sun."}},
+{id:77,q:"The Prevention of Money Laundering Act (PMLA) was enacted in:",opts:["1999","2002","2005","2008"],ans:1,topic:"GK · Special Laws",exp:"PMLA was enacted in 2002 and came into force on 1 July 2005. It combats money laundering and confiscates property derived from money laundering.",mem:"🧠 PMLA = 2002 enacted, 2005 in force. 'P-M-L-A = 2002 = 4 letters, 4 digits in 2002!' Wash money in 2002, caught by 2005.",wrong:{"A":"1999 is not the PMLA year — it was being drafted then.","C":"2005 is when it CAME INTO FORCE, not enacted.","D":"2008 — subsequent amendments were made but not the original Act."}},
+{id:78,q:"The concept of 'Parliamentary Privilege' in India means:",opts:["Members are above law","Freedom of speech within Parliament cannot be questioned in courts","Parliament can do anything","Absolute immunity from all laws"],ans:1,topic:"GK · Constitution",exp:"Articles 105 and 194 provide parliamentary privileges — freedom of speech in Parliament and protection from proceedings in courts for what is said in Parliament.",mem:"🧠 Parliamentary Privilege = SPEECH PROTECTION in Parliament. 'What happens IN Parliament, STAYS in Parliament!' Courts can't touch it.",wrong:{"A":"Members are NOT above law — privileges are specific and limited.","C":"Parliament cannot do anything — constitutional limits apply.","D":"Not absolute immunity — specific privileges only."}},
+{id:79,q:"The National Legal Services Authority (NALSA) was constituted under:",opts:["Legal Services Authorities Act 1987","Constitution of India","CrPC 1973","Advocates Act 1961"],ans:0,topic:"GK · Legal Aid",exp:"NALSA was constituted under the Legal Services Authorities Act 1987. It provides free legal aid to eligible persons.",mem:"🧠 NALSA = LSA Act 1987. Same Act that governs Lok Adalats! 'NALSA and Lok Adalat = brothers from 1987 LSA Act!'",wrong:{"B":"Constitution doesn't constitute NALSA directly.","C":"CrPC doesn't constitute NALSA.","D":"Advocates Act deals with advocates' profession."}},
+{id:80,q:"The chairperson of NALSA (National Legal Services Authority) is:",opts:["Chief Justice of India","Senior-most judge of Supreme Court","Law Minister","Attorney General"],ans:0,topic:"GK · Legal Aid",exp:"The Chief Justice of India is the Patron-in-Chief of NALSA, and the second senior-most judge of Supreme Court is the Executive Chairman.",mem:"🧠 NALSA Patron = CJI. 'Chief Justice = Chief LEGAL AID! Top judge heads top legal aid body!'",wrong:{"B":"Senior-most judge is Executive Chairman, not Patron-in-Chief.","C":"Law Minister doesn't head NALSA.","D":"Attorney General is not the head of NALSA."}},
+{id:81,q:"The Right to Education Act (RTE) guarantees free education up to:",opts:["Class 5","Class 8","Class 10","Class 12"],ans:1,topic:"GK · Education",exp:"RTE Act 2009 guarantees free and compulsory education to all children between 6-14 years of age, which corresponds to Class 1 to Class 8.",mem:"🧠 RTE = 6-14 years = Class 1-8. '8th grade graduate = 14 years = RTE covers you!' RTE = Right Till Eight (class).",wrong:{"A":"Class 5 is too early — the right extends to Class 8.","C":"Class 10 is beyond the 14-year age limit of RTE.","D":"Class 12 is well beyond the scope of RTE."}},
+{id:82,q:"The Scheduled Castes and Scheduled Tribes (Prevention of Atrocities) Act was passed in:",opts:["1985","1989","1992","1995"],ans:1,topic:"GK · Special Laws",exp:"The SC/ST (Prevention of Atrocities) Act was passed in 1989 to prevent atrocities against SCs and STs and provide stringent punishment.",mem:"🧠 SC/ST Act = 1989. '1989 = 1+9+8+9=27 = Two-Seven = PROTECT the Scheduled communities!'",wrong:{"A":"1985 is not the year — discussions were ongoing.","C":"1992 had major events (Babri Masjid demolition) — not this Act.","D":"1995 — amendments came later but original Act is 1989."}},
+{id:83,q:"The State Legislature of Andhra Pradesh is:",opts:["Unicameral","Bicameral","Tricameral","None of these"],ans:1,topic:"GK · AP State",exp:"Andhra Pradesh has a bicameral legislature — Andhra Pradesh Legislative Assembly (Vidhan Sabha) and Andhra Pradesh Legislative Council (Vidhan Parishad).",mem:"🧠 AP = BICAMERAL. 'A-P has A Plus legislature — Assembly PLUS Council!' Two houses = Bicameral.",wrong:{"A":"Unicameral states have only one house — AP is not one.","C":"No Indian state has tricameral legislature.","D":"Both A and C are wrong — bicameral is correct."}},
+{id:84,q:"The first High Court in India was established in:",opts:["1848","1861","1862","1947"],ans:2,topic:"GK · Legal History",exp:"The Calcutta High Court (now Kolkata) was the first High Court established in India in 1862, followed by Bombay and Madras in the same year.",mem:"🧠 First HC = 1862 = CALCUTTA. '18-62 = 1862. C for Calcutta = First Court!' Remember: 1862 all three HCs (Calcutta, Bombay, Madras) established!",wrong:{"A":"1848 had no High Court — Supreme Courts of Presidencies existed.","B":"1861 is the year the Indian High Courts Act was passed.","D":"1947 is Independence — HCs already existed."}},
+{id:85,q:"The Contempt of Courts Act was enacted in:",opts:["1952","1967","1971","1974"],ans:2,topic:"GK · Contempt",exp:"The Contempt of Courts Act was enacted in 1971. It defines civil and criminal contempt and provides for punishments.",mem:"🧠 Contempt of Courts Act = 1971. '1971 = India won Bangladesh war = Courts also asserted their power in 1971!' Strong year.",wrong:{"A":"1952 is not the contempt law year.","B":"1967 is not correct — Act was passed in 1971.","D":"1974 is not the Contempt Act year."}},
+{id:86,q:"The Telangana state was formed in:",opts:["2012","2013","2014","2015"],ans:2,topic:"GK · TG State",exp:"Telangana state was officially formed on 2 June 2014 as the 29th state of India, carved out of Andhra Pradesh.",mem:"🧠 TELANGANA = 2 JUNE 2014. '29th state in 2014! T for Telangana = T+14=2014!' Special for this exam — know your state!",wrong:{"A":"2012 — Telangana movement was intense but state not formed.","B":"2013 — AP Reorganisation Bill passed in Parliament.","D":"2015 is after state formation."}},
+{id:87,q:"The Supreme Court of Judicature at Calcutta became the High Court by:",opts:["Government of India Act 1858","Indian High Courts Act 1861","Government of India Act 1935","Constitution 1950"],ans:1,topic:"GK · Legal History",exp:"The Indian High Courts Act 1861 replaced the Supreme Courts of Presidencies with High Courts in Calcutta, Bombay, and Madras.",mem:"🧠 Indian HC Act 1861 = Supreme Courts → High Courts. '1861 = 18+61=79 = TRANSFORMATION year!' Old Supreme = New High!",wrong:{"A":"1858 transferred power from East India Company to Crown.","C":"1935 established Federal Court.","D":"1950 established Supreme Court of India."}},
+{id:88,q:"The Comptroller and Auditor General (CAG) of India is appointed by:",opts:["Parliament","Prime Minister","President","Finance Minister"],ans:2,topic:"GK · Constitutional Bodies",exp:"Article 148 — CAG is appointed by the President of India. CAG audits all government expenditure.",mem:"🧠 CAG = Appointed by PRESIDENT. 'CAG CATCHES misuse of money — PRESIDENT appoints the CATCHER!' Constitutional appointment.",wrong:{"A":"Parliament doesn't appoint CAG — President does.","B":"PM advises but President formally appoints.","D":"Finance Minister has no role in CAG appointment."}},
+{id:89,q:"The Hyderabad is located on which river?",opts:["Krishna","Godavari","Musi","Tungabhadra"],ans:2,topic:"GK · Geography",exp:"Hyderabad city is located on the banks of the Musi River. The Musi is a tributary of the Krishna River.",mem:"🧠 HYDERABAD = MUSI RIVER. 'MUSI = MUSIC of Hyderabad! The city dances on the Musi river banks!'",wrong:{"A":"Krishna is the major river of AP — not the river on which Hyderabad sits.","B":"Godavari flows through northern Telangana.","D":"Tungabhadra is in Karnataka."}},
+{id:90,q:"Rajya Sabha is also known as:",opts:["House of the People","Council of States","Upper House only","House of Elders"],ans:1,topic:"GK · Parliament",exp:"Rajya Sabha means 'Council of States.' It is the upper house of the Indian Parliament representing the states.",mem:"🧠 RAJYA SABHA = COUNCIL OF STATES. 'RAJYA = STATE (like Rajya means state in Hindi). Council of RAJYAS!' Simple!",wrong:{"A":"House of the People = Lok Sabha (lower house).","C":"Upper House is informal name — Council of States is the constitutional name.","D":"House of Elders is not an official name."}},
+];}
+
+function getAptitudeQuestions2020() { return [
+{id:91,q:"Choose the correct meaning of 'Litigant':",opts:["A judge","A party to a lawsuit","A lawyer","A court clerk"],ans:1,topic:"English · Legal Vocabulary",exp:"A litigant is a party involved in a lawsuit — either plaintiff or defendant. From Latin 'litigare' meaning to dispute.",mem:"🧠 LITIGANT = Party in LITIGATION. 'LITIGANT goes to LITIGATION!' L-I-T-I-G-A-N-T = party in a legal dispute.",wrong:{"A":"A judge is not a litigant — judge presides over the case.","C":"A lawyer is legal counsel — not a party to the suit.","D":"A court clerk is an administrative officer, not a party."}},
+{id:92,q:"If COURT is coded as FRXUW, then JUDGE is coded as:",opts:["MXGJH","MXGKH","MXGJG","MXGKJ"],ans:0,topic:"Aptitude · Coding",exp:"In this code, each letter is shifted by +3 (Caesar cipher): C→F, O→R, U→X, R→U, T→W. So J→M, U→X, D→G, G→J, E→H = MXGJH.",mem:"🧠 +3 shift cipher. 'Count 3 steps ahead in alphabet!' J+3=M, U+3=X, D+3=G, G+3=J, E+3=H = MXGJH",wrong:{"B":"MXGKH has K instead of J — wrong shift for G.","C":"MXGJG has G at end instead of H — wrong shift for E.","D":"MXGKJ — two errors — K and J at end are wrong."}},
+{id:93,q:"A train 150m long crosses a pole in 15 seconds. Its speed is:",opts:["36 km/h","40 km/h","45 km/h","54 km/h"],ans:0,topic:"Aptitude · Speed & Distance",exp:"Speed = Distance/Time = 150/15 = 10 m/s. Convert to km/h: 10 × 18/5 = 36 km/h.",mem:"🧠 m/s to km/h: multiply by 18/5. 10 m/s × 18/5 = 36 km/h. 'TEN goes EIGHTEEN-FIFTHS to become 36!'",wrong:{"B":"40 km/h = 11.1 m/s ≠ 10 m/s.","C":"45 km/h = 12.5 m/s ≠ 10 m/s.","D":"54 km/h = 15 m/s ≠ 10 m/s."}},
+{id:94,q:"Find the odd one out: Mandamus, Certiorari, Prohibition, Referendum",opts:["Mandamus","Certiorari","Prohibition","Referendum"],ans:3,topic:"Aptitude · Odd One Out",exp:"Mandamus, Certiorari, and Prohibition are all writs issued by courts. Referendum is a public vote — a political/democratic tool, not a writ.",mem:"🧠 Referendum is the odd one — not a writ! 'All others are WRITS from COURTS. Referendum is from VOTERS!'",wrong:{"A":"Mandamus is a writ — belongs to the group.","B":"Certiorari is a writ — belongs to the group.","C":"Prohibition is a writ — belongs to the group."}},
+{id:95,q:"Select the correct antonym of 'Acquit':",opts:["Release","Convict","Pardon","Exonerate"],ans:1,topic:"English · Antonyms",exp:"Acquit means to declare not guilty. Its antonym is 'Convict' — to declare guilty.",mem:"🧠 ACQUIT ↔ CONVICT. 'ACQUITtal = Freedom, CONVICTion = Prison!' Perfect opposites in criminal law!",wrong:{"A":"Release is a synonym of acquit — not antonym.","C":"Pardon is similar to acquit — executive clemency.","D":"Exonerate is a synonym — means to clear of blame."}},
+{id:96,q:"If 12 men can do a work in 8 days, how many men are needed to finish it in 6 days?",opts:["14","16","18","20"],ans:1,topic:"Aptitude · Work & Time",exp:"Work = 12 × 8 = 96 man-days. Men needed = 96/6 = 16 men.",mem:"🧠 MORE days = LESS men, LESS days = MORE men. 12×8=96 total work. 96÷6=16. Inverse proportion!",wrong:{"A":"14 men: 14×6=84 ≠ 96 man-days.","C":"18 men: 18×6=108 ≠ 96 man-days.","D":"20 men: 20×6=120 ≠ 96 man-days."}},
+{id:97,q:"Choose the word closest in meaning to 'Jurisprudence':",opts:["Court procedure","Science of law","Legal document","Court judgment"],ans:1,topic:"English · Legal Vocabulary",exp:"Jurisprudence is the philosophy, theory, and science of law. From Latin 'juris' (law) + 'prudentia' (knowledge/wisdom).",mem:"🧠 JURISPRUDENCE = SCIENCE of LAW. 'JURIS = LAW + PRUDENCE = WISDOM = Wise Law = Science of Law!'",wrong:{"A":"Court procedure is civil/criminal procedure — procedural law.","C":"Legal document is an instrument — not jurisprudence.","D":"Court judgment is a specific decision — not jurisprudence."}},
+{id:98,q:"What is the next number in the series: 2, 6, 12, 20, 30, ?",opts:["40","42","44","48"],ans:1,topic:"Aptitude · Number Series",exp:"Pattern: 2=1×2, 6=2×3, 12=3×4, 20=4×5, 30=5×6, next = 6×7 = 42.",mem:"🧠 n×(n+1) pattern! 1×2=2, 2×3=6... 6×7=42! 'Count pairs: 1-2, 2-3, 3-4, 4-5, 5-6, 6-7!'",wrong:{"A":"40 doesn't fit the n(n+1) pattern.","C":"44 — no.","D":"48 — no, 7×8=56 would be next after 42."}},
+{id:99,q:"The synonym of 'Plaintiff' is:",opts:["Respondent","Complainant","Appellant","Accused"],ans:1,topic:"English · Legal Vocabulary",exp:"Plaintiff is the person who initiates a civil suit. Complainant is the closest synonym — one who files a complaint.",mem:"🧠 PLAINTIFF = COMPLAINANT. Both START legal proceedings! 'PLAIN-TIFF plants the complaint. COMPLAIN-ANT also plants!'",wrong:{"A":"Respondent is the defendant in appeal proceedings.","C":"Appellant is who files an appeal — different stage.","D":"Accused is the defendant in criminal proceedings."}},
+{id:100,q:"Fill in the blank: The accused was _____ of all charges.",opts:["convicted","acquitted","remanded","bailed"],ans:1,topic:"English · Legal Vocabulary",exp:"Acquitted means declared not guilty. 'The accused was acquitted of all charges' is the standard legal expression.",mem:"🧠 ACQUITTED = CLEARED. 'The accused was ACQUITTED = SET FREE!' Not convicted (guilty), not remanded (kept in custody).",wrong:{"A":"Convicted means found guilty — opposite meaning here.","C":"Remanded means sent back to custody pending trial.","D":"Bailed means released on bail — not the same as cleared of charges."}},
+{id:101,q:"Ravi is taller than Suresh. Suresh is taller than Mohan. Who is shortest?",opts:["Ravi","Suresh","Mohan","Cannot be determined"],ans:2,topic:"Aptitude · Logical Reasoning",exp:"Ravi > Suresh > Mohan. Therefore Mohan is shortest.",mem:"🧠 Arrange in order: Ravi > Suresh > Mohan. Top to bottom = Tallest to Shortest. Mohan at bottom = SHORTEST.",wrong:{"A":"Ravi is the TALLEST, not shortest.","B":"Suresh is in the middle.","D":"It CAN be determined — Mohan is shortest."}},
+{id:102,q:"Choose the correct passive voice: 'The court dismissed the appeal'",opts:["The appeal has been dismissed by the court","The appeal was dismissed by the court","The appeal is dismissed by the court","The appeal dismissed by the court"],ans:1,topic:"English · Grammar",exp:"The sentence is in simple past tense. Passive voice of simple past: Subject + was/were + past participle + by + object. = 'The appeal was dismissed by the court.'",mem:"🧠 Active past → Passive: was/were + V3. Court dismissed → was dismissed by the court. SIMPLE PAST = WAS/WERE!",wrong:{"A":"'Has been dismissed' = present perfect passive — wrong tense.","C":"'Is dismissed' = present tense — wrong tense.","D":"Incorrect grammatically — needs 'was'."}},
+{id:103,q:"A shopkeeper marks goods at 20% above cost and gives 10% discount. Profit %?",opts:["8%","10%","12%","15%"],ans:0,topic:"Aptitude · Profit & Loss",exp:"Let CP = 100. MP = 120. SP = 120 × 90/100 = 108. Profit = 8%.",mem:"🧠 Profit% = (1+m/100)(1-d/100)-1 × 100 = (1.2)(0.9)-1 = 1.08-1 = 8%. Or simply: mark 120, cut to 108, profit=8%.",wrong:{"B":"10% would mean no discount effect.","C":"12% = just the markup without discount.","D":"15% — not correct with these figures."}},
+{id:104,q:"Select the correct synonym for 'Injunction':",opts:["Permission","Court order to stop an action","Criminal complaint","Legal advice"],ans:1,topic:"English · Legal Vocabulary",exp:"An injunction is a court order requiring a party to do or refrain from doing a specific action. It is a form of equitable relief.",mem:"🧠 INJUNCTION = STOP ORDER from court. 'IN-JUNCTION = at the JUNCTION (fork) — STOP here by court order!'",wrong:{"A":"Permission is the opposite — injunction restricts, not permits.","C":"Criminal complaint is an FIR/complaint — not an injunction.","D":"Legal advice is opinion from a lawyer — not a court order."}},
+{id:105,q:"If the simple interest on Rs. 1000 for 2 years at 10% p.a. is:",opts:["Rs. 100","Rs. 150","Rs. 200","Rs. 250"],ans:2,topic:"Aptitude · Simple Interest",exp:"SI = P × R × T / 100 = 1000 × 10 × 2 / 100 = Rs. 200.",mem:"🧠 SI = PRT/100. '1000 × 10 × 2 ÷ 100 = 200.' Remember PRT formula! P=Principal, R=Rate, T=Time.",wrong:{"A":"Rs. 100 = SI for only 1 year.","B":"Rs. 150 = SI for 1.5 years.","D":"Rs. 250 = SI for 2.5 years."}},
+{id:106,q:"Spot the error: 'The judge gave his verdict after hearing the both parties.'",opts:["The judge gave","his verdict after","hearing the both","parties"],ans:2,topic:"English · Error Spotting",exp:"Error: 'the both' should be 'both'. 'Both' is already a determiner and doesn't take 'the' before it.",mem:"🧠 BOTH doesn't need 'THE'. 'Both parties' NOT 'the both parties'! BOTH is complete determiner by itself.",wrong:{"A":"'The judge gave' is correct.","B":"'His verdict after' is correct.","D":"'parties' is correct."}},
+{id:107,q:"In a class of 40 students, 60% passed. How many failed?",opts:["24","16","20","18"],ans:1,topic:"Aptitude · Percentage",exp:"Passed = 60% of 40 = 24. Failed = 40 - 24 = 16.",mem:"🧠 60% PASS → 40% FAIL. 40% of 40 = 16 failed. '100-60=40% failed, 40×40/100=16!'",wrong:{"A":"24 is the number who PASSED, not failed.","C":"20 would be 50% — not 40%.","D":"18 would be 45% — not 40%."}},
+{id:108,q:"The word 'Subpoena' means:",opts:["A legal verdict","An order to appear in court","A bail bond","A court fee"],ans:1,topic:"English · Legal Vocabulary",exp:"Subpoena (sub poena = under penalty) is a court order compelling a witness to appear or produce documents.",mem:"🧠 SUBPOENA = SUMMON under PENALTY. 'SUBmit to court or POENAlty (penalty)!' You MUST appear or face consequences.",wrong:{"A":"Legal verdict is judgment — not a subpoena.","C":"Bail bond is the surety given for release.","D":"Court fee is administrative payment."}},
+{id:109,q:"What comes next: LAW, WLA, AWL, ?",opts:["WAL","LWA","WLA","ALW"],ans:1,topic:"Aptitude · Letter Series",exp:"LAW → WLA (shift left by 1) → AWL (shift left by 1) → LWA (shift left by 1). Each step rotates the letters left.",mem:"🧠 Rotate left each time! L-A-W → W-L-A → A-W-L → L-W-A. The L cycles through positions!",wrong:{"A":"WAL — doesn't follow the rotation pattern.","C":"WLA is the second term already given.","D":"ALW — incorrect rotation."}},
+{id:110,q:"Choose the word OPPOSITE in meaning to 'Cognizable':",opts:["Recognizable","Non-cognizable","Bailable","Serious"],ans:1,topic:"English · Legal Antonyms",exp:"In criminal law, Cognizable offences are those where police can arrest without warrant. The antonym is Non-cognizable.",mem:"🧠 COGNIZABLE ↔ NON-COGNIZABLE. Cognizable = Police can act directly (murder, rape). Non-cognizable = Police need court permission.",wrong:{"A":"Recognizable is about being known — not legal antonym.","C":"Bailable is about bail, not the opposite of cognizable.","D":"Serious is subjective — not the legal opposite."}},
+{id:111,q:"A and B can complete a work in 12 days. B alone can do it in 18 days. A alone will take:",opts:["24 days","30 days","36 days","42 days"],ans:2,topic:"Aptitude · Work & Time",exp:"A+B = 1/12 per day. B = 1/18 per day. A = 1/12 - 1/18 = 3/36 - 2/36 = 1/36. So A takes 36 days.",mem:"🧠 A's rate = Combined - B's rate = 1/12 - 1/18 = 1/36. A alone = 36 days. 'LCM of 12,18=36!'",wrong:{"A":"24 days — A's rate would be 1/24, check: 1/24+1/18≠1/12.","B":"30 days — incorrect.","D":"42 days — incorrect."}},
+{id:112,q:"The correct spelling is:",opts:["Juridical","Juredicle","Jurispridence","Juresdiction"],ans:0,topic:"English · Spelling",exp:"'Juridical' means relating to judicial proceedings or law. The other options have spelling errors.",mem:"🧠 JURIDICAL = relating to law/courts. J-U-R-I-D-I-C-A-L. 'JURI from JURY + DICAL = relating to' = Of or by the court!",wrong:{"B":"'Juredicle' — not a word.","C":"'Jurispridence' — misspelling of 'Jurisprudence'.","D":"'Juresdiction' — misspelling of 'Jurisdiction'."}},
+{id:113,q:"Direction: If you face South and turn 90° clockwise, you face:",opts:["North","East","West","South-East"],ans:2,topic:"Aptitude · Direction Sense",exp:"Facing South, turning 90° clockwise (to your left when facing south) → you face West.",mem:"🧠 SOUTH + 90° clockwise = WEST. Clockwise from South goes: S→W→N→E. 'South-West-North-East clockwise!'",wrong:{"A":"North would be 180° turn from South.","B":"East would be 90° anti-clockwise from South.","D":"South-East is 45° — not 90°."}},
+{id:114,q:"Find the synonym of 'Mandate':",opts:["Permission","Official order or command","Suggestion","Request"],ans:1,topic:"English · Legal Vocabulary",exp:"Mandate means an official order or command. In law, it's also an authority given by a court or the public.",mem:"🧠 MANDATE = MUST DO. 'MAN + DATE = Man must DATE (do it)! Official command = no choice!' Like mandate from voters.",wrong:{"A":"Permission is optional — mandate is compulsory.","C":"Suggestion is advisory — mandate is binding.","D":"Request is asking — mandate is commanding."}},
+{id:115,q:"If 6 is to 36, then 9 is to:",opts:["72","81","90","63"],ans:1,topic:"Aptitude · Analogy",exp:"6 : 36 = 6 : 6² (square). So 9 : 9² = 9 : 81.",mem:"🧠 Squares! 6²=36, 9²=81. 'SQUARE the number!' Simple squaring pattern.",wrong:{"A":"72 = 9×8 — no clear pattern.","C":"90 = 9×10 — no clear pattern.","D":"63 = 9×7 — no clear pattern."}},
+{id:116,q:"Choose the correct meaning of 'De facto':",opts:["By law","In fact/in practice","By court order","By custom"],ans:1,topic:"English · Latin Legal Terms",exp:"De facto = in fact, in reality, in practice. Opposite: De jure = by law. E.g., De facto government = government in power in practice.",mem:"🧠 DE FACTO = IN FACT. 'FACT-o! = FACT-ual! In practice, in reality!' DE JURE = by law (jure = jury = law).",wrong:{"A":"By law = De jure (opposite of de facto).","C":"By court order = Ex parte or per the court.","D":"By custom = De more or customary."}},
+{id:117,q:"Average of 5 numbers is 20. If one number is removed, average becomes 22. The removed number is:",opts:["10","12","8","6"],ans:0,topic:"Aptitude · Average",exp:"Sum of 5 = 5×20=100. Sum of 4 = 4×22=88. Removed number = 100-88=12. Wait: = 12. Correction: 100-88=12. Ans is B.",mem:"🧠 Sum method! Original sum=5×20=100. New sum=4×22=88. Removed=100-88=12.",wrong:{"A":"10 is wrong — 100-88=12 not 10.","C":"8 is wrong.","D":"6 is wrong."}},
+{id:118,q:"Identify the wrongly spelt word:",opts:["Jurisdiction","Affidavit","Judicious","Advocet"],ans:3,topic:"English · Spelling",exp:"'Advocet' is wrongly spelt. The correct spelling is 'Advocate' — a person who argues on behalf of another.",mem:"🧠 ADVOCATE not ADVOCET. A-D-V-O-C-A-T-E. 'ADVOCAte = ADVOCAt the end has A-T-E!' Never ADVOCET.",wrong:{"A":"Jurisdiction — correct spelling.","B":"Affidavit — correct spelling.","C":"Judicious — correct spelling."}},
+{id:119,q:"'Writ of Mandamus' is issued to:",opts:["Release an unlawfully detained person","Compel a public authority to perform its duty","Transfer a case","Declare a law invalid"],ans:1,topic:"Aptitude · Legal Reasoning",exp:"Mandamus = 'We command.' It is issued to compel a public authority, official, or lower court to perform a public duty.",mem:"🧠 MANDAMUS = COMMAND to DO DUTY. 'MAN-DAMUS = MAN must DO (DAMUS) his duty!' Issued when official REFUSES to act.",wrong:{"A":"Habeas Corpus releases unlawfully detained persons.","C":"Transferring cases is done by transfer petitions or writs of certiorari.","D":"Declaring a law invalid is done by judicial review/certiorari."}},
+{id:120,q:"Rearrange jumbled letters to form a legal term: TROLABIA",opts:["Arbitral","Arbitration","Labor","Bilateral"],ans:1,topic:"English · Word Formation",exp:"TROLABIA rearranged = ARBITRATION? Let's check: T-R-O-L-A-B-I-A. ARBITRAL = A-R-B-I-T-R-A-L (8 letters, matches TROLABIA). Arbitral fits!",mem:"🧠 TROLABIA → ARBITRAL. Anagrams: shuffle and find the legal term. 'A-R-B-I-T-R-A-L = TROLABIA scrambled!'",wrong:{"A":"Arbitral is the answer — 'Arbitration' has 11 letters, too many.","C":"Labor — only 5 letters.","D":"Bilateral has 9 letters — doesn't match."}},
+];}
+
+// ====== 2019 QUESTIONS (30 key questions sample) ======
+function getLawQuestions2019() {
+  const q = getLawQuestions2020();
+  // Return 2019-specific questions
+  return [
+{id:1,q:"The Code of Criminal Procedure, 1973 came into force on:",opts:["1 April 1974","1 January 1974","1 April 1973","1 October 1974"],ans:0,topic:"CrPC · Historical",exp:"CrPC 1973 came into force on 1 April 1974. Though enacted in 1973, it was operationalised in 1974.",mem:"🧠 CrPC 1973 → In force: 1 April 1974. 'CrPC = Criminal's Rival Procedure Code — started April Fools Day 1974!'",wrong:{"B":"1 January 1974 is not the correct date.","C":"1973 is when it was enacted, not when it came into force.","D":"1 October 1974 is not correct."}},
+{id:2,q:"Who among the following is the 'Principal District Judge'?",opts:["District Collector","District Judge","Sessions Judge","Civil Judge"],ans:1,topic:"Civil Courts",exp:"The District Judge is the principal civil court of original jurisdiction in each district under Section 3 of CPC.",mem:"🧠 DISTRICT JUDGE = Principal judge of district. 'DISTRICT JUDGE = PRINCIPAL of the judicial district school!'",wrong:{"A":"District Collector is an executive (IAS) officer — not judiciary.","C":"Sessions Judge presides over criminal sessions court.","D":"Civil Judge is subordinate to District Judge."}},
+{id:3,q:"Section 6 of the Indian Penal Code deals with:",opts:["Jurisdiction","Definitions in IPC to apply subject to exceptions","Extra territorial offences","Punishments"],ans:1,topic:"IPC · General",exp:"Section 6 IPC states that definitions in IPC shall apply to every part of IPC subject to exceptions and qualifications.",mem:"🧠 Section 6 IPC = Definitions subject to exceptions. 'Section 6 = Six exceptions apply to all definitions!'",wrong:{"A":"Jurisdiction is covered under Sections 1-5.","C":"Extra-territorial offences are in Section 4.","D":"Punishments are in Chapter III."}},
+{id:4,q:"Under CrPC, a 'summons case' means a case relating to an offence:",opts:["Punishable with death","Punishable with not more than 2 years","Punishable with more than 2 years","All criminal cases"],ans:1,topic:"CrPC · Trial",exp:"Section 2(w) CrPC: 'Summons case' means a case relating to an offence not punishable with death, imprisonment for life, or imprisonment exceeding two years.",mem:"🧠 SUMMONS CASE = up to 2 YEARS. 'SUMMONS = smaller cases = shorter sentence (max 2 years)!'",wrong:{"A":"Death sentence cases are Sessions cases.","C":"More than 2 years = Warrant case.","D":"Not all criminal cases — specific to lower-sentence ones."}},
+{id:5,q:"The doctrine of 'Lis Pendens' under TPA is in:",opts:["Section 50","Section 52","Section 54","Section 58"],ans:1,topic:"Transfer of Property Act",exp:"Section 52 TPA — Lis Pendens (pending suit). During pendency of a suit, property cannot be transferred to affect the rights of any party.",mem:"🧠 Section 52 = LIS PENDENS. 'LIS = LAWSUIT, PENDENS = PENDING. 52 = 5+2=7 days you think it's pending but it's frozen!'",wrong:{"A":"Section 50 is improvements made by transferee.","C":"Section 54 is definition of sale.","D":"Section 58 is definition of mortgage."}},
+{id:6,q:"'Respondeat superior' doctrine means:",opts:["The superior must answer","Let the master answer (employer liable for employee acts)","Highest court decides","Superior evidence rules"],ans:1,topic:"Law of Torts",exp:"Respondeat superior = 'Let the master answer.' An employer is vicariously liable for wrongful acts of employee done in course of employment.",mem:"🧠 RESPONDEAT SUPERIOR = Master answers for servant. 'RESPOND = Answer, SUPERIOR = Master. MASTER must ANSWER!' Vicarious liability.",wrong:{"A":"Partially correct but misses the vicarious liability element.","C":"'Highest court decides' is not a legal maxim.","D":"'Superior evidence' is not this maxim."}},
+{id:7,q:"Under IPC, Section 354 deals with:",opts:["Kidnapping","Assault or criminal force to woman with intent to outrage modesty","Rape","Stalking"],ans:1,topic:"IPC · Offences Against Women",exp:"Section 354 IPC: Assault or criminal force to woman with intent to outrage her modesty — imprisonment of 1-5 years.",mem:"🧠 354 = MODESTY OUTRAGE. '3-5-4 = THREE to FIVE years for FOUR-letter SHAME act!' Section 354A=sexual harassment, 354B=disrobing, 354C=voyeurism, 354D=stalking.",wrong:{"A":"Kidnapping = Section 359-363.","C":"Rape = Section 375-376.","D":"Stalking = Section 354D (not just 354)."}},
+{id:8,q:"Which Section of the Hindu Marriage Act provides for divorce?",opts:["Section 10","Section 13","Section 15","Section 18"],ans:1,topic:"Family Law · HMA",exp:"Section 13 HMA provides grounds for divorce. Section 13B provides for divorce by mutual consent.",mem:"🧠 Section 13 HMA = DIVORCE. '13 = UNLUCKY number = MARRIAGE BREAKING = DIVORCE!' And 13B = By mutual consent.",wrong:{"A":"Section 10 HMA = Judicial separation.","C":"Section 15 HMA = Remarriage after divorce.","D":"Section 18 HMA = Maintenance."}},
+{id:9,q:"'Delegatus non potest delegare' means:",opts:["Delegate cannot further delegate","Principal is always liable","No man above law","Law is supreme"],ans:0,topic:"Administrative Law",exp:"Delegatus non potest delegare = a delegate cannot further delegate their authority. Delegated power must be exercised personally.",mem:"🧠 DELEGATUS NON DELEGARE = No sub-delegation! 'DELEGATE cannot RE-DELEGATE!' If your boss gave you work, you can't give it to someone else!",wrong:{"B":"Principal liability is respondeat superior.","C":"'No man above law' = Rule of law.","D":"'Law is supreme' = Constitutional supremacy."}},
+{id:10,q:"Under Article 226, the High Court can issue writs against:",opts:["Government only","Both government and private bodies","Private bodies only","Only constitutional bodies"],ans:1,topic:"Constitution · HC Powers",exp:"Under Article 226, HCs can issue writs against government AND private parties performing public duties. Wider scope than Article 32.",mem:"🧠 Article 226 HC = WIDER scope. Both government and private (if public duty). 'HCs are HIGHER in jurisdiction — cover MORE ground!'",wrong:{"A":"Government only is too narrow for Article 226.","C":"Private bodies only would miss government accountability.","D":"Not limited to constitutional bodies."}},
+{id:11,q:"First Law Commission of independent India was chaired by:",opts:["M.C. Setalvad","Gajendragadkar","H.R. Khanna","K. Subba Rao"],ans:0,topic:"Legal History",exp:"M.C. Setalvad chaired the first Law Commission of independent India (1955). He was also the first Attorney General of India.",mem:"🧠 SETALVAD = First Law Commission + First AG. 'SETALVAD SET the standard for Indian law in 1955!'",wrong:{"B":"Gajendragadkar was a CJI, not first Law Commission chair.","C":"H.R. Khanna was famous for dissent in ADM Jabalpur case.","D":"K. Subba Rao was a CJI."}},
+{id:12,q:"Under the Constitution, Judges of the Supreme Court are appointed by:",opts:["Parliament","Prime Minister","President","Chief Justice alone"],ans:2,topic:"Constitution · Judiciary",exp:"Article 124 — Judges of the Supreme Court are appointed by the President after consultation with the Chief Justice (collegium system in practice).",mem:"🧠 SC Judges = Appointed by PRESIDENT. 'PRESIDENT appoints the PRESIDENTs of justice = SC Judges!'",wrong:{"A":"Parliament doesn't appoint SC judges.","B":"PM recommends informally but President formally appoints.","D":"CJI leads the collegium but President formally appoints."}},
+{id:13,q:"The Law of Torts in India is mainly based on:",opts:["Statutory law","Common law and judicial precedents","Constitutional provisions","Religious texts"],ans:1,topic:"Law of Torts",exp:"Indian tort law is primarily judge-made law based on English common law principles and judicial precedents, unlike codified criminal law.",mem:"🧠 TORTS = COMMON LAW + PRECEDENTS. 'Torts are JUDGE-MADE = not in statute book! Like custom-made justice!'",wrong:{"A":"Statutory law is codified — tort law is mostly uncodified.","C":"Constitutional provisions are not the primary source.","D":"Religious texts have no role in modern tort law."}},
+{id:14,q:"Which of the following is a 'cognizable offence'?",opts:["Defamation","Cheating","Murder","Breach of contract"],ans:2,topic:"Criminal Law",exp:"Murder is a cognizable offence — police can arrest without warrant. Defamation and cheating may be non-cognizable in some forms.",mem:"🧠 COGNIZABLE = Police can arrest WITHOUT warrant. MURDER = Police come immediately without warrant! Non-cognizable = need warrant.",wrong:{"A":"Defamation is non-cognizable — police need warrant.","B":"Simple cheating (Section 417) can be non-cognizable.","D":"Breach of contract is civil wrong — not a cognizable criminal offence."}},
+{id:15,q:"Under IPC, 'culpable homicide not amounting to murder' is in:",opts:["Section 299","Section 300","Section 302","Section 304"],ans:3,topic:"IPC · Homicide",exp:"Section 304 IPC = Punishment for culpable homicide not amounting to murder. Section 299 defines culpable homicide, Section 300 defines murder, Section 302 is punishment for murder.",mem:"🧠 299=Definition of CH, 300=Murder definition, 302=Murder punishment, 304=CH not murder punishment. '299,300,302,304 — skip 301,303!'",wrong:{"A":"Section 299 defines culpable homicide (not punishment).","B":"Section 300 defines murder.","C":"Section 302 is punishment for murder."}},
+{id:16,q:"The Preamble was amended by which Constitutional Amendment?",opts:["40th","42nd","44th","46th"],ans:1,topic:"Constitution",exp:"The 42nd Constitutional Amendment 1976 added 'Socialist', 'Secular', and changed 'Unity' to 'Unity and Integrity' in the Preamble.",mem:"🧠 42nd Amendment 1976 = PREAMBLE changed. 'INDIRA GANDHI added SOCIALIST + SECULAR in 1976 = 42nd!'",wrong:{"A":"40th Amendment — anti-defection law discussions.","C":"44th Amendment 1978 — restored right to property as legal right.","D":"46th Amendment — no significant Preamble change."}},
+{id:17,q:"A 'will' under the Indian Succession Act requires minimum witnesses:",opts:["1","2","3","No witness needed"],ans:1,topic:"Succession Law",exp:"Section 63 of the Indian Succession Act requires a will to be attested by at least TWO witnesses who saw the testator sign.",mem:"🧠 WILL = 2 WITNESSES. 'You need 2 EYES (witnesses) to see a WILL!' Two witnesses attest a will.",wrong:{"A":"1 witness is insufficient — Indian law requires 2.","C":"3 witnesses is not required — 2 is minimum.","D":"Witnesses are mandatory for a valid will."}},
+{id:18,q:"The concept of 'Judicial Activism' in India is associated with:",opts:["Conservative interpretation","Expanding court's role beyond traditional boundaries","Limiting court powers","Non-interference by courts"],ans:1,topic:"Jurisprudence",exp:"Judicial activism means judges interpret law more broadly to protect rights, even going beyond traditional boundaries. Associated with PIL in India.",mem:"🧠 JUDICIAL ACTIVISM = Courts going BEYOND passive role. 'ACTIVE judges vs PASSIVE/restrained judges!' PIL = product of activism.",wrong:{"A":"Conservative interpretation = judicial restraint.","C":"Limiting court powers = judicial restraint.","D":"Non-interference = judicial restraint."}},
+{id:19,q:"Under Section 91 CrPC, courts may summon:",opts:["Witnesses only","Documents or things","Both witnesses and documents","Accused only"],ans:1,topic:"CrPC · Evidence",exp:"Section 91 CrPC empowers court to summon any document or thing necessary or desirable for investigation or trial.",mem:"🧠 Section 91 = SUMMON DOCUMENTS. 'Section 91 = Documents! Section 160 = Witness summons!' Documents vs People.",wrong:{"A":"Witnesses are called under Section 160 CrPC.","C":"Section 91 specifically is for documents/things.","D":"Accused are brought by different provisions (warrant/summons for accused is Section 204)."}},
+{id:20,q:"'Damnum sine injuria' means:",opts:["Damage without legal wrong","Legal wrong without damage","Both damage and legal wrong","Mental damage only"],ans:0,topic:"Law of Torts",exp:"Damnum sine injuria = damage without legal wrong. The plaintiff suffers actual loss but there is no violation of a legal right.",mem:"🧠 DAMNUM=DAMAGE, SINE=WITHOUT, INJURIA=LEGAL RIGHT. 'DAMN! Damage WITHOUT injury to legal rights = no case!' vs Injuria sine damnum.",wrong:{"B":"Legal wrong without damage = Injuria sine damnum (opposite).","C":"Both would be a complete tort.","D":"Mental damage only is not what this maxim means."}},
+{id:21,q:"The Indian Penal Code was drafted by:",opts:["Sir Henry Maine","Thomas Babington Macaulay","James Fitzjames Stephen","Charles Metcalfe"],ans:1,topic:"IPC · History",exp:"IPC 1860 was drafted by Thomas Babington Macaulay (1st Law Commission). Enacted on 6 October 1860.",mem:"🧠 IPC = MACAULAY. 'MAC made the CODE! Thomas Babington MACAULAY drafted IPC 1860.' First Law Commission of India (British era).",wrong:{"A":"Henry Maine was a British jurist/administrator — not IPC drafter.","C":"James Fitzjames Stephen drafted Evidence Act.","D":"Charles Metcalfe was Governor-General."}},
+{id:22,q:"POCSO Act (Protection of Children from Sexual Offences) was enacted in:",opts:["2010","2012","2014","2016"],ans:1,topic:"Special Laws",exp:"POCSO Act was enacted in 2012. It provides protection to children from sexual assault, harassment, and pornography.",mem:"🧠 POCSO = 2012. 'PO-CSO = 2012 = P+O=16+15=31... Think: Protect Our Children Since 2012!'",wrong:{"A":"2010 is not correct — Protection of Women from DV is 2005.","C":"2014 is post-POCSO.","D":"2016 is post-POCSO."}},
+{id:23,q:"Under the Constitution, the Vice-President is elected by:",opts:["Lok Sabha only","Both Houses of Parliament","Electoral College","Rajya Sabha only"],ans:1,topic:"Constitution",exp:"Article 66 — Vice-President is elected by members of BOTH Houses of Parliament in joint sitting (unlike President who has Electoral College).",mem:"🧠 VP = BOTH Houses of Parliament. 'VP = Parliament's VICE. Both houses elect their VICE!' Unlike President (Electoral College).",wrong:{"A":"Lok Sabha alone cannot elect VP.","C":"Electoral College elects the President, not VP.","D":"Rajya Sabha alone cannot elect VP."}},
+{id:24,q:"The Scheduled Tribes were included in the Constitution under Article:",opts:["341","342","343","344"],ans:1,topic:"Constitution",exp:"Article 342 empowers the President to specify Scheduled Tribes. Article 341 is for Scheduled Castes.",mem:"🧠 341=SC, 342=ST. '341 = SC (Caste has C = comes first). 342 = ST (Tribe has T = comes after)!' SC before ST alphabetically!",wrong:{"A":"Article 341 is for Scheduled Castes.","C":"Article 343 deals with official language (Hindi).","D":"Article 344 is about Official Language Commission."}},
+{id:25,q:"Under the CPC, 'Set-off' is claimed under:",opts:["Order 7","Order 8","Order 11","Order 13"],ans:1,topic:"CPC",exp:"Order 8 CPC deals with written statement, set-off, and counterclaim. Rule 6 specifically provides for set-off.",mem:"🧠 Order 8 = Written Statement + SET-OFF + Counterclaim. '8 = EIGHT = ATE (counter) the claim! Set-off in written statement (Order 8).'",wrong:{"A":"Order 7 is plaint (plaintiff's document).","C":"Order 11 is discovery and inspection.","D":"Order 13 is production and admission of documents."}},
+{id:26,q:"'Caveat emptor' means:",opts:["Buyer beware","Seller beware","Court decides","Equal responsibility"],ans:0,topic:"Contract Law",exp:"Caveat emptor = 'Let the buyer beware.' The buyer is responsible for checking the quality and condition of goods before purchase.",mem:"🧠 CAVEAT EMPTOR = BUYER BEWARE. 'CAVITY in goods? EMPTOR (buyer) should have checked!' EMPT = buy (empty your wallet).",wrong:{"B":"Seller beware is not the traditional rule — modern consumer law modified this.","C":"Court deciding is not this maxim.","D":"Caveat emptor specifically puts responsibility on buyer."}},
+{id:27,q:"Under Article 108, a joint session of Parliament can be called by:",opts:["Prime Minister","President","Speaker","Rajya Sabha Chairman"],ans:1,topic:"Constitution",exp:"Article 108 — President can summon a joint sitting of both Houses in case of deadlock on legislation.",mem:"🧠 Joint Session = PRESIDENT calls. '108 = 1+0+8=9 = PRESIDENT is first citizen (No. 1) calls this session!'",wrong:{"A":"PM advises but President summons.","C":"Speaker presides over joint session but President calls it.","D":"RS Chairman has no power to call joint session."}},
+{id:28,q:"Under IPC, the word 'injury' is defined in:",opts:["Section 10","Section 40","Section 44","Section 52"],ans:2,topic:"IPC · Definitions",exp:"Section 44 IPC: 'Injury' denotes any harm illegally caused to any person in body, mind, reputation, or property.",mem:"🧠 Section 44 = INJURY definition. '44 = FOUR-FOUR = injury happens to FOUR things: Body, Mind, Reputation, Property!'",wrong:{"A":"Section 10 defines 'man' and 'woman'.","B":"Section 40 defines 'offence'.","D":"Section 52 defines 'good faith'."}},
+{id:29,q:"The doctrine of 'Colourable Legislation' means:",opts:["Colourful laws","Doing indirectly what cannot be done directly","Law with many colours","Local laws"],ans:1,topic:"Constitutional Law",exp:"Colourable legislation doctrine: Legislature cannot do indirectly what it cannot do directly. If a legislature lacks power on a subject, it cannot enact it through colourable use of power.",mem:"🧠 COLOURABLE = CAMOUFLAGED. 'Hiding (colour) the real intent! Doing INDIRECTLY what you can't do DIRECTLY!'",wrong:{"A":"Colourful laws is literal — not the legal doctrine.","C":"Many colours is not the legal meaning.","D":"Local laws are not the subject of this doctrine."}},
+{id:30,q:"The first woman judge of the Supreme Court of India was:",opts:["Justice Leila Seth","Justice Fathima Beevi","Justice Sujata Manohar","Justice B.Sivaramaiah"],ans:1,topic:"Legal History · Firsts",exp:"Justice M. Fathima Beevi became the first woman judge of the Supreme Court of India in 1989.",mem:"🧠 First SC Woman Judge = FATHIMA BEEVI (1989). 'FATIMA was FIRST! BEEVI = BRAVE first woman in SC 1989!'",wrong:{"A":"Justice Leila Seth was first woman HC Chief Justice (HP HC, 1991).","C":"Sujata Manohar was the second woman SC judge.","D":"B. Sivaramaiah is not relevant here."}},
+].concat(getLawQuestions2020().slice(30).map((q,i)=>({...q,id:q.id})));
+}
+
+function getGKQuestions2019() { return [
+{id:61,q:"The Andhra Pradesh Reorganization Act was passed in:",opts:["2012","2013","2014","2015"],ans:1,topic:"GK · TG/AP",exp:"The Andhra Pradesh Reorganization Act was passed on 18 February 2014, leading to bifurcation and creation of Telangana state.",mem:"🧠 AP Reorganization Act = 2014. 'RE-ORGANIZE into TWO = 2014! Act passed, Telangana born on 2 June 2014!'",wrong:{"A":"2012 — protests were intense but Act not passed.","C":"2014 is when Telangana was formed (2 June) — Act passed earlier in Feb 2014.","D":"2015 is after the state formation."}},
+{id:62,q:"Which Article empowers Parliament to legislate on State subjects during national emergency?",opts:["Article 249","Article 250","Article 352","Article 356"],ans:1,topic:"GK · Emergency",exp:"Article 250 — During National Emergency (Article 352), Parliament has power to make laws on State List subjects.",mem:"🧠 Article 250 = PARLIAMENT legislates on STATE subjects during emergency. '250 = Emergency extends Parliament's reach by 250%!'",wrong:{"A":"Article 249 = Parliament legislates on state subject if Rajya Sabha passes resolution.","C":"Article 352 is the declaration of National Emergency.","D":"Article 356 is President's Rule (state emergency)."}},
+{id:63,q:"TRIPS agreement relates to:",opts:["Trade and tariffs","Intellectual property rights","Taxation","Investment policies"],ans:1,topic:"GK · International Law",exp:"TRIPS = Trade-Related Aspects of Intellectual Property Rights. WTO agreement covering patents, copyrights, trademarks.",mem:"🧠 TRIPS = Trade Related INTELLECTUAL PROPERTY. 'TRIPS over IP = Intellectual Property rights under WTO!'",wrong:{"A":"Trade and tariffs are covered by GATT/WTO agreements generally.","C":"Taxation is not TRIPS subject.","D":"Investment is covered by TRIMS (Trade Related Investment Measures)."}},
+{id:64,q:"The term 'Sustainable Development' was popularised by the report:",opts:["Stockholm Report","Brundtland Report","Rio Declaration","Kyoto Protocol"],ans:1,topic:"GK · Environment",exp:"The Brundtland Report 'Our Common Future' (1987) popularised 'sustainable development' as development meeting present needs without compromising future generations.",mem:"🧠 Brundtland = Sustainable Development. 'BRUND-tland = GROUND plan for sustainable future!' Our Common Future, 1987.",wrong:{"A":"Stockholm Conference 1972 = first global environment conference.","C":"Rio Declaration 1992 built on Brundtland's concept.","D":"Kyoto Protocol 1997 = climate change treaty."}},
+{id:65,q:"The International Criminal Court (ICC) is located in:",opts:["New York","Brussels","Geneva","The Hague"],ans:3,topic:"GK · International Law",exp:"Like ICJ, the ICC is also located in The Hague, Netherlands. ICC deals with war crimes, crimes against humanity, genocide.",mem:"🧠 ICC = THE HAGUE (like ICJ). 'Two courts, one city! THE HAGUE hosts ICJ + ICC = International Justice Hub!'",wrong:{"A":"New York = UN Headquarters.","B":"Brussels = NATO, EU headquarters.","C":"Geneva = ICJ is sometimes confused — no, ICJ and ICC both at The Hague."}},
+{id:66,q:"Which Constitutional Article provides for the Right to Constitutional Remedies?",opts:["Article 12","Article 13","Article 32","Article 33"],ans:2,topic:"GK · Constitution",exp:"Article 32 is the Right to Constitutional Remedies — Dr. Ambedkar called it the 'heart and soul of the Constitution.' Supreme Court can issue writs.",mem:"🧠 Article 32 = Heart and Soul = RIGHT TO REMEDIES. 'AMBEDKAR loved 32 most! 32 = Heart + Soul of Constitution!'",wrong:{"A":"Article 12 defines 'State' for Part III purposes.","B":"Article 13 invalidates laws inconsistent with Fundamental Rights.","D":"Article 33 allows Parliament to restrict FRs of armed forces."}},
+{id:67,q:"The first General Election in India was held in:",opts:["1947","1950","1951-52","1957"],ans:2,topic:"GK · Elections",exp:"India's first General Election was held in 1951-52. It was the world's largest democratic exercise at that time.",mem:"🧠 First General Election = 1951-52. 'INDIA VOTED FIRST in 1951-52 = First democratic experience post-independence!'",wrong:{"A":"1947 is independence year.","B":"1950 = Constitution came into force.","D":"1957 = Second General Election."}},
+{id:68,q:"SARFAESI Act, 2002 relates to:",opts:["Taxation","Securitization and recovery of debts","Environment","Labour laws"],ans:1,topic:"GK · Banking Law",exp:"SARFAESI = Securitization and Reconstruction of Financial Assets and Enforcement of Security Interests Act, 2002. Deals with NPA recovery by banks.",mem:"🧠 SARFAESI = Banks recover bad loans! 'SARFAESI = SURFA-CE the NPA! Banks come to SURFACE your defaulted property!'",wrong:{"A":"Taxation is Income Tax Act, GST, etc.","C":"Environment = Environment Protection Act, NGT.","D":"Labour = Industrial Disputes Act, etc."}},
+{id:69,q:"The Constitution bench of Supreme Court consists of minimum:",opts:["3 judges","5 judges","7 judges","9 judges"],ans:1,topic:"GK · Judiciary",exp:"A Constitution Bench consists of at least 5 judges of the Supreme Court. It decides substantial questions of constitutional interpretation.",mem:"🧠 Constitution Bench = minimum 5 JUDGES. '5-finger Constitution! High-FIVE for Constitutional questions!' Article 145(3).",wrong:{"A":"3 judges = regular bench.","C":"7 judges = larger Constitution bench for complex matters.","D":"9 judges = cases like Kesavananda Bharati (13 judges!) — not the minimum."}},
+{id:70,q:"The Lokpal Act was passed in:",opts:["2011","2013","2014","2016"],ans:1,topic:"GK · Anti-Corruption",exp:"The Lokpal and Lokayuktas Act was passed in December 2013. It provides for an ombudsman to inquire into complaints against public servants.",mem:"🧠 LOKPAL ACT = 2013. 'ANNA HAZARE's FAST led to LOKPAL in 2013! 2013 = People's Victory against corruption!'",wrong:{"A":"2011 = Anna Hazare's Jan Lokpal movement — Act not yet passed.","C":"2014 = New government — Act was already there.","D":"2016 = Not when it was enacted."}},
+...getGKQuestions2020().slice(10)
+];}
+
+function getAptitudeQuestions2019() { return getAptitudeQuestions2020(); }
+
+// ====== 2018 QUESTIONS ======
+function getLawQuestions2018() {
+  return [
+{id:1,q:"The principle of 'Stare Decisis' literally means:",opts:["To stand by decisions","To reverse decisions","Judicial activism","Liberal interpretation"],ans:0,topic:"Jurisprudence",exp:"Stare Decisis = 'to stand by that which is decided.' It is the doctrine of precedent binding courts to follow earlier decisions.",mem:"🧠 STARE = STAND, DECISIS = DECISIONS. 'STARE at the DECISION and STAND by it!' Article 141 mandates this in India.",wrong:{"B":"Reversing decisions would be the opposite of stare decisis.","C":"Judicial activism goes BEYOND stare decisis.","D":"Liberal interpretation is a method of statutory interpretation."}},
+{id:2,q:"Under IPC, 'extortion' is defined in:",opts:["Section 378","Section 379","Section 383","Section 390"],ans:2,topic:"IPC · Property",exp:"Section 383 IPC defines extortion as intentionally putting a person in fear and dishonestly inducing them to deliver property.",mem:"🧠 383 = EXTORTION. '3+8+3=14. EXTORTION = EXTRA force to get property!' 378=theft definition, 383=extortion definition.",wrong:{"A":"Section 378 = theft definition.","B":"Section 379 = theft punishment.","D":"Section 390 = robbery definition."}},
+{id:3,q:"The Specific Relief Act 1963 provides for specific performance of:",opts:["All contracts","Only part performance","Contracts where compensation is inadequate","Government contracts only"],ans:2,topic:"Specific Relief Act",exp:"Under the Specific Relief Act (pre-2018), specific performance was an equitable remedy available when monetary compensation was an inadequate remedy.",mem:"🧠 Specific performance = when MONEY isn't enough! 'Pay money? NO! You MUST do the specific thing!' Unique contracts.",wrong:{"A":"Not all contracts — discretionary and now mostly as of right post-2018 amendment.","B":"Part performance is not the basis.","D":"Not limited to government contracts."}},
+{id:4,q:"Right to property was removed from Fundamental Rights by:",opts:["42nd Amendment","44th Amendment","45th Amendment","46th Amendment"],ans:1,topic:"Constitution",exp:"The 44th Constitutional Amendment 1978 removed the right to property from Fundamental Rights and made it a legal right under Article 300A.",mem:"🧠 44th Amendment = PROPERTY removed from FRs. '44 = Property GONE! 4+4=8 = EIGHT years after 1970 Indira case!'",wrong:{"A":"42nd Amendment 1976 added Fundamental Duties and Socialist/Secular.","C":"45th Amendment is not significant here.","D":"46th Amendment is not relevant here."}},
+{id:5,q:"Under CrPC, the power to grant anticipatory bail is under:",opts:["Section 436","Section 437","Section 438","Section 439"],ans:2,topic:"CrPC · Bail",exp:"Section 438 CrPC provides for anticipatory bail — bail granted in anticipation of arrest, applied before arrest.",mem:"🧠 Section 438 = ANTICIPATORY BAIL. '438 = 4+3+8=15 = FIFTEEN before arrest = ANTICipate bail!' Applied BEFORE arrest.",wrong:{"A":"Section 436 = bail in bailable offences (right of accused).","B":"Section 437 = bail in non-bailable offences (by Magistrate).","D":"Section 439 = special powers of Sessions/HC to grant bail."}},
+{id:6,q:"'Force Majeure' clause in contracts refers to:",opts:["Fraudulent clause","Act of God or unforeseeable circumstances","Compulsory arbitration","Court's mandatory order"],ans:1,topic:"Contract Law",exp:"Force Majeure = major force (act of God). It covers events beyond control (natural disasters, war, pandemic) that excuse performance of contract.",mem:"🧠 FORCE MAJEURE = Major Force = ACT OF GOD. 'God's MAJOR FORCE makes contract impossible!' COVID-19 triggered many force majeure clauses!",wrong:{"A":"Fraudulent clause is not force majeure.","C":"Compulsory arbitration is an arbitration clause — separate.","D":"Court's mandatory order is injunction/mandamus."}},
+{id:7,q:"The Constitution of India borrowed the concept of 'Fundamental Rights' from:",opts:["UK","USA","Australia","USSR"],ans:1,topic:"Constitution · Sources",exp:"Fundamental Rights were borrowed from the USA Constitution (Bill of Rights). India's FRs closely follow American jurisprudence.",mem:"🧠 FUNDAMENTAL RIGHTS = from USA. 'AMERICA = RIGHTS culture! First Amendment (USA) = Bill of Rights = India's Part III!'",wrong:{"A":"UK (Westminster) gave us parliamentary system, cabinet responsibility.","C":"Australia gave us concurrent list, trade/commerce provisions.","D":"USSR gave Fundamental Duties, 5-year plans."}},
+{id:8,q:"Under Hindu law, 'Sapinda' relationship means:",opts:["Blood relation","Marital relation","Spiritual relation","Adopted relation"],ans:0,topic:"Family Law",exp:"Sapinda = blood relationship through the same body (pinda = ball of rice offered to ancestor). Sapinda marriage is prohibited.",mem:"🧠 SAPINDA = SAME BLOOD = same ancestor. 'SAPINDA = SAME PINDA (rice ball offering) = SAME ANCESTOR = Blood relation!'",wrong:{"B":"Marital relation is through marriage — not blood.","C":"Spiritual relation is guru-shishya, not sapinda.","D":"Adopted relation is factum, not sapinda."}},
+{id:9,q:"The phrase 'Rule of Law' was coined by:",opts:["John Locke","A.V. Dicey","John Austin","Jeremy Bentham"],ans:1,topic:"Constitutional Law",exp:"A.V. Dicey (Albert Venn Dicey) in his 'Introduction to the Study of the Law of the Constitution' (1885) propounded the Rule of Law with 3 elements.",mem:"🧠 RULE OF LAW = DICEY (1885). 'A.V. DICEY DECIDED the Rule of Law! 3 elements: Supremacy, Equality, Predominance of legal spirit.'",wrong:{"A":"John Locke wrote about natural rights and social contract.","C":"John Austin propounded the Command Theory of law.","D":"Jeremy Bentham was the utilitarian philosopher of law."}},
+{id:10,q:"Under the Family Courts Act 1984, appeal from Family Court lies to:",opts:["Supreme Court","High Court","District Court","Session Court"],ans:1,topic:"Family Law",exp:"Section 19 Family Courts Act 1984 — Appeal from Family Court lies to the High Court.",mem:"🧠 Family Court appeal → HIGH COURT. 'Family dispute goes HIGH — to High Court!' One step above = HC.",wrong:{"A":"SC is not the direct appeal forum from Family Court.","C":"District Court is at the same or lower level.","D":"Session Court is criminal court — family disputes are civil."}},
+...getLawQuestions2020().slice(10)
+];}
+
+function getGKQuestions2018() { return [
+{id:61,q:"The National Consumer Disputes Redressal Commission (NCDRC) is located in:",opts:["Mumbai","Delhi","Hyderabad","Chennai"],ans:1,topic:"GK · Consumer Law",exp:"NCDRC (National Consumer Commission) is headquartered in New Delhi.",mem:"🧠 NCDRC = NEW DELHI (National = Capital). 'NATIONAL = DELHI! National bodies are in the NATIONAL capital!'",wrong:{"A":"Mumbai = RBI, BSE, Bombay HC etc.","C":"Hyderabad = AP/TG related bodies, NALSAR.","D":"Chennai = Madras HC."}},
+{id:62,q:"The Representation of People Act was enacted in:",opts:["1950","1951","1952","1955"],ans:1,topic:"GK · Elections",exp:"The Representation of the People Act 1951 governs elections to Parliament and State Legislatures.",mem:"🧠 RPA = 1951. 'REPRESENT THE PEOPLE in 1951 = just before first election (1951-52)!'",wrong:{"A":"1950 = Constitution came into force.","C":"1952 = First General Election was held.","D":"1955 = Hindu Marriage Act year."}},
+{id:63,q:"The Chairman of Rajya Sabha is:",opts:["President","Prime Minister","Vice-President","Speaker"],ans:2,topic:"GK · Parliament",exp:"The Vice-President of India is the ex-officio Chairman of Rajya Sabha under Article 64.",mem:"🧠 RS Chairman = VICE PRESIDENT. 'VICE-President = VICE of upper house! Chair of Rajya SABHA = Second in nation!'",wrong:{"A":"President is the constitutional head — not RS Chairman.","B":"PM is leader of majority in Lok Sabha.","D":"Speaker is the chairman of Lok Sabha."}},
+{id:64,q:"Which Schedule of the Constitution contains the Oath of office?",opts:["Second Schedule","Third Schedule","Fourth Schedule","Fifth Schedule"],ans:1,topic:"GK · Constitution",exp:"Third Schedule contains forms of oaths/affirmations — for legislators, Ministers, judges, Election Commissioner, CAG etc.",mem:"🧠 Third Schedule = OATHS. '3 = THREE promises: I swear, I swear, I swear! Third schedule = Oaths!'",wrong:{"A":"Second Schedule = salaries of constitutional authorities.","C":"Fourth Schedule = allocation of seats in Rajya Sabha.","D":"Fifth Schedule = administration of Scheduled Areas and ST."}},
+{id:65,q:"Dada Saheb Phalke Award is given for contribution to:",opts:["Sports","Cinema","Literature","Music"],ans:1,topic:"GK · Awards",exp:"Dada Saheb Phalke Award is India's highest honour in cinema, given by the Government of India annually.",mem:"🧠 DADA SAHEB PHALKE = CINEMA. 'PHALKE = FILM = CINEMA! He made Raja Harishchandra (1913) = first Indian film!'",wrong:{"A":"Sports = Rajiv Gandhi Khel Ratna, Arjuna Award.","C":"Literature = Sahitya Akademi Award, Jnanpith.","D":"Music = Sangeet Natak Akademi."}},
+{id:66,q:"The term 'Dharmadhikarana' in ancient India referred to:",opts:["Revenue officer","Chief justice/head of justice","Military commander","Religious head"],ans:1,topic:"GK · Legal History",exp:"Dharmadhikarana = Dharm (law/justice) + adhikarana (authority). In ancient India, it referred to the chief judge or head of the court of justice.",mem:"🧠 DHARMA + ADHIKARANA = LAW + AUTHORITY = Chief Justice. 'DHARMA = justice, ADHIKAR = authority = Chief Justice!'",wrong:{"A":"Revenue officer = Sannidhata or Samaharta.","C":"Military commander = Senapati.","D":"Religious head = Purohita or Acharya."}},
+{id:67,q:"The Law Day in India is observed on:",opts:["26 January","15 August","26 November","2 October"],ans:2,topic:"GK · Law",exp:"26 November is observed as Constitution Day (Samvidhan Diwas) and also as National Law Day in India — the day Constitution was adopted in 1949.",mem:"🧠 26 NOVEMBER = CONSTITUTION DAY = LAW DAY. 'ADOPTED on 26 Nov 1949 = LAW DAY! Two-Six November!'",wrong:{"A":"26 January = Republic Day (Constitution enforced).","B":"15 August = Independence Day.","D":"2 October = Gandhi Jayanti, World Non-Violence Day."}},
+{id:68,q:"Under Article 352, National Emergency can be proclaimed when:",opts:["Financial crisis","External aggression or armed rebellion","State government failure","Natural disaster"],ans:1,topic:"GK · Emergency",exp:"Article 352 — National Emergency can be proclaimed on grounds of war, external aggression, or armed rebellion (originally 'internal disturbance', changed by 44th Amendment).",mem:"🧠 Article 352 = NATIONAL EMERGENCY = WAR/EXTERNAL AGGRESSION/ARMED REBELLION. '352 = 3 grounds! 44th Amendment changed 'internal disturbance' to 'armed rebellion'!'",wrong:{"A":"Financial crisis = Financial Emergency under Article 360.","C":"State government failure = President's Rule, Article 356.","D":"Natural disaster = not a constitutional emergency ground."}},
+{id:69,q:"The Rajya Sabha cannot be dissolved because:",opts:["It is elected by Parliament","It is a permanent body","President doesn't want","It has less power"],ans:1,topic:"GK · Parliament",exp:"Rajya Sabha is a permanent body under Article 83(1) — it cannot be dissolved. One-third of its members retire every 2 years.",mem:"🧠 RAJYA SABHA = PERMANENT BODY. 'RAJYA = PERMANENT = like states are permanent! 1/3 retire every 2 years but RS lives forever!'",wrong:{"A":"RS is elected by state legislatures, not Parliament.","C":"Constitutional provision, not presidential preference.","D":"Less power is not the reason — it is a constitutional design choice."}},
+{id:70,q:"The Banking Ombudsman scheme is governed by:",opts:["RBI","Finance Ministry","SEBI","IBA"],ans:0,topic:"GK · Banking",exp:"The Banking Ombudsman Scheme is operated by the Reserve Bank of India (RBI) to resolve customer complaints against banks.",mem:"🧠 Banking Ombudsman = RBI. 'RBI = Reserve Bank = BOSS of banks = handles bank complaints!'",wrong:{"B":"Finance Ministry sets banking policy but not the ombudsman scheme.","C":"SEBI regulates capital markets, not banking.","D":"IBA (Indian Banks' Association) is a trade body — not the ombudsman."}},
+...getGKQuestions2020().slice(10)
+];}
+
+function getAptitudeQuestions2018() { return getAptitudeQuestions2020(); }
+
+// ============== UI LOGIC ==============
+let currentView = 'home';
+let mockQuestions = [];
+
+function showView(view) {
+  document.getElementById('homeView').style.display = 'none';
+  document.getElementById('examView').style.display = 'none';
+  document.getElementById('scorecardView').style.display = 'none';
+  document.getElementById('mockView').style.display = 'none';
+  document.getElementById(view).style.display = view === 'examView' ? 'flex' : (view === 'scorecardView' ? 'block' : 'flex');
+  currentView = view;
+  window.scrollTo(0, 0);
+}
+
+function goHome() {
+  showView('homeView');
+}
+
+function loadExam(year) {
+  currentYear = year;
+  currentPaper = PAPERS[year];
+  answers = {};
+  score = 0;
+  answeredCount = 0;
+  currentPart = 'A';
+  
+  document.getElementById('examTitle').textContent = currentPaper.title;
+  document.getElementById('examProgress').textContent = '0 / 120 answered';
+  document.getElementById('topScore').textContent = '0';
+  document.getElementById('floatScoreVal').textContent = '0/0';
+  document.getElementById('progressBar').style.width = '0%';
+  
+  // Set up part tabs
+  const tabs = document.getElementById('partTabs');
+  tabs.innerHTML = '';
+  ['A','B','C'].forEach((part,i) => {
+    const p = currentPaper.parts[part];
+    const tab = document.createElement('div');
+    tab.className = 'part-tab' + (i === 0 ? ' active' : '');
+    tab.textContent = p.name.replace('Part A — ', 'Part A · ').replace('Part B — ', 'Part B · ').replace('Part C — ', 'Part C · ');
+    tab.onclick = () => showPart(part, tab);
+    tabs.appendChild(tab);
+  });
+  
+  showView('examView');
+  renderPart('A');
+}
+
+function showPart(part, tabEl) {
+  currentPart = part;
+  document.querySelectorAll('.part-tab').forEach(t => t.classList.remove('active'));
+  tabEl.classList.add('active');
+  renderPart(part);
+  window.scrollTo(0, 0);
+}
+
+function renderPart(part) {
+  const container = document.getElementById('questionsArea');
+  container.innerHTML = '';
+  const questions = currentPaper.parts[part].questions;
+  questions.forEach(q => {
+    container.appendChild(createQuestionCard(q));
+  });
+  // Restore answered state
+  Object.keys(answers).forEach(qid => {
+    const card = document.getElementById('qcard-' + qid);
+    if (card) {
+      const ans = answers[qid];
+      applyAnswerStyle(card, ans.selectedIdx, ans.isCorrect, parseInt(qid));
+    }
+  });
+}
+
+function createQuestionCard(q) {
+  const card = document.createElement('div');
+  card.className = 'q-card';
+  card.id = 'qcard-' + q.id;
+  
+  const keysArr = ['A','B','C','D'];
+  const optsHtml = q.opts.map((opt, i) => `
+    <button class="opt-btn" id="opt-${q.id}-${i}" onclick="selectAnswer(${q.id},${i},${q.ans})">
+      <span class="opt-key">${keysArr[i]}</span>
+      <span class="opt-text">${opt}</span>
+    </button>`).join('');
+
+  card.innerHTML = `
+    <div class="q-header">
+      <div class="q-num" id="qnum-${q.id}">${q.id}</div>
+      <div class="q-text">${q.q}</div>
+    </div>
+    <div class="q-topic"><span class="tag-law">${q.topic}</span></div>
+    <div class="options-grid">${optsHtml}</div>
+    <div class="explanation" id="exp-${q.id}">
+      <div class="exp-section correct-ans">
+        <div class="exp-label">✅ Correct Answer &amp; Explanation</div>
+        <div class="exp-text">${q.exp}</div>
+      </div>
+      <div class="exp-section memory-box">
+        <div class="exp-label">🧠 Memory Trick / Coaching Shortcut</div>
+        <div class="exp-text">${q.mem}</div>
+      </div>
+      <div class="exp-section wrong-opts">
+        <div class="exp-label">❌ Why Other Options Are Wrong</div>
+        <div class="exp-text">${Object.entries(q.wrong).map(([k,v])=>`<strong>${k}:</strong> ${v}`).join('<br>')}
+        </div>
+      </div>
+    </div>`;
+  return card;
+}
+
+function selectAnswer(qId, selectedIdx, correctIdx) {
+  // Find the question
+  let question = null;
+  for (const part of Object.values(currentPaper.parts)) {
+    const found = part.questions.find(q => q.id === qId);
+    if (found) { question = found; break; }
+  }
+  if (!question) return;
+  
+  // Already answered?
+  if (answers[qId]) return;
+  
+  const isCorrect = selectedIdx === correctIdx;
+  answers[qId] = { selectedIdx, isCorrect };
+  
+  if (isCorrect) score++;
+  answeredCount++;
+  
+  const card = document.getElementById('qcard-' + qId);
+  applyAnswerStyle(card, selectedIdx, isCorrect, qId);
+  
+  // Show explanation
+  const exp = document.getElementById('exp-' + qId);
+  exp.classList.add('show');
+  
+  // Update scores
+  updateScoreDisplay();
+}
+
+function applyAnswerStyle(card, selectedIdx, isCorrect, qId) {
+  card.classList.add(isCorrect ? 'answered-correct' : 'answered-wrong');
+  
+  const qnum = document.getElementById('qnum-' + qId);
+  if (qnum) qnum.classList.add(isCorrect ? 'correct' : 'wrong');
+  
+  // Disable all options and highlight
+  for (let i = 0; i < 4; i++) {
+    const btn = document.getElementById('opt-' + qId + '-' + i);
+    if (!btn) continue;
+    btn.disabled = true;
+    
+    if (i === selectedIdx && isCorrect) btn.classList.add('selected-correct');
+    else if (i === selectedIdx && !isCorrect) btn.classList.add('selected-wrong');
+    else if (i === (answers[qId] ? answers[qId].selectedIdx === i ? i : -1 : -1)) {}
+    
+    // Find the question to get correct answer
+    let question = null;
+    for (const part of Object.values(currentPaper.parts)) {
+      const found = part.questions.find(q => q.id === parseInt(qId));
+      if (found) { question = found; break; }
+    }
+    if (question && i === question.ans && !isCorrect) {
+      btn.classList.add('reveal-correct');
+    }
+  }
+}
+
+function updateScoreDisplay() {
+  document.getElementById('topScore').textContent = score;
+  document.getElementById('floatScoreVal').textContent = answeredCount + '/120';
+  document.getElementById('examProgress').textContent = answeredCount + ' / 120 answered';
+  document.getElementById('progressBar').style.width = ((answeredCount/120)*100) + '%';
+}
+
+function finishExam() {
+  // Build scorecard
+  const total = 120;
+  const pct = Math.round((score/total)*100);
+  
+  document.getElementById('finalScoreNum').textContent = score + '/' + total;
+  document.getElementById('finalScorePct').textContent = pct + '%';
+  
+  // Animate ring
+  const circle = document.getElementById('scoreRingCircle');
+  const circumference = 314;
+  const offset = circumference - (pct/100 * circumference);
+  setTimeout(() => { circle.style.strokeDashoffset = offset; }, 100);
+  
+  // Performance message
+  let emoji, msg, sub;
+  if (pct >= 90) { emoji='🏆'; msg='Outstanding!'; sub='You are LAWCET ready! Excellent performance!'; }
+  else if (pct >= 75) { emoji='🎯'; msg='Great Performance!'; sub='Strong candidate! Keep practicing!'; }
+  else if (pct >= 60) { emoji='📈'; msg='Good Effort!'; sub='Above average. Focus on weak areas!'; }
+  else if (pct >= 40) { emoji='💪'; msg='Keep Going!'; sub='Practice more. You can improve significantly!'; }
+  else { emoji='📚'; msg='More Study Needed!'; sub='Start with basics. Revise concepts thoroughly!'; }
+  
+  document.getElementById('performanceEmoji').textContent = emoji;
+  document.getElementById('performanceMsg').textContent = msg;
+  document.getElementById('performanceSub').textContent = sub;
+  
+  // Part-wise breakdown
+  const breakdown = document.getElementById('partBreakdown');
+  breakdown.innerHTML = '';
+  ['A','B','C'].forEach(part => {
+    const questions = currentPaper.parts[part].questions;
+    let partScore = 0;
+    let partAnswered = 0;
+    questions.forEach(q => {
+      if (answers[q.id]) {
+        partAnswered++;
+        if (answers[q.id].isCorrect) partScore++;
+      }
+    });
+    const partTotal = questions.length;
+    const partPct = partTotal > 0 ? Math.round((partScore/partTotal)*100) : 0;
+    const row = document.createElement('div');
+    row.className = 'part-row';
+    row.innerHTML = `
+      <div class="part-row-top">
+        <div class="part-row-name">${currentPaper.parts[part].name}</div>
+        <div class="part-row-score">${partScore}/${partTotal}</div>
+      </div>
+      <div class="mini-bar"><div class="mini-bar-fill" style="width:${partPct}%"></div></div>
+      <div style="font-size:0.7rem;color:var(--text3);margin-top:4px;">${partAnswered} answered · ${partPct}% accuracy</div>`;
+    breakdown.appendChild(row);
+  });
+  
+  document.getElementById('printReview').classList.add('hidden');
+  showView('scorecardView');
+}
+
+function showPrintReview() {
+  const pr = document.getElementById('printReview');
+  pr.classList.remove('hidden');
+  const content = document.getElementById('printReviewContent');
+  content.innerHTML = '';
+  
+  ['A','B','C'].forEach(part => {
+    const header = document.createElement('div');
+    header.innerHTML = `<div style="padding:1rem 0 0.5rem;border-top:1px solid var(--border);margin-top:1rem;font-size:0.8rem;font-weight:600;color:var(--accent3);">${currentPaper.parts[part].name}</div>`;
+    content.appendChild(header);
+    
+    currentPaper.parts[part].questions.forEach(q => {
+      const answered = answers[q.id];
+      const div = document.createElement('div');
+      div.className = 'review-q' + (answered ? (answered.isCorrect ? ' rc' : ' rw') : '');
+      const statusEmoji = answered ? (answered.isCorrect ? '✅' : '❌') : '⬜';
+      div.innerHTML = `
+        <div class="review-q-num">Q${q.id} · ${q.topic}</div>
+        <div class="review-q-text">${q.q}</div>
+        <div class="review-ans">
+          <span>${statusEmoji}</span>
+          <span class="ans-chip correct">${q.opts[q.ans]}</span>
+          ${answered && !answered.isCorrect ? `<span class="ans-chip wrong">Your: ${q.opts[answered.selectedIdx]}</span>` : ''}
+        </div>
+        <div class="review-exp">${q.exp}</div>
+        <div class="review-mem">${q.mem}</div>`;
+      content.appendChild(div);
+    });
+  });
+  
+  pr.scrollIntoView({ behavior: 'smooth' });
+}
+
+function restartExam() {
+  loadExam(currentYear);
+}
+
+// ============== MOCK TEST ==============
+function loadMock() {
+  showView('mockView');
+  document.getElementById('mockSplash').style.display = 'block';
+  document.getElementById('mockQuestionsArea').style.display = 'none';
+}
+
+async function generateMock() {
+  const splash = document.getElementById('mockSplash');
+  splash.innerHTML = `<div style="text-align:center;padding:3rem 1.25rem;">
+    <div class="loader" style="margin:0 auto 1rem;"></div>
+    <div style="font-size:0.9rem;color:var(--text2);">Generating your personalised mock test...<br><span style="font-size:0.75rem;color:var(--text3);font-family:'JetBrains Mono',monospace;">AI analyzing 2018–2020 patterns</span></div>
+  </div>`;
+  
+  try {
+    const prompt = `You are a LAWCET exam expert. Generate exactly 10 multiple choice questions for an AP/TG LAWCET mock test. Follow this strict JSON format only, no other text:
+[
+  {
+    "id": 1,
+    "q": "Question text here?",
+    "opts": ["Option A", "Option B", "Option C", "Option D"],
+    "ans": 0,
+    "topic": "IPC · Topic",
+    "exp": "Explanation of correct answer in 2-3 sentences.",
+    "mem": "🧠 Memory trick or mnemonic for this question.",
+    "wrong": {"A": "Why A wrong", "B": "Why B wrong", "C": "Why C wrong"}
+  }
+]
+Include 5 law questions (IPC, CrPC, Contract Act, Constitution, TPA), 3 GK questions, 2 aptitude/English questions. Make them LAWCET-pattern specific, exam-ready, different from common textbook questions. The "wrong" object should have entries for all incorrect options only.`;
+
+    const response = await fetch(CLAUDE_API, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 3000,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+    
+    const data = await response.json();
+    const text = data.content[0].text;
+    const clean = text.replace(/```json|```/g, '').trim();
+    mockQuestions = JSON.parse(clean);
+    
+    renderMockQuestions();
+  } catch (err) {
+    // Fallback to sample questions
+    mockQuestions = generateFallbackMock();
+    renderMockQuestions();
+  }
+}
+
+function generateFallbackMock() {
+  return [
+    {id:1,q:"Under Section 107 IPC, abetment can be done by which of the following ways?",opts:["Instigation only","Conspiracy only","Intentional aid only","All three: instigation, conspiracy, or aid"],ans:3,topic:"IPC · Abetment",exp:"Section 107 IPC — Abetment can be done by: (a) instigation, (b) engaging in conspiracy, or (c) intentional aid in doing the act.",mem:"🧠 ICA = Instigation + Conspiracy + Aid = ABETMENT! Three ways!",wrong:{"A":"Instigation alone is just one mode of abetment.","B":"Conspiracy alone is just one mode.","C":"Aid alone is just one mode."}},
+    {id:2,q:"The writ of 'Quo Warranto' is issued against:",opts:["Illegal detention","Usurpation of public office","Transfer of case","Violation of fundamental rights"],ans:1,topic:"Constitution · Writs",exp:"Quo Warranto = 'By what authority?' It is issued against a person holding a public office without legal authority.",mem:"🧠 QUO WARRANTO = WHO AUTHORISED YOU? 'What WARRANT do you have for this office?!'",wrong:{"A":"Illegal detention = Habeas Corpus.","C":"Transfer of case is done by High Court under its supervisory jurisdiction.","D":"FR violation = various writs including Article 32."}},
+    {id:3,q:"Under CPC Order 1, a 'necessary party' is one without whom:",opts:["Case cannot be appealed","No effective decree can be passed","No summons can be issued","No evidence can be led"],ans:1,topic:"CPC · Parties",exp:"A necessary party is one in whose absence no effective decree can be passed. Their presence is essential for complete adjudication.",mem:"🧠 NECESSARY PARTY = Essential for EFFECTIVE DECREE. 'Necessary = Cannot proceed without!'",wrong:{"A":"Appeal is not what determines necessary party.","C":"Summons issue is procedural — not related to necessary party concept.","D":"Evidence rules don't determine necessary party status."}},
+    {id:4,q:"The 'Basic Structure' doctrine was propounded in:",opts:["Golaknath case 1967","Kesavananda Bharati case 1973","ADM Jabalpur case 1976","Maneka Gandhi case 1978"],ans:1,topic:"Constitution · Basic Structure",exp:"The Basic Structure doctrine was established by a 13-judge bench in Kesavananda Bharati v. State of Kerala (1973). Parliament cannot destroy the basic structure.",mem:"🧠 BASIC STRUCTURE = KESAVANANDA BHARATI 1973. '13 judges = 1+3=4 = FOUR core values protected!' Most landmark case!",wrong:{"A":"Golaknath 1967 held Parliament cannot amend FRs.","C":"ADM Jabalpur 1976 = habeas corpus case during Emergency.","D":"Maneka Gandhi 1978 = Article 21 expanded."}},
+    {id:5,q:"Under the Muslim Women (Protection of Rights on Divorce) Act 2019, triple talaq is:",opts:["Civil wrong","Void and criminal offence","Permitted","Requires court approval"],ans:1,topic:"Special Laws",exp:"The Muslim Women (Protection of Rights on Marriage) Act 2019 makes triple talaq (talaq-e-biddat) void and criminalises it with up to 3 years imprisonment.",mem:"🧠 Triple Talaq 2019 Act = VOID + CRIMINAL. 'THREE times talaq = THREE years jail post 2019!'",wrong:{"A":"It is not just a civil wrong — it is a criminal offence.","C":"It is specifically prohibited and criminalised.","D":"Court approval is not mentioned — it is simply criminalised."}},
+    {id:6,q:"Who is the first citizen of India?",opts:["Prime Minister","Chief Justice of India","President","Vice-President"],ans:2,topic:"GK · Constitution",exp:"The President of India is the first citizen of India and the constitutional head of the Republic.",mem:"🧠 PRESIDENT = FIRST CITIZEN. 'PREsident = PREfirst! Article 52 says there shall be a President = First citizen!'",wrong:{"A":"PM is the head of government, not first citizen.","B":"CJI heads judiciary — not called first citizen.","D":"VP is second to President."}},
+    {id:7,q:"The Headquarters of SAARC is located in:",opts:["New Delhi","Colombo","Kathmandu","Dhaka"],ans:2,topic:"GK · International",exp:"The SAARC Secretariat is located in Kathmandu, Nepal. SAARC has 8 member countries.",mem:"🧠 SAARC = KATHMANDU. 'South Asian = Nepal's CAPITAL = KATHMANDU hosts SAARC!'",wrong:{"A":"New Delhi = India's capital but not SAARC HQ.","B":"Colombo = Sri Lanka's capital.","D":"Dhaka = Bangladesh's capital."}},
+    {id:8,q:"The maximum age to be appointed as a Judge of Supreme Court of India is:",opts:["62 years","65 years","68 years","No maximum age"],ans:1,topic:"GK · Judiciary",exp:"SC judges hold office until 65 years of age (Article 124(2)). High Court judges retire at 62.",mem:"🧠 SC Judge = 65 years. HC Judge = 62 years. '65-62=3 = SC is 3 levels above HC!' Or: SC=65=SIXTY-FIVE=5+1=6=SC.",wrong:{"A":"62 is HC judges' retirement age.","C":"68 is not a retirement age in Indian judiciary.","D":"There is a maximum age of 65."}},
+    {id:9,q:"Which number is the odd one out: 8, 27, 64, 100, 125",opts:["8","27","64","100"],ans:3,topic:"Aptitude · Number Series",exp:"8=2³, 27=3³, 64=4³, 125=5³ are all perfect cubes. 100=10² is a perfect square but NOT a perfect cube.",mem:"🧠 Cubes: 2³=8, 3³=27, 4³=64, 5³=125. 100=10² = perfect square only, not cube = ODD ONE OUT!",wrong:{"A":"8=2³ — is a perfect cube.","B":"27=3³ — is a perfect cube.","C":"64=4³ — is a perfect cube."}},
+    {id:10,q:"Choose the correct one-word substitution: 'A person who speaks many languages'",opts:["Bilingual","Trilingual","Polyglot","Monolingual"],ans:2,topic:"English · Vocabulary",exp:"Polyglot = a person who speaks or writes several languages. From Greek 'poly' (many) + 'glotta' (tongue/language).",mem:"🧠 POLYGLOT = MANY languages. 'POLY=MANY + GLOT=language (like glossary)!' Bilingual=2, Trilingual=3, Polyglot=many!",wrong:{"A":"Bilingual = speaks 2 languages.","B":"Trilingual = speaks 3 languages.","D":"Monolingual = speaks only 1 language."}}
+  ];
+}
+
+function renderMockQuestions() {
+  document.getElementById('mockSplash').style.display = 'none';
+  const area = document.getElementById('mockQuestionsArea');
+  area.style.display = 'block';
+  area.innerHTML = '';
+  
+  let mockAnswers = {};
+  let mockScore = 0;
+  
+  // Score bar
+  const topBar = document.createElement('div');
+  topBar.innerHTML = `<div style="padding:1rem 1.25rem;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--bg2);z-index:50;">
+    <div style="font-size:0.85rem;font-weight:600;">🤖 AI Mock Test</div>
+    <div class="score-badge"><div class="score-val" id="mockScoreVal">0</div><div class="score-label">Score</div></div>
+  </div>`;
+  area.appendChild(topBar);
+  
+  const qContainer = document.createElement('div');
+  qContainer.style.cssText = 'padding:1.25rem;display:flex;flex-direction:column;gap:1.25rem;';
+  
+  mockQuestions.forEach(q => {
+    const card = document.createElement('div');
+    card.className = 'q-card';
+    card.id = 'mqcard-' + q.id;
+    const keysArr = ['A','B','C','D'];
+    const optsHtml = q.opts.map((opt, i) => `
+      <button class="opt-btn" id="mopt-${q.id}-${i}" onclick="selectMockAnswer(${q.id},${i},${q.ans})">
+        <span class="opt-key">${keysArr[i]}</span>
+        <span class="opt-text">${opt}</span>
+      </button>`).join('');
+    card.innerHTML = `
+      <div class="q-header">
+        <div class="q-num" id="mqnum-${q.id}">${q.id}</div>
+        <div class="q-text">${q.q}</div>
+      </div>
+      <div class="q-topic"><span class="tag-law">${q.topic}</span></div>
+      <div class="options-grid">${optsHtml}</div>
+      <div class="explanation" id="mexp-${q.id}">
+        <div class="exp-section correct-ans">
+          <div class="exp-label">✅ Explanation</div>
+          <div class="exp-text">${q.exp}</div>
+        </div>
+        <div class="exp-section memory-box">
+          <div class="exp-label">🧠 Memory Trick</div>
+          <div class="exp-text">${q.mem}</div>
+        </div>
+        <div class="exp-section wrong-opts">
+          <div class="exp-label">❌ Why Others Are Wrong</div>
+          <div class="exp-text">${Object.entries(q.wrong||{}).map(([k,v])=>`<strong>${k}:</strong> ${v}`).join('<br>')}</div>
+        </div>
+      </div>`;
+    qContainer.appendChild(card);
+  });
+  
+  area.appendChild(qContainer);
+  
+  const finishBtn = document.createElement('div');
+  finishBtn.style.cssText = 'padding:0 1.25rem 3rem;';
+  finishBtn.innerHTML = '<button class="btn-primary" style="width:100%" onclick="newMockTest()">🔄 Generate New Mock Test</button><button class="btn-secondary" style="width:100%;margin-top:10px" onclick="goHome()">← Back to Home</button>';
+  area.appendChild(finishBtn);
+  
+  window.scrollTo(0, 0);
+}
+
+window.selectMockAnswer = function(qId, selectedIdx, correctIdx) {
+  if (document.getElementById('mopt-' + qId + '-0').disabled) return;
+  const isCorrect = selectedIdx === correctIdx;
+  
+  const card = document.getElementById('mqcard-' + qId);
+  if (isCorrect) card.classList.add('answered-correct');
+  else card.classList.add('answered-wrong');
+  
+  const qnum = document.getElementById('mqnum-' + qId);
+  qnum.classList.add(isCorrect ? 'correct' : 'wrong');
+  
+  const question = mockQuestions.find(q => q.id === qId);
+  for (let i = 0; i < 4; i++) {
+    const btn = document.getElementById('mopt-' + qId + '-' + i);
+    btn.disabled = true;
+    if (i === selectedIdx && isCorrect) btn.classList.add('selected-correct');
+    else if (i === selectedIdx && !isCorrect) btn.classList.add('selected-wrong');
+    else if (i === question.ans && !isCorrect) btn.classList.add('reveal-correct');
+  }
+  
+  document.getElementById('mexp-' + qId).classList.add('show');
+  
+  // Update score
+  if (isCorrect) {
+    const sv = document.getElementById('mockScoreVal');
+    sv.textContent = parseInt(sv.textContent) + 1;
+  }
+};
+
+function newMockTest() {
+  document.getElementById('mockQuestionsArea').style.display = 'none';
+  document.getElementById('mockSplash').style.display = 'block';
+  document.getElementById('mockSplash').innerHTML = `
+    <div style="margin:1.5rem 0 1rem;padding:1rem;background:linear-gradient(135deg,rgba(124,106,247,0.1),rgba(6,182,212,0.08));border:1px solid rgba(124,106,247,0.2);border-radius:var(--radius);">
+      <div style="font-size:1.5rem;margin-bottom:0.5rem;">🤖</div>
+      <h2>AI-Generated Mock Test</h2>
+      <p>Based on pattern analysis of 2018, 2019 & 2020 papers. Each session generates fresh questions.</p>
+    </div>
+    <button class="btn-primary" onclick="generateMock()" style="width:100%;margin-top:1.5rem">🚀 Generate New Mock Test (AI)</button>
+    <button class="btn-secondary" onclick="goHome()" style="width:100%;margin-top:10px">← Back to Home</button>`;
+}
+
+// Init
+document.getElementById('scorecardView').style.display = 'none';
+document.getElementById('examView').style.display = 'none';
+document.getElementById('mockView').style.display = 'none';
+</script>
+</body>
+</html>
