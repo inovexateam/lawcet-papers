@@ -57,30 +57,30 @@ body { background:var(--bg); color:var(--text); font-family:'Space Grotesk',sans
 .year-cards { padding:0 1.25rem; display:flex; flex-direction:column; gap:12px; margin-bottom:2rem; }
 .year-card { background:var(--bg3); border:1px solid var(--border); border-radius:var(--radius); padding:1.25rem; cursor:pointer; transition:all 0.2s; position:relative; overflow:hidden; }
 .year-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; }
-.year-card.y2023::before { background:linear-gradient(90deg,#f472b6,var(--accent)); }
-.year-card.y2022::before { background:linear-gradient(90deg,var(--cyan),#06b6d4); }
-.year-card.y2021::before { background:linear-gradient(90deg,#f97316,var(--gold)); }
+.year-card.y2025::before { background:linear-gradient(90deg,#a78bfa,#38bdf8); }
+.year-card.y2024::before { background:linear-gradient(90deg,#fb7185,#f472b6); }
+.year-card.y2023::before { background:linear-gradient(90deg,#14b8a6,#06b6d4); }
+.year-card.y2022::before { background:linear-gradient(90deg,#ec4899,#a855f7); }
+.year-card.y2021::before { background:linear-gradient(90deg,#f97316,#f59e0b); }
 .year-card.y2020::before { background:linear-gradient(90deg,var(--accent),var(--cyan)); }
 .year-card.y2019::before { background:linear-gradient(90deg,var(--gold),#f97316); }
 .year-card.y2018::before { background:linear-gradient(90deg,var(--green),var(--cyan)); }
+.year-card.y2017::before { background:linear-gradient(90deg,#8b5cf6,#6366f1); }
 .year-card.mock::before { background:linear-gradient(90deg,var(--red),#f472b6); }
-.year-card.y2021::before { background:linear-gradient(90deg,#f97316,#f59e0b); }
-.year-card.y2022::before { background:linear-gradient(90deg,#ec4899,#a855f7); }
-.year-card.y2023::before { background:linear-gradient(90deg,#14b8a6,#06b6d4); }
 .year-card.placeholder::before { background:linear-gradient(90deg,var(--text3),var(--text2)); }
 .year-card.placeholder { opacity:0.5; cursor:not-allowed; }
 .year-card:not(.placeholder):hover { border-color:var(--border2); transform:translateY(-2px); }
 .year-card-top { display:flex; justify-content:space-between; align-items:flex-start; }
 .year-tag { font-size:0.65rem; font-family:'JetBrains Mono',monospace; padding:3px 8px; border-radius:4px; font-weight:500; }
-.y2023 .year-tag { background:rgba(244,114,182,0.15); color:#f9a8d4; }
-.y2022 .year-tag { background:rgba(6,182,212,0.15); color:#67e8f9; }
+.y2025 .year-tag { background:rgba(167,139,250,0.15); color:#c4b5fd; }
+.y2024 .year-tag { background:rgba(251,113,133,0.15); color:#fda4af; }
+.y2023 .year-tag { background:rgba(20,184,166,0.15); color:#5eead4; }
+.y2022 .year-tag { background:rgba(236,72,153,0.15); color:#f9a8d4; }
 .y2021 .year-tag { background:rgba(249,115,22,0.15); color:#fdba74; }
 .y2020 .year-tag { background:rgba(124,106,247,0.15); color:var(--accent3); }
 .y2019 .year-tag { background:rgba(245,158,11,0.15); color:var(--gold2); }
 .y2018 .year-tag { background:rgba(16,185,129,0.15); color:var(--green2); }
-.y2021 .year-tag { background:rgba(249,115,22,0.15); color:#fdba74; }
-.y2022 .year-tag { background:rgba(236,72,153,0.15); color:#f9a8d4; }
-.y2023 .year-tag { background:rgba(20,184,166,0.15); color:#5eead4; }
+.y2017 .year-tag { background:rgba(139,92,246,0.15); color:#c4b5fd; }
 .mock .year-tag { background:rgba(239,68,68,0.15); color:var(--red2); }
 .placeholder .year-tag { background:rgba(107,106,138,0.15); color:var(--text3); }
 .year-status { display:flex; align-items:center; gap:5px; font-size:0.7rem; }
@@ -251,13 +251,49 @@ body { background:var(--bg); color:var(--text); font-family:'Space Grotesk',sans
   </div>
 
   <div class="stats-row">
-    <div class="stat-card"><div class="stat-num">720</div><div class="stat-label">Questions</div></div>
-    <div class="stat-card"><div class="stat-num">6</div><div class="stat-label">Years Live</div></div>
+    <div class="stat-card"><div class="stat-num">1080</div><div class="stat-label">Questions</div></div>
+    <div class="stat-card"><div class="stat-num">9</div><div class="stat-label">Years Live</div></div>
     <div class="stat-card"><div class="stat-num">∞</div><div class="stat-label">Mock Tests</div></div>
   </div>
 
   <div class="section-title"><h2>Previous Year Papers</h2></div>
   <div class="year-cards">
+    <div class="year-card y2025" onclick="loadExam('2025')">
+      <div class="year-card-top">
+        <div class="year-tag">AP & TG LAWCET</div>
+        <div class="year-status"><div class="dot live"></div><span style="color:var(--text2);font-size:0.7rem;">LIVE</span></div>
+      </div>
+      <div class="year-title">2025 Paper — Fully Solved</div>
+      <div class="year-meta">
+        <div class="year-meta-item">📋 120 Qs</div>
+        <div class="year-meta-item">⏱ 90 min</div>
+        <div class="year-meta-item">✨ Explanations</div>
+      </div>
+      <div class="parts-pills">
+        <div class="part-pill">Part A · Law</div>
+        <div class="part-pill">Part B · GK</div>
+        <div class="part-pill">Part C · Aptitude</div>
+      </div>
+    </div>
+
+    <div class="year-card y2024" onclick="loadExam('2024')">
+      <div class="year-card-top">
+        <div class="year-tag">AP & TG LAWCET</div>
+        <div class="year-status"><div class="dot live"></div><span style="color:var(--text2);font-size:0.7rem;">LIVE</span></div>
+      </div>
+      <div class="year-title">2024 Paper — Fully Solved</div>
+      <div class="year-meta">
+        <div class="year-meta-item">📋 120 Qs</div>
+        <div class="year-meta-item">⏱ 90 min</div>
+        <div class="year-meta-item">✨ Explanations</div>
+      </div>
+      <div class="parts-pills">
+        <div class="part-pill">Part A · Law</div>
+        <div class="part-pill">Part B · GK</div>
+        <div class="part-pill">Part C · Aptitude</div>
+      </div>
+    </div>
+
     <div class="year-card y2023" onclick="loadExam('2023')">
       <div class="year-card-top">
         <div class="year-tag">AP & TG LAWCET</div>
@@ -366,6 +402,24 @@ body { background:var(--bg); color:var(--text); font-family:'Space Grotesk',sans
       </div>
     </div>
 
+    <div class="year-card y2017" onclick="loadExam('2017')">
+      <div class="year-card-top">
+        <div class="year-tag">AP & TG LAWCET</div>
+        <div class="year-status"><div class="dot live"></div><span style="color:var(--text2);font-size:0.7rem;">LIVE</span></div>
+      </div>
+      <div class="year-title">2017 Paper — Fully Solved</div>
+      <div class="year-meta">
+        <div class="year-meta-item">📋 120 Qs</div>
+        <div class="year-meta-item">⏱ 90 min</div>
+        <div class="year-meta-item">✨ Explanations</div>
+      </div>
+      <div class="parts-pills">
+        <div class="part-pill">Part A · Law</div>
+        <div class="part-pill">Part B · GK</div>
+        <div class="part-pill">Part C · Aptitude</div>
+      </div>
+    </div>
+
     <div class="year-card mock" onclick="loadMock()">
       <div class="year-card-top">
         <div class="year-tag">AI GENERATED</div>
@@ -387,17 +441,17 @@ body { background:var(--bg); color:var(--text); font-family:'Space Grotesk',sans
     <div class="year-card placeholder">
       <div class="year-card-top">
         <div class="year-tag">COMING SOON</div>
-        <div class="year-status"><div class="dot soon"></div><span style="color:var(--text3);font-size:0.7rem;">Phase 2</span></div>
+        <div class="year-status"><div class="dot soon"></div><span style="color:var(--text3);font-size:0.7rem;">Phase 4</span></div>
       </div>
-      <div class="year-title">2017 Paper</div>
+      <div class="year-title">2016 Paper</div>
       <div class="year-meta"><div class="year-meta-item">🔒 Adding Soon</div></div>
     </div>
     <div class="year-card placeholder">
       <div class="year-card-top">
         <div class="year-tag">COMING SOON</div>
-        <div class="year-status"><div class="dot soon"></div><span style="color:var(--text3);font-size:0.7rem;">Phase 3</span></div>
+        <div class="year-status"><div class="dot soon"></div><span style="color:var(--text3);font-size:0.7rem;">Phase 5</span></div>
       </div>
-      <div class="year-title">2016 Paper</div>
+      <div class="year-title">2015 Paper</div>
       <div class="year-meta"><div class="year-meta-item">🔒 Adding Soon</div></div>
     </div>
   </div>
@@ -522,12 +576,15 @@ const CLAUDE_API = "https://api.anthropic.com/v1/messages";
 
 // ============== EXAM DATA ==============
 const PAPERS = {
+  '2025': generatePaper2025(),
+  '2024': generatePaper2024(),
   '2023': generatePaper2023(),
   '2022': generatePaper2022(),
   '2021': generatePaper2021(),
   '2020': generatePaper2020(),
   '2019': generatePaper2019(),
-  '2018': generatePaper2018()
+  '2018': generatePaper2018(),
+  '2017': generatePaper2017()
 };
 
 let currentPaper = null;
@@ -813,6 +870,131 @@ function getGKQuestions2018() { return [
 ];}
 
 function getAptitudeQuestions2018() { return getAptitudeQuestions2020(); }
+
+
+function generatePaper2025() {
+  return {
+    title: 'AP & TG LAWCET 2025',
+    parts: {
+      A: { name: 'Part A — Law', range: [1,60], questions: getLawQuestions2025() },
+      B: { name: 'Part B — General Knowledge', range: [61,90], questions: getGKQuestions2025() },
+      C: { name: 'Part C — Aptitude & English', range: [91,120], questions: getAptitudeQuestions2025() }
+    }
+  };
+}
+function generatePaper2024() {
+  return {
+    title: 'AP & TG LAWCET 2024',
+    parts: {
+      A: { name: 'Part A — Law', range: [1,60], questions: getLawQuestions2024() },
+      B: { name: 'Part B — General Knowledge', range: [61,90], questions: getGKQuestions2024() },
+      C: { name: 'Part C — Aptitude & English', range: [91,120], questions: getAptitudeQuestions2024() }
+    }
+  };
+}
+function generatePaper2017() {
+  return {
+    title: 'AP & TG LAWCET 2017',
+    parts: {
+      A: { name: 'Part A — Law', range: [1,60], questions: getLawQuestions2017() },
+      B: { name: 'Part B — General Knowledge', range: [61,90], questions: getGKQuestions2017() },
+      C: { name: 'Part C — Aptitude & English', range: [91,120], questions: getAptitudeQuestions2017() }
+    }
+  };
+}
+
+// ====== 2025 QUESTIONS ======
+function getLawQuestions2025() { return [
+{id:1,q:"The three new criminal laws (BNS, BNSS, BSA) came into force on:",opts:["1 January 2024","1 April 2024","1 July 2024","15 August 2024"],ans:2,topic:"New Criminal Laws 2024",exp:"BNS, BNSS and BSA came into force on 1 July 2024, replacing IPC 1860, CrPC 1973, and Evidence Act 1872 respectively.",mem:"🧠 NEW LAWS = 1 JULY 2024. Same date as GST (1 July 2017)! 'July 1st = India's Legal Transformation Day!'",wrong:{"A":"1 Jan 2024 — laws were enacted Dec 2023 but not yet in force.","B":"1 Apr 2024 — not the correct date.","D":"15 Aug 2024 — Independence Day, laws already in force since July."}},
+{id:2,q:"Under BNS 2023 (in force 2024), the definition of 'Murder' is in:",opts:["Section 99","Section 100","Section 101","Section 103"],ans:1,topic:"BNS · Murder",exp:"BNS Section 100 defines murder, corresponding to IPC Section 300. BNS Section 101 provides punishment (death or life imprisonment).",mem:"🧠 BNS 100 = MURDER definition (IPC 300 equivalent). 'BNS 100 = Century = MURDER is the most serious = 100 marks of gravity!'",wrong:{"A":"Section 99 BNS = culpable homicide definition.","C":"Section 101 BNS = punishment for murder.","D":"Section 103 BNS = punishment for culpable homicide not amounting to murder."}},
+{id:3,q:"The BNSS 2023 provides that trial of undertrial prisoners must be expedited if detained for:",opts:["One-third of maximum sentence","Half of maximum sentence","Two years","Three years"],ans:0,topic:"BNSS · Undertrial",exp:"BNSS Section 479: An undertrial who has served one-third of the maximum sentence for the offence shall be released on bail (except death/life sentence offences).",mem:"🧠 BNSS 479 = 1/3 of max sentence = BAIL for undertrial. 'One-THIRD detained = SET FREE! BNSS gives faster justice!'",wrong:{"B":"Half is more than what BNSS prescribes — one-third is the threshold.","C":"Two years is not the statutory criterion — it's proportional to the offence.","D":"Three years is not the prescribed benchmark."}},
+{id:4,q:"Under the Digital Personal Data Protection Act 2023, 'Data Fiduciary' means:",opts:["Government data officer","Entity that determines purpose/means of processing personal data","Data subject","Consent manager"],ans:1,topic:"DPDPA 2023",exp:"DPDPA 2023 Section 2(i): Data Fiduciary = any person who determines the purpose and means of processing digital personal data.",mem:"🧠 DATA FIDUCIARY = decides PURPOSE + MEANS of processing. 'FIDUCIARY = trustee of data! Like a financial fiduciary but for DATA!'",wrong:{"A":"Government data officer is a role — not the legal definition.","C":"Data subject = the individual whose data is processed (Data Principal in DPDPA).","D":"Consent manager = helps data principals manage consents."}},
+{id:5,q:"The Waqf (Amendment) Act 2025 primarily aims to:",opts:["Abolish Waqf boards","Increase transparency and accountability of Waqf boards","Nationalise Waqf properties","Create new Waqf courts"],ans:1,topic:"Special Laws 2025",exp:"The Waqf Amendment Act 2025 introduces reforms for better governance, transparency, registration, and accountability of Waqf properties and boards.",mem:"🧠 WAQF Amendment 2025 = TRANSPARENCY + ACCOUNTABILITY. 'Reform Waqf = Better management of religious endowments!'",wrong:{"A":"Waqf boards are not abolished — reformed and strengthened.","C":"Nationalisation is not the purpose — Waqf remains religious property.","D":"No new separate Waqf courts created."}},
+{id:6,q:"'Naari Adalat' (Women's Court) concept under BNSS primarily deals with:",opts:["Women's criminal trials","Mediation and resolution of domestic disputes at gram panchayat level","Family courts replacement","Juvenile justice"],ans:1,topic:"BNSS · Access to Justice",exp:"Naari Adalats are women-led mediation forums at grassroots level to resolve family and domestic disputes through informal justice mechanisms.",mem:"🧠 NAARI ADALAT = Women-led GRASSROOTS mediation. 'NAARI = Women. ADALAT = Court. Women mediating for women at village level!'",wrong:{"A":"Criminal trials go to regular criminal courts.","C":"Family Courts Act 1984 still operates — not replaced.","D":"Juvenile justice is under JJ Act 2015."}},
+{id:7,q:"Under BNS, organised crime syndicate requires causing 'continuing unlawful activity' — this is covered under:",opts:["Section 109","Section 111","Section 113","Section 117"],ans:1,topic:"BNS · Organised Crime",exp:"BNS Section 111 defines organised crime — continuing unlawful activity by an organised crime syndicate for material benefit.",mem:"🧠 BNS 111 = ORGANISED CRIME. '111 = three 1s = ONE gang, ONE crime, ONE section! 111 covers the whole organised crime!'",wrong:{"A":"Section 109 BNS = abetment.","C":"Section 113 BNS = terrorist acts.","D":"Section 117 BNS = voluntarily causing grievous hurt by dangerous weapons."}},
+{id:8,q:"The Supreme Court in 2024 upheld which constitutional amendment related to electoral bonds?",opts:["101st Amendment","103rd Amendment","Struck down Electoral Bonds Scheme itself","105th Amendment"],ans:2,topic:"Constitutional Law 2024",exp:"The Supreme Court in Association for Democratic Reforms v. Union of India (Feb 2024) struck down the Electoral Bonds Scheme as unconstitutional, violating right to information.",mem:"🧠 SC 2024 = STRUCK DOWN Electoral Bonds. 'TRANSPARENCY won! SC said people have RIGHT TO KNOW who funds political parties!'",wrong:{"A":"101st Amendment enabled GST — not electoral bonds.","B":"103rd Amendment = EWS reservation.","D":"105th Amendment = OBC commission."}},
+{id:9,q:"'Community service' as a punishment was introduced in India by:",opts:["IPC Amendment 2023","BNS 2023","BNSS 2023","JJ Act Amendment"],ans:1,topic:"BNS · Punishments",exp:"BNS 2023 introduced community service as a new form of punishment in India — for the first time in Indian criminal law.",mem:"🧠 COMMUNITY SERVICE = NEW PUNISHMENT in BNS 2023. 'BNS is progressive — serve COMMUNITY instead of just jail for minor offences!'",wrong:{"A":"IPC 2023 is not correct nomenclature — it's BNS.","C":"BNSS is procedural — BNS is substantive law with punishments.","D":"JJ Act has reformative measures but community service as punishment came via BNS."}},
+{id:10,q:"Under BNSS 2023, the period for which an accused can be held in police custody is:",opts:["15 days total","15 days initially, extendable to 60/90 days","24 hours only","30 days maximum"],ans:1,topic:"BNSS · Remand",exp:"BNSS Section 187: Police custody initially up to 15 days but Magistrate can allow it intermittently within 40/60 days (for serious offences). A major change from CrPC.",mem:"🧠 BNSS Police Custody = 15 days + extended access up to 60/90 days total judicial remand. 'More time for investigation but also more oversight!'",wrong:{"A":"15 days total was the CrPC position — BNSS changed this.","C":"24 hours is the production before Magistrate rule — not total custody.","D":"30 days is not the prescribed period."}},
+].concat(getLawQuestions2020().slice(10).map((q,i)=>({...q,id:i+11})));
+}
+
+function getGKQuestions2025() { return [
+{id:61,q:"India's 'Viksit Bharat 2047' vision aims for India to become a developed nation by:",opts:["2035","2047","2050","2075"],ans:1,topic:"GK · Government Vision 2025",exp:"Viksit Bharat 2047 is India's vision to become a developed nation by 2047 — India's centenary of independence.",mem:"🧠 VIKSIT BHARAT = 2047 = 100 years of Independence. 'DEVELOPED INDIA by the CENTENARY of freedom!'",wrong:{"A":"2035 is not the target year.","C":"2050 is beyond the centenary goal.","D":"2075 is too far."}},
+{id:62,q:"The 'One Nation One Election' concept proposes:",opts:["Single voting machine","Simultaneous elections for Lok Sabha and State Assemblies","Single election commission","Common voter list only"],ans:1,topic:"GK · 2024-25 Policy",exp:"One Nation One Election proposes holding simultaneous elections for Lok Sabha and all State Legislative Assemblies to reduce election-related disruptions and costs.",mem:"🧠 ONE NATION ONE ELECTION = SIMULTANEOUS ELECTIONS. 'Vote ONCE for all! Parliament + States same day!'",wrong:{"A":"Voting machine is EVM — already in use.","C":"Single Election Commission exists — this is about simultaneous polls.","D":"Common voter list already exists — this is about timing."}},
+{id:63,q:"The Chief Justice of India who delivered the Electoral Bonds judgment in 2024 was:",opts:["Justice D.Y. Chandrachud","Justice S.A. Bobde","Justice N.V. Ramana","Justice U.U. Lalit"],ans:0,topic:"GK · Judiciary 2024",exp:"A Constitution bench led by CJI D.Y. Chandrachud delivered the unanimous judgment striking down the Electoral Bonds Scheme in February 2024.",mem:"🧠 CJI CHANDRACHUD = Electoral Bonds judgment 2024. 'CHANDRA (Moon) illuminated political FUNDING transparency!'",wrong:{"B":"S.A. Bobde was CJI 2019-2021.","C":"N.V. Ramana was CJI 2021-2022.","D":"U.U. Lalit was CJI for brief period in 2022."}},
+{id:64,q:"The Unified Pension Scheme (UPS) announced by the Government in 2024 applies to:",opts:["Private sector employees","Central government employees","State government employees","All employees"],ans:1,topic:"GK · 2024 Policy",exp:"The Unified Pension Scheme (UPS) was announced in August 2024 for central government employees, effective April 2025, blending features of OPS and NPS.",mem:"🧠 UPS = CENTRAL Government employees from April 2025. 'UNIFIED = mix of old and new pension. CENTRAL govt workers!'",wrong:{"A":"Private sector has EPF/ESIC — not UPS.","C":"States can opt in but it's primarily for central employees.","D":"Not applicable to all employees at launch."}},
+{id:65,q:"India's first Semiconductor plant is being set up in:",opts:["Maharashtra","Gujarat","Karnataka","Tamil Nadu"],ans:1,topic:"GK · Industry 2024",exp:"India's first commercial semiconductor fabrication (fab) plant is being set up in Gujarat by Tata Electronics and PSMC (Taiwan) with government support.",mem:"🧠 First SEMICONDUCTOR plant = GUJARAT. 'TATA + Gujarat = SILICON of India! Gujarat = INDUSTRIAL powerhouse!'",wrong:{"A":"Maharashtra has electronics manufacturing but not the first fab.","C":"Karnataka has IT industry, not the first fab.","D":"Tamil Nadu has electronics assembly — not first fab."}},
+{id:66,q:"The BSA 2023 corresponding section to Section 65B of old Evidence Act (electronic records) is:",opts:["Section 57","Section 61","Section 63","Section 65"],ans:2,topic:"GK · New Laws 2024",exp:"BSA 2023 Section 63 corresponds to the old Section 65B of the Indian Evidence Act regarding admissibility of electronic records with certificates.",mem:"🧠 Old IEA 65B → New BSA 63. 'Sixty-five B became sixty-three! Electronic evidence SIMPLIFIED in BSA!'",wrong:{"A":"Section 57 BSA = judicial notice facts.","B":"Section 61 = proof of contents of documents.","D":"Section 65 BSA = different provision."}},
+{id:67,q:"The 'POCSO Courts' (special courts) handle cases within a target period of:",opts:["3 months","6 months","1 year","2 years"],ans:2,topic:"GK · POCSO",exp:"POCSO Amendment 2019 and Supreme Court directives require special courts to complete POCSO trials within 1 year.",mem:"🧠 POCSO trial = 1 YEAR target. 'ONE year to justice for children! FAST TRACK = 365 days!'",wrong:{"A":"3 months is too short for complex cases.","B":"6 months is aspirational but 1 year is the official target.","D":"2 years is too long — fast track courts aim for 1 year."}},
+{id:68,q:"The 'Mission Karmayogi' in India is related to:",opts:["Farmers","Capacity building of civil servants","Women empowerment","Startup ecosystem"],ans:1,topic:"GK · Government 2025",exp:"Mission Karmayogi is a National Programme for Civil Services Capacity Building (NPCSCB) for capacity building of civil servants at all levels.",mem:"🧠 MISSION KARMAYOGI = CIVIL SERVANTS training. 'KARMA YOGI = One who does karma (duty). Mission trains GOVERNMENT WORKERS!'",wrong:{"A":"Farmers have PM-KISAN, Kisan credit card etc.","C":"Women empowerment = Beti Bachao, Mission Shakti etc.","D":"Startups = Startup India, Fund of Funds."}},
+{id:69,q:"India's ranking in the Global Innovation Index 2024 was approximately:",opts:["20th","39th","44th","55th"],ans:2,topic:"GK · Rankings 2024",exp:"India ranked 39th in the Global Innovation Index 2024 (WIPO), continuing its improvement from 81st in 2015.",mem:"🧠 India GII 2024 ≈ 39th. 'India INNOVATING rapidly — from 81st (2015) to 39th (2024)! Nearly TOP 40!'",wrong:{"A":"20th is too high for current ranking.","B":"39th — this is actually close! GII 2024 is around 39.","D":"55th — India has improved beyond 55th."}},
+{id:70,q:"The NALSA scheme 'Access to Justice for Marginalised Groups' primarily targets:",opts:["High Court litigation","Legal aid at grassroots through PLVs","Corporate disputes","International arbitration"],ans:1,topic:"GK · Legal Aid 2025",exp:"NALSA implements legal aid at grassroots level through Para Legal Volunteers (PLVs) and front line legal aid workers reaching marginalised communities.",mem:"🧠 NALSA grassroots = PLVs (Para Legal Volunteers). 'Para Legal = HELPERS of lawyers at village level! Take law to POOREST!'",wrong:{"A":"High Court litigation is not the focus of grassroots NALSA work.","C":"Corporate disputes go to NCLT, courts — not NALSA.","D":"International arbitration = ICC, DIAC etc."}},
+...getGKQuestions2020().slice(10)
+];}
+
+function getAptitudeQuestions2025() { return getLawQuestions2020().slice(0,0).concat(getAptitudeQuestions2020()); }
+
+// ====== 2024 QUESTIONS ======
+function getLawQuestions2024() { return [
+{id:1,q:"The Supreme Court in 2024 delivered judgment on validity of which scheme?",opts:["GST","Electoral Bonds Scheme","Aadhaar","Jan Dhan"],ans:1,topic:"Constitutional Law 2024",exp:"In February 2024, a 5-judge constitution bench unanimously struck down the Electoral Bonds Scheme as unconstitutional, violating voters' right to information under Article 19(1)(a).",mem:"🧠 SC 2024 = ELECTORAL BONDS struck down. 'Transparency BONDED the bonds! SC said NO to anonymous political funding!'",wrong:{"A":"GST was challenged but upheld — not struck down.","C":"Aadhaar upheld with modifications in 2018.","D":"Jan Dhan is a financial inclusion scheme — no SC challenge."}},
+{id:2,q:"Under BNS 2023 (effective July 2024), the offence of 'stalking' is under:",opts:["Section 76","Section 78","Section 79","Section 82"],ans:1,topic:"BNS · Offences Against Women",exp:"BNS Section 78 corresponds to old IPC Section 354D (stalking) — following a woman, monitoring electronic communication without consent.",mem:"🧠 BNS 78 = STALKING (IPC 354D equivalent). '78 = SEVEN-EIGHT = STALK from behind = Section 78!'",wrong:{"A":"Section 76 BNS = assault/criminal force to woman.","C":"Section 79 BNS = word/gesture to insult woman's modesty.","D":"Section 82 BNS = different provision."}},
+{id:3,q:"The Mediation Act 2023 (effective 2024) requires pre-litigation mediation for:",opts:["All civil disputes","Commercial disputes before approaching HC/SC","Criminal matters","Tax disputes"],ans:1,topic:"Mediation Act 2023",exp:"The Mediation Act 2023 encourages pre-litigation mediation especially in commercial disputes. Parties must attempt mediation before filing suits in certain cases.",mem:"🧠 Mediation Act 2023 = PRE-LITIGATION for commercial disputes. 'TRY TALKING before going to COURT! Commerce = mediation first!'",wrong:{"A":"Not all civil disputes — focus is commercial disputes.","C":"Criminal matters cannot be mediated (mostly) — mediation is civil domain.","D":"Tax disputes have separate dispute resolution mechanisms."}},
+{id:4,q:"Under BNSS 2023 (effective 2024), 'e-FIR' can be registered for offences:",opts:["All cognizable offences","Cognizable offences punishable with less than 3 years","All non-cognizable offences","Only cyber offences"],ans:1,topic:"BNSS · e-FIR",exp:"BNSS provides for e-FIR (electronic FIR) registration for cognizable offences punishable with less than 3 years, making policing more accessible.",mem:"🧠 e-FIR = COGNIZABLE + less than 3 YEARS. 'File FIR ONLINE for minor-to-medium cognizable offences! BNSS goes DIGITAL!'",wrong:{"A":"Not all cognizable offences — only those under 3 years.","C":"Non-cognizable offences require court permission anyway.","D":"Not limited to cyber — all qualifying cognizable offences."}},
+{id:5,q:"The Data Protection Board under DPDPA 2023 can impose penalty up to:",opts:["Rs 50 crore","Rs 250 crore","Rs 500 crore","Rs 2000 crore"],ans:3,topic:"DPDPA 2023",exp:"DPDPA 2023 provides for penalties up to Rs 250 crore for different violations, with the highest penalty up to Rs 250 crore for certain breaches.",mem:"🧠 DPDPA max penalty = Rs 250 crore. 'Big DATA violation = Big PENALTY! Rs 250 crore maximum!'",wrong:{"A":"Rs 50 crore is too low for the maximum.","C":"Rs 500 crore exceeds the statutory maximum.","D":"Rs 2000 crore is far above the statutory maximum."}},
+{id:6,q:"The concept of 'Half-way Homes' in criminal justice refers to:",opts:["Police stations","Rehabilitation centres for released prisoners","Courts for minor offences","Witness protection homes"],ans:1,topic:"Criminal Justice · Reform",exp:"Half-way Homes are rehabilitation and reintegration facilities for prisoners recently released from jail, helping them transition back into society.",mem:"🧠 HALF-WAY HOME = between PRISON and SOCIETY. 'HALF-WAY = between jail and freedom = REHABILITATION!'",wrong:{"A":"Police stations are for initial custody — not rehabilitation.","C":"Courts for minor offences are Magistrate courts.","D":"Witness protection homes are for protected witnesses."}},
+{id:7,q:"Under the Competition Act 2002 (as amended 2023), the turnover threshold for M&A notification is:",opts:["Rs 1000 crore","Rs 2000 crore","Rs 5000 crore","Rs 10000 crore"],ans:1,topic:"Competition Law 2024",exp:"The Competition (Amendment) Act 2023 introduced a deal value threshold: transactions where the value of the deal exceeds Rs 2000 crore and the target has substantial business operations in India must be notified to CCI.",mem:"🧠 CCI M&A threshold = Rs 2000 CRORE deal value. 'Two THOUSAND crore = notify CCI! Big deals need Competition watchdog!'",wrong:{"A":"Rs 1000 crore is below the deal value threshold.","C":"Rs 5000 crore is too high.","D":"Rs 10000 crore is far too high."}},
+{id:8,q:"In 2024, the Supreme Court passed landmark judgment on 'sub-classification' within SC/ST reservations. This was in:",opts:["Indira Sawhney case","E.V. Chinnaiah case","State of Punjab v. Davinder Singh","Kesavananda Bharati case"],ans:2,topic:"Constitutional Law 2024",exp:"In State of Punjab v. Davinder Singh (2024), a 7-judge Constitution bench held that states can sub-classify SCs/STs for preferential treatment within the reserved quota.",mem:"🧠 DAVINDER SINGH 2024 = Sub-classification within SC/ST allowed. 'WITHIN the reserved quota, states can PRIORITISE the most deprived!'",wrong:{"A":"Indira Sawhney 1992 = Mandal Commission case on OBC reservations.","B":"E.V. Chinnaiah 2004 = had held sub-classification NOT permitted (now overruled).","D":"Kesavananda Bharati = Basic Structure doctrine 1973."}},
+{id:9,q:"BNSS 2023 section on 'Victim Compensation Scheme' is under:",opts:["Section 392","Section 396","Section 397","Section 398"],ans:1,topic:"BNSS · Victim Rights",exp:"BNSS Section 396 corresponds to old CrPC Section 357A — the Victim Compensation Scheme for rehabilitation of victims of crime.",mem:"🧠 BNSS 396 = VICTIM COMPENSATION. '396 = 3+9+6=18 = Victims deserve FULL support! 396 makes it happen!'",wrong:{"A":"Section 392 BNSS = different provision.","C":"Section 397 BNSS = different provision.","D":"Section 398 BNSS = different provision."}},
+{id:10,q:"The Bharatiya Sakshya Adhiniyam (BSA) 2023 defines 'document' to include:",opts:["Only paper documents","Only electronic records","Both paper and electronic records","Only notarised documents"],ans:2,topic:"BSA 2023",exp:"BSA 2023 has an expanded definition of 'document' that explicitly includes both traditional paper documents AND electronic records, reflecting the digital era.",mem:"🧠 BSA Document = PAPER + ELECTRONIC. 'BSA is MODERN = includes DIGITAL documents! No discrimination between paper and bytes!'",wrong:{"A":"Only paper is too narrow — BSA is updated for digital age.","B":"Only electronic would miss paper documents.","D":"Notarised documents are a subset — not the full definition."}},
+].concat(getLawQuestions2020().slice(10).map((q,i)=>({...q,id:i+11})));
+}
+
+function getGKQuestions2024() { return [
+{id:61,q:"India held its 18th General Election (Lok Sabha) in the year:",opts:["2022","2023","2024","2025"],ans:2,topic:"GK · Elections 2024",exp:"The 18th Lok Sabha General Election was held in April-June 2024 in 7 phases. The NDA won with a majority.",mem:"🧠 18th Lok Sabha Election = 2024. '18th election in 2024! Every 5 years = democracy in action!'",wrong:{"A":"2022 = state elections in UP, Punjab etc.","B":"2023 = state elections in Rajasthan, MP, Telangana etc.","D":"2025 = no general election."}},
+{id:62,q:"The Paris Olympics 2024 was held in which city?",opts:["Lyon","Marseille","Paris","Bordeaux"],ans:2,topic:"GK · Sports 2024",exp:"Paris hosted the 2024 Summer Olympics (July-August 2024). India won 6 medals (1 silver, 5 bronze).",mem:"🧠 PARIS OLYMPICS 2024. 'PARIS = City of LIGHT + SPORT in 2024! Neeraj Chopra won silver!'",wrong:{"A":"Lyon = major French city but not Olympic host.","B":"Marseille = some events held there but not main host.","D":"Bordeaux = French wine city, not Olympic host."}},
+{id:63,q:"India's Neeraj Chopra won which medal in Paris Olympics 2024?",opts:["Gold","Silver","Bronze","Did not qualify"],ans:1,topic:"GK · Sports 2024",exp:"Neeraj Chopra won Silver medal in Javelin Throw at Paris Olympics 2024. He had won Gold at Tokyo Olympics 2020.",mem:"🧠 Neeraj Chopra Paris 2024 = SILVER. 'Gold at TOKYO, Silver at PARIS! Still on podium = CHAMPION!'",wrong:{"A":"Gold was won by Pakistani athlete Arshad Nadeem in Paris.","C":"Bronze — Neeraj got Silver, not Bronze.","D":"He definitely qualified and competed."}},
+{id:64,q:"The new CJI appointed in November 2024 after D.Y. Chandrachud was:",opts:["Justice Sanjay Kishan Kaul","Justice Sanjiv Khanna","Justice B.R. Gavai","Justice Surya Kant"],ans:1,topic:"GK · Judiciary 2024",exp:"Justice Sanjiv Khanna became the 51st Chief Justice of India in November 2024, succeeding CJI D.Y. Chandrachud.",mem:"🧠 CJI after Chandrachud = SANJIV KHANNA (51st CJI). 'KHANNA = KHANA (food for thought)! 51st CJI November 2024!'",wrong:{"A":"Justice S.K. Kaul retired in December 2023.","C":"Justice B.R. Gavai became CJI in 2025.","D":"Justice Surya Kant became CJI later."}},
+{id:65,q:"The 'Uniform Civil Code' was implemented by which state for the first time in India in 2024?",opts:["Goa","Gujarat","Uttarakhand","Himachal Pradesh"],ans:2,topic:"GK · Law 2024",exp:"Uttarakhand became the first state to implement the Uniform Civil Code (UCC) in 2024, governing civil matters like marriage, divorce, inheritance uniformly.",mem:"🧠 UCC First State = UTTARAKHAND 2024. 'UTTARAKHAND = UTTAR (upper/first) + KHAND = FIRST to implement UCC!' Pivotal reform.",wrong:{"A":"Goa has a civil code since Portuguese era but did not newly implement in 2024.","B":"Gujarat has not implemented UCC.","D":"Himachal Pradesh has not implemented UCC."}},
+{id:66,q:"The ONDC (Open Network for Digital Commerce) is an initiative of:",opts:["SEBI","Ministry of Commerce","RBI","NASSCOM"],ans:1,topic:"GK · Digital India 2024",exp:"ONDC (Open Network for Digital Commerce) is an initiative by the Department for Promotion of Industry and Internal Trade (DPIIT) under the Ministry of Commerce and Industry.",mem:"🧠 ONDC = Ministry of Commerce (DPIIT). 'OPEN network for DIGITAL COMMERCE = Commerce Ministry's digital marketplace!'",wrong:{"A":"SEBI regulates securities market — not digital commerce.","C":"RBI regulates banking and currency.","D":"NASSCOM is IT industry body — not a government ministry."}},
+{id:67,q:"India signed the ILO Convention on which subject in 2024?",opts:["Child Labour","Forced Labour","Safety and Health at Work","Equal Remuneration"],ans:2,topic:"GK · Labour Law 2024",exp:"India ratified ILO Convention No. 155 (Occupational Safety and Health) and Convention No. 187 in 2024, strengthening worker safety protections.",mem:"🧠 India ILO 2024 = SAFETY AND HEALTH at work. 'SAFE workers = PRODUCTIVE India! ILO 155 = Occupational Safety!'",wrong:{"A":"Child Labour Convention was ratified by India earlier.","B":"Forced Labour Convention is a separate ILO instrument.","D":"Equal Remuneration Convention was ratified much earlier."}},
+{id:68,q:"The COP28 Climate Conference 2023 (relevant to 2024 implementation) was held in:",opts:["Glasgow","Egypt","Dubai (UAE)","Baku"],ans:2,topic:"GK · Environment",exp:"COP28 was held in Dubai, UAE (November-December 2023). Key outcome: First global stocktake and agreement to 'transition away from fossil fuels.'",mem:"🧠 COP28 = DUBAI UAE 2023. 'COP in OIL country = IRONIC! Dubai hosted climate talks! First fossil fuel transition agreement!'",wrong:{"A":"COP26 = Glasgow 2021.","B":"COP27 = Sharm el-Sheikh, Egypt 2022.","D":"COP29 = Baku, Azerbaijan 2024."}},
+{id:69,q:"The 'BharatNet' project aims to:",opts:["Satellite internet","Provide broadband to all Gram Panchayats","5G rollout in cities","Social media regulation"],ans:1,topic:"GK · Digital India",exp:"BharatNet is a government project to provide high-speed broadband connectivity to all 2.5 lakh Gram Panchayats (village councils) across India using optical fibre.",mem:"🧠 BHARATNET = Broadband to GRAM PANCHAYATS. 'BHARAT (India) NET = connect every village! Optical fibre to 2.5 lakh GPs!'",wrong:{"A":"Satellite internet is separate (OneWeb, Starlink etc.).","C":"5G is urban focused — BharatNet is rural connectivity.","D":"Social media regulation is IT Rules domain."}},
+{id:70,q:"Which Constitutional Amendment gave constitutional status to cooperatives?",opts:["95th Amendment","97th Amendment","101st Amendment","103rd Amendment"],ans:1,topic:"GK · Constitution",exp:"The 97th Constitutional Amendment 2011 gave constitutional status to cooperative societies by inserting Article 43B (DPSP) and Part IX-B.",mem:"🧠 97th Amendment = COOPERATIVES constitutional status. '97 = 9+7=16 = Co-op = cooperative = 16 letters! Part IX-B added!'",wrong:{"A":"95th Amendment extended reservation for SCs/STs and Anglo-Indians.","C":"101st Amendment enabled GST.","D":"103rd Amendment = EWS 10% reservation."}},
+...getGKQuestions2020().slice(10)
+];}
+
+function getAptitudeQuestions2024() { return getAptitudeQuestions2020(); }
+
+// ====== 2017 QUESTIONS ======
+function getLawQuestions2017() { return [
+{id:1,q:"Section 124A IPC (Sedition) was originally challenged in which landmark case?",opts:["Kedar Nath Singh v. State of Bihar","S.R. Bommai v. Union of India","Romesh Thappar v. State of Madras","Brij Bhushan v. State of Delhi"],ans:0,topic:"IPC · Sedition",exp:"Kedar Nath Singh v. State of Bihar (1962) — the Supreme Court upheld Section 124A IPC but narrowed it: sedition applies only when there is incitement to violence or public disorder.",mem:"🧠 SEDITION 124A upheld = KEDAR NATH SINGH 1962. 'KEDAR = KEY + NAT = NATION. KEDAR NATH kept 124A but with LIMITS!'",wrong:{"B":"S.R. Bommai = President's Rule (Article 356) case 1994.","C":"Romesh Thappar = press freedom, Section 124A not the main issue.","D":"Brij Bhushan = press censorship case."}},
+{id:2,q:"Under IPC, 'grievous hurt' is defined in:",opts:["Section 319","Section 320","Section 322","Section 323"],ans:1,topic:"IPC · Hurt",exp:"Section 320 IPC defines 8 kinds of grievous hurt including emasculation, permanent loss of sight, hearing, limb, etc.",mem:"🧠 Section 320 = GRIEVOUS HURT (8 types). '320 = THREE-TWO-ZERO = ZERO tolerance for GRIEVOUS harm! 8 types listed!'",wrong:{"A":"Section 319 = definition of hurt (simple).","C":"Section 322 = voluntarily causing grievous hurt.","D":"Section 323 = punishment for voluntarily causing hurt."}},
+{id:3,q:"The Dowry Prohibition Act was enacted in:",opts:["1955","1961","1971","1981"],ans:1,topic:"Special Laws · Dowry",exp:"The Dowry Prohibition Act was enacted in 1961, prohibiting giving or taking of dowry. It was later amended in 1983 and 1986.",mem:"🧠 DOWRY PROHIBITION ACT = 1961. '1961 = 19+61=80 = Dowry is ZERO tolerance since 1961!' HMA=1955, DP Act=1961.",wrong:{"A":"1955 = Hindu Marriage Act year.","C":"1971 = Contempt of Courts Act.","D":"1981 = no major dowry law."}},
+{id:4,q:"The right to vote in India is a:",opts:["Fundamental Right","Directive Principle","Constitutional (statutory) right","Natural right"],ans:2,topic:"Constitutional Law",exp:"The right to vote is not a Fundamental Right but a statutory right given by the Representation of People Act 1951, though derived from Article 326.",mem:"🧠 RIGHT TO VOTE = STATUTORY right (RPA 1951), not FR. 'VOTE = important but NOT fundamental right! Article 326 gives basis, RPA 1951 implements.'",wrong:{"A":"Fundamental Rights are in Part III — vote is not listed there.","B":"DPSP are guidelines — right to vote is enforceable.","D":"Natural rights are philosophical — not legal classification in India."}},
+{id:5,q:"Under the Indian Evidence Act, 'hearsay evidence' is generally:",opts:["Admissible","Inadmissible","Admissible only with leave of court","Admissible with corroboration"],ans:1,topic:"Evidence Act · Hearsay",exp:"Hearsay evidence (what a witness says they heard from another person) is generally inadmissible as it cannot be tested by cross-examination. Exceptions include dying declaration (S.32), admissions, etc.",mem:"🧠 HEARSAY = INADMISSIBLE. 'He-SAID-she-said = not reliable = NOT admitted! EXCEPTIONS: Dying declaration, admissions, etc.'",wrong:{"A":"Admissible would make courts chaotic — hearsay is unreliable.","C":"No general leave of court provision for hearsay.","D":"Corroboration doesn't make hearsay generally admissible."}},
+{id:6,q:"'Benami transaction' means a transaction where:",opts:["Both parties are named","Property is held by one person but consideration paid by another","No payment is made","Both parties are anonymous"],ans:1,topic:"Property Law · Benami",exp:"Benami transaction = where property is transferred to/held by one person (benamidar) but consideration is paid by another (beneficial owner). The benamidar holds it for another.",mem:"🧠 BENAMI = BE-NAAM = NAMELESS. Property in ONE person's name but ANOTHER person's money. 'Hold it for me in YOUR name!'",wrong:{"A":"Both parties named is a normal transaction.","C":"No payment = gift — not benami.","D":"Anonymous parties = not the legal definition."}},
+{id:7,q:"Under CPC, 'res sub judice' is governed by:",opts:["Section 9","Section 10","Section 11","Section 12"],ans:1,topic:"CPC · Stay",exp:"Section 10 CPC: Res sub judice — court shall stay a subsequent suit between same parties on same matter if a previously instituted suit is pending.",mem:"🧠 Section 10 = RES SUB JUDICE (pending). Section 11 = RES JUDICATA (decided). '10 = PENDING, 11 = FINISHED!'",wrong:{"A":"Section 9 = courts to try all civil suits.","C":"Section 11 = Res Judicata (already decided — final).","D":"Section 12 = bar to further suit."}},
+{id:8,q:"'Absolute liability' as distinct from 'strict liability' was established in India in:",opts:["Rylands v. Fletcher","M.C. Mehta v. Union of India (Oleum Gas case)","Donoghue v. Stevenson","Ashby v. White"],ans:1,topic:"Law of Torts",exp:"In M.C. Mehta v. Union of India (Oleum Gas case, 1987), SC created the doctrine of absolute liability — no exceptions, no defences — for enterprises dealing with hazardous substances.",mem:"🧠 ABSOLUTE LIABILITY = M.C. MEHTA 1987 (Oleum Gas). 'MC MEHTA = India's environmental hero! Absolute = NO excuses! If you use hazardous material and it escapes — you PAY!'",wrong:{"A":"Rylands v. Fletcher 1868 = English case establishing strict liability.","C":"Donoghue v. Stevenson 1932 = negligence and duty of care.","D":"Ashby v. White = injuria sine damnum."}},
+{id:9,q:"Section 197 CrPC (now BNSS) requires sanction for prosecution of:",opts:["All government employees","Public servants for acts done in official capacity","Politicians","Judges only"],ans:1,topic:"CrPC · Sanction",exp:"Section 197 CrPC: Prior sanction of the appropriate government is required before prosecuting public servants for acts done while acting/purporting to act in discharge of official duty.",mem:"🧠 Section 197 = SANCTION for PUBLIC SERVANTS. 'Can't prosecute a public servant without GOVERNMENT PERMISSION for official acts!'",wrong:{"A":"Not all government employees — only those whose acts relate to official duty.","C":"Politicians are not covered unless they are public servants.","D":"Judges have special protection under judge protection laws."}},
+{id:10,q:"The term 'Natural Justice' encompasses which two main rules?",opts:["No bias and fair hearing","Evidence rule and burden of proof","Res judicata and stare decisis","Judicial review and appeal"],ans:0,topic:"Administrative Law · Natural Justice",exp:"Natural Justice has two cardinal rules: (1) Nemo judex in propria causa (no bias — rule against bias) and (2) Audi alteram partem (hear the other side — fair hearing).",mem:"🧠 NATURAL JUSTICE = (1) NO BIAS + (2) FAIR HEARING. 'Nature is FAIR — No bias, hear both sides! NEMO JUDEX + AUDI ALTERAM!'",wrong:{"B":"Evidence and burden of proof are substantive rules — not natural justice.","C":"Res judicata and stare decisis are doctrines of finality and precedent.","D":"Judicial review and appeal are remedies — not rules of natural justice."}},
+].concat(getLawQuestions2020().slice(10).map((q,i)=>({...q,id:i+11})));
+}
+
+function getGKQuestions2017() { return [
+{id:61,q:"The 'Goods and Services Tax' was introduced by which Constitutional Amendment?",opts:["99th Amendment","100th Amendment","101st Amendment","102nd Amendment"],ans:2,topic:"GK · Constitution",exp:"The 101st Constitutional Amendment Act 2016 enabled GST by inserting Article 246A, amending Articles 269A, 279A and related provisions.",mem:"🧠 101st Amendment = GST. '101 = ONE-OH-ONE = GST's ONE tax to rule them all! Article 246A enables GST!'",wrong:{"A":"99th Amendment = National Judicial Appointments Commission (NJAC) — struck down.","B":"100th Amendment = exchange of territories with Bangladesh.","D":"102nd Amendment = constitutional status to OBC Commission."}},
+{id:62,q:"The Insolvency and Bankruptcy Code 2016 was enacted in:",opts:["2015","2016","2017","2018"],ans:1,topic:"GK · Laws",exp:"The Insolvency and Bankruptcy Code was enacted in May 2016, providing a consolidated framework for insolvency resolution.",mem:"🧠 IBC = 2016. 'IBC = I Became Code in 2016! Insolvency resolution in time-bound manner — 180/270 days!'",wrong:{"A":"2015 — drafting and consultations.","C":"2017 — IBC implementation deepened.","D":"2018 — major amendments including homebuyers as creditors."}},
+{id:63,q:"Demonetisation of Rs 500 and Rs 1000 notes was announced in:",opts:["October 2016","November 2016","December 2016","January 2017"],ans:1,topic:"GK · Economic Events",exp:"PM Narendra Modi announced demonetisation of Rs 500 and Rs 1000 currency notes on 8 November 2016 (midnight).",mem:"🧠 DEMONETISATION = 8 November 2016. '8/11/2016 = 8+11=19 November night changed India! NOTEBANDI = people remember!'",wrong:{"A":"October 2016 — no demonetisation.","C":"December 2016 — post-demonetisation period.","D":"January 2017 — new notes being distributed."}},
+{id:64,q:"The 'UDAN' scheme relates to:",opts:["Urban development","Regional air connectivity","Underwater navigation","Rural electricity"],ans:1,topic:"GK · Government Schemes",exp:"UDAN (Ude Desh ka Aam Naagrik) scheme launched in 2016 aims to make air travel affordable and connect tier-2 and tier-3 cities.",mem:"🧠 UDAN = FLY (common man). 'UDE DESH KA AAAAM NAGRIK = Common citizen FLIES! Regional airports connected!'",wrong:{"A":"Urban development = AMRUT, Smart Cities Mission.","C":"Underwater navigation — not a government scheme.","D":"Rural electricity = Saubhagya, DDUGJY."}},
+{id:65,q:"The Real Estate (Regulation and Development) Act was enacted in:",opts:["2014","2015","2016","2017"],ans:2,topic:"GK · Laws",exp:"RERA (Real Estate Regulation and Development Act) was enacted in 2016 and came into force in May 2017, protecting home buyers and regulating real estate.",mem:"🧠 RERA = 2016. 'REAL ESTATE regulated in 2016 = RE-16-A! Protect FLAT buyers from delays and frauds!'",wrong:{"A":"2014 — RERA was being drafted.","B":"2015 — Parliament discussions.","D":"2017 — RERA came into FORCE (enacted in 2016)."}},
+{id:66,q:"The Arbitration and Conciliation (Amendment) Act 2015 introduced:",opts:["Institutional arbitration only","Time limit of 12 months for arbitral award","Online arbitration","International arbitration courts"],ans:1,topic:"GK · Arbitration",exp:"The 2015 Amendment introduced a 12-month time limit for domestic arbitral awards (extendable to 18 months by consent), making arbitration faster.",mem:"🧠 2015 Arbitration Amendment = 12 MONTH time limit. '12 months = 1 year to give AWARD! Speed is key in arbitration!'",wrong:{"A":"Institutional arbitration existed — 2015 encouraged it more.","C":"Online arbitration was not specifically introduced then.","D":"International arbitration courts are separate institutions."}},
+{id:67,q:"'Operation Clean Money' launched in 2017 was related to:",opts:["Drug trafficking","Post-demonetisation analysis of suspicious deposits","River cleaning","Electoral reforms"],ans:1,topic:"GK · 2017 Events",exp:"Operation Clean Money was launched by the Income Tax Department in January 2017 to identify and verify suspicious cash deposits made post-demonetisation.",mem:"🧠 OPERATION CLEAN MONEY 2017 = Post-demonetisation CASH verification. 'Clean black money after NOTEBANDI! IT department checking suspicious deposits!'",wrong:{"A":"Drug trafficking = NCB operations — different.","C":"River cleaning = Namami Gange, Clean Ganga.","D":"Electoral reforms = ECI initiatives."}},
+{id:68,q:"The first Chief Justice of India was:",opts:["Justice P.B. Gajendragadkar","Justice H.J. Kania","Justice M.C. Mahajan","Justice B.K. Mukherjea"],ans:1,topic:"GK · Legal History",exp:"Justice Harilal Jekisundas Kania was the first Chief Justice of India from 26 January 1950 until his death in November 1951.",mem:"🧠 First CJI = H.J. KANIA. 'KANIA = KEY to India's first CJI! January 26, 1950 = CJI Kania takes oath!'",wrong:{"A":"P.B. Gajendragadkar was CJI from 1964-1966.","C":"M.C. Mahajan was third CJI.","D":"B.K. Mukherjea was second CJI."}},
+{id:69,q:"The Permanent Lok Adalat (for Public Utility Services) was established under:",opts:["Legal Services Authorities Act 1987","CPC","CrPC","Arbitration Act 1996"],ans:0,topic:"GK · ADR",exp:"Permanent Lok Adalat for Public Utility Services was established under Section 22B-22E of the Legal Services Authorities Act 1987 (inserted by 2002 Amendment).",mem:"🧠 PERMANENT LOK ADALAT = LSA Act 1987. 'SAME family as Lok Adalat — under Legal Services Authorities Act! Permanent = always open!'",wrong:{"B":"CPC = civil courts — not Lok Adalat basis.","C":"CrPC = criminal courts — not Lok Adalat.","D":"Arbitration Act = private dispute resolution — not Lok Adalat."}},
+{id:70,q:"The Juvenile Justice (Care and Protection of Children) Act 2015 treats juveniles aged 16-18 who commit heinous offences as:",opts:["Always adults","Adults only after inquiry by JJB","Cannot be tried at all","Sent to reformatory school only"],ans:1,topic:"GK · JJ Act",exp:"JJ Act 2015: A juvenile between 16-18 years who commits a heinous offence must be assessed by the Juvenile Justice Board, which may decide to try them as an adult.",mem:"🧠 JJ Act 2015: 16-18 + heinous offence → JJB assesses → may try as ADULT. 'JJB decides — not automatic! Assessment first!'",wrong:{"A":"Not always adults — JJB inquiry is mandatory first.","C":"They CAN be tried — as adults if JJB orders.","D":"Reformatory school is for juveniles tried as juveniles, not for adult trial cases."}},
+...getGKQuestions2020().slice(10)
+];}
+
+function getAptitudeQuestions2017() { return getAptitudeQuestions2020(); }
 
 // ============== UI LOGIC ==============
 let currentView = 'home';
