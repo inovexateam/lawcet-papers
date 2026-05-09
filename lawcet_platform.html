@@ -443,6 +443,121 @@ body { background:var(--bg); color:var(--text); font-family:'Space Grotesk',sans
 }
 .suggest-chip:hover { border-color:var(--accent); color:var(--accent3); }
 
+
+/* ===== TIMED MOCK EXAM ===== */
+.mock-mode-card {
+  background:var(--bg3); border:1.5px solid var(--border); border-radius:var(--radius);
+  padding:1rem; cursor:pointer; transition:all 0.15s;
+}
+.mock-mode-card.selected { border-color:var(--accent); background:rgba(124,106,247,0.07); }
+.mock-mode-card:hover:not(.selected) { border-color:var(--border2); }
+.mode-check { width:22px; height:22px; border-radius:50%; border:2px solid var(--border2);
+  display:flex; align-items:center; justify-content:center; font-size:0.7rem; color:var(--accent2);
+  flex-shrink:0; transition:all 0.15s; }
+.mock-mode-card.selected .mode-check { background:var(--accent); border-color:var(--accent); color:#fff; }
+.source-chip { background:var(--bg3); border:1.5px solid var(--border); border-radius:20px;
+  padding:5px 12px; font-size:0.72rem; font-family:'JetBrains Mono',monospace; color:var(--text2);
+  cursor:pointer; transition:all 0.15s; }
+.source-chip.active { background:rgba(124,106,247,0.12); border-color:var(--accent); color:var(--accent3); }
+.mock-exam-topbar {
+  position:sticky; top:0; z-index:100; background:rgba(10,10,15,0.96);
+  backdrop-filter:blur(12px); border-bottom:1px solid var(--border);
+  padding:0.75rem 1.25rem 0.65rem;
+}
+.mock-timer {
+  display:flex; align-items:center; gap:5px; background:var(--bg3);
+  border:1px solid var(--border); border-radius:8px; padding:5px 10px;
+  transition:background 0.3s, border-color 0.3s;
+}
+.mock-timer.warning { background:rgba(245,158,11,0.12); border-color:rgba(245,158,11,0.4); }
+.mock-timer.danger  { background:rgba(239,68,68,0.12);  border-color:rgba(239,68,68,0.4); animation:timerPulse 1s infinite; }
+@keyframes timerPulse { 0%,100%{opacity:1} 50%{opacity:0.6} }
+.mock-timer-icon { font-size:0.8rem; }
+.mock-timer-val { font-size:0.9rem; font-weight:700; font-family:'JetBrains Mono',monospace; color:var(--text); min-width:40px; text-align:center; }
+.mock-timer.warning .mock-timer-val { color:var(--gold2); }
+.mock-timer.danger  .mock-timer-val { color:var(--red2); }
+
+/* Question palette */
+.q-palette-backdrop { position:fixed; inset:0; z-index:200; background:rgba(0,0,0,0.6); backdrop-filter:blur(3px); }
+.q-palette-wrap {
+  position:fixed; bottom:0; left:0; right:0; z-index:201;
+  background:var(--bg2); border-top:1px solid var(--border);
+  border-radius:16px 16px 0 0; max-height:70vh; overflow-y:auto;
+}
+.q-palette-header { display:flex; justify-content:space-between; align-items:center; padding:1rem 1.25rem 0.5rem; }
+.q-palette-legend { display:flex; gap:12px; padding:0 1.25rem 0.75rem; flex-wrap:wrap; }
+.pal-legend { font-size:0.68rem; display:flex; align-items:center; gap:5px; color:var(--text2); }
+.pal-legend::before { content:''; width:12px; height:12px; border-radius:3px; display:inline-block; }
+.pal-answered::before { background:var(--green); }
+.pal-skipped::before  { background:var(--gold); }
+.pal-unattempted::before { background:var(--bg4); border:1px solid var(--border2); }
+.q-palette { display:flex; flex-wrap:wrap; gap:6px; padding:0 1.25rem 1rem; }
+.q-pal-btn {
+  width:36px; height:36px; border-radius:6px; border:1px solid var(--border2);
+  background:var(--bg4); color:var(--text2); font-size:0.7rem; font-family:'JetBrains Mono',monospace;
+  cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all 0.1s;
+}
+.q-pal-btn.pal-ans  { background:rgba(16,185,129,0.2); border-color:rgba(16,185,129,0.5); color:var(--green2); }
+.q-pal-btn.pal-skip { background:rgba(245,158,11,0.15); border-color:rgba(245,158,11,0.4); color:var(--gold2); }
+.q-pal-btn.pal-curr { border-color:var(--accent); background:rgba(124,106,247,0.15); color:var(--accent3); }
+
+/* Mock bottom action bar */
+.mock-bottom-bar {
+  position:fixed; bottom:0; left:0; right:0; z-index:150;
+  background:rgba(17,17,24,0.97); backdrop-filter:blur(12px);
+  border-top:1px solid var(--border); padding:0.65rem 1.25rem;
+  display:flex; align-items:center; justify-content:space-between; gap:12px;
+}
+.mock-pal-btn {
+  display:flex; flex-direction:column; align-items:center; gap:2px;
+  background:var(--bg3); border:1px solid var(--border); border-radius:8px;
+  padding:0.4rem 0.75rem; cursor:pointer; color:var(--text2); font-size:0.65rem;
+  font-family:'Space Grotesk',sans-serif; transition:all 0.15s; min-width:70px;
+}
+.mock-pal-btn:hover { border-color:var(--border2); color:var(--text); }
+
+/* Mock result screen */
+.mock-result-topbar { padding:1.25rem 1.25rem 0; display:flex; align-items:center; justify-content:space-between; }
+.result-hero { padding:2rem 1.25rem 1.5rem; text-align:center; }
+.result-ring-wrap { width:130px; height:130px; margin:0 auto 1.25rem; position:relative; }
+.result-ring-wrap svg { transform:rotate(-90deg); }
+.result-ring-center { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+.result-big { font-size:1.9rem; font-weight:700; font-family:'JetBrains Mono',monospace; color:var(--accent2); }
+.result-pct { font-size:0.75rem; color:var(--text3); }
+.result-stats-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; padding:0 1.25rem 1.25rem; }
+.result-stat { background:var(--bg3); border:1px solid var(--border); border-radius:var(--radius2); padding:0.75rem; text-align:center; }
+.result-stat-num { font-size:1.2rem; font-weight:700; font-family:'JetBrains Mono',monospace; }
+.result-stat-label { font-size:0.62rem; color:var(--text3); margin-top:2px; text-transform:uppercase; letter-spacing:0.05em; }
+.result-correct .result-stat-num { color:var(--green2); }
+.result-wrong .result-stat-num   { color:var(--red2); }
+.result-skipped .result-stat-num { color:var(--gold2); }
+.result-part-bars { padding:0 1.25rem 1.5rem; display:flex; flex-direction:column; gap:8px; }
+.result-part-row { background:var(--bg3); border:1px solid var(--border); border-radius:var(--radius2); padding:0.85rem; }
+.result-review-section { padding:0 1.25rem; }
+.result-review-toggle { background:var(--bg3); border:1.5px solid var(--border); border-radius:var(--radius); padding:1rem;
+  display:flex; align-items:center; justify-content:space-between; cursor:pointer; margin-bottom:0.75rem; }
+
+/* Skipped question indicator in exam */
+.q-card.skipped-q { border-color:rgba(245,158,11,0.3); }
+.q-num.skipped { background:rgba(245,158,11,0.15); border-color:rgba(245,158,11,0.35); color:var(--gold2); }
+.skip-btn {
+  display:flex; align-items:center; justify-content:center; gap:6px;
+  background:transparent; border:1px dashed var(--border2); border-radius:8px;
+  color:var(--text3); font-size:0.78rem; padding:0.55rem 1rem; cursor:pointer;
+  margin:0 1rem 1rem; transition:all 0.15s; font-family:'Space Grotesk',sans-serif;
+}
+.skip-btn:hover { border-color:var(--gold); color:var(--gold2); }
+
+/* Time-up overlay */
+.timeup-overlay {
+  position:fixed; inset:0; z-index:500; background:rgba(0,0,0,0.85);
+  display:flex; align-items:center; justify-content:center; backdrop-filter:blur(6px);
+}
+.timeup-box { background:var(--bg2); border:1px solid var(--border2); border-radius:var(--radius); padding:2rem 1.5rem; text-align:center; max-width:320px; margin:0 1.25rem; }
+
+/* Practice mode instant feedback hidden in timed mode */
+.exam-mode-hide { display:none !important; }
+
 </style>
 </head>
 <body>
@@ -825,40 +940,167 @@ body { background:var(--bg); color:var(--text); font-family:'Space Grotesk',sans
   </div>
 </div>
 
-<!-- MOCK VIEW -->
-<div id="mockView" style="display:none;min-height:100vh;">
-  <div class="exam-topbar">
-    <div class="exam-topbar-inner">
+<!-- MOCK VIEW — full timed real-exam experience -->
+<div id="mockView" style="display:none;min-height:100vh;flex-direction:column;">
+
+  <!-- ① SETUP SCREEN -->
+  <div id="mockSetup" style="display:flex;flex-direction:column;min-height:100vh;">
+    <div style="padding:1.25rem 1.25rem 0;display:flex;align-items:center;justify-content:space-between;">
       <button class="back-btn" onclick="goHome()">← Home</button>
-      <div style="font-size:0.85rem;font-weight:600;">AI Mock Test</div>
-      <div class="badge">AI</div>
+      <div class="badge">MOCK EXAM</div>
+    </div>
+    <div style="padding:1.5rem 1.25rem;">
+      <!-- Hero banner -->
+      <div style="background:linear-gradient(135deg,rgba(124,106,247,0.12),rgba(6,182,212,0.08));border:1px solid rgba(124,106,247,0.25);border-radius:var(--radius);padding:1.25rem;margin-bottom:1.5rem;">
+        <div style="font-size:2rem;margin-bottom:0.5rem;">🎯</div>
+        <h2 style="font-size:1.25rem;font-weight:700;margin-bottom:0.4rem;">Real-Exam Mock Test</h2>
+        <p style="font-size:0.82rem;color:var(--text2);line-height:1.55;">120 questions shuffled fresh from all 9 years of papers. Timed exactly like the real LAWCET. Explanations unlocked after you submit.</p>
+      </div>
+
+      <!-- Pattern info grid -->
+      <div style="font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--text3);font-family:'JetBrains Mono',monospace;margin-bottom:0.75rem;">Exam Pattern</div>
+      <div class="pattern-grid" style="margin-bottom:1.5rem;">
+        <div class="pattern-item"><div class="pattern-item-label">Part A — Law</div><div class="pattern-item-val">60 Qs</div></div>
+        <div class="pattern-item"><div class="pattern-item-label">Part B — GK</div><div class="pattern-item-val">30 Qs</div></div>
+        <div class="pattern-item"><div class="pattern-item-label">Part C — Aptitude</div><div class="pattern-item-val">30 Qs</div></div>
+        <div class="pattern-item"><div class="pattern-item-label">Total Marks</div><div class="pattern-item-val">120</div></div>
+        <div class="pattern-item"><div class="pattern-item-label">Duration</div><div class="pattern-item-val">90 min</div></div>
+        <div class="pattern-item"><div class="pattern-item-label">Negative</div><div class="pattern-item-val">None</div></div>
+      </div>
+
+      <!-- Mode selector -->
+      <div style="font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--text3);font-family:'JetBrains Mono',monospace;margin-bottom:0.75rem;">Select Mode</div>
+      <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:1.5rem;">
+        <div class="mock-mode-card selected" id="modeCard-full" onclick="selectMockMode('full',this)">
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <div>
+              <div style="font-size:0.9rem;font-weight:700;">🕐 Full Mock Exam</div>
+              <div style="font-size:0.75rem;color:var(--text2);margin-top:2px;">120 questions · 90 minutes</div>
+            </div>
+            <div class="mode-check" id="modeCheck-full">✓</div>
+          </div>
+        </div>
+        <div class="mock-mode-card" id="modeCard-half" onclick="selectMockMode('half',this)">
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <div>
+              <div style="font-size:0.9rem;font-weight:700;">⚡ Half Mock</div>
+              <div style="font-size:0.75rem;color:var(--text2);margin-top:2px;">60 questions · 45 minutes</div>
+            </div>
+            <div class="mode-check" id="modeCheck-half"></div>
+          </div>
+        </div>
+        <div class="mock-mode-card" id="modeCard-quick" onclick="selectMockMode('quick',this)">
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <div>
+              <div style="font-size:0.9rem;font-weight:700;">🔥 Quick Test</div>
+              <div style="font-size:0.75rem;color:var(--text2);margin-top:2px;">30 questions · 22 minutes</div>
+            </div>
+            <div class="mode-check" id="modeCheck-quick"></div>
+          </div>
+        </div>
+        <div class="mock-mode-card" id="modeCard-practice" onclick="selectMockMode('practice',this)">
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <div>
+              <div style="font-size:0.9rem;font-weight:700;">📚 Practice Mode</div>
+              <div style="font-size:0.75rem;color:var(--text2);margin-top:2px;">120 questions · No timer · Instant feedback</div>
+            </div>
+            <div class="mode-check" id="modeCheck-practice"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Source selector -->
+      <div style="font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--text3);font-family:'JetBrains Mono',monospace;margin-bottom:0.75rem;">Question Source</div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:1.5rem;" id="sourceChips">
+        <button class="source-chip active" data-src="all" onclick="toggleSource('all',this)">All Years</button>
+        <button class="source-chip" data-src="2025" onclick="toggleSource('2025',this)">2025</button>
+        <button class="source-chip" data-src="2024" onclick="toggleSource('2024',this)">2024</button>
+        <button class="source-chip" data-src="2023" onclick="toggleSource('2023',this)">2023</button>
+        <button class="source-chip" data-src="2022" onclick="toggleSource('2022',this)">2022</button>
+        <button class="source-chip" data-src="2021" onclick="toggleSource('2021',this)">2021</button>
+        <button class="source-chip" data-src="2020" onclick="toggleSource('2020',this)">2020</button>
+        <button class="source-chip" data-src="2019" onclick="toggleSource('2019',this)">2019</button>
+        <button class="source-chip" data-src="2018" onclick="toggleSource('2018',this)">2018</button>
+        <button class="source-chip" data-src="2017" onclick="toggleSource('2017',this)">2017</button>
+      </div>
+
+      <button class="btn-primary" style="width:100%;font-size:1rem;padding:1rem;" onclick="startMockExam()">🚀 Start Mock Exam</button>
+      <p style="text-align:center;margin-top:0.75rem;font-size:0.72rem;color:var(--text3);">Questions shuffled fresh from 1080+ question bank every time</p>
     </div>
   </div>
-  <div class="mock-splash" id="mockSplash">
-    <div style="margin:1.5rem 0 1rem;padding:1rem;background:linear-gradient(135deg,rgba(124,106,247,0.1),rgba(6,182,212,0.08));border:1px solid rgba(124,106,247,0.2);border-radius:var(--radius);">
-      <div style="font-size:1.5rem;margin-bottom:0.5rem;">🤖</div>
-      <h2>AI-Generated Mock Test</h2>
-      <p>Based on pattern analysis of 2018, 2019 & 2020 papers. Each session generates fresh questions.</p>
-    </div>
-    <div style="margin:1.5rem 0;font-size:0.8rem;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'JetBrains Mono',monospace;">Exam Pattern Insights</div>
-    <div class="pattern-grid">
-      <div class="pattern-item"><div class="pattern-item-label">Part A (Law)</div><div class="pattern-item-val">60 Questions</div></div>
-      <div class="pattern-item"><div class="pattern-item-label">Part B (GK)</div><div class="pattern-item-val">30 Questions</div></div>
-      <div class="pattern-item"><div class="pattern-item-label">Part C (Aptitude)</div><div class="pattern-item-val">30 Questions</div></div>
-      <div class="pattern-item"><div class="pattern-item-label">Total Marks</div><div class="pattern-item-val">120 Marks</div></div>
-      <div class="pattern-item"><div class="pattern-item-label">Duration</div><div class="pattern-item-val">90 Minutes</div></div>
-      <div class="pattern-item"><div class="pattern-item-label">Marking</div><div class="pattern-item-val">1 / 0 (no neg)</div></div>
-    </div>
-    <div style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius2);padding:1rem;margin-bottom:1.5rem;">
-      <div style="font-size:0.75rem;font-weight:600;color:var(--accent3);margin-bottom:8px;">⚡ High-Frequency Topics (based on 3-year analysis)</div>
-      <div style="display:flex;flex-wrap:wrap;gap:6px;">
-        <span class="tag-law">IPC</span><span class="tag-law">CrPC</span><span class="tag-law">CPC</span><span class="tag-law">Constitution</span><span class="tag-law">Contract Act</span><span class="tag-law">Evidence Act</span><span class="tag-law">Family Law</span><span class="tag-law">Transfer of Property</span><span class="tag-law">Current Affairs</span><span class="tag-law">Reasoning</span><span class="tag-law">English</span>
+
+  <!-- ② EXAM SCREEN -->
+  <div id="mockExamScreen" style="display:none;flex-direction:column;min-height:100vh;">
+
+    <!-- Sticky top bar with timer -->
+    <div class="mock-exam-topbar" id="mockExamTopbar">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+        <button class="back-btn" onclick="confirmMockExit()" style="font-size:0.75rem;padding:5px 8px;">✕ Exit</button>
+        <div style="text-align:center;">
+          <div style="font-size:0.7rem;color:var(--text3);font-family:'JetBrains Mono',monospace;" id="mockExamTitle">MOCK EXAM</div>
+        </div>
+        <!-- Timer -->
+        <div class="mock-timer" id="mockTimer">
+          <div class="mock-timer-icon">⏱</div>
+          <div id="mockTimerVal" class="mock-timer-val">90:00</div>
+        </div>
+      </div>
+      <!-- Progress row -->
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div style="flex:1;">
+          <div class="progress-bar-wrap"><div class="progress-bar" id="mockProgressBar" style="width:0%"></div></div>
+        </div>
+        <div style="font-size:0.65rem;font-family:'JetBrains Mono',monospace;color:var(--text3);white-space:nowrap;" id="mockProgressLabel">0/120</div>
+        <div style="font-size:0.7rem;font-weight:700;color:var(--accent2);font-family:'JetBrains Mono',monospace;white-space:nowrap;" id="mockScoreLive">Score: 0</div>
       </div>
     </div>
-    <button class="btn-primary" onclick="generateMock()" style="width:100%">🚀 Generate Mock Test (AI)</button>
-    <div style="text-align:center;margin-top:0.75rem;font-size:0.75rem;color:var(--text3);">Takes ~10s to generate personalised questions</div>
+
+    <!-- Question navigator palette -->
+    <div class="q-palette-wrap" id="qPaletteWrap" style="display:none;">
+      <div class="q-palette-header">
+        <div style="font-size:0.8rem;font-weight:600;">Question Navigator</div>
+        <button onclick="closePalette()" style="background:none;border:none;color:var(--text2);font-size:1.1rem;cursor:pointer;">✕</button>
+      </div>
+      <div class="q-palette-legend">
+        <span class="pal-legend pal-answered">Answered</span>
+        <span class="pal-legend pal-skipped">Skipped</span>
+        <span class="pal-legend pal-unattempted">Not visited</span>
+      </div>
+      <div class="q-palette" id="qPalette"></div>
+      <div style="padding:1rem 1.25rem;border-top:1px solid var(--border);display:flex;gap:10px;">
+        <button class="btn-secondary" style="flex:1;padding:0.75rem;" onclick="closePalette()">Resume</button>
+        <button class="btn-primary" style="flex:1;padding:0.75rem;" onclick="submitMockExam()">Submit</button>
+      </div>
+    </div>
+    <div class="q-palette-backdrop" id="qPaletteBackdrop" onclick="closePalette()" style="display:none;"></div>
+
+    <!-- Part tabs -->
+    <div class="part-tabs" id="mockPartTabs">
+      <div class="part-tab active" onclick="switchMockPart('A',this)">Part A · Law</div>
+      <div class="part-tab" onclick="switchMockPart('B',this)">Part B · GK</div>
+      <div class="part-tab" onclick="switchMockPart('C',this)">Part C · Aptitude</div>
+    </div>
+
+    <!-- Questions area -->
+    <div class="questions-area" id="mockQuestionsContainer" style="padding-bottom:5rem;"></div>
+
+    <!-- Bottom action bar -->
+    <div class="mock-bottom-bar">
+      <button class="mock-pal-btn" onclick="openPalette()">
+        <span style="font-size:1rem;">⊞</span>
+        <span>Navigator</span>
+      </button>
+      <div id="mockBottomStats" style="font-size:0.72rem;color:var(--text2);text-align:center;line-height:1.4;">
+        <div id="mockBottomAns">0 answered</div>
+        <div id="mockBottomSkip" style="color:var(--text3);">0 skipped</div>
+      </div>
+      <button class="btn-primary" style="padding:0.6rem 1rem;font-size:0.82rem;" onclick="submitMockExam()">Submit →</button>
+    </div>
   </div>
-  <div id="mockQuestionsArea" style="display:none;"></div>
+
+  <!-- ③ MOCK RESULT SCREEN -->
+  <div id="mockResultScreen" style="display:none;padding:0 0 3rem;"></div>
+
 </div>
 
 <script>
@@ -1295,7 +1537,7 @@ function showView(view) {
   document.getElementById('examView').style.display = 'none';
   document.getElementById('scorecardView').style.display = 'none';
   document.getElementById('mockView').style.display = 'none';
-  document.getElementById(view).style.display = view === 'examView' ? 'flex' : (view === 'scorecardView' ? 'block' : 'flex');
+  document.getElementById(view).style.display = view === 'examView' ? 'flex' : (view === 'scorecardView' ? 'block' : (view === 'mockView' ? 'flex' : 'flex'));
   currentView = view;
   window.scrollTo(0, 0);
 }
@@ -1554,74 +1796,6 @@ function restartExam() {
   loadExam(currentYear);
 }
 
-// ============== MOCK TEST ==============
-function loadMock() {
-  showView('mockView');
-  document.getElementById('mockSplash').style.display = 'block';
-  document.getElementById('mockQuestionsArea').style.display = 'none';
-}
-
-async function generateMock() {
-  const splash = document.getElementById('mockSplash');
-  splash.innerHTML = `<div style="text-align:center;padding:3rem 1.25rem;">
-    <div class="loader" style="margin:0 auto 1rem;"></div>
-    <div style="font-size:0.9rem;color:var(--text2);">Generating your personalised mock test...<br><span style="font-size:0.75rem;color:var(--text3);font-family:'JetBrains Mono',monospace;">AI analyzing 2018–2020 patterns</span></div>
-  </div>`;
-  
-  try {
-    const prompt = `You are a LAWCET exam expert. Generate exactly 10 multiple choice questions for an AP/TG LAWCET mock test. Follow this strict JSON format only, no other text:
-[
-  {
-    "id": 1,
-    "q": "Question text here?",
-    "opts": ["Option A", "Option B", "Option C", "Option D"],
-    "ans": 0,
-    "topic": "IPC · Topic",
-    "exp": "Explanation of correct answer in 2-3 sentences.",
-    "mem": "🧠 Memory trick or mnemonic for this question.",
-    "wrong": {"A": "Why A wrong", "B": "Why B wrong", "C": "Why C wrong"}
-  }
-]
-Include 5 law questions (IPC, CrPC, Contract Act, Constitution, TPA), 3 GK questions, 2 aptitude/English questions. Make them LAWCET-pattern specific, exam-ready, different from common textbook questions. The "wrong" object should have entries for all incorrect options only.`;
-
-    const response = await fetch(CLAUDE_API, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 3000,
-        messages: [{ role: 'user', content: prompt }]
-      })
-    });
-    
-    const data = await response.json();
-    const text = data.content[0].text;
-    const clean = text.replace(/```json|```/g, '').trim();
-    mockQuestions = JSON.parse(clean);
-    
-    renderMockQuestions();
-  } catch (err) {
-    // Fallback to sample questions
-    mockQuestions = generateFallbackMock();
-    renderMockQuestions();
-  }
-}
-
-function generateFallbackMock() {
-  return [
-    {id:1,q:"Under Section 107 IPC, abetment can be done by which of the following ways?",opts:["Instigation only","Conspiracy only","Intentional aid only","All three: instigation, conspiracy, or aid"],ans:3,topic:"IPC · Abetment",exp:"Section 107 IPC — Abetment can be done by: (a) instigation, (b) engaging in conspiracy, or (c) intentional aid in doing the act.",mem:"🧠 ICA = Instigation + Conspiracy + Aid = ABETMENT! Three ways!",wrong:{"A":"Instigation alone is just one mode of abetment.","B":"Conspiracy alone is just one mode.","C":"Aid alone is just one mode."}},
-    {id:2,q:"The writ of 'Quo Warranto' is issued against:",opts:["Illegal detention","Usurpation of public office","Transfer of case","Violation of fundamental rights"],ans:1,topic:"Constitution · Writs",exp:"Quo Warranto = 'By what authority?' It is issued against a person holding a public office without legal authority.",mem:"🧠 QUO WARRANTO = WHO AUTHORISED YOU? 'What WARRANT do you have for this office?!'",wrong:{"A":"Illegal detention = Habeas Corpus.","C":"Transfer of case is done by High Court under its supervisory jurisdiction.","D":"FR violation = various writs including Article 32."}},
-    {id:3,q:"Under CPC Order 1, a 'necessary party' is one without whom:",opts:["Case cannot be appealed","No effective decree can be passed","No summons can be issued","No evidence can be led"],ans:1,topic:"CPC · Parties",exp:"A necessary party is one in whose absence no effective decree can be passed. Their presence is essential for complete adjudication.",mem:"🧠 NECESSARY PARTY = Essential for EFFECTIVE DECREE. 'Necessary = Cannot proceed without!'",wrong:{"A":"Appeal is not what determines necessary party.","C":"Summons issue is procedural — not related to necessary party concept.","D":"Evidence rules don't determine necessary party status."}},
-    {id:4,q:"The 'Basic Structure' doctrine was propounded in:",opts:["Golaknath case 1967","Kesavananda Bharati case 1973","ADM Jabalpur case 1976","Maneka Gandhi case 1978"],ans:1,topic:"Constitution · Basic Structure",exp:"The Basic Structure doctrine was established by a 13-judge bench in Kesavananda Bharati v. State of Kerala (1973). Parliament cannot destroy the basic structure.",mem:"🧠 BASIC STRUCTURE = KESAVANANDA BHARATI 1973. '13 judges = 1+3=4 = FOUR core values protected!' Most landmark case!",wrong:{"A":"Golaknath 1967 held Parliament cannot amend FRs.","C":"ADM Jabalpur 1976 = habeas corpus case during Emergency.","D":"Maneka Gandhi 1978 = Article 21 expanded."}},
-    {id:5,q:"Under the Muslim Women (Protection of Rights on Divorce) Act 2019, triple talaq is:",opts:["Civil wrong","Void and criminal offence","Permitted","Requires court approval"],ans:1,topic:"Special Laws",exp:"The Muslim Women (Protection of Rights on Marriage) Act 2019 makes triple talaq (talaq-e-biddat) void and criminalises it with up to 3 years imprisonment.",mem:"🧠 Triple Talaq 2019 Act = VOID + CRIMINAL. 'THREE times talaq = THREE years jail post 2019!'",wrong:{"A":"It is not just a civil wrong — it is a criminal offence.","C":"It is specifically prohibited and criminalised.","D":"Court approval is not mentioned — it is simply criminalised."}},
-    {id:6,q:"Who is the first citizen of India?",opts:["Prime Minister","Chief Justice of India","President","Vice-President"],ans:2,topic:"GK · Constitution",exp:"The President of India is the first citizen of India and the constitutional head of the Republic.",mem:"🧠 PRESIDENT = FIRST CITIZEN. 'PREsident = PREfirst! Article 52 says there shall be a President = First citizen!'",wrong:{"A":"PM is the head of government, not first citizen.","B":"CJI heads judiciary — not called first citizen.","D":"VP is second to President."}},
-    {id:7,q:"The Headquarters of SAARC is located in:",opts:["New Delhi","Colombo","Kathmandu","Dhaka"],ans:2,topic:"GK · International",exp:"The SAARC Secretariat is located in Kathmandu, Nepal. SAARC has 8 member countries.",mem:"🧠 SAARC = KATHMANDU. 'South Asian = Nepal's CAPITAL = KATHMANDU hosts SAARC!'",wrong:{"A":"New Delhi = India's capital but not SAARC HQ.","B":"Colombo = Sri Lanka's capital.","D":"Dhaka = Bangladesh's capital."}},
-    {id:8,q:"The maximum age to be appointed as a Judge of Supreme Court of India is:",opts:["62 years","65 years","68 years","No maximum age"],ans:1,topic:"GK · Judiciary",exp:"SC judges hold office until 65 years of age (Article 124(2)). High Court judges retire at 62.",mem:"🧠 SC Judge = 65 years. HC Judge = 62 years. '65-62=3 = SC is 3 levels above HC!' Or: SC=65=SIXTY-FIVE=5+1=6=SC.",wrong:{"A":"62 is HC judges' retirement age.","C":"68 is not a retirement age in Indian judiciary.","D":"There is a maximum age of 65."}},
-    {id:9,q:"Which number is the odd one out: 8, 27, 64, 100, 125",opts:["8","27","64","100"],ans:3,topic:"Aptitude · Number Series",exp:"8=2³, 27=3³, 64=4³, 125=5³ are all perfect cubes. 100=10² is a perfect square but NOT a perfect cube.",mem:"🧠 Cubes: 2³=8, 3³=27, 4³=64, 5³=125. 100=10² = perfect square only, not cube = ODD ONE OUT!",wrong:{"A":"8=2³ — is a perfect cube.","B":"27=3³ — is a perfect cube.","C":"64=4³ — is a perfect cube."}},
-    {id:10,q:"Choose the correct one-word substitution: 'A person who speaks many languages'",opts:["Bilingual","Trilingual","Polyglot","Monolingual"],ans:2,topic:"English · Vocabulary",exp:"Polyglot = a person who speaks or writes several languages. From Greek 'poly' (many) + 'glotta' (tongue/language).",mem:"🧠 POLYGLOT = MANY languages. 'POLY=MANY + GLOT=language (like glossary)!' Bilingual=2, Trilingual=3, Polyglot=many!",wrong:{"A":"Bilingual = speaks 2 languages.","B":"Trilingual = speaks 3 languages.","D":"Monolingual = speaks only 1 language."}}
-  ];
-}
-
 // ======= 2021 QUESTIONS =======
 function getLawQuestions2021() { return [
 {id:1,q:"The three-tier Panchayati Raj system was recommended by which committee?",opts:["Balwant Rai Mehta Committee","Ashok Mehta Committee","L.M. Singhvi Committee","Sarkaria Commission"],ans:0,topic:"Constitutional Law · Panchayati Raj",exp:"The Balwant Rai Mehta Committee (1957) recommended the three-tier Panchayati Raj system: Gram Panchayat, Panchayat Samiti, Zila Parishad.",mem:"🧠 BALWANT RAI MEHTA = THREE TIER Panchayati Raj. 'BALWANT = BALANCE of three tiers! 1957 report.'",wrong:{"B":"Ashok Mehta Committee (1977) recommended two-tier.","C":"L.M. Singhvi Committee recommended constitutional status for Panchayats.","D":"Sarkaria Commission dealt with Centre-State relations."}},
@@ -1763,111 +1937,715 @@ function getGKQuestions2023() { return [
 
 function getAptitudeQuestions2023() { return getAptitudeQuestions2021(); }
 
-function renderMockQuestions() {
-  document.getElementById('mockSplash').style.display = 'none';
-  const area = document.getElementById('mockQuestionsArea');
-  area.style.display = 'block';
-  area.innerHTML = '';
-  
-  let mockAnswers = {};
-  let mockScore = 0;
-  
-  // Score bar
-  const topBar = document.createElement('div');
-  topBar.innerHTML = `<div style="padding:1rem 1.25rem;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--bg2);z-index:50;">
-    <div style="font-size:0.85rem;font-weight:600;">🤖 AI Mock Test</div>
-    <div class="score-badge"><div class="score-val" id="mockScoreVal">0</div><div class="score-label">Score</div></div>
-  </div>`;
-  area.appendChild(topBar);
-  
-  const qContainer = document.createElement('div');
-  qContainer.style.cssText = 'padding:1.25rem;display:flex;flex-direction:column;gap:1.25rem;';
-  
-  mockQuestions.forEach(q => {
-    const card = document.createElement('div');
-    card.className = 'q-card';
-    card.id = 'mqcard-' + q.id;
-    const keysArr = ['A','B','C','D'];
-    const optsHtml = q.opts.map((opt, i) => `
-      <button class="opt-btn" id="mopt-${q.id}-${i}" onclick="selectMockAnswer(${q.id},${i},${q.ans})">
-        <span class="opt-key">${keysArr[i]}</span>
-        <span class="opt-text">${opt}</span>
-      </button>`).join('');
-    card.innerHTML = `
-      <div class="q-header">
-        <div class="q-num" id="mqnum-${q.id}">${q.id}</div>
-        <div class="q-text">${q.q}</div>
-      </div>
-      <div class="q-topic"><span class="tag-law">${q.topic}</span></div>
-      <div class="options-grid">${optsHtml}</div>
-      <div class="explanation" id="mexp-${q.id}">
-        <div class="exp-section correct-ans">
-          <div class="exp-label">✅ Explanation</div>
-          <div class="exp-text">${q.exp}</div>
-        </div>
-        <div class="exp-section memory-box">
-          <div class="exp-label">🧠 Memory Trick</div>
-          <div class="exp-text">${q.mem}</div>
-        </div>
-        <div class="exp-section wrong-opts">
-          <div class="exp-label">❌ Why Others Are Wrong</div>
-          <div class="exp-text">${Object.entries(q.wrong||{}).map(([k,v])=>`<strong>${k}:</strong> ${v}`).join('<br>')}</div>
-        </div>
-      </div>`;
-    qContainer.appendChild(card);
-  });
-  
-  area.appendChild(qContainer);
-  
-  const finishBtn = document.createElement('div');
-  finishBtn.style.cssText = 'padding:0 1.25rem 3rem;';
-  finishBtn.innerHTML = '<button class="btn-primary" style="width:100%" onclick="newMockTest()">🔄 Generate New Mock Test</button><button class="btn-secondary" style="width:100%;margin-top:10px" onclick="goHome()">← Back to Home</button>';
-  area.appendChild(finishBtn);
-  
+// ===========================
+// TIMED MOCK EXAM SYSTEM
+// ===========================
+
+// State
+let mockMode        = 'full';   // full | half | quick | practice
+let mockSources     = ['all'];
+let mockPool        = [];        // shuffled question pool
+let mockAnswersMap  = {};        // { globalIdx: selectedOptIdx }
+let mockSkipped     = new Set(); // globalIdx values
+let mockVisited     = new Set();
+let mockTimerSecs   = 5400;      // 90 min default
+let mockTimerID     = null;
+let mockPracticeAnswered = {};   // for practice mode instant feedback
+let mockCurrentPart = 'A';
+let mockTotalQ      = 120;
+
+// Mode config
+const MOCK_MODES = {
+  full:     { label:'Full Mock',   qs:120, secs:5400 },
+  half:     { label:'Half Mock',   qs:60,  secs:2700 },
+  quick:    { label:'Quick Test',  qs:30,  secs:1320 },
+  practice: { label:'Practice',    qs:120, secs:0    }
+};
+
+function loadMock() {
+  // Stop any running timer
+  clearInterval(mockTimerID);
+  mockTimerID = null;
+
+  // Remove any stray overlays
+  document.querySelectorAll('.timeup-overlay').forEach(el => el.remove());
+  document.getElementById('qPaletteWrap').style.display = 'none';
+  document.getElementById('qPaletteBackdrop').style.display = 'none';
+
+  // Restore timer visibility for next run
+  const timerEl = document.getElementById('mockTimer');
+  if (timerEl) timerEl.style.display = '';
+
+  // Show setup, hide exam + result
+  document.getElementById('mockSetup').style.display = 'flex';
+  document.getElementById('mockExamScreen').style.display = 'none';
+  document.getElementById('mockResultScreen').style.display = 'none';
+  document.getElementById('mockResultScreen').innerHTML = '';
+
+  // Clear questions container to free memory
+  const qc = document.getElementById('mockQuestionsContainer');
+  if (qc) qc.innerHTML = '';
+
+  // Show the mockView itself
+  document.getElementById('mockView').style.display = 'flex';
+
+  // Make sure home/exam/scorecard are hidden
+  document.getElementById('homeView').style.display = 'none';
+  document.getElementById('examView').style.display = 'none';
+  document.getElementById('scorecardView').style.display = 'none';
+
   window.scrollTo(0, 0);
 }
 
-window.selectMockAnswer = function(qId, selectedIdx, correctIdx) {
-  if (document.getElementById('mopt-' + qId + '-0').disabled) return;
-  const isCorrect = selectedIdx === correctIdx;
-  
-  const card = document.getElementById('mqcard-' + qId);
-  if (isCorrect) card.classList.add('answered-correct');
-  else card.classList.add('answered-wrong');
-  
-  const qnum = document.getElementById('mqnum-' + qId);
-  qnum.classList.add(isCorrect ? 'correct' : 'wrong');
-  
-  const question = mockQuestions.find(q => q.id === qId);
-  for (let i = 0; i < 4; i++) {
-    const btn = document.getElementById('mopt-' + qId + '-' + i);
-    btn.disabled = true;
-    if (i === selectedIdx && isCorrect) btn.classList.add('selected-correct');
-    else if (i === selectedIdx && !isCorrect) btn.classList.add('selected-wrong');
-    else if (i === question.ans && !isCorrect) btn.classList.add('reveal-correct');
-  }
-  
-  document.getElementById('mexp-' + qId).classList.add('show');
-  
-  // Update score
-  if (isCorrect) {
-    const sv = document.getElementById('mockScoreVal');
-    sv.textContent = parseInt(sv.textContent) + 1;
-  }
-};
-
-function newMockTest() {
-  document.getElementById('mockQuestionsArea').style.display = 'none';
-  document.getElementById('mockSplash').style.display = 'block';
-  document.getElementById('mockSplash').innerHTML = `
-    <div style="margin:1.5rem 0 1rem;padding:1rem;background:linear-gradient(135deg,rgba(124,106,247,0.1),rgba(6,182,212,0.08));border:1px solid rgba(124,106,247,0.2);border-radius:var(--radius);">
-      <div style="font-size:1.5rem;margin-bottom:0.5rem;">🤖</div>
-      <h2>AI-Generated Mock Test</h2>
-      <p>Based on pattern analysis of 2018, 2019 & 2020 papers. Each session generates fresh questions.</p>
-    </div>
-    <button class="btn-primary" onclick="generateMock()" style="width:100%;margin-top:1.5rem">🚀 Generate New Mock Test (AI)</button>
-    <button class="btn-secondary" onclick="goHome()" style="width:100%;margin-top:10px">← Back to Home</button>`;
+function selectMockMode(mode, el) {
+  mockMode = mode;
+  document.querySelectorAll('.mock-mode-card').forEach(c => { c.classList.remove('selected'); });
+  document.querySelectorAll('.mode-check').forEach(c => { c.textContent = ''; });
+  el.classList.add('selected');
+  document.getElementById('modeCheck-' + mode).textContent = '✓';
 }
+
+function toggleSource(src, el) {
+  if (src === 'all') {
+    // reset all to "all"
+    mockSources = ['all'];
+    document.querySelectorAll('.source-chip').forEach(c => c.classList.remove('active'));
+    el.classList.add('active');
+    return;
+  }
+  // deactivate "all"
+  const allChip = document.querySelector('.source-chip[data-src="all"]');
+  allChip.classList.remove('active');
+  mockSources = mockSources.filter(s => s !== 'all');
+
+  if (el.classList.contains('active')) {
+    el.classList.remove('active');
+    mockSources = mockSources.filter(s => s !== src);
+    if (mockSources.length === 0) { mockSources = ['all']; allChip.classList.add('active'); }
+  } else {
+    el.classList.add('active');
+    mockSources.push(src);
+  }
+}
+
+// Build pool of questions from selected sources, shuffled
+function buildMockPool(targetCount) {
+  const years = ['2025','2024','2023','2022','2021','2020','2019','2018','2017'];
+  const useYears = (mockSources.includes('all')) ? years : mockSources;
+
+  // Gather all questions, tag with year and part
+  const lawPool = [], gkPool = [], aptPool = [];
+  useYears.forEach(yr => {
+    const paper = PAPERS[yr];
+    if (!paper) return;
+    paper.parts['A'].questions.forEach(q => lawPool.push({...q, _year:yr, _part:'A'}));
+    paper.parts['B'].questions.forEach(q => gkPool.push({...q, _year:yr, _part:'B'}));
+    paper.parts['C'].questions.forEach(q => aptPool.push({...q, _year:yr, _part:'C'}));
+  });
+
+  // Shuffle each pool
+  const shuffle = arr => { for(let i=arr.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]]; } return arr; };
+  shuffle(lawPool); shuffle(gkPool); shuffle(aptPool);
+
+  // Proportion: Law 50%, GK 25%, Apt 25%
+  const lawN = Math.round(targetCount * 0.50);
+  const gkN  = Math.round(targetCount * 0.25);
+  const aptN  = targetCount - lawN - gkN;
+
+  const pool = [
+    ...lawPool.slice(0, lawN),
+    ...gkPool.slice(0, gkN),
+    ...aptPool.slice(0, aptN)
+  ];
+
+  // Re-number sequentially
+  pool.forEach((q, i) => { q._idx = i; q._displayId = i + 1; });
+  return pool;
+}
+
+function startMockExam() {
+  const cfg = MOCK_MODES[mockMode];
+  mockTotalQ      = cfg.qs;
+  mockTimerSecs   = cfg.secs;
+  mockAnswersMap  = {};
+  mockSkipped     = new Set();
+  mockVisited     = new Set();
+  mockPracticeAnswered = {};
+  mockCurrentPart = 'A';
+
+  mockPool = buildMockPool(mockTotalQ);
+
+  // Show exam screen
+  document.getElementById('mockSetup').style.display = 'none';
+  document.getElementById('mockExamScreen').style.display = 'flex';
+  document.getElementById('mockExamScreen').style.flexDirection = 'column';
+  document.getElementById('mockResultScreen').style.display = 'none';
+
+  // Determine parts based on pool
+  document.getElementById('mockExamTitle').textContent = cfg.label.toUpperCase() + ' · ' + mockTotalQ + ' QUESTIONS';
+
+  // Build part tabs dynamically
+  rebuildMockPartTabs();
+
+  // Render current part
+  renderMockPart('A');
+
+  // Start timer
+  if (mockMode !== 'practice') {
+    updateTimerDisplay();
+    mockTimerID = setInterval(tickTimer, 1000);
+  } else {
+    document.getElementById('mockTimer').style.display = 'none';
+  }
+
+  updateMockProgress();
+  buildPalette();
+  window.scrollTo(0,0);
+}
+
+function getPart(idx) {
+  // Assign part based on sequential order of pool
+  const lawCount  = Math.round(mockTotalQ * 0.50);
+  const gkCount   = Math.round(mockTotalQ * 0.25);
+  if (idx < lawCount) return 'A';
+  if (idx < lawCount + gkCount) return 'B';
+  return 'C';
+}
+
+function getPartQs(part) {
+  return mockPool.filter(q => {
+    const p = getPart(q._idx);
+    return p === part;
+  });
+}
+
+function rebuildMockPartTabs() {
+  const tabs = document.getElementById('mockPartTabs');
+  tabs.innerHTML = '';
+  const partInfo = {
+    A: { label: 'Part A · Law',     count: getPartQs('A').length },
+    B: { label: 'Part B · GK',      count: getPartQs('B').length },
+    C: { label: 'Part C · Aptitude',count: getPartQs('C').length }
+  };
+  ['A','B','C'].forEach((p,i) => {
+    if (partInfo[p].count === 0) return;
+    const tab = document.createElement('div');
+    tab.className = 'part-tab' + (i === 0 ? ' active' : '');
+    tab.textContent = partInfo[p].label + ' (' + partInfo[p].count + ')';
+    tab.onclick = () => switchMockPart(p, tab);
+    tabs.appendChild(tab);
+  });
+}
+
+function switchMockPart(part, tabEl) {
+  mockCurrentPart = part;
+  document.querySelectorAll('#mockPartTabs .part-tab').forEach(t => t.classList.remove('active'));
+  if (tabEl) tabEl.classList.add('active');
+  renderMockPart(part);
+  document.getElementById('mockQuestionsContainer').scrollTop = 0;
+  window.scrollTo(0,0);
+}
+
+function renderMockPart(part) {
+  const container = document.getElementById('mockQuestionsContainer');
+  container.innerHTML = '';
+  const qs = getPartQs(part);
+  if (!qs.length) { container.innerHTML = '<div style="padding:2rem 1.25rem;text-align:center;color:var(--text3);">No questions in this section.</div>'; return; }
+  qs.forEach(q => container.appendChild(buildMockQCard(q)));
+}
+
+function buildMockQCard(q) {
+  const card = document.createElement('div');
+  card.className = 'q-card';
+  card.id = 'mqcard-' + q._idx;
+
+  const isPractice = mockMode === 'practice';
+  const answered   = mockAnswersMap.hasOwnProperty(q._idx);
+  const skipped    = mockSkipped.has(q._idx);
+
+  if (answered) card.classList.add(mockAnswersMap[q._idx] === q.ans ? 'answered-correct' : 'answered-wrong');
+  if (skipped && !answered)  card.classList.add('skipped-q');
+
+  const keysArr = ['A','B','C','D'];
+  const optsHtml = q.opts.map((opt, i) => {
+    let cls = 'opt-btn';
+    if (answered) {
+      if (i === mockAnswersMap[q._idx] && i === q.ans) cls += ' selected-correct';
+      else if (i === mockAnswersMap[q._idx] && i !== q.ans) cls += ' selected-wrong';
+      else if (i === q.ans && isPractice) cls += ' reveal-correct';
+    }
+    return `<button class="${cls}" id="mqopt-${q._idx}-${i}"
+      onclick="selectTimedMockAnswer(${q._idx},${i},${q.ans})"
+      ${answered ? 'disabled' : ''}>
+      <span class="opt-key">${keysArr[i]}</span>
+      <span class="opt-text">${opt}</span>
+    </button>`;
+  }).join('');
+
+  // Explanation — always shown in practice mode after answer; hidden in timed until results
+  const expDisplay = (isPractice && answered) ? '' : 'exam-mode-hide';
+  const wrongHtml = Object.entries(q.wrong || {}).map(([k,v]) => `<strong>${k}:</strong> ${v}`).join('<br>');
+
+  const qNumCls = answered ? (mockAnswersMap[q._idx] === q.ans ? ' correct' : ' wrong') : (skipped ? ' skipped' : '');
+
+  card.innerHTML = `
+    <div class="q-header">
+      <div class="q-num${qNumCls}" id="mqnum-${q._idx}">${q._displayId}</div>
+      <div class="q-text">${q.q}</div>
+    </div>
+    <div class="q-topic"><span class="tag-law">${q.topic || ''}</span> <span style="font-size:0.6rem;color:var(--text3);font-family:'JetBrains Mono',monospace;">${q._year}</span></div>
+    <div class="options-grid">${optsHtml}</div>
+    ${!answered && !isPractice ? `<button class="skip-btn" id="mqskip-${q._idx}" onclick="skipMockQ(${q._idx})">⏭ Skip for now</button>` : ''}
+    <div class="explanation ${expDisplay}" id="mexpblock-${q._idx}">
+      <div class="exp-section correct-ans">
+        <div class="exp-label">✅ Correct Answer & Explanation</div>
+        <div class="exp-text">${q.exp || ''}</div>
+      </div>
+      <div class="exp-section memory-box">
+        <div class="exp-label">🧠 Memory Trick</div>
+        <div class="exp-text">${q.mem || ''}</div>
+      </div>
+      ${wrongHtml ? `<div class="exp-section wrong-opts">
+        <div class="exp-label">❌ Why Others Are Wrong</div>
+        <div class="exp-text">${wrongHtml}</div>
+      </div>` : ''}
+    </div>`;
+
+  // Show explanation if practice + already answered
+  if (isPractice && answered) {
+    card.querySelector('.explanation').classList.add('show');
+    card.querySelector('.explanation').classList.remove('exam-mode-hide');
+  }
+
+  mockVisited.add(q._idx);
+  return card;
+}
+
+function selectTimedMockAnswer(idx, selectedOpt, correctOpt) {
+  if (mockAnswersMap.hasOwnProperty(idx)) return; // already answered
+
+  const isCorrect = selectedOpt === correctOpt;
+  mockAnswersMap[idx] = selectedOpt;
+  mockSkipped.delete(idx);
+
+  const card = document.getElementById('mqcard-' + idx);
+  if (card) {
+    card.classList.add(isCorrect ? 'answered-correct' : 'answered-wrong');
+    card.classList.remove('skipped-q');
+
+    // Style buttons
+    for (let i = 0; i < 4; i++) {
+      const btn = document.getElementById('mqopt-' + idx + '-' + i);
+      if (!btn) continue;
+      btn.disabled = true;
+      if (i === selectedOpt && isCorrect)       btn.classList.add('selected-correct');
+      else if (i === selectedOpt && !isCorrect)  btn.classList.add('selected-wrong');
+      else if (i === correctOpt && !isCorrect && mockMode === 'practice') btn.classList.add('reveal-correct');
+    }
+
+    // Update q-num badge
+    const qnum = document.getElementById('mqnum-' + idx);
+    if (qnum) { qnum.className = 'q-num ' + (isCorrect ? 'correct' : 'wrong'); }
+
+    // Remove skip button
+    const skipBtn = document.getElementById('mqskip-' + idx);
+    if (skipBtn) skipBtn.remove();
+
+    // Show explanation in practice mode
+    if (mockMode === 'practice') {
+      const expBlock = document.getElementById('mexpblock-' + idx);
+      if (expBlock) { expBlock.classList.remove('exam-mode-hide'); expBlock.classList.add('show'); }
+      // Reveal correct option if wrong
+      if (!isCorrect) {
+        const correctBtn = document.getElementById('mqopt-' + idx + '-' + correctOpt);
+        if (correctBtn) correctBtn.classList.add('reveal-correct');
+      }
+    }
+  }
+
+  // Update palette button
+  updatePaletteBtnState(idx, 'pal-ans');
+  updateMockProgress();
+}
+
+function skipMockQ(idx) {
+  if (mockAnswersMap.hasOwnProperty(idx)) return;
+  mockSkipped.add(idx);
+
+  const card = document.getElementById('mqcard-' + idx);
+  if (card) card.classList.add('skipped-q');
+  const qnum = document.getElementById('mqnum-' + idx);
+  if (qnum) qnum.classList.add('skipped');
+  const skipBtn = document.getElementById('mqskip-' + idx);
+  if (skipBtn) skipBtn.style.display = 'none';
+
+  updatePaletteBtnState(idx, 'pal-skip');
+  updateMockProgress();
+}
+
+// ─── Timer ────────────────────────────────────────────────────────────────────
+function tickTimer() {
+  if (mockTimerSecs <= 0) {
+    clearInterval(mockTimerID);
+    showTimeUp();
+    return;
+  }
+  mockTimerSecs--;
+  updateTimerDisplay();
+}
+
+function updateTimerDisplay() {
+  const m = Math.floor(mockTimerSecs / 60);
+  const s = mockTimerSecs % 60;
+  const display = String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
+  const el = document.getElementById('mockTimerVal');
+  const wrap = document.getElementById('mockTimer');
+  if (el) el.textContent = display;
+  if (wrap) {
+    wrap.classList.remove('warning','danger');
+    if (mockTimerSecs <= 300)      wrap.classList.add('danger');
+    else if (mockTimerSecs <= 900) wrap.classList.add('warning');
+  }
+}
+
+function showTimeUp() {
+  const overlay = document.createElement('div');
+  overlay.className = 'timeup-overlay';
+  overlay.innerHTML = `
+    <div class="timeup-box">
+      <div style="font-size:3rem;margin-bottom:0.75rem;">⏰</div>
+      <h2 style="font-size:1.2rem;font-weight:700;margin-bottom:0.5rem;">Time's Up!</h2>
+      <p style="color:var(--text2);font-size:0.85rem;margin-bottom:1.5rem;">Your 90-minute exam has ended. Your answers have been saved.</p>
+      <button class="btn-primary" style="width:100%" onclick="this.closest('.timeup-overlay').remove(); clearInterval(mockTimerID); showMockResults();">📊 See Results</button>
+    </div>`;
+  document.body.appendChild(overlay);
+}
+
+// ─── Palette ─────────────────────────────────────────────────────────────────
+function buildPalette() {
+  const pal = document.getElementById('qPalette');
+  pal.innerHTML = '';
+  mockPool.forEach((q, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'q-pal-btn';
+    btn.id = 'qpalBtn-' + i;
+    btn.textContent = q._displayId;
+    btn.onclick = () => { closePalette(); scrollToMockQ(i); };
+    pal.appendChild(btn);
+  });
+}
+
+function updatePaletteBtnState(idx, cls) {
+  const btn = document.getElementById('qpalBtn-' + idx);
+  if (!btn) return;
+  btn.classList.remove('pal-ans','pal-skip','pal-curr');
+  btn.classList.add(cls);
+}
+
+function openPalette() {
+  // Refresh all states
+  mockPool.forEach(q => {
+    const btn = document.getElementById('qpalBtn-' + q._idx);
+    if (!btn) return;
+    btn.classList.remove('pal-ans','pal-skip','pal-curr');
+    if (mockAnswersMap.hasOwnProperty(q._idx)) btn.classList.add('pal-ans');
+    else if (mockSkipped.has(q._idx))           btn.classList.add('pal-skip');
+  });
+  document.getElementById('qPaletteWrap').style.display = 'block';
+  document.getElementById('qPaletteBackdrop').style.display = 'block';
+}
+function closePalette() {
+  document.getElementById('qPaletteWrap').style.display = 'none';
+  document.getElementById('qPaletteBackdrop').style.display = 'none';
+}
+
+function scrollToMockQ(idx) {
+  const q = mockPool[idx];
+  const part = getPart(q._idx);
+  if (part !== mockCurrentPart) {
+    const tabs = document.querySelectorAll('#mockPartTabs .part-tab');
+    const partOrder = ['A','B','C'];
+    const tabIdx = partOrder.indexOf(part);
+    if (tabs[tabIdx]) switchMockPart(part, tabs[tabIdx]);
+  }
+  setTimeout(() => {
+    const card = document.getElementById('mqcard-' + idx);
+    if (card) card.scrollIntoView({ behavior:'smooth', block:'start' });
+  }, 100);
+}
+
+// ─── Progress ────────────────────────────────────────────────────────────────
+function updateMockProgress() {
+  const answered = Object.keys(mockAnswersMap).length;
+  const skipped  = mockSkipped.size;
+  const total    = mockTotalQ;
+  const pct      = Math.round((answered / total) * 100);
+
+  const correct = Object.entries(mockAnswersMap).filter(([idx, sel]) => {
+    const q = mockPool[parseInt(idx)];
+    return q && sel === q.ans;
+  }).length;
+
+  const bar   = document.getElementById('mockProgressBar');
+  const label = document.getElementById('mockProgressLabel');
+  const score = document.getElementById('mockScoreLive');
+  const bAns  = document.getElementById('mockBottomAns');
+  const bSkip = document.getElementById('mockBottomSkip');
+
+  if (bar)   bar.style.width = pct + '%';
+  if (label) label.textContent = answered + '/' + total;
+  if (score) score.textContent = 'Score: ' + correct;
+  if (bAns)  bAns.textContent  = answered + ' answered';
+  if (bSkip) bSkip.textContent = skipped  + ' skipped';
+}
+
+// ─── Confirm exit ─────────────────────────────────────────────────────────────
+function confirmMockExit() {
+  // Use custom modal — native confirm() is blocked on many mobile browsers
+  const overlay = document.createElement('div');
+  overlay.className = 'timeup-overlay';
+  overlay.id = 'exitConfirmOverlay';
+  overlay.innerHTML = `
+    <div class="timeup-box">
+      <div style="font-size:2.5rem;margin-bottom:0.75rem;">🚪</div>
+      <h2 style="font-size:1.1rem;font-weight:700;margin-bottom:0.5rem;">Exit Mock Exam?</h2>
+      <p style="color:var(--text2);font-size:0.82rem;margin-bottom:1.5rem;line-height:1.5;">Your progress and timer will be lost. You can start a new mock any time.</p>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <button class="btn-primary" style="background:linear-gradient(135deg,var(--red),#f97316);" onclick="doExitMock()">Yes, Exit</button>
+        <button class="btn-secondary" onclick="document.getElementById('exitConfirmOverlay').remove()">Cancel — Continue Exam</button>
+      </div>
+    </div>`;
+  document.body.appendChild(overlay);
+}
+
+function doExitMock() {
+  // Remove overlay
+  const ov = document.getElementById('exitConfirmOverlay');
+  if (ov) ov.remove();
+  // Stop timer
+  clearInterval(mockTimerID);
+  mockTimerID = null;
+  // Remove any time-up overlays
+  document.querySelectorAll('.timeup-overlay').forEach(el => el.remove());
+  // Go back to mock setup
+  loadMock();
+}
+
+// ─── Submit ───────────────────────────────────────────────────────────────────
+function submitMockExam() {
+  const answered   = Object.keys(mockAnswersMap).length;
+  const skipped    = mockSkipped.size;
+  const unattempted = mockTotalQ - answered - skipped;
+
+  const overlay = document.createElement('div');
+  overlay.className = 'timeup-overlay';
+  overlay.id = 'submitConfirmOverlay';
+  overlay.innerHTML = `
+    <div class="timeup-box">
+      <div style="font-size:2.5rem;margin-bottom:0.75rem;">📋</div>
+      <h2 style="font-size:1.1rem;font-weight:700;margin-bottom:0.75rem;">Submit Exam?</h2>
+      <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:0.85rem;margin-bottom:1.25rem;text-align:left;">
+        <div style="display:flex;justify-content:space-between;padding:4px 0;font-size:0.82rem;"><span style="color:var(--green2);">✅ Answered</span><span style="font-family:'JetBrains Mono',monospace;font-weight:700;">${answered}</span></div>
+        <div style="display:flex;justify-content:space-between;padding:4px 0;font-size:0.82rem;border-top:1px solid var(--border);"><span style="color:var(--gold2);">⏭ Skipped</span><span style="font-family:'JetBrains Mono',monospace;font-weight:700;">${skipped}</span></div>
+        <div style="display:flex;justify-content:space-between;padding:4px 0;font-size:0.82rem;border-top:1px solid var(--border);"><span style="color:var(--text3);">⬜ Unattempted</span><span style="font-family:'JetBrains Mono',monospace;font-weight:700;">${unattempted}</span></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <button class="btn-primary" onclick="doSubmitMock()">Submit & See Results →</button>
+        <button class="btn-secondary" onclick="document.getElementById('submitConfirmOverlay').remove()">Continue Exam</button>
+      </div>
+    </div>`;
+  document.body.appendChild(overlay);
+}
+
+function doSubmitMock() {
+  const ov = document.getElementById('submitConfirmOverlay');
+  if (ov) ov.remove();
+  clearInterval(mockTimerID);
+  mockTimerID = null;
+  showMockResults();
+}
+
+// ─── Results ─────────────────────────────────────────────────────────────────
+function showMockResults() {
+  document.getElementById('mockExamScreen').style.display = 'none';
+  document.getElementById('mockResultScreen').style.display = 'block';
+  document.getElementById('mockResultScreen').innerHTML = buildMockResultHTML();
+  window.scrollTo(0,0);
+  // Animate score ring
+  setTimeout(() => {
+    const ring = document.getElementById('resultRingCircle');
+    if (!ring) return;
+    const total   = mockTotalQ;
+    const correct = Object.entries(mockAnswersMap).filter(([idx,sel]) => {
+      const q = mockPool[parseInt(idx)]; return q && sel === q.ans;
+    }).length;
+    ring.style.strokeDashoffset = 314 - (correct/total) * 314;
+  }, 150);
+}
+
+function buildMockResultHTML() {
+  const total    = mockTotalQ;
+  const answered = Object.keys(mockAnswersMap).length;
+  const correct  = Object.entries(mockAnswersMap).filter(([idx,sel]) => {
+    const q = mockPool[parseInt(idx)]; return q && sel === q.ans;
+  }).length;
+  const wrong    = answered - correct;
+  const skipped  = mockSkipped.size;
+  const unatt    = total - answered - skipped;
+  const pct      = Math.round((correct / total) * 100);
+  const circumf  = 314;
+  const offset   = circumf - (pct / 100 * circumf);
+
+  // Part-wise breakdown
+  const partData = { A:{ name:'Part A — Law', cor:0, total:0 }, B:{ name:'Part B — GK', cor:0, total:0 }, C:{ name:'Part C — Aptitude', cor:0, total:0 } };
+  mockPool.forEach(q => {
+    const p = getPart(q._idx);
+    partData[p].total++;
+    if (mockAnswersMap.hasOwnProperty(q._idx) && mockAnswersMap[q._idx] === q.ans) partData[p].cor++;
+  });
+  const partBarsHTML = ['A','B','C'].map(p => {
+    const d = partData[p];
+    const pp = d.total ? Math.round((d.cor/d.total)*100) : 0;
+    return `<div class="result-part-row">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+        <div style="font-size:0.82rem;font-weight:600;">${d.name}</div>
+        <div style="font-size:0.82rem;font-family:'JetBrains Mono',monospace;color:var(--accent2);">${d.cor}/${d.total}</div>
+      </div>
+      <div class="mini-bar"><div class="mini-bar-fill" style="width:${pp}%"></div></div>
+      <div style="font-size:0.68rem;color:var(--text3);margin-top:4px;">${pp}% accuracy</div>
+    </div>`;
+  }).join('');
+
+  // Performance message
+  let emoji, msg, sub;
+  if (pct>=90){emoji='🏆';msg='Outstanding!';sub='LAWCET Champion! You are fully exam-ready!';}
+  else if(pct>=75){emoji='🎯';msg='Excellent!';sub='Strong performance. Keep this up!';}
+  else if(pct>=60){emoji='📈';msg='Good Effort!';sub='Above average. Focus on weak areas!';}
+  else if(pct>=40){emoji='💪';msg='Keep Going!';sub='Regular practice will boost your score!';}
+  else{emoji='📚';msg='More Study Needed';sub='Revisit concepts and practise daily!';}
+
+  // Config label
+  const cfg = MOCK_MODES[mockMode];
+  const srcLabel = mockSources.includes('all') ? 'All Years' : mockSources.join(', ');
+
+  return `
+  <div class="mock-result-topbar">
+    <button class="back-btn" onclick="loadMock()">← New Test</button>
+    <div style="font-size:0.7rem;font-family:'JetBrains Mono',monospace;color:var(--text3);">${cfg.label} · ${srcLabel}</div>
+  </div>
+  <div class="result-hero">
+    <div class="result-ring-wrap">
+      <svg width="130" height="130" viewBox="0 0 130 130">
+        <circle cx="65" cy="65" r="54" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="11"/>
+        <circle cx="65" cy="65" r="54" fill="none" stroke="url(#rg1)" stroke-width="11" stroke-linecap="round"
+          stroke-dasharray="${circumf}" stroke-dashoffset="${circumf}"
+          id="resultRingCircle" style="transition:stroke-dashoffset 1.2s ease;"/>
+        <defs><linearGradient id="rg1" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#7c6af7"/>
+          <stop offset="100%" stop-color="#06b6d4"/>
+        </linearGradient></defs>
+      </svg>
+      <div class="result-ring-center">
+        <div class="result-big">${correct}/${total}</div>
+        <div class="result-pct">${pct}%</div>
+      </div>
+    </div>
+    <div style="font-size:2rem;margin-bottom:0.4rem;">${emoji}</div>
+    <h2 style="font-size:1.3rem;font-weight:700;">${msg}</h2>
+    <p style="color:var(--text2);font-size:0.85rem;margin-top:0.4rem;">${sub}</p>
+  </div>
+
+  <div class="result-stats-grid">
+    <div class="result-stat result-correct"><div class="result-stat-num">${correct}</div><div class="result-stat-label">✅ Correct</div></div>
+    <div class="result-stat result-wrong"><div class="result-stat-num">${wrong}</div><div class="result-stat-label">❌ Wrong</div></div>
+    <div class="result-stat result-skipped"><div class="result-stat-num">${skipped + unatt}</div><div class="result-stat-label">⬜ Skipped</div></div>
+  </div>
+
+  <div class="result-part-bars">${partBarsHTML}</div>
+
+  <!-- Review section -->
+  <div class="result-review-section">
+    <div class="result-review-toggle" onclick="toggleMockReview(this)">
+      <div>
+        <div style="font-size:0.88rem;font-weight:600;">📋 Full Review with Answers</div>
+        <div style="font-size:0.72rem;color:var(--text2);margin-top:2px;">All ${total} questions with explanations & memory tips</div>
+      </div>
+      <div style="color:var(--text3);">▼</div>
+    </div>
+    <div id="mockReviewBody" style="display:none;"></div>
+  </div>
+
+  <div style="padding:1.5rem 1.25rem;display:flex;flex-direction:column;gap:10px;">
+    <button class="btn-primary" onclick="startMockExam()">🔄 Retake (New Shuffle)</button>
+    <button class="btn-secondary" onclick="loadMock()">⚙️ Change Mode / Source</button>
+    <button class="btn-secondary" onclick="goHome()">← Back to Home</button>
+  </div>`;
+}
+
+function toggleMockReview(headerEl) {
+  const body = document.getElementById('mockReviewBody');
+  if (body.style.display === 'none') {
+    body.style.display = 'block';
+    headerEl.querySelector('div:last-child').textContent = '▲';
+    if (!body.innerHTML) renderMockReviewBody(body);
+  } else {
+    body.style.display = 'none';
+    headerEl.querySelector('div:last-child').textContent = '▼';
+  }
+}
+
+function renderMockReviewBody(container) {
+  const keys = ['A','B','C','D'];
+  mockPool.forEach(q => {
+    const userAns  = mockAnswersMap.hasOwnProperty(q._idx) ? mockAnswersMap[q._idx] : -1;
+    const isCorrect = userAns === q.ans;
+    const wasSkipped = mockSkipped.has(q._idx) || userAns === -1;
+    const div = document.createElement('div');
+    div.className = 'review-q' + (wasSkipped ? '' : isCorrect ? ' rc' : ' rw');
+    div.style.marginBottom = '10px';
+    const wrongHtml = Object.entries(q.wrong||{}).map(([k,v]) => `<strong>${k}:</strong> ${v}`).join('<br>');
+    div.innerHTML = `
+      <div class="review-q-num">Q${q._displayId} · ${q._year} · ${q.topic || ''}</div>
+      <div class="review-q-text">${q.q}</div>
+      <div class="review-ans" style="gap:6px;flex-wrap:wrap;">
+        ${wasSkipped ? '<span class="ans-chip" style="background:rgba(245,158,11,0.12);color:var(--gold2);">⬜ Skipped</span>' :
+          (isCorrect ? '<span class="ans-chip correct">✅ Correct</span>' : `<span class="ans-chip wrong">❌ Your answer: ${keys[userAns]}) ${q.opts[userAns]}</span>`)}
+        <span class="ans-chip correct" style="margin-left:2px;">✅ ${keys[q.ans]}) ${q.opts[q.ans]}</span>
+      </div>
+      <div class="review-exp">${q.exp || ''}</div>
+      <div class="review-mem">${q.mem || ''}</div>
+      ${wrongHtml ? `<div style="font-size:0.75rem;color:var(--text3);margin-top:6px;padding:6px 8px;background:rgba(239,68,68,0.05);border-radius:6px;border-left:2px solid rgba(239,68,68,0.3);">${wrongHtml}</div>` : ''}`;
+    container.appendChild(div);
+  });
+
+  // Animate ring after DOM paint
+  setTimeout(() => {
+    const ring = document.getElementById('resultRingCircle');
+    if (ring) {
+      const total = mockTotalQ;
+      const correct = Object.entries(mockAnswersMap).filter(([idx,sel]) => {
+        const q = mockPool[parseInt(idx)]; return q && sel === q.ans;
+      }).length;
+      const pct = correct / total;
+      ring.style.strokeDashoffset = 314 - pct * 314;
+    }
+  }, 200);
+}
+
+// Animate ring on result render
+setTimeout(() => {
+  const ring = document.getElementById('resultRingCircle');
+  if (ring) ring.style.strokeDashoffset = 314;
+}, 100);
+
+function newMockTest() { loadMock(); }
+
+// ─── Legacy AI mock (kept for the AI-generate feature) ────────────────────────
+async function generateMock() { /* Legacy - now using pool */ startMockExam(); }
+function renderMockQuestions() {}
+
+window.selectMockAnswer = function() {};
+
 
 // Init
 document.getElementById('scorecardView').style.display = 'none';
