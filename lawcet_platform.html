@@ -223,9 +223,299 @@ body { background:var(--bg); color:var(--text); font-family:'Space Grotesk',sans
 }
 
 .tag-law { background:rgba(6,182,212,0.12); color:#67e8f9; border:1px solid rgba(6,182,212,0.25); padding:2px 7px; border-radius:4px; font-size:0.6rem; font-family:'JetBrains Mono',monospace; }
+
+/* ===== SEARCH FEATURE ===== */
+/* Floating search button — bottom left, so it doesn't clash with score badge (bottom right) */
+.search-fab {
+  position:fixed; bottom:1.5rem; left:1.25rem; z-index:300;
+  width:48px; height:48px; border-radius:50%;
+  background:linear-gradient(135deg,var(--accent),#6366f1);
+  border:none; cursor:pointer; display:flex; align-items:center; justify-content:center;
+  box-shadow:0 8px 24px rgba(124,106,247,0.45);
+  transition:transform 0.2s, box-shadow 0.2s;
+  font-size:1.2rem;
+}
+.search-fab:hover { transform:scale(1.08); box-shadow:0 12px 32px rgba(124,106,247,0.55); }
+
+/* Full-screen search overlay — slides up from bottom */
+.search-overlay {
+  position:fixed; inset:0; z-index:500;
+  background:var(--bg);
+  display:flex; flex-direction:column;
+  transform:translateY(100%);
+  transition:transform 0.32s cubic-bezier(0.4,0,0.2,1);
+  will-change:transform;
+}
+.search-overlay.open { transform:translateY(0); }
+
+/* Search top bar */
+.search-topbar {
+  display:flex; align-items:center; gap:10px;
+  padding:0.9rem 1.25rem;
+  border-bottom:1px solid var(--border);
+  background:var(--bg2);
+  position:sticky; top:0; z-index:10;
+}
+.search-input-wrap {
+  flex:1; display:flex; align-items:center; gap:8px;
+  background:var(--bg3); border:1.5px solid var(--border);
+  border-radius:10px; padding:0 12px; transition:border-color 0.15s;
+}
+.search-input-wrap:focus-within { border-color:var(--accent); }
+.search-input-icon { color:var(--text3); font-size:1rem; flex-shrink:0; }
+.search-input {
+  flex:1; background:transparent; border:none; outline:none;
+  color:var(--text); font-family:'Space Grotesk',sans-serif;
+  font-size:0.95rem; padding:0.7rem 0; caret-color:var(--accent2);
+}
+.search-input::placeholder { color:var(--text3); }
+.search-clear {
+  background:none; border:none; color:var(--text3); cursor:pointer;
+  font-size:1rem; padding:4px; line-height:1; display:none;
+}
+.search-close {
+  background:var(--bg3); border:1px solid var(--border);
+  color:var(--text2); font-size:0.8rem; font-weight:600;
+  padding:6px 12px; border-radius:8px; cursor:pointer;
+  font-family:'Space Grotesk',sans-serif; white-space:nowrap;
+  flex-shrink:0;
+}
+
+/* Filter chips */
+.search-filters {
+  display:flex; gap:6px; padding:0.65rem 1.25rem;
+  overflow-x:auto; scrollbar-width:none;
+  border-bottom:1px solid var(--border);
+  background:var(--bg2);
+}
+.search-filters::-webkit-scrollbar { display:none; }
+.filter-chip {
+  padding:4px 12px; border-radius:20px; font-size:0.7rem;
+  font-weight:600; border:1px solid var(--border2);
+  background:transparent; color:var(--text3);
+  cursor:pointer; white-space:nowrap; transition:all 0.15s;
+  font-family:'Space Grotesk',sans-serif;
+}
+.filter-chip.active {
+  background:rgba(124,106,247,0.15);
+  border-color:rgba(124,106,247,0.4);
+  color:var(--accent3);
+}
+
+/* Search states */
+.search-body { flex:1; overflow-y:auto; }
+.search-home { padding:2rem 1.25rem; text-align:center; }
+.search-home-icon { font-size:3rem; margin-bottom:1rem; }
+.search-home h3 { font-size:1rem; font-weight:600; margin-bottom:0.5rem; }
+.search-home p { font-size:0.82rem; color:var(--text2); line-height:1.6; }
+
+.search-meta {
+  padding:0.6rem 1.25rem;
+  font-size:0.7rem; color:var(--text3);
+  font-family:'JetBrains Mono',monospace;
+  border-bottom:1px solid var(--border);
+  display:flex; justify-content:space-between; align-items:center;
+}
+
+/* Result card */
+.sr-card {
+  margin:1rem 1.25rem 0;
+  background:var(--bg3); border:1px solid var(--border);
+  border-radius:var(--radius); overflow:hidden;
+  cursor:pointer; transition:border-color 0.15s;
+}
+.sr-card:last-child { margin-bottom:1rem; }
+.sr-card:hover { border-color:var(--border2); }
+
+.sr-card-head {
+  padding:0.75rem 1rem 0.5rem;
+  display:flex; align-items:flex-start; gap:10px;
+}
+.sr-qnum {
+  min-width:28px; height:22px; border-radius:5px;
+  background:rgba(124,106,247,0.12); border:1px solid rgba(124,106,247,0.25);
+  display:flex; align-items:center; justify-content:center;
+  font-size:0.6rem; font-family:'JetBrains Mono',monospace;
+  color:var(--accent3); flex-shrink:0; margin-top:1px;
+}
+.sr-year-tag {
+  font-size:0.58rem; font-family:'JetBrains Mono',monospace;
+  padding:2px 6px; border-radius:4px;
+  background:rgba(6,182,212,0.1); color:#67e8f9;
+  border:1px solid rgba(6,182,212,0.2); white-space:nowrap;
+}
+.sr-q-text {
+  font-size:0.85rem; line-height:1.5; color:var(--text); flex:1;
+}
+
+/* Highlight matched text */
+.sr-q-text mark, .sr-exp mark, .sr-mem mark {
+  background:rgba(245,158,11,0.22);
+  color:var(--gold2); border-radius:2px; padding:0 1px;
+}
+
+.sr-topic {
+  padding:0 1rem 0.5rem 2.85rem;
+  font-size:0.62rem; font-family:'JetBrains Mono',monospace; color:var(--text3);
+}
+
+/* Options in results — compact 2-col grid */
+.sr-options {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:5px; padding:0 1rem 0.75rem;
+}
+.sr-opt {
+  display:flex; align-items:flex-start; gap:6px;
+  padding:0.45rem 0.6rem; border-radius:6px; border:1px solid var(--border);
+  background:var(--bg4);
+}
+.sr-opt.correct-opt {
+  border-color:rgba(16,185,129,0.4);
+  background:rgba(16,185,129,0.07);
+}
+.sr-opt-key {
+  min-width:18px; height:18px; border-radius:4px;
+  border:1px solid var(--border2);
+  display:flex; align-items:center; justify-content:center;
+  font-size:0.55rem; font-family:'JetBrains Mono',monospace;
+  color:var(--text3); flex-shrink:0;
+}
+.sr-opt.correct-opt .sr-opt-key {
+  background:var(--green); border-color:var(--green); color:#fff;
+}
+.sr-opt-text { font-size:0.72rem; line-height:1.35; color:var(--text2); }
+.sr-opt.correct-opt .sr-opt-text { color:var(--green2); }
+
+/* Expandable explanation */
+.sr-expand-btn {
+  width:100%; text-align:left;
+  background:rgba(124,106,247,0.04);
+  border:none; border-top:1px solid var(--border);
+  padding:0.6rem 1rem;
+  display:flex; justify-content:space-between; align-items:center;
+  cursor:pointer; font-family:'Space Grotesk',sans-serif;
+}
+.sr-expand-label { font-size:0.72rem; color:var(--text3); }
+.sr-expand-arrow { font-size:0.75rem; color:var(--text3); transition:transform 0.2s; }
+.sr-card.expanded .sr-expand-arrow { transform:rotate(180deg); }
+
+.sr-details {
+  display:none; border-top:1px solid var(--border);
+}
+.sr-card.expanded .sr-details { display:block; }
+.sr-det-block {
+  padding:0.75rem 1rem;
+  border-bottom:1px solid var(--border);
+}
+.sr-det-block:last-child { border-bottom:none; }
+.sr-det-label {
+  font-size:0.58rem; text-transform:uppercase; letter-spacing:0.09em;
+  font-family:'JetBrains Mono',monospace; margin-bottom:5px;
+}
+.sr-det-text { font-size:0.78rem; line-height:1.6; color:var(--text2); }
+.sr-exp { background:rgba(16,185,129,0.05); }
+.sr-exp .sr-det-label { color:var(--green2); }
+.sr-mem-block { background:rgba(124,106,247,0.05); }
+.sr-mem-block .sr-det-label { color:var(--accent3); }
+.sr-mem { font-size:0.78rem; line-height:1.6; color:var(--text2); }
+.sr-wrong-block { background:rgba(239,68,68,0.04); }
+.sr-wrong-block .sr-det-label { color:var(--red2); }
+
+/* No results */
+.no-results { padding:3rem 1.25rem; text-align:center; }
+.no-results-icon { font-size:2.5rem; margin-bottom:0.75rem; }
+.no-results h3 { font-size:1rem; margin-bottom:0.5rem; }
+.no-results p { font-size:0.82rem; color:var(--text2); line-height:1.6; }
+
+/* Suggestions / recent searches */
+.search-suggestions { padding:1rem 1.25rem; }
+.suggest-label {
+  font-size:0.62rem; text-transform:uppercase; letter-spacing:0.08em;
+  color:var(--text3); font-family:'JetBrains Mono',monospace;
+  margin-bottom:0.6rem;
+}
+.suggest-chips { display:flex; flex-wrap:wrap; gap:6px; }
+.suggest-chip {
+  padding:5px 12px; border-radius:20px; font-size:0.75rem;
+  border:1px solid var(--border); color:var(--text2);
+  cursor:pointer; background:var(--bg3);
+  transition:all 0.15s; font-family:'Space Grotesk',sans-serif;
+}
+.suggest-chip:hover { border-color:var(--accent); color:var(--accent3); }
+
 </style>
 </head>
 <body>
+
+<!-- ===== SEARCH FAB ===== -->
+<button class="search-fab" onclick="openSearch()" title="Search all questions">🔍</button>
+
+<!-- ===== SEARCH OVERLAY ===== -->
+<div class="search-overlay" id="searchOverlay">
+
+  <!-- Top bar -->
+  <div class="search-topbar">
+    <div class="search-input-wrap">
+      <span class="search-input-icon">🔍</span>
+      <input
+        type="text" id="searchInput" class="search-input"
+        placeholder="Search questions, laws, topics, answers…"
+        autocomplete="off" autocorrect="off" spellcheck="false"
+        oninput="onSearchInput(this.value)"
+      />
+      <button class="search-clear" id="searchClear" onclick="clearSearch()">✕</button>
+    </div>
+    <button class="search-close" onclick="closeSearch()">Close</button>
+  </div>
+
+  <!-- Filter chips -->
+  <div class="search-filters" id="searchFilters">
+    <button class="filter-chip active" data-filter="all"    onclick="setFilter('all',this)">All Years</button>
+    <button class="filter-chip"        data-filter="2025"   onclick="setFilter('2025',this)">2025</button>
+    <button class="filter-chip"        data-filter="2024"   onclick="setFilter('2024',this)">2024</button>
+    <button class="filter-chip"        data-filter="2023"   onclick="setFilter('2023',this)">2023</button>
+    <button class="filter-chip"        data-filter="2022"   onclick="setFilter('2022',this)">2022</button>
+    <button class="filter-chip"        data-filter="2021"   onclick="setFilter('2021',this)">2021</button>
+    <button class="filter-chip"        data-filter="2020"   onclick="setFilter('2020',this)">2020</button>
+    <button class="filter-chip"        data-filter="2019"   onclick="setFilter('2019',this)">2019</button>
+    <button class="filter-chip"        data-filter="2018"   onclick="setFilter('2018',this)">2018</button>
+    <button class="filter-chip"        data-filter="2017"   onclick="setFilter('2017',this)">2017</button>
+    <button class="filter-chip"        data-filter="A"      onclick="setFilter('A',this)">Part A · Law</button>
+    <button class="filter-chip"        data-filter="B"      onclick="setFilter('B',this)">Part B · GK</button>
+    <button class="filter-chip"        data-filter="C"      onclick="setFilter('C',this)">Part C · Aptitude</button>
+  </div>
+
+  <!-- Dynamic body -->
+  <div class="search-body" id="searchBody">
+    <!-- Default state shown on open -->
+    <div class="search-home" id="searchHomeState">
+      <div class="search-home-icon">⚖️</div>
+      <h3>Search 1080+ Questions</h3>
+      <p>Type any word from a question, answer option, law topic, section number, or explanation to instantly find it.</p>
+      <div class="search-suggestions" style="text-align:left;padding:1.5rem 0 0;">
+        <div class="suggest-label">💡 Try searching for</div>
+        <div class="suggest-chips">
+          <span class="suggest-chip" onclick="quickSearch('Section 302')">Section 302</span>
+          <span class="suggest-chip" onclick="quickSearch('Article 21')">Article 21</span>
+          <span class="suggest-chip" onclick="quickSearch('mens rea')">Mens rea</span>
+          <span class="suggest-chip" onclick="quickSearch('Habeas Corpus')">Habeas Corpus</span>
+          <span class="suggest-chip" onclick="quickSearch('contract')">Contract</span>
+          <span class="suggest-chip" onclick="quickSearch('IPC theft')">IPC theft</span>
+          <span class="suggest-chip" onclick="quickSearch('POCSO')">POCSO</span>
+          <span class="suggest-chip" onclick="quickSearch('BNS')">BNS 2023</span>
+          <span class="suggest-chip" onclick="quickSearch('Lok Adalat')">Lok Adalat</span>
+          <span class="suggest-chip" onclick="quickSearch('PIL')">PIL</span>
+          <span class="suggest-chip" onclick="quickSearch('murder')">Murder</span>
+          <span class="suggest-chip" onclick="quickSearch('percentage')">Percentage</span>
+        </div>
+      </div>
+    </div>
+    <!-- Results injected here -->
+    <div id="searchResults" style="display:none;"></div>
+  </div>
+
+</div>
+
 
 <div class="loading-overlay hidden" id="loadingOverlay">
   <div class="loader"></div>
@@ -1583,6 +1873,246 @@ function newMockTest() {
 document.getElementById('scorecardView').style.display = 'none';
 document.getElementById('examView').style.display = 'none';
 document.getElementById('mockView').style.display = 'none';
+
+// ===========================
+// SEARCH FEATURE
+// ===========================
+
+let searchFilter = 'all';
+let searchDebounceTimer = null;
+
+// Build flat index of ALL questions across all papers
+function buildSearchIndex() {
+  const index = [];
+  const years = ['2025','2024','2023','2022','2021','2020','2019','2018','2017'];
+  years.forEach(yr => {
+    const paper = PAPERS[yr];
+    if (!paper) return;
+    ['A','B','C'].forEach(part => {
+      const qs = paper.parts[part].questions;
+      qs.forEach(q => {
+        index.push({
+          year: yr,
+          part: part,
+          id: q.id,
+          q: q.q,
+          opts: q.opts,
+          ans: q.ans,
+          topic: q.topic || '',
+          exp: q.exp || '',
+          mem: q.mem || '',
+          wrong: q.wrong || {}
+        });
+      });
+    });
+  });
+  return index;
+}
+
+let _searchIndex = null;
+function getSearchIndex() {
+  if (!_searchIndex) _searchIndex = buildSearchIndex();
+  return _searchIndex;
+}
+
+function openSearch() {
+  document.getElementById('searchOverlay').classList.add('open');
+  setTimeout(() => document.getElementById('searchInput').focus(), 350);
+  document.body.style.overflow = 'hidden';
+}
+function closeSearch() {
+  document.getElementById('searchOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+// Close on escape key
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeSearch();
+});
+
+function clearSearch() {
+  const inp = document.getElementById('searchInput');
+  inp.value = '';
+  inp.focus();
+  document.getElementById('searchClear').style.display = 'none';
+  showSearchHome();
+}
+
+function setFilter(f, el) {
+  searchFilter = f;
+  document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  const query = document.getElementById('searchInput').value.trim();
+  if (query.length >= 2) runSearch(query);
+}
+
+function quickSearch(term) {
+  const inp = document.getElementById('searchInput');
+  inp.value = term;
+  document.getElementById('searchClear').style.display = 'block';
+  runSearch(term);
+}
+
+function onSearchInput(val) {
+  document.getElementById('searchClear').style.display = val ? 'block' : 'none';
+  clearTimeout(searchDebounceTimer);
+  if (!val.trim()) { showSearchHome(); return; }
+  if (val.trim().length < 2) return;
+  searchDebounceTimer = setTimeout(() => runSearch(val.trim()), 180);
+}
+
+function showSearchHome() {
+  document.getElementById('searchHomeState').style.display = 'block';
+  document.getElementById('searchResults').style.display = 'none';
+}
+
+function highlight(text, query) {
+  if (!query || !text) return escHtml(text || '');
+  const escaped = escHtml(text);
+  const words = query.trim().split(/\s+/).filter(w => w.length > 1);
+  if (!words.length) return escaped;
+  const pattern = words.map(w => w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|');
+  const re = new RegExp('(' + pattern + ')', 'gi');
+  return escaped.replace(re, '<mark>$1</mark>');
+}
+
+function escHtml(s) {
+  return String(s)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function scoreMatch(item, terms) {
+  let score = 0;
+  const fields = [
+    { text: item.q,                  weight: 10 },
+    { text: item.topic,              weight: 7  },
+    { text: item.opts.join(' '),     weight: 5  },
+    { text: item.exp,                weight: 4  },
+    { text: item.mem,                weight: 3  },
+    { text: Object.values(item.wrong||{}).join(' '), weight: 2 }
+  ];
+  terms.forEach(term => {
+    const tl = term.toLowerCase();
+    fields.forEach(f => {
+      if (f.text && f.text.toLowerCase().includes(tl)) score += f.weight;
+    });
+  });
+  return score;
+}
+
+function runSearch(query) {
+  const index = getSearchIndex();
+  document.getElementById('searchHomeState').style.display = 'none';
+  const resultsEl = document.getElementById('searchResults');
+  resultsEl.style.display = 'block';
+  resultsEl.innerHTML = '';
+
+  const terms = query.trim().split(/\s+/).filter(w => w.length > 1);
+  if (!terms.length) { showSearchHome(); return; }
+
+  // Filter by year/part
+  let pool = index;
+  if (searchFilter !== 'all') {
+    if (['A','B','C'].includes(searchFilter)) {
+      pool = index.filter(item => item.part === searchFilter);
+    } else {
+      pool = index.filter(item => item.year === searchFilter);
+    }
+  }
+
+  // Score and sort
+  const scored = pool
+    .map(item => ({ item, score: scoreMatch(item, terms) }))
+    .filter(x => x.score > 0)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 40);
+
+  // Build meta bar
+  const meta = document.createElement('div');
+  meta.className = 'search-meta';
+  meta.innerHTML = scored.length
+    ? `<span>${scored.length} result${scored.length !== 1 ? 's' : ''} for <strong style="color:var(--text)">"${escHtml(query)}"</strong></span><span>${pool.length} searched</span>`
+    : '';
+  resultsEl.appendChild(meta);
+
+  if (!scored.length) {
+    resultsEl.innerHTML += `<div class="no-results">
+      <div class="no-results-icon">🔍</div>
+      <h3>No results found</h3>
+      <p>Try different keywords, check spelling, or search for a section number, law name, or topic.</p>
+      <div class="search-suggestions" style="text-align:left;margin-top:1.5rem;">
+        <div class="suggest-label">Try these instead</div>
+        <div class="suggest-chips">
+          <span class="suggest-chip" onclick="quickSearch('murder')">murder</span>
+          <span class="suggest-chip" onclick="quickSearch('bail')">bail</span>
+          <span class="suggest-chip" onclick="quickSearch('contract')">contract</span>
+          <span class="suggest-chip" onclick="quickSearch('Article 21')">Article 21</span>
+        </div>
+      </div>
+    </div>`;
+    return;
+  }
+
+  const keys = ['A','B','C','D'];
+  scored.forEach(({ item }) => {
+    const card = document.createElement('div');
+    card.className = 'sr-card';
+    card.dataset.expanded = 'false';
+
+    const partLabel = item.part === 'A' ? 'Law' : item.part === 'B' ? 'GK' : 'Aptitude';
+
+    const optsHtml = item.opts.map((opt, i) => {
+      const isCorrect = i === item.ans;
+      return `<div class="sr-opt ${isCorrect ? 'correct-opt' : ''}">
+        <span class="sr-opt-key">${keys[i]}</span>
+        <span class="sr-opt-text">${isCorrect ? '<strong>' : ''}${highlight(opt, query)}${isCorrect ? '</strong>' : ''}</span>
+      </div>`;
+    }).join('');
+
+    const wrongHtml = Object.entries(item.wrong || {}).map(([k,v]) =>
+      `<span style="color:var(--text3);font-weight:600;">${escHtml(k)}:</span> ${highlight(v, query)}`
+    ).join('<br>');
+
+    card.innerHTML = `
+      <div class="sr-card-head">
+        <div class="sr-qnum">Q${item.id}</div>
+        <div style="flex:1;">
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">
+            <span class="sr-year-tag">${item.year} · ${partLabel}</span>
+          </div>
+          <div class="sr-q-text">${highlight(item.q, query)}</div>
+        </div>
+      </div>
+      <div class="sr-topic">${escHtml(item.topic)}</div>
+      <div class="sr-options">${optsHtml}</div>
+      <button class="sr-expand-btn" onclick="toggleSRCard(this)">
+        <span class="sr-expand-label">📖 Explanation · 🧠 Memory Tip · ❌ Wrong Options</span>
+        <span class="sr-expand-arrow">▼</span>
+      </button>
+      <div class="sr-details">
+        <div class="sr-det-block sr-exp">
+          <div class="sr-det-label">✅ Explanation</div>
+          <div class="sr-det-text sr-exp-text">${highlight(item.exp, query)}</div>
+        </div>
+        <div class="sr-det-block sr-mem-block">
+          <div class="sr-det-label">🧠 Memory Trick</div>
+          <div class="sr-det-text sr-mem">${highlight(item.mem, query)}</div>
+        </div>
+        ${wrongHtml ? `<div class="sr-det-block sr-wrong-block">
+          <div class="sr-det-label">❌ Why Others Are Wrong</div>
+          <div class="sr-det-text">${wrongHtml}</div>
+        </div>` : ''}
+      </div>`;
+
+    resultsEl.appendChild(card);
+  });
+}
+
+function toggleSRCard(btn) {
+  const card = btn.closest('.sr-card');
+  card.classList.toggle('expanded');
+}
+
 </script>
 </body>
 </html>
