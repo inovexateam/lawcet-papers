@@ -57,30 +57,30 @@ body { background:var(--bg); color:var(--text); font-family:'Space Grotesk',sans
 .year-cards { padding:0 1.25rem; display:flex; flex-direction:column; gap:12px; margin-bottom:2rem; }
 .year-card { background:var(--bg3); border:1px solid var(--border); border-radius:var(--radius); padding:1.25rem; cursor:pointer; transition:all 0.2s; position:relative; overflow:hidden; }
 .year-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; }
-.year-card.y2023::before { background:linear-gradient(90deg,#f472b6,var(--accent)); }
-.year-card.y2022::before { background:linear-gradient(90deg,var(--cyan),#06b6d4); }
-.year-card.y2021::before { background:linear-gradient(90deg,#f97316,var(--gold)); }
+.year-card.y2025::before { background:linear-gradient(90deg,#a78bfa,#38bdf8); }
+.year-card.y2024::before { background:linear-gradient(90deg,#fb7185,#f472b6); }
+.year-card.y2023::before { background:linear-gradient(90deg,#14b8a6,#06b6d4); }
+.year-card.y2022::before { background:linear-gradient(90deg,#ec4899,#a855f7); }
+.year-card.y2021::before { background:linear-gradient(90deg,#f97316,#f59e0b); }
 .year-card.y2020::before { background:linear-gradient(90deg,var(--accent),var(--cyan)); }
 .year-card.y2019::before { background:linear-gradient(90deg,var(--gold),#f97316); }
 .year-card.y2018::before { background:linear-gradient(90deg,var(--green),var(--cyan)); }
+.year-card.y2017::before { background:linear-gradient(90deg,#8b5cf6,#6366f1); }
 .year-card.mock::before { background:linear-gradient(90deg,var(--red),#f472b6); }
-.year-card.y2021::before { background:linear-gradient(90deg,#f97316,#f59e0b); }
-.year-card.y2022::before { background:linear-gradient(90deg,#ec4899,#a855f7); }
-.year-card.y2023::before { background:linear-gradient(90deg,#14b8a6,#06b6d4); }
 .year-card.placeholder::before { background:linear-gradient(90deg,var(--text3),var(--text2)); }
 .year-card.placeholder { opacity:0.5; cursor:not-allowed; }
 .year-card:not(.placeholder):hover { border-color:var(--border2); transform:translateY(-2px); }
 .year-card-top { display:flex; justify-content:space-between; align-items:flex-start; }
 .year-tag { font-size:0.65rem; font-family:'JetBrains Mono',monospace; padding:3px 8px; border-radius:4px; font-weight:500; }
-.y2023 .year-tag { background:rgba(244,114,182,0.15); color:#f9a8d4; }
-.y2022 .year-tag { background:rgba(6,182,212,0.15); color:#67e8f9; }
+.y2025 .year-tag { background:rgba(167,139,250,0.15); color:#c4b5fd; }
+.y2024 .year-tag { background:rgba(251,113,133,0.15); color:#fda4af; }
+.y2023 .year-tag { background:rgba(20,184,166,0.15); color:#5eead4; }
+.y2022 .year-tag { background:rgba(236,72,153,0.15); color:#f9a8d4; }
 .y2021 .year-tag { background:rgba(249,115,22,0.15); color:#fdba74; }
 .y2020 .year-tag { background:rgba(124,106,247,0.15); color:var(--accent3); }
 .y2019 .year-tag { background:rgba(245,158,11,0.15); color:var(--gold2); }
 .y2018 .year-tag { background:rgba(16,185,129,0.15); color:var(--green2); }
-.y2021 .year-tag { background:rgba(249,115,22,0.15); color:#fdba74; }
-.y2022 .year-tag { background:rgba(236,72,153,0.15); color:#f9a8d4; }
-.y2023 .year-tag { background:rgba(20,184,166,0.15); color:#5eead4; }
+.y2017 .year-tag { background:rgba(139,92,246,0.15); color:#c4b5fd; }
 .mock .year-tag { background:rgba(239,68,68,0.15); color:var(--red2); }
 .placeholder .year-tag { background:rgba(107,106,138,0.15); color:var(--text3); }
 .year-status { display:flex; align-items:center; gap:5px; font-size:0.7rem; }
@@ -223,9 +223,414 @@ body { background:var(--bg); color:var(--text); font-family:'Space Grotesk',sans
 }
 
 .tag-law { background:rgba(6,182,212,0.12); color:#67e8f9; border:1px solid rgba(6,182,212,0.25); padding:2px 7px; border-radius:4px; font-size:0.6rem; font-family:'JetBrains Mono',monospace; }
+
+/* ===== SEARCH FEATURE ===== */
+/* Floating search button — bottom left, so it doesn't clash with score badge (bottom right) */
+.search-fab {
+  position:fixed; bottom:1.5rem; left:1.25rem; z-index:300;
+  width:48px; height:48px; border-radius:50%;
+  background:linear-gradient(135deg,var(--accent),#6366f1);
+  border:none; cursor:pointer; display:flex; align-items:center; justify-content:center;
+  box-shadow:0 8px 24px rgba(124,106,247,0.45);
+  transition:transform 0.2s, box-shadow 0.2s;
+  font-size:1.2rem;
+}
+.search-fab:hover { transform:scale(1.08); box-shadow:0 12px 32px rgba(124,106,247,0.55); }
+
+/* Full-screen search overlay — slides up from bottom */
+.search-overlay {
+  position:fixed; inset:0; z-index:500;
+  background:var(--bg);
+  display:flex; flex-direction:column;
+  transform:translateY(100%);
+  transition:transform 0.32s cubic-bezier(0.4,0,0.2,1);
+  will-change:transform;
+}
+.search-overlay.open { transform:translateY(0); }
+
+/* Search top bar */
+.search-topbar {
+  display:flex; align-items:center; gap:10px;
+  padding:0.9rem 1.25rem;
+  border-bottom:1px solid var(--border);
+  background:var(--bg2);
+  position:sticky; top:0; z-index:10;
+}
+.search-input-wrap {
+  flex:1; display:flex; align-items:center; gap:8px;
+  background:var(--bg3); border:1.5px solid var(--border);
+  border-radius:10px; padding:0 12px; transition:border-color 0.15s;
+}
+.search-input-wrap:focus-within { border-color:var(--accent); }
+.search-input-icon { color:var(--text3); font-size:1rem; flex-shrink:0; }
+.search-input {
+  flex:1; background:transparent; border:none; outline:none;
+  color:var(--text); font-family:'Space Grotesk',sans-serif;
+  font-size:0.95rem; padding:0.7rem 0; caret-color:var(--accent2);
+}
+.search-input::placeholder { color:var(--text3); }
+.search-clear {
+  background:none; border:none; color:var(--text3); cursor:pointer;
+  font-size:1rem; padding:4px; line-height:1; display:none;
+}
+.search-close {
+  background:var(--bg3); border:1px solid var(--border);
+  color:var(--text2); font-size:0.8rem; font-weight:600;
+  padding:6px 12px; border-radius:8px; cursor:pointer;
+  font-family:'Space Grotesk',sans-serif; white-space:nowrap;
+  flex-shrink:0;
+}
+
+/* Filter chips */
+.search-filters {
+  display:flex; gap:6px; padding:0.65rem 1.25rem;
+  overflow-x:auto; scrollbar-width:none;
+  border-bottom:1px solid var(--border);
+  background:var(--bg2);
+}
+.search-filters::-webkit-scrollbar { display:none; }
+.filter-chip {
+  padding:4px 12px; border-radius:20px; font-size:0.7rem;
+  font-weight:600; border:1px solid var(--border2);
+  background:transparent; color:var(--text3);
+  cursor:pointer; white-space:nowrap; transition:all 0.15s;
+  font-family:'Space Grotesk',sans-serif;
+}
+.filter-chip.active {
+  background:rgba(124,106,247,0.15);
+  border-color:rgba(124,106,247,0.4);
+  color:var(--accent3);
+}
+
+/* Search states */
+.search-body { flex:1; overflow-y:auto; }
+.search-home { padding:2rem 1.25rem; text-align:center; }
+.search-home-icon { font-size:3rem; margin-bottom:1rem; }
+.search-home h3 { font-size:1rem; font-weight:600; margin-bottom:0.5rem; }
+.search-home p { font-size:0.82rem; color:var(--text2); line-height:1.6; }
+
+.search-meta {
+  padding:0.6rem 1.25rem;
+  font-size:0.7rem; color:var(--text3);
+  font-family:'JetBrains Mono',monospace;
+  border-bottom:1px solid var(--border);
+  display:flex; justify-content:space-between; align-items:center;
+}
+
+/* Result card */
+.sr-card {
+  margin:1rem 1.25rem 0;
+  background:var(--bg3); border:1px solid var(--border);
+  border-radius:var(--radius); overflow:hidden;
+  cursor:pointer; transition:border-color 0.15s;
+}
+.sr-card:last-child { margin-bottom:1rem; }
+.sr-card:hover { border-color:var(--border2); }
+
+.sr-card-head {
+  padding:0.75rem 1rem 0.5rem;
+  display:flex; align-items:flex-start; gap:10px;
+}
+.sr-qnum {
+  min-width:28px; height:22px; border-radius:5px;
+  background:rgba(124,106,247,0.12); border:1px solid rgba(124,106,247,0.25);
+  display:flex; align-items:center; justify-content:center;
+  font-size:0.6rem; font-family:'JetBrains Mono',monospace;
+  color:var(--accent3); flex-shrink:0; margin-top:1px;
+}
+.sr-year-tag {
+  font-size:0.58rem; font-family:'JetBrains Mono',monospace;
+  padding:2px 6px; border-radius:4px;
+  background:rgba(6,182,212,0.1); color:#67e8f9;
+  border:1px solid rgba(6,182,212,0.2); white-space:nowrap;
+}
+.sr-q-text {
+  font-size:0.85rem; line-height:1.5; color:var(--text); flex:1;
+}
+
+/* Highlight matched text */
+.sr-q-text mark, .sr-exp mark, .sr-mem mark {
+  background:rgba(245,158,11,0.22);
+  color:var(--gold2); border-radius:2px; padding:0 1px;
+}
+
+.sr-topic {
+  padding:0 1rem 0.5rem 2.85rem;
+  font-size:0.62rem; font-family:'JetBrains Mono',monospace; color:var(--text3);
+}
+
+/* Options in results — compact 2-col grid */
+.sr-options {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:5px; padding:0 1rem 0.75rem;
+}
+.sr-opt {
+  display:flex; align-items:flex-start; gap:6px;
+  padding:0.45rem 0.6rem; border-radius:6px; border:1px solid var(--border);
+  background:var(--bg4);
+}
+.sr-opt.correct-opt {
+  border-color:rgba(16,185,129,0.4);
+  background:rgba(16,185,129,0.07);
+}
+.sr-opt-key {
+  min-width:18px; height:18px; border-radius:4px;
+  border:1px solid var(--border2);
+  display:flex; align-items:center; justify-content:center;
+  font-size:0.55rem; font-family:'JetBrains Mono',monospace;
+  color:var(--text3); flex-shrink:0;
+}
+.sr-opt.correct-opt .sr-opt-key {
+  background:var(--green); border-color:var(--green); color:#fff;
+}
+.sr-opt-text { font-size:0.72rem; line-height:1.35; color:var(--text2); }
+.sr-opt.correct-opt .sr-opt-text { color:var(--green2); }
+
+/* Expandable explanation */
+.sr-expand-btn {
+  width:100%; text-align:left;
+  background:rgba(124,106,247,0.04);
+  border:none; border-top:1px solid var(--border);
+  padding:0.6rem 1rem;
+  display:flex; justify-content:space-between; align-items:center;
+  cursor:pointer; font-family:'Space Grotesk',sans-serif;
+}
+.sr-expand-label { font-size:0.72rem; color:var(--text3); }
+.sr-expand-arrow { font-size:0.75rem; color:var(--text3); transition:transform 0.2s; }
+.sr-card.expanded .sr-expand-arrow { transform:rotate(180deg); }
+
+.sr-details {
+  display:none; border-top:1px solid var(--border);
+}
+.sr-card.expanded .sr-details { display:block; }
+.sr-det-block {
+  padding:0.75rem 1rem;
+  border-bottom:1px solid var(--border);
+}
+.sr-det-block:last-child { border-bottom:none; }
+.sr-det-label {
+  font-size:0.58rem; text-transform:uppercase; letter-spacing:0.09em;
+  font-family:'JetBrains Mono',monospace; margin-bottom:5px;
+}
+.sr-det-text { font-size:0.78rem; line-height:1.6; color:var(--text2); }
+.sr-exp { background:rgba(16,185,129,0.05); }
+.sr-exp .sr-det-label { color:var(--green2); }
+.sr-mem-block { background:rgba(124,106,247,0.05); }
+.sr-mem-block .sr-det-label { color:var(--accent3); }
+.sr-mem { font-size:0.78rem; line-height:1.6; color:var(--text2); }
+.sr-wrong-block { background:rgba(239,68,68,0.04); }
+.sr-wrong-block .sr-det-label { color:var(--red2); }
+
+/* No results */
+.no-results { padding:3rem 1.25rem; text-align:center; }
+.no-results-icon { font-size:2.5rem; margin-bottom:0.75rem; }
+.no-results h3 { font-size:1rem; margin-bottom:0.5rem; }
+.no-results p { font-size:0.82rem; color:var(--text2); line-height:1.6; }
+
+/* Suggestions / recent searches */
+.search-suggestions { padding:1rem 1.25rem; }
+.suggest-label {
+  font-size:0.62rem; text-transform:uppercase; letter-spacing:0.08em;
+  color:var(--text3); font-family:'JetBrains Mono',monospace;
+  margin-bottom:0.6rem;
+}
+.suggest-chips { display:flex; flex-wrap:wrap; gap:6px; }
+.suggest-chip {
+  padding:5px 12px; border-radius:20px; font-size:0.75rem;
+  border:1px solid var(--border); color:var(--text2);
+  cursor:pointer; background:var(--bg3);
+  transition:all 0.15s; font-family:'Space Grotesk',sans-serif;
+}
+.suggest-chip:hover { border-color:var(--accent); color:var(--accent3); }
+
+
+/* ===== TIMED MOCK EXAM ===== */
+.mock-mode-card {
+  background:var(--bg3); border:1.5px solid var(--border); border-radius:var(--radius);
+  padding:1rem; cursor:pointer; transition:all 0.15s;
+}
+.mock-mode-card.selected { border-color:var(--accent); background:rgba(124,106,247,0.07); }
+.mock-mode-card:hover:not(.selected) { border-color:var(--border2); }
+.mode-check { width:22px; height:22px; border-radius:50%; border:2px solid var(--border2);
+  display:flex; align-items:center; justify-content:center; font-size:0.7rem; color:var(--accent2);
+  flex-shrink:0; transition:all 0.15s; }
+.mock-mode-card.selected .mode-check { background:var(--accent); border-color:var(--accent); color:#fff; }
+.source-chip { background:var(--bg3); border:1.5px solid var(--border); border-radius:20px;
+  padding:5px 12px; font-size:0.72rem; font-family:'JetBrains Mono',monospace; color:var(--text2);
+  cursor:pointer; transition:all 0.15s; }
+.source-chip.active { background:rgba(124,106,247,0.12); border-color:var(--accent); color:var(--accent3); }
+.mock-exam-topbar {
+  position:sticky; top:0; z-index:100; background:rgba(10,10,15,0.96);
+  backdrop-filter:blur(12px); border-bottom:1px solid var(--border);
+  padding:0.75rem 1.25rem 0.65rem;
+}
+.mock-timer {
+  display:flex; align-items:center; gap:5px; background:var(--bg3);
+  border:1px solid var(--border); border-radius:8px; padding:5px 10px;
+  transition:background 0.3s, border-color 0.3s;
+}
+.mock-timer.warning { background:rgba(245,158,11,0.12); border-color:rgba(245,158,11,0.4); }
+.mock-timer.danger  { background:rgba(239,68,68,0.12);  border-color:rgba(239,68,68,0.4); animation:timerPulse 1s infinite; }
+@keyframes timerPulse { 0%,100%{opacity:1} 50%{opacity:0.6} }
+.mock-timer-icon { font-size:0.8rem; }
+.mock-timer-val { font-size:0.9rem; font-weight:700; font-family:'JetBrains Mono',monospace; color:var(--text); min-width:40px; text-align:center; }
+.mock-timer.warning .mock-timer-val { color:var(--gold2); }
+.mock-timer.danger  .mock-timer-val { color:var(--red2); }
+
+/* Question palette */
+.q-palette-backdrop { position:fixed; inset:0; z-index:200; background:rgba(0,0,0,0.6); backdrop-filter:blur(3px); }
+.q-palette-wrap {
+  position:fixed; bottom:0; left:0; right:0; z-index:201;
+  background:var(--bg2); border-top:1px solid var(--border);
+  border-radius:16px 16px 0 0; max-height:70vh; overflow-y:auto;
+}
+.q-palette-header { display:flex; justify-content:space-between; align-items:center; padding:1rem 1.25rem 0.5rem; }
+.q-palette-legend { display:flex; gap:12px; padding:0 1.25rem 0.75rem; flex-wrap:wrap; }
+.pal-legend { font-size:0.68rem; display:flex; align-items:center; gap:5px; color:var(--text2); }
+.pal-legend::before { content:''; width:12px; height:12px; border-radius:3px; display:inline-block; }
+.pal-answered::before { background:var(--green); }
+.pal-skipped::before  { background:var(--gold); }
+.pal-unattempted::before { background:var(--bg4); border:1px solid var(--border2); }
+.q-palette { display:flex; flex-wrap:wrap; gap:6px; padding:0 1.25rem 1rem; }
+.q-pal-btn {
+  width:36px; height:36px; border-radius:6px; border:1px solid var(--border2);
+  background:var(--bg4); color:var(--text2); font-size:0.7rem; font-family:'JetBrains Mono',monospace;
+  cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all 0.1s;
+}
+.q-pal-btn.pal-ans  { background:rgba(16,185,129,0.2); border-color:rgba(16,185,129,0.5); color:var(--green2); }
+.q-pal-btn.pal-skip { background:rgba(245,158,11,0.15); border-color:rgba(245,158,11,0.4); color:var(--gold2); }
+.q-pal-btn.pal-curr { border-color:var(--accent); background:rgba(124,106,247,0.15); color:var(--accent3); }
+
+/* Mock bottom action bar */
+.mock-bottom-bar {
+  position:fixed; bottom:0; left:0; right:0; z-index:150;
+  background:rgba(17,17,24,0.97); backdrop-filter:blur(12px);
+  border-top:1px solid var(--border); padding:0.65rem 1.25rem;
+  display:flex; align-items:center; justify-content:space-between; gap:12px;
+}
+.mock-pal-btn {
+  display:flex; flex-direction:column; align-items:center; gap:2px;
+  background:var(--bg3); border:1px solid var(--border); border-radius:8px;
+  padding:0.4rem 0.75rem; cursor:pointer; color:var(--text2); font-size:0.65rem;
+  font-family:'Space Grotesk',sans-serif; transition:all 0.15s; min-width:70px;
+}
+.mock-pal-btn:hover { border-color:var(--border2); color:var(--text); }
+
+/* Mock result screen */
+.mock-result-topbar { padding:1.25rem 1.25rem 0; display:flex; align-items:center; justify-content:space-between; }
+.result-hero { padding:2rem 1.25rem 1.5rem; text-align:center; }
+.result-ring-wrap { width:130px; height:130px; margin:0 auto 1.25rem; position:relative; }
+.result-ring-wrap svg { transform:rotate(-90deg); }
+.result-ring-center { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+.result-big { font-size:1.9rem; font-weight:700; font-family:'JetBrains Mono',monospace; color:var(--accent2); }
+.result-pct { font-size:0.75rem; color:var(--text3); }
+.result-stats-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; padding:0 1.25rem 1.25rem; }
+.result-stat { background:var(--bg3); border:1px solid var(--border); border-radius:var(--radius2); padding:0.75rem; text-align:center; }
+.result-stat-num { font-size:1.2rem; font-weight:700; font-family:'JetBrains Mono',monospace; }
+.result-stat-label { font-size:0.62rem; color:var(--text3); margin-top:2px; text-transform:uppercase; letter-spacing:0.05em; }
+.result-correct .result-stat-num { color:var(--green2); }
+.result-wrong .result-stat-num   { color:var(--red2); }
+.result-skipped .result-stat-num { color:var(--gold2); }
+.result-part-bars { padding:0 1.25rem 1.5rem; display:flex; flex-direction:column; gap:8px; }
+.result-part-row { background:var(--bg3); border:1px solid var(--border); border-radius:var(--radius2); padding:0.85rem; }
+.result-review-section { padding:0 1.25rem; }
+.result-review-toggle { background:var(--bg3); border:1.5px solid var(--border); border-radius:var(--radius); padding:1rem;
+  display:flex; align-items:center; justify-content:space-between; cursor:pointer; margin-bottom:0.75rem; }
+
+/* Skipped question indicator in exam */
+.q-card.skipped-q { border-color:rgba(245,158,11,0.3); }
+.q-num.skipped { background:rgba(245,158,11,0.15); border-color:rgba(245,158,11,0.35); color:var(--gold2); }
+.skip-btn {
+  display:flex; align-items:center; justify-content:center; gap:6px;
+  background:transparent; border:1px dashed var(--border2); border-radius:8px;
+  color:var(--text3); font-size:0.78rem; padding:0.55rem 1rem; cursor:pointer;
+  margin:0 1rem 1rem; transition:all 0.15s; font-family:'Space Grotesk',sans-serif;
+}
+.skip-btn:hover { border-color:var(--gold); color:var(--gold2); }
+
+/* Time-up overlay */
+.timeup-overlay {
+  position:fixed; inset:0; z-index:500; background:rgba(0,0,0,0.85);
+  display:flex; align-items:center; justify-content:center; backdrop-filter:blur(6px);
+}
+.timeup-box { background:var(--bg2); border:1px solid var(--border2); border-radius:var(--radius); padding:2rem 1.5rem; text-align:center; max-width:320px; margin:0 1.25rem; }
+
+/* Practice mode instant feedback hidden in timed mode */
+.exam-mode-hide { display:none !important; }
+
 </style>
 </head>
 <body>
+
+<!-- ===== SEARCH FAB ===== -->
+<button class="search-fab" onclick="openSearch()" title="Search all questions">🔍</button>
+
+<!-- ===== SEARCH OVERLAY ===== -->
+<div class="search-overlay" id="searchOverlay">
+
+  <!-- Top bar -->
+  <div class="search-topbar">
+    <div class="search-input-wrap">
+      <span class="search-input-icon">🔍</span>
+      <input
+        type="text" id="searchInput" class="search-input"
+        placeholder="Search questions, laws, topics, answers…"
+        autocomplete="off" autocorrect="off" spellcheck="false"
+        oninput="onSearchInput(this.value)"
+      />
+      <button class="search-clear" id="searchClear" onclick="clearSearch()">✕</button>
+    </div>
+    <button class="search-close" onclick="closeSearch()">Close</button>
+  </div>
+
+  <!-- Filter chips -->
+  <div class="search-filters" id="searchFilters">
+    <button class="filter-chip active" data-filter="all"    onclick="setFilter('all',this)">All Years</button>
+    <button class="filter-chip"        data-filter="2025"   onclick="setFilter('2025',this)">2025</button>
+    <button class="filter-chip"        data-filter="2024"   onclick="setFilter('2024',this)">2024</button>
+    <button class="filter-chip"        data-filter="2023"   onclick="setFilter('2023',this)">2023</button>
+    <button class="filter-chip"        data-filter="2022"   onclick="setFilter('2022',this)">2022</button>
+    <button class="filter-chip"        data-filter="2021"   onclick="setFilter('2021',this)">2021</button>
+    <button class="filter-chip"        data-filter="2020"   onclick="setFilter('2020',this)">2020</button>
+    <button class="filter-chip"        data-filter="2019"   onclick="setFilter('2019',this)">2019</button>
+    <button class="filter-chip"        data-filter="2018"   onclick="setFilter('2018',this)">2018</button>
+    <button class="filter-chip"        data-filter="2017"   onclick="setFilter('2017',this)">2017</button>
+    <button class="filter-chip"        data-filter="A"      onclick="setFilter('A',this)">Part A · Law</button>
+    <button class="filter-chip"        data-filter="B"      onclick="setFilter('B',this)">Part B · GK</button>
+    <button class="filter-chip"        data-filter="C"      onclick="setFilter('C',this)">Part C · Aptitude</button>
+  </div>
+
+  <!-- Dynamic body -->
+  <div class="search-body" id="searchBody">
+    <!-- Default state shown on open -->
+    <div class="search-home" id="searchHomeState">
+      <div class="search-home-icon">⚖️</div>
+      <h3>Search 1080+ Questions</h3>
+      <p>Type any word from a question, answer option, law topic, section number, or explanation to instantly find it.</p>
+      <div class="search-suggestions" style="text-align:left;padding:1.5rem 0 0;">
+        <div class="suggest-label">💡 Try searching for</div>
+        <div class="suggest-chips">
+          <span class="suggest-chip" onclick="quickSearch('Section 302')">Section 302</span>
+          <span class="suggest-chip" onclick="quickSearch('Article 21')">Article 21</span>
+          <span class="suggest-chip" onclick="quickSearch('mens rea')">Mens rea</span>
+          <span class="suggest-chip" onclick="quickSearch('Habeas Corpus')">Habeas Corpus</span>
+          <span class="suggest-chip" onclick="quickSearch('contract')">Contract</span>
+          <span class="suggest-chip" onclick="quickSearch('IPC theft')">IPC theft</span>
+          <span class="suggest-chip" onclick="quickSearch('POCSO')">POCSO</span>
+          <span class="suggest-chip" onclick="quickSearch('BNS')">BNS 2023</span>
+          <span class="suggest-chip" onclick="quickSearch('Lok Adalat')">Lok Adalat</span>
+          <span class="suggest-chip" onclick="quickSearch('PIL')">PIL</span>
+          <span class="suggest-chip" onclick="quickSearch('murder')">Murder</span>
+          <span class="suggest-chip" onclick="quickSearch('percentage')">Percentage</span>
+        </div>
+      </div>
+    </div>
+    <!-- Results injected here -->
+    <div id="searchResults" style="display:none;"></div>
+  </div>
+
+</div>
+
 
 <div class="loading-overlay hidden" id="loadingOverlay">
   <div class="loader"></div>
@@ -251,13 +656,49 @@ body { background:var(--bg); color:var(--text); font-family:'Space Grotesk',sans
   </div>
 
   <div class="stats-row">
-    <div class="stat-card"><div class="stat-num">720</div><div class="stat-label">Questions</div></div>
-    <div class="stat-card"><div class="stat-num">6</div><div class="stat-label">Years Live</div></div>
+    <div class="stat-card"><div class="stat-num">1080</div><div class="stat-label">Questions</div></div>
+    <div class="stat-card"><div class="stat-num">9</div><div class="stat-label">Years Live</div></div>
     <div class="stat-card"><div class="stat-num">∞</div><div class="stat-label">Mock Tests</div></div>
   </div>
 
   <div class="section-title"><h2>Previous Year Papers</h2></div>
   <div class="year-cards">
+    <div class="year-card y2025" onclick="loadExam('2025')">
+      <div class="year-card-top">
+        <div class="year-tag">AP & TG LAWCET</div>
+        <div class="year-status"><div class="dot live"></div><span style="color:var(--text2);font-size:0.7rem;">LIVE</span></div>
+      </div>
+      <div class="year-title">2025 Paper — Fully Solved</div>
+      <div class="year-meta">
+        <div class="year-meta-item">📋 120 Qs</div>
+        <div class="year-meta-item">⏱ 90 min</div>
+        <div class="year-meta-item">✨ Explanations</div>
+      </div>
+      <div class="parts-pills">
+        <div class="part-pill">Part A · Law</div>
+        <div class="part-pill">Part B · GK</div>
+        <div class="part-pill">Part C · Aptitude</div>
+      </div>
+    </div>
+
+    <div class="year-card y2024" onclick="loadExam('2024')">
+      <div class="year-card-top">
+        <div class="year-tag">AP & TG LAWCET</div>
+        <div class="year-status"><div class="dot live"></div><span style="color:var(--text2);font-size:0.7rem;">LIVE</span></div>
+      </div>
+      <div class="year-title">2024 Paper — Fully Solved</div>
+      <div class="year-meta">
+        <div class="year-meta-item">📋 120 Qs</div>
+        <div class="year-meta-item">⏱ 90 min</div>
+        <div class="year-meta-item">✨ Explanations</div>
+      </div>
+      <div class="parts-pills">
+        <div class="part-pill">Part A · Law</div>
+        <div class="part-pill">Part B · GK</div>
+        <div class="part-pill">Part C · Aptitude</div>
+      </div>
+    </div>
+
     <div class="year-card y2023" onclick="loadExam('2023')">
       <div class="year-card-top">
         <div class="year-tag">AP & TG LAWCET</div>
@@ -366,6 +807,24 @@ body { background:var(--bg); color:var(--text); font-family:'Space Grotesk',sans
       </div>
     </div>
 
+    <div class="year-card y2017" onclick="loadExam('2017')">
+      <div class="year-card-top">
+        <div class="year-tag">AP & TG LAWCET</div>
+        <div class="year-status"><div class="dot live"></div><span style="color:var(--text2);font-size:0.7rem;">LIVE</span></div>
+      </div>
+      <div class="year-title">2017 Paper — Fully Solved</div>
+      <div class="year-meta">
+        <div class="year-meta-item">📋 120 Qs</div>
+        <div class="year-meta-item">⏱ 90 min</div>
+        <div class="year-meta-item">✨ Explanations</div>
+      </div>
+      <div class="parts-pills">
+        <div class="part-pill">Part A · Law</div>
+        <div class="part-pill">Part B · GK</div>
+        <div class="part-pill">Part C · Aptitude</div>
+      </div>
+    </div>
+
     <div class="year-card mock" onclick="loadMock()">
       <div class="year-card-top">
         <div class="year-tag">AI GENERATED</div>
@@ -387,17 +846,17 @@ body { background:var(--bg); color:var(--text); font-family:'Space Grotesk',sans
     <div class="year-card placeholder">
       <div class="year-card-top">
         <div class="year-tag">COMING SOON</div>
-        <div class="year-status"><div class="dot soon"></div><span style="color:var(--text3);font-size:0.7rem;">Phase 2</span></div>
+        <div class="year-status"><div class="dot soon"></div><span style="color:var(--text3);font-size:0.7rem;">Phase 4</span></div>
       </div>
-      <div class="year-title">2017 Paper</div>
+      <div class="year-title">2016 Paper</div>
       <div class="year-meta"><div class="year-meta-item">🔒 Adding Soon</div></div>
     </div>
     <div class="year-card placeholder">
       <div class="year-card-top">
         <div class="year-tag">COMING SOON</div>
-        <div class="year-status"><div class="dot soon"></div><span style="color:var(--text3);font-size:0.7rem;">Phase 3</span></div>
+        <div class="year-status"><div class="dot soon"></div><span style="color:var(--text3);font-size:0.7rem;">Phase 5</span></div>
       </div>
-      <div class="year-title">2016 Paper</div>
+      <div class="year-title">2015 Paper</div>
       <div class="year-meta"><div class="year-meta-item">🔒 Adding Soon</div></div>
     </div>
   </div>
@@ -481,40 +940,167 @@ body { background:var(--bg); color:var(--text); font-family:'Space Grotesk',sans
   </div>
 </div>
 
-<!-- MOCK VIEW -->
-<div id="mockView" style="display:none;min-height:100vh;">
-  <div class="exam-topbar">
-    <div class="exam-topbar-inner">
+<!-- MOCK VIEW — full timed real-exam experience -->
+<div id="mockView" style="display:none;min-height:100vh;flex-direction:column;">
+
+  <!-- ① SETUP SCREEN -->
+  <div id="mockSetup" style="display:flex;flex-direction:column;min-height:100vh;">
+    <div style="padding:1.25rem 1.25rem 0;display:flex;align-items:center;justify-content:space-between;">
       <button class="back-btn" onclick="goHome()">← Home</button>
-      <div style="font-size:0.85rem;font-weight:600;">AI Mock Test</div>
-      <div class="badge">AI</div>
+      <div class="badge">MOCK EXAM</div>
+    </div>
+    <div style="padding:1.5rem 1.25rem;">
+      <!-- Hero banner -->
+      <div style="background:linear-gradient(135deg,rgba(124,106,247,0.12),rgba(6,182,212,0.08));border:1px solid rgba(124,106,247,0.25);border-radius:var(--radius);padding:1.25rem;margin-bottom:1.5rem;">
+        <div style="font-size:2rem;margin-bottom:0.5rem;">🎯</div>
+        <h2 style="font-size:1.25rem;font-weight:700;margin-bottom:0.4rem;">Real-Exam Mock Test</h2>
+        <p style="font-size:0.82rem;color:var(--text2);line-height:1.55;">120 questions shuffled fresh from all 9 years of papers. Timed exactly like the real LAWCET. Explanations unlocked after you submit.</p>
+      </div>
+
+      <!-- Pattern info grid -->
+      <div style="font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--text3);font-family:'JetBrains Mono',monospace;margin-bottom:0.75rem;">Exam Pattern</div>
+      <div class="pattern-grid" style="margin-bottom:1.5rem;">
+        <div class="pattern-item"><div class="pattern-item-label">Part A — Law</div><div class="pattern-item-val">60 Qs</div></div>
+        <div class="pattern-item"><div class="pattern-item-label">Part B — GK</div><div class="pattern-item-val">30 Qs</div></div>
+        <div class="pattern-item"><div class="pattern-item-label">Part C — Aptitude</div><div class="pattern-item-val">30 Qs</div></div>
+        <div class="pattern-item"><div class="pattern-item-label">Total Marks</div><div class="pattern-item-val">120</div></div>
+        <div class="pattern-item"><div class="pattern-item-label">Duration</div><div class="pattern-item-val">90 min</div></div>
+        <div class="pattern-item"><div class="pattern-item-label">Negative</div><div class="pattern-item-val">None</div></div>
+      </div>
+
+      <!-- Mode selector -->
+      <div style="font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--text3);font-family:'JetBrains Mono',monospace;margin-bottom:0.75rem;">Select Mode</div>
+      <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:1.5rem;">
+        <div class="mock-mode-card selected" id="modeCard-full" onclick="selectMockMode('full',this)">
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <div>
+              <div style="font-size:0.9rem;font-weight:700;">🕐 Full Mock Exam</div>
+              <div style="font-size:0.75rem;color:var(--text2);margin-top:2px;">120 questions · 90 minutes</div>
+            </div>
+            <div class="mode-check" id="modeCheck-full">✓</div>
+          </div>
+        </div>
+        <div class="mock-mode-card" id="modeCard-half" onclick="selectMockMode('half',this)">
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <div>
+              <div style="font-size:0.9rem;font-weight:700;">⚡ Half Mock</div>
+              <div style="font-size:0.75rem;color:var(--text2);margin-top:2px;">60 questions · 45 minutes</div>
+            </div>
+            <div class="mode-check" id="modeCheck-half"></div>
+          </div>
+        </div>
+        <div class="mock-mode-card" id="modeCard-quick" onclick="selectMockMode('quick',this)">
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <div>
+              <div style="font-size:0.9rem;font-weight:700;">🔥 Quick Test</div>
+              <div style="font-size:0.75rem;color:var(--text2);margin-top:2px;">30 questions · 22 minutes</div>
+            </div>
+            <div class="mode-check" id="modeCheck-quick"></div>
+          </div>
+        </div>
+        <div class="mock-mode-card" id="modeCard-practice" onclick="selectMockMode('practice',this)">
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <div>
+              <div style="font-size:0.9rem;font-weight:700;">📚 Practice Mode</div>
+              <div style="font-size:0.75rem;color:var(--text2);margin-top:2px;">120 questions · No timer · Instant feedback</div>
+            </div>
+            <div class="mode-check" id="modeCheck-practice"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Source selector -->
+      <div style="font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--text3);font-family:'JetBrains Mono',monospace;margin-bottom:0.75rem;">Question Source</div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:1.5rem;" id="sourceChips">
+        <button class="source-chip active" data-src="all" onclick="toggleSource('all',this)">All Years</button>
+        <button class="source-chip" data-src="2025" onclick="toggleSource('2025',this)">2025</button>
+        <button class="source-chip" data-src="2024" onclick="toggleSource('2024',this)">2024</button>
+        <button class="source-chip" data-src="2023" onclick="toggleSource('2023',this)">2023</button>
+        <button class="source-chip" data-src="2022" onclick="toggleSource('2022',this)">2022</button>
+        <button class="source-chip" data-src="2021" onclick="toggleSource('2021',this)">2021</button>
+        <button class="source-chip" data-src="2020" onclick="toggleSource('2020',this)">2020</button>
+        <button class="source-chip" data-src="2019" onclick="toggleSource('2019',this)">2019</button>
+        <button class="source-chip" data-src="2018" onclick="toggleSource('2018',this)">2018</button>
+        <button class="source-chip" data-src="2017" onclick="toggleSource('2017',this)">2017</button>
+      </div>
+
+      <button class="btn-primary" style="width:100%;font-size:1rem;padding:1rem;" onclick="startMockExam()">🚀 Start Mock Exam</button>
+      <p style="text-align:center;margin-top:0.75rem;font-size:0.72rem;color:var(--text3);">Questions shuffled fresh from 1080+ question bank every time</p>
     </div>
   </div>
-  <div class="mock-splash" id="mockSplash">
-    <div style="margin:1.5rem 0 1rem;padding:1rem;background:linear-gradient(135deg,rgba(124,106,247,0.1),rgba(6,182,212,0.08));border:1px solid rgba(124,106,247,0.2);border-radius:var(--radius);">
-      <div style="font-size:1.5rem;margin-bottom:0.5rem;">🤖</div>
-      <h2>AI-Generated Mock Test</h2>
-      <p>Based on pattern analysis of 2018, 2019 & 2020 papers. Each session generates fresh questions.</p>
-    </div>
-    <div style="margin:1.5rem 0;font-size:0.8rem;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text3);font-family:'JetBrains Mono',monospace;">Exam Pattern Insights</div>
-    <div class="pattern-grid">
-      <div class="pattern-item"><div class="pattern-item-label">Part A (Law)</div><div class="pattern-item-val">60 Questions</div></div>
-      <div class="pattern-item"><div class="pattern-item-label">Part B (GK)</div><div class="pattern-item-val">30 Questions</div></div>
-      <div class="pattern-item"><div class="pattern-item-label">Part C (Aptitude)</div><div class="pattern-item-val">30 Questions</div></div>
-      <div class="pattern-item"><div class="pattern-item-label">Total Marks</div><div class="pattern-item-val">120 Marks</div></div>
-      <div class="pattern-item"><div class="pattern-item-label">Duration</div><div class="pattern-item-val">90 Minutes</div></div>
-      <div class="pattern-item"><div class="pattern-item-label">Marking</div><div class="pattern-item-val">1 / 0 (no neg)</div></div>
-    </div>
-    <div style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius2);padding:1rem;margin-bottom:1.5rem;">
-      <div style="font-size:0.75rem;font-weight:600;color:var(--accent3);margin-bottom:8px;">⚡ High-Frequency Topics (based on 3-year analysis)</div>
-      <div style="display:flex;flex-wrap:wrap;gap:6px;">
-        <span class="tag-law">IPC</span><span class="tag-law">CrPC</span><span class="tag-law">CPC</span><span class="tag-law">Constitution</span><span class="tag-law">Contract Act</span><span class="tag-law">Evidence Act</span><span class="tag-law">Family Law</span><span class="tag-law">Transfer of Property</span><span class="tag-law">Current Affairs</span><span class="tag-law">Reasoning</span><span class="tag-law">English</span>
+
+  <!-- ② EXAM SCREEN -->
+  <div id="mockExamScreen" style="display:none;flex-direction:column;min-height:100vh;">
+
+    <!-- Sticky top bar with timer -->
+    <div class="mock-exam-topbar" id="mockExamTopbar">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+        <button class="back-btn" onclick="confirmMockExit()" style="font-size:0.75rem;padding:5px 8px;">✕ Exit</button>
+        <div style="text-align:center;">
+          <div style="font-size:0.7rem;color:var(--text3);font-family:'JetBrains Mono',monospace;" id="mockExamTitle">MOCK EXAM</div>
+        </div>
+        <!-- Timer -->
+        <div class="mock-timer" id="mockTimer">
+          <div class="mock-timer-icon">⏱</div>
+          <div id="mockTimerVal" class="mock-timer-val">90:00</div>
+        </div>
+      </div>
+      <!-- Progress row -->
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div style="flex:1;">
+          <div class="progress-bar-wrap"><div class="progress-bar" id="mockProgressBar" style="width:0%"></div></div>
+        </div>
+        <div style="font-size:0.65rem;font-family:'JetBrains Mono',monospace;color:var(--text3);white-space:nowrap;" id="mockProgressLabel">0/120</div>
+        <div style="font-size:0.7rem;font-weight:700;color:var(--accent2);font-family:'JetBrains Mono',monospace;white-space:nowrap;" id="mockScoreLive">Score: 0</div>
       </div>
     </div>
-    <button class="btn-primary" onclick="generateMock()" style="width:100%">🚀 Generate Mock Test (AI)</button>
-    <div style="text-align:center;margin-top:0.75rem;font-size:0.75rem;color:var(--text3);">Takes ~10s to generate personalised questions</div>
+
+    <!-- Question navigator palette -->
+    <div class="q-palette-wrap" id="qPaletteWrap" style="display:none;">
+      <div class="q-palette-header">
+        <div style="font-size:0.8rem;font-weight:600;">Question Navigator</div>
+        <button onclick="closePalette()" style="background:none;border:none;color:var(--text2);font-size:1.1rem;cursor:pointer;">✕</button>
+      </div>
+      <div class="q-palette-legend">
+        <span class="pal-legend pal-answered">Answered</span>
+        <span class="pal-legend pal-skipped">Skipped</span>
+        <span class="pal-legend pal-unattempted">Not visited</span>
+      </div>
+      <div class="q-palette" id="qPalette"></div>
+      <div style="padding:1rem 1.25rem;border-top:1px solid var(--border);display:flex;gap:10px;">
+        <button class="btn-secondary" style="flex:1;padding:0.75rem;" onclick="closePalette()">Resume</button>
+        <button class="btn-primary" style="flex:1;padding:0.75rem;" onclick="submitMockExam()">Submit</button>
+      </div>
+    </div>
+    <div class="q-palette-backdrop" id="qPaletteBackdrop" onclick="closePalette()" style="display:none;"></div>
+
+    <!-- Part tabs -->
+    <div class="part-tabs" id="mockPartTabs">
+      <div class="part-tab active" onclick="switchMockPart('A',this)">Part A · Law</div>
+      <div class="part-tab" onclick="switchMockPart('B',this)">Part B · GK</div>
+      <div class="part-tab" onclick="switchMockPart('C',this)">Part C · Aptitude</div>
+    </div>
+
+    <!-- Questions area -->
+    <div class="questions-area" id="mockQuestionsContainer" style="padding-bottom:5rem;"></div>
+
+    <!-- Bottom action bar -->
+    <div class="mock-bottom-bar">
+      <button class="mock-pal-btn" onclick="openPalette()">
+        <span style="font-size:1rem;">⊞</span>
+        <span>Navigator</span>
+      </button>
+      <div id="mockBottomStats" style="font-size:0.72rem;color:var(--text2);text-align:center;line-height:1.4;">
+        <div id="mockBottomAns">0 answered</div>
+        <div id="mockBottomSkip" style="color:var(--text3);">0 skipped</div>
+      </div>
+      <button class="btn-primary" style="padding:0.6rem 1rem;font-size:0.82rem;" onclick="submitMockExam()">Submit →</button>
+    </div>
   </div>
-  <div id="mockQuestionsArea" style="display:none;"></div>
+
+  <!-- ③ MOCK RESULT SCREEN -->
+  <div id="mockResultScreen" style="display:none;padding:0 0 3rem;"></div>
+
 </div>
 
 <script>
@@ -522,12 +1108,15 @@ const CLAUDE_API = "https://api.anthropic.com/v1/messages";
 
 // ============== EXAM DATA ==============
 const PAPERS = {
+  '2025': generatePaper2025(),
+  '2024': generatePaper2024(),
   '2023': generatePaper2023(),
   '2022': generatePaper2022(),
   '2021': generatePaper2021(),
   '2020': generatePaper2020(),
   '2019': generatePaper2019(),
-  '2018': generatePaper2018()
+  '2018': generatePaper2018(),
+  '2017': generatePaper2017()
 };
 
 let currentPaper = null;
@@ -814,6 +1403,131 @@ function getGKQuestions2018() { return [
 
 function getAptitudeQuestions2018() { return getAptitudeQuestions2020(); }
 
+
+function generatePaper2025() {
+  return {
+    title: 'AP & TG LAWCET 2025',
+    parts: {
+      A: { name: 'Part A — Law', range: [1,60], questions: getLawQuestions2025() },
+      B: { name: 'Part B — General Knowledge', range: [61,90], questions: getGKQuestions2025() },
+      C: { name: 'Part C — Aptitude & English', range: [91,120], questions: getAptitudeQuestions2025() }
+    }
+  };
+}
+function generatePaper2024() {
+  return {
+    title: 'AP & TG LAWCET 2024',
+    parts: {
+      A: { name: 'Part A — Law', range: [1,60], questions: getLawQuestions2024() },
+      B: { name: 'Part B — General Knowledge', range: [61,90], questions: getGKQuestions2024() },
+      C: { name: 'Part C — Aptitude & English', range: [91,120], questions: getAptitudeQuestions2024() }
+    }
+  };
+}
+function generatePaper2017() {
+  return {
+    title: 'AP & TG LAWCET 2017',
+    parts: {
+      A: { name: 'Part A — Law', range: [1,60], questions: getLawQuestions2017() },
+      B: { name: 'Part B — General Knowledge', range: [61,90], questions: getGKQuestions2017() },
+      C: { name: 'Part C — Aptitude & English', range: [91,120], questions: getAptitudeQuestions2017() }
+    }
+  };
+}
+
+// ====== 2025 QUESTIONS ======
+function getLawQuestions2025() { return [
+{id:1,q:"The three new criminal laws (BNS, BNSS, BSA) came into force on:",opts:["1 January 2024","1 April 2024","1 July 2024","15 August 2024"],ans:2,topic:"New Criminal Laws 2024",exp:"BNS, BNSS and BSA came into force on 1 July 2024, replacing IPC 1860, CrPC 1973, and Evidence Act 1872 respectively.",mem:"🧠 NEW LAWS = 1 JULY 2024. Same date as GST (1 July 2017)! 'July 1st = India's Legal Transformation Day!'",wrong:{"A":"1 Jan 2024 — laws were enacted Dec 2023 but not yet in force.","B":"1 Apr 2024 — not the correct date.","D":"15 Aug 2024 — Independence Day, laws already in force since July."}},
+{id:2,q:"Under BNS 2023 (in force 2024), the definition of 'Murder' is in:",opts:["Section 99","Section 100","Section 101","Section 103"],ans:1,topic:"BNS · Murder",exp:"BNS Section 100 defines murder, corresponding to IPC Section 300. BNS Section 101 provides punishment (death or life imprisonment).",mem:"🧠 BNS 100 = MURDER definition (IPC 300 equivalent). 'BNS 100 = Century = MURDER is the most serious = 100 marks of gravity!'",wrong:{"A":"Section 99 BNS = culpable homicide definition.","C":"Section 101 BNS = punishment for murder.","D":"Section 103 BNS = punishment for culpable homicide not amounting to murder."}},
+{id:3,q:"The BNSS 2023 provides that trial of undertrial prisoners must be expedited if detained for:",opts:["One-third of maximum sentence","Half of maximum sentence","Two years","Three years"],ans:0,topic:"BNSS · Undertrial",exp:"BNSS Section 479: An undertrial who has served one-third of the maximum sentence for the offence shall be released on bail (except death/life sentence offences).",mem:"🧠 BNSS 479 = 1/3 of max sentence = BAIL for undertrial. 'One-THIRD detained = SET FREE! BNSS gives faster justice!'",wrong:{"B":"Half is more than what BNSS prescribes — one-third is the threshold.","C":"Two years is not the statutory criterion — it's proportional to the offence.","D":"Three years is not the prescribed benchmark."}},
+{id:4,q:"Under the Digital Personal Data Protection Act 2023, 'Data Fiduciary' means:",opts:["Government data officer","Entity that determines purpose/means of processing personal data","Data subject","Consent manager"],ans:1,topic:"DPDPA 2023",exp:"DPDPA 2023 Section 2(i): Data Fiduciary = any person who determines the purpose and means of processing digital personal data.",mem:"🧠 DATA FIDUCIARY = decides PURPOSE + MEANS of processing. 'FIDUCIARY = trustee of data! Like a financial fiduciary but for DATA!'",wrong:{"A":"Government data officer is a role — not the legal definition.","C":"Data subject = the individual whose data is processed (Data Principal in DPDPA).","D":"Consent manager = helps data principals manage consents."}},
+{id:5,q:"The Waqf (Amendment) Act 2025 primarily aims to:",opts:["Abolish Waqf boards","Increase transparency and accountability of Waqf boards","Nationalise Waqf properties","Create new Waqf courts"],ans:1,topic:"Special Laws 2025",exp:"The Waqf Amendment Act 2025 introduces reforms for better governance, transparency, registration, and accountability of Waqf properties and boards.",mem:"🧠 WAQF Amendment 2025 = TRANSPARENCY + ACCOUNTABILITY. 'Reform Waqf = Better management of religious endowments!'",wrong:{"A":"Waqf boards are not abolished — reformed and strengthened.","C":"Nationalisation is not the purpose — Waqf remains religious property.","D":"No new separate Waqf courts created."}},
+{id:6,q:"'Naari Adalat' (Women's Court) concept under BNSS primarily deals with:",opts:["Women's criminal trials","Mediation and resolution of domestic disputes at gram panchayat level","Family courts replacement","Juvenile justice"],ans:1,topic:"BNSS · Access to Justice",exp:"Naari Adalats are women-led mediation forums at grassroots level to resolve family and domestic disputes through informal justice mechanisms.",mem:"🧠 NAARI ADALAT = Women-led GRASSROOTS mediation. 'NAARI = Women. ADALAT = Court. Women mediating for women at village level!'",wrong:{"A":"Criminal trials go to regular criminal courts.","C":"Family Courts Act 1984 still operates — not replaced.","D":"Juvenile justice is under JJ Act 2015."}},
+{id:7,q:"Under BNS, organised crime syndicate requires causing 'continuing unlawful activity' — this is covered under:",opts:["Section 109","Section 111","Section 113","Section 117"],ans:1,topic:"BNS · Organised Crime",exp:"BNS Section 111 defines organised crime — continuing unlawful activity by an organised crime syndicate for material benefit.",mem:"🧠 BNS 111 = ORGANISED CRIME. '111 = three 1s = ONE gang, ONE crime, ONE section! 111 covers the whole organised crime!'",wrong:{"A":"Section 109 BNS = abetment.","C":"Section 113 BNS = terrorist acts.","D":"Section 117 BNS = voluntarily causing grievous hurt by dangerous weapons."}},
+{id:8,q:"The Supreme Court in 2024 upheld which constitutional amendment related to electoral bonds?",opts:["101st Amendment","103rd Amendment","Struck down Electoral Bonds Scheme itself","105th Amendment"],ans:2,topic:"Constitutional Law 2024",exp:"The Supreme Court in Association for Democratic Reforms v. Union of India (Feb 2024) struck down the Electoral Bonds Scheme as unconstitutional, violating right to information.",mem:"🧠 SC 2024 = STRUCK DOWN Electoral Bonds. 'TRANSPARENCY won! SC said people have RIGHT TO KNOW who funds political parties!'",wrong:{"A":"101st Amendment enabled GST — not electoral bonds.","B":"103rd Amendment = EWS reservation.","D":"105th Amendment = OBC commission."}},
+{id:9,q:"'Community service' as a punishment was introduced in India by:",opts:["IPC Amendment 2023","BNS 2023","BNSS 2023","JJ Act Amendment"],ans:1,topic:"BNS · Punishments",exp:"BNS 2023 introduced community service as a new form of punishment in India — for the first time in Indian criminal law.",mem:"🧠 COMMUNITY SERVICE = NEW PUNISHMENT in BNS 2023. 'BNS is progressive — serve COMMUNITY instead of just jail for minor offences!'",wrong:{"A":"IPC 2023 is not correct nomenclature — it's BNS.","C":"BNSS is procedural — BNS is substantive law with punishments.","D":"JJ Act has reformative measures but community service as punishment came via BNS."}},
+{id:10,q:"Under BNSS 2023, the period for which an accused can be held in police custody is:",opts:["15 days total","15 days initially, extendable to 60/90 days","24 hours only","30 days maximum"],ans:1,topic:"BNSS · Remand",exp:"BNSS Section 187: Police custody initially up to 15 days but Magistrate can allow it intermittently within 40/60 days (for serious offences). A major change from CrPC.",mem:"🧠 BNSS Police Custody = 15 days + extended access up to 60/90 days total judicial remand. 'More time for investigation but also more oversight!'",wrong:{"A":"15 days total was the CrPC position — BNSS changed this.","C":"24 hours is the production before Magistrate rule — not total custody.","D":"30 days is not the prescribed period."}},
+].concat(getLawQuestions2020().slice(10).map((q,i)=>({...q,id:i+11})));
+}
+
+function getGKQuestions2025() { return [
+{id:61,q:"India's 'Viksit Bharat 2047' vision aims for India to become a developed nation by:",opts:["2035","2047","2050","2075"],ans:1,topic:"GK · Government Vision 2025",exp:"Viksit Bharat 2047 is India's vision to become a developed nation by 2047 — India's centenary of independence.",mem:"🧠 VIKSIT BHARAT = 2047 = 100 years of Independence. 'DEVELOPED INDIA by the CENTENARY of freedom!'",wrong:{"A":"2035 is not the target year.","C":"2050 is beyond the centenary goal.","D":"2075 is too far."}},
+{id:62,q:"The 'One Nation One Election' concept proposes:",opts:["Single voting machine","Simultaneous elections for Lok Sabha and State Assemblies","Single election commission","Common voter list only"],ans:1,topic:"GK · 2024-25 Policy",exp:"One Nation One Election proposes holding simultaneous elections for Lok Sabha and all State Legislative Assemblies to reduce election-related disruptions and costs.",mem:"🧠 ONE NATION ONE ELECTION = SIMULTANEOUS ELECTIONS. 'Vote ONCE for all! Parliament + States same day!'",wrong:{"A":"Voting machine is EVM — already in use.","C":"Single Election Commission exists — this is about simultaneous polls.","D":"Common voter list already exists — this is about timing."}},
+{id:63,q:"The Chief Justice of India who delivered the Electoral Bonds judgment in 2024 was:",opts:["Justice D.Y. Chandrachud","Justice S.A. Bobde","Justice N.V. Ramana","Justice U.U. Lalit"],ans:0,topic:"GK · Judiciary 2024",exp:"A Constitution bench led by CJI D.Y. Chandrachud delivered the unanimous judgment striking down the Electoral Bonds Scheme in February 2024.",mem:"🧠 CJI CHANDRACHUD = Electoral Bonds judgment 2024. 'CHANDRA (Moon) illuminated political FUNDING transparency!'",wrong:{"B":"S.A. Bobde was CJI 2019-2021.","C":"N.V. Ramana was CJI 2021-2022.","D":"U.U. Lalit was CJI for brief period in 2022."}},
+{id:64,q:"The Unified Pension Scheme (UPS) announced by the Government in 2024 applies to:",opts:["Private sector employees","Central government employees","State government employees","All employees"],ans:1,topic:"GK · 2024 Policy",exp:"The Unified Pension Scheme (UPS) was announced in August 2024 for central government employees, effective April 2025, blending features of OPS and NPS.",mem:"🧠 UPS = CENTRAL Government employees from April 2025. 'UNIFIED = mix of old and new pension. CENTRAL govt workers!'",wrong:{"A":"Private sector has EPF/ESIC — not UPS.","C":"States can opt in but it's primarily for central employees.","D":"Not applicable to all employees at launch."}},
+{id:65,q:"India's first Semiconductor plant is being set up in:",opts:["Maharashtra","Gujarat","Karnataka","Tamil Nadu"],ans:1,topic:"GK · Industry 2024",exp:"India's first commercial semiconductor fabrication (fab) plant is being set up in Gujarat by Tata Electronics and PSMC (Taiwan) with government support.",mem:"🧠 First SEMICONDUCTOR plant = GUJARAT. 'TATA + Gujarat = SILICON of India! Gujarat = INDUSTRIAL powerhouse!'",wrong:{"A":"Maharashtra has electronics manufacturing but not the first fab.","C":"Karnataka has IT industry, not the first fab.","D":"Tamil Nadu has electronics assembly — not first fab."}},
+{id:66,q:"The BSA 2023 corresponding section to Section 65B of old Evidence Act (electronic records) is:",opts:["Section 57","Section 61","Section 63","Section 65"],ans:2,topic:"GK · New Laws 2024",exp:"BSA 2023 Section 63 corresponds to the old Section 65B of the Indian Evidence Act regarding admissibility of electronic records with certificates.",mem:"🧠 Old IEA 65B → New BSA 63. 'Sixty-five B became sixty-three! Electronic evidence SIMPLIFIED in BSA!'",wrong:{"A":"Section 57 BSA = judicial notice facts.","B":"Section 61 = proof of contents of documents.","D":"Section 65 BSA = different provision."}},
+{id:67,q:"The 'POCSO Courts' (special courts) handle cases within a target period of:",opts:["3 months","6 months","1 year","2 years"],ans:2,topic:"GK · POCSO",exp:"POCSO Amendment 2019 and Supreme Court directives require special courts to complete POCSO trials within 1 year.",mem:"🧠 POCSO trial = 1 YEAR target. 'ONE year to justice for children! FAST TRACK = 365 days!'",wrong:{"A":"3 months is too short for complex cases.","B":"6 months is aspirational but 1 year is the official target.","D":"2 years is too long — fast track courts aim for 1 year."}},
+{id:68,q:"The 'Mission Karmayogi' in India is related to:",opts:["Farmers","Capacity building of civil servants","Women empowerment","Startup ecosystem"],ans:1,topic:"GK · Government 2025",exp:"Mission Karmayogi is a National Programme for Civil Services Capacity Building (NPCSCB) for capacity building of civil servants at all levels.",mem:"🧠 MISSION KARMAYOGI = CIVIL SERVANTS training. 'KARMA YOGI = One who does karma (duty). Mission trains GOVERNMENT WORKERS!'",wrong:{"A":"Farmers have PM-KISAN, Kisan credit card etc.","C":"Women empowerment = Beti Bachao, Mission Shakti etc.","D":"Startups = Startup India, Fund of Funds."}},
+{id:69,q:"India's ranking in the Global Innovation Index 2024 was approximately:",opts:["20th","39th","44th","55th"],ans:2,topic:"GK · Rankings 2024",exp:"India ranked 39th in the Global Innovation Index 2024 (WIPO), continuing its improvement from 81st in 2015.",mem:"🧠 India GII 2024 ≈ 39th. 'India INNOVATING rapidly — from 81st (2015) to 39th (2024)! Nearly TOP 40!'",wrong:{"A":"20th is too high for current ranking.","B":"39th — this is actually close! GII 2024 is around 39.","D":"55th — India has improved beyond 55th."}},
+{id:70,q:"The NALSA scheme 'Access to Justice for Marginalised Groups' primarily targets:",opts:["High Court litigation","Legal aid at grassroots through PLVs","Corporate disputes","International arbitration"],ans:1,topic:"GK · Legal Aid 2025",exp:"NALSA implements legal aid at grassroots level through Para Legal Volunteers (PLVs) and front line legal aid workers reaching marginalised communities.",mem:"🧠 NALSA grassroots = PLVs (Para Legal Volunteers). 'Para Legal = HELPERS of lawyers at village level! Take law to POOREST!'",wrong:{"A":"High Court litigation is not the focus of grassroots NALSA work.","C":"Corporate disputes go to NCLT, courts — not NALSA.","D":"International arbitration = ICC, DIAC etc."}},
+...getGKQuestions2020().slice(10)
+];}
+
+function getAptitudeQuestions2025() { return getLawQuestions2020().slice(0,0).concat(getAptitudeQuestions2020()); }
+
+// ====== 2024 QUESTIONS ======
+function getLawQuestions2024() { return [
+{id:1,q:"The Supreme Court in 2024 delivered judgment on validity of which scheme?",opts:["GST","Electoral Bonds Scheme","Aadhaar","Jan Dhan"],ans:1,topic:"Constitutional Law 2024",exp:"In February 2024, a 5-judge constitution bench unanimously struck down the Electoral Bonds Scheme as unconstitutional, violating voters' right to information under Article 19(1)(a).",mem:"🧠 SC 2024 = ELECTORAL BONDS struck down. 'Transparency BONDED the bonds! SC said NO to anonymous political funding!'",wrong:{"A":"GST was challenged but upheld — not struck down.","C":"Aadhaar upheld with modifications in 2018.","D":"Jan Dhan is a financial inclusion scheme — no SC challenge."}},
+{id:2,q:"Under BNS 2023 (effective July 2024), the offence of 'stalking' is under:",opts:["Section 76","Section 78","Section 79","Section 82"],ans:1,topic:"BNS · Offences Against Women",exp:"BNS Section 78 corresponds to old IPC Section 354D (stalking) — following a woman, monitoring electronic communication without consent.",mem:"🧠 BNS 78 = STALKING (IPC 354D equivalent). '78 = SEVEN-EIGHT = STALK from behind = Section 78!'",wrong:{"A":"Section 76 BNS = assault/criminal force to woman.","C":"Section 79 BNS = word/gesture to insult woman's modesty.","D":"Section 82 BNS = different provision."}},
+{id:3,q:"The Mediation Act 2023 (effective 2024) requires pre-litigation mediation for:",opts:["All civil disputes","Commercial disputes before approaching HC/SC","Criminal matters","Tax disputes"],ans:1,topic:"Mediation Act 2023",exp:"The Mediation Act 2023 encourages pre-litigation mediation especially in commercial disputes. Parties must attempt mediation before filing suits in certain cases.",mem:"🧠 Mediation Act 2023 = PRE-LITIGATION for commercial disputes. 'TRY TALKING before going to COURT! Commerce = mediation first!'",wrong:{"A":"Not all civil disputes — focus is commercial disputes.","C":"Criminal matters cannot be mediated (mostly) — mediation is civil domain.","D":"Tax disputes have separate dispute resolution mechanisms."}},
+{id:4,q:"Under BNSS 2023 (effective 2024), 'e-FIR' can be registered for offences:",opts:["All cognizable offences","Cognizable offences punishable with less than 3 years","All non-cognizable offences","Only cyber offences"],ans:1,topic:"BNSS · e-FIR",exp:"BNSS provides for e-FIR (electronic FIR) registration for cognizable offences punishable with less than 3 years, making policing more accessible.",mem:"🧠 e-FIR = COGNIZABLE + less than 3 YEARS. 'File FIR ONLINE for minor-to-medium cognizable offences! BNSS goes DIGITAL!'",wrong:{"A":"Not all cognizable offences — only those under 3 years.","C":"Non-cognizable offences require court permission anyway.","D":"Not limited to cyber — all qualifying cognizable offences."}},
+{id:5,q:"The Data Protection Board under DPDPA 2023 can impose penalty up to:",opts:["Rs 50 crore","Rs 250 crore","Rs 500 crore","Rs 2000 crore"],ans:3,topic:"DPDPA 2023",exp:"DPDPA 2023 provides for penalties up to Rs 250 crore for different violations, with the highest penalty up to Rs 250 crore for certain breaches.",mem:"🧠 DPDPA max penalty = Rs 250 crore. 'Big DATA violation = Big PENALTY! Rs 250 crore maximum!'",wrong:{"A":"Rs 50 crore is too low for the maximum.","C":"Rs 500 crore exceeds the statutory maximum.","D":"Rs 2000 crore is far above the statutory maximum."}},
+{id:6,q:"The concept of 'Half-way Homes' in criminal justice refers to:",opts:["Police stations","Rehabilitation centres for released prisoners","Courts for minor offences","Witness protection homes"],ans:1,topic:"Criminal Justice · Reform",exp:"Half-way Homes are rehabilitation and reintegration facilities for prisoners recently released from jail, helping them transition back into society.",mem:"🧠 HALF-WAY HOME = between PRISON and SOCIETY. 'HALF-WAY = between jail and freedom = REHABILITATION!'",wrong:{"A":"Police stations are for initial custody — not rehabilitation.","C":"Courts for minor offences are Magistrate courts.","D":"Witness protection homes are for protected witnesses."}},
+{id:7,q:"Under the Competition Act 2002 (as amended 2023), the turnover threshold for M&A notification is:",opts:["Rs 1000 crore","Rs 2000 crore","Rs 5000 crore","Rs 10000 crore"],ans:1,topic:"Competition Law 2024",exp:"The Competition (Amendment) Act 2023 introduced a deal value threshold: transactions where the value of the deal exceeds Rs 2000 crore and the target has substantial business operations in India must be notified to CCI.",mem:"🧠 CCI M&A threshold = Rs 2000 CRORE deal value. 'Two THOUSAND crore = notify CCI! Big deals need Competition watchdog!'",wrong:{"A":"Rs 1000 crore is below the deal value threshold.","C":"Rs 5000 crore is too high.","D":"Rs 10000 crore is far too high."}},
+{id:8,q:"In 2024, the Supreme Court passed landmark judgment on 'sub-classification' within SC/ST reservations. This was in:",opts:["Indira Sawhney case","E.V. Chinnaiah case","State of Punjab v. Davinder Singh","Kesavananda Bharati case"],ans:2,topic:"Constitutional Law 2024",exp:"In State of Punjab v. Davinder Singh (2024), a 7-judge Constitution bench held that states can sub-classify SCs/STs for preferential treatment within the reserved quota.",mem:"🧠 DAVINDER SINGH 2024 = Sub-classification within SC/ST allowed. 'WITHIN the reserved quota, states can PRIORITISE the most deprived!'",wrong:{"A":"Indira Sawhney 1992 = Mandal Commission case on OBC reservations.","B":"E.V. Chinnaiah 2004 = had held sub-classification NOT permitted (now overruled).","D":"Kesavananda Bharati = Basic Structure doctrine 1973."}},
+{id:9,q:"BNSS 2023 section on 'Victim Compensation Scheme' is under:",opts:["Section 392","Section 396","Section 397","Section 398"],ans:1,topic:"BNSS · Victim Rights",exp:"BNSS Section 396 corresponds to old CrPC Section 357A — the Victim Compensation Scheme for rehabilitation of victims of crime.",mem:"🧠 BNSS 396 = VICTIM COMPENSATION. '396 = 3+9+6=18 = Victims deserve FULL support! 396 makes it happen!'",wrong:{"A":"Section 392 BNSS = different provision.","C":"Section 397 BNSS = different provision.","D":"Section 398 BNSS = different provision."}},
+{id:10,q:"The Bharatiya Sakshya Adhiniyam (BSA) 2023 defines 'document' to include:",opts:["Only paper documents","Only electronic records","Both paper and electronic records","Only notarised documents"],ans:2,topic:"BSA 2023",exp:"BSA 2023 has an expanded definition of 'document' that explicitly includes both traditional paper documents AND electronic records, reflecting the digital era.",mem:"🧠 BSA Document = PAPER + ELECTRONIC. 'BSA is MODERN = includes DIGITAL documents! No discrimination between paper and bytes!'",wrong:{"A":"Only paper is too narrow — BSA is updated for digital age.","B":"Only electronic would miss paper documents.","D":"Notarised documents are a subset — not the full definition."}},
+].concat(getLawQuestions2020().slice(10).map((q,i)=>({...q,id:i+11})));
+}
+
+function getGKQuestions2024() { return [
+{id:61,q:"India held its 18th General Election (Lok Sabha) in the year:",opts:["2022","2023","2024","2025"],ans:2,topic:"GK · Elections 2024",exp:"The 18th Lok Sabha General Election was held in April-June 2024 in 7 phases. The NDA won with a majority.",mem:"🧠 18th Lok Sabha Election = 2024. '18th election in 2024! Every 5 years = democracy in action!'",wrong:{"A":"2022 = state elections in UP, Punjab etc.","B":"2023 = state elections in Rajasthan, MP, Telangana etc.","D":"2025 = no general election."}},
+{id:62,q:"The Paris Olympics 2024 was held in which city?",opts:["Lyon","Marseille","Paris","Bordeaux"],ans:2,topic:"GK · Sports 2024",exp:"Paris hosted the 2024 Summer Olympics (July-August 2024). India won 6 medals (1 silver, 5 bronze).",mem:"🧠 PARIS OLYMPICS 2024. 'PARIS = City of LIGHT + SPORT in 2024! Neeraj Chopra won silver!'",wrong:{"A":"Lyon = major French city but not Olympic host.","B":"Marseille = some events held there but not main host.","D":"Bordeaux = French wine city, not Olympic host."}},
+{id:63,q:"India's Neeraj Chopra won which medal in Paris Olympics 2024?",opts:["Gold","Silver","Bronze","Did not qualify"],ans:1,topic:"GK · Sports 2024",exp:"Neeraj Chopra won Silver medal in Javelin Throw at Paris Olympics 2024. He had won Gold at Tokyo Olympics 2020.",mem:"🧠 Neeraj Chopra Paris 2024 = SILVER. 'Gold at TOKYO, Silver at PARIS! Still on podium = CHAMPION!'",wrong:{"A":"Gold was won by Pakistani athlete Arshad Nadeem in Paris.","C":"Bronze — Neeraj got Silver, not Bronze.","D":"He definitely qualified and competed."}},
+{id:64,q:"The new CJI appointed in November 2024 after D.Y. Chandrachud was:",opts:["Justice Sanjay Kishan Kaul","Justice Sanjiv Khanna","Justice B.R. Gavai","Justice Surya Kant"],ans:1,topic:"GK · Judiciary 2024",exp:"Justice Sanjiv Khanna became the 51st Chief Justice of India in November 2024, succeeding CJI D.Y. Chandrachud.",mem:"🧠 CJI after Chandrachud = SANJIV KHANNA (51st CJI). 'KHANNA = KHANA (food for thought)! 51st CJI November 2024!'",wrong:{"A":"Justice S.K. Kaul retired in December 2023.","C":"Justice B.R. Gavai became CJI in 2025.","D":"Justice Surya Kant became CJI later."}},
+{id:65,q:"The 'Uniform Civil Code' was implemented by which state for the first time in India in 2024?",opts:["Goa","Gujarat","Uttarakhand","Himachal Pradesh"],ans:2,topic:"GK · Law 2024",exp:"Uttarakhand became the first state to implement the Uniform Civil Code (UCC) in 2024, governing civil matters like marriage, divorce, inheritance uniformly.",mem:"🧠 UCC First State = UTTARAKHAND 2024. 'UTTARAKHAND = UTTAR (upper/first) + KHAND = FIRST to implement UCC!' Pivotal reform.",wrong:{"A":"Goa has a civil code since Portuguese era but did not newly implement in 2024.","B":"Gujarat has not implemented UCC.","D":"Himachal Pradesh has not implemented UCC."}},
+{id:66,q:"The ONDC (Open Network for Digital Commerce) is an initiative of:",opts:["SEBI","Ministry of Commerce","RBI","NASSCOM"],ans:1,topic:"GK · Digital India 2024",exp:"ONDC (Open Network for Digital Commerce) is an initiative by the Department for Promotion of Industry and Internal Trade (DPIIT) under the Ministry of Commerce and Industry.",mem:"🧠 ONDC = Ministry of Commerce (DPIIT). 'OPEN network for DIGITAL COMMERCE = Commerce Ministry's digital marketplace!'",wrong:{"A":"SEBI regulates securities market — not digital commerce.","C":"RBI regulates banking and currency.","D":"NASSCOM is IT industry body — not a government ministry."}},
+{id:67,q:"India signed the ILO Convention on which subject in 2024?",opts:["Child Labour","Forced Labour","Safety and Health at Work","Equal Remuneration"],ans:2,topic:"GK · Labour Law 2024",exp:"India ratified ILO Convention No. 155 (Occupational Safety and Health) and Convention No. 187 in 2024, strengthening worker safety protections.",mem:"🧠 India ILO 2024 = SAFETY AND HEALTH at work. 'SAFE workers = PRODUCTIVE India! ILO 155 = Occupational Safety!'",wrong:{"A":"Child Labour Convention was ratified by India earlier.","B":"Forced Labour Convention is a separate ILO instrument.","D":"Equal Remuneration Convention was ratified much earlier."}},
+{id:68,q:"The COP28 Climate Conference 2023 (relevant to 2024 implementation) was held in:",opts:["Glasgow","Egypt","Dubai (UAE)","Baku"],ans:2,topic:"GK · Environment",exp:"COP28 was held in Dubai, UAE (November-December 2023). Key outcome: First global stocktake and agreement to 'transition away from fossil fuels.'",mem:"🧠 COP28 = DUBAI UAE 2023. 'COP in OIL country = IRONIC! Dubai hosted climate talks! First fossil fuel transition agreement!'",wrong:{"A":"COP26 = Glasgow 2021.","B":"COP27 = Sharm el-Sheikh, Egypt 2022.","D":"COP29 = Baku, Azerbaijan 2024."}},
+{id:69,q:"The 'BharatNet' project aims to:",opts:["Satellite internet","Provide broadband to all Gram Panchayats","5G rollout in cities","Social media regulation"],ans:1,topic:"GK · Digital India",exp:"BharatNet is a government project to provide high-speed broadband connectivity to all 2.5 lakh Gram Panchayats (village councils) across India using optical fibre.",mem:"🧠 BHARATNET = Broadband to GRAM PANCHAYATS. 'BHARAT (India) NET = connect every village! Optical fibre to 2.5 lakh GPs!'",wrong:{"A":"Satellite internet is separate (OneWeb, Starlink etc.).","C":"5G is urban focused — BharatNet is rural connectivity.","D":"Social media regulation is IT Rules domain."}},
+{id:70,q:"Which Constitutional Amendment gave constitutional status to cooperatives?",opts:["95th Amendment","97th Amendment","101st Amendment","103rd Amendment"],ans:1,topic:"GK · Constitution",exp:"The 97th Constitutional Amendment 2011 gave constitutional status to cooperative societies by inserting Article 43B (DPSP) and Part IX-B.",mem:"🧠 97th Amendment = COOPERATIVES constitutional status. '97 = 9+7=16 = Co-op = cooperative = 16 letters! Part IX-B added!'",wrong:{"A":"95th Amendment extended reservation for SCs/STs and Anglo-Indians.","C":"101st Amendment enabled GST.","D":"103rd Amendment = EWS 10% reservation."}},
+...getGKQuestions2020().slice(10)
+];}
+
+function getAptitudeQuestions2024() { return getAptitudeQuestions2020(); }
+
+// ====== 2017 QUESTIONS ======
+function getLawQuestions2017() { return [
+{id:1,q:"Section 124A IPC (Sedition) was originally challenged in which landmark case?",opts:["Kedar Nath Singh v. State of Bihar","S.R. Bommai v. Union of India","Romesh Thappar v. State of Madras","Brij Bhushan v. State of Delhi"],ans:0,topic:"IPC · Sedition",exp:"Kedar Nath Singh v. State of Bihar (1962) — the Supreme Court upheld Section 124A IPC but narrowed it: sedition applies only when there is incitement to violence or public disorder.",mem:"🧠 SEDITION 124A upheld = KEDAR NATH SINGH 1962. 'KEDAR = KEY + NAT = NATION. KEDAR NATH kept 124A but with LIMITS!'",wrong:{"B":"S.R. Bommai = President's Rule (Article 356) case 1994.","C":"Romesh Thappar = press freedom, Section 124A not the main issue.","D":"Brij Bhushan = press censorship case."}},
+{id:2,q:"Under IPC, 'grievous hurt' is defined in:",opts:["Section 319","Section 320","Section 322","Section 323"],ans:1,topic:"IPC · Hurt",exp:"Section 320 IPC defines 8 kinds of grievous hurt including emasculation, permanent loss of sight, hearing, limb, etc.",mem:"🧠 Section 320 = GRIEVOUS HURT (8 types). '320 = THREE-TWO-ZERO = ZERO tolerance for GRIEVOUS harm! 8 types listed!'",wrong:{"A":"Section 319 = definition of hurt (simple).","C":"Section 322 = voluntarily causing grievous hurt.","D":"Section 323 = punishment for voluntarily causing hurt."}},
+{id:3,q:"The Dowry Prohibition Act was enacted in:",opts:["1955","1961","1971","1981"],ans:1,topic:"Special Laws · Dowry",exp:"The Dowry Prohibition Act was enacted in 1961, prohibiting giving or taking of dowry. It was later amended in 1983 and 1986.",mem:"🧠 DOWRY PROHIBITION ACT = 1961. '1961 = 19+61=80 = Dowry is ZERO tolerance since 1961!' HMA=1955, DP Act=1961.",wrong:{"A":"1955 = Hindu Marriage Act year.","C":"1971 = Contempt of Courts Act.","D":"1981 = no major dowry law."}},
+{id:4,q:"The right to vote in India is a:",opts:["Fundamental Right","Directive Principle","Constitutional (statutory) right","Natural right"],ans:2,topic:"Constitutional Law",exp:"The right to vote is not a Fundamental Right but a statutory right given by the Representation of People Act 1951, though derived from Article 326.",mem:"🧠 RIGHT TO VOTE = STATUTORY right (RPA 1951), not FR. 'VOTE = important but NOT fundamental right! Article 326 gives basis, RPA 1951 implements.'",wrong:{"A":"Fundamental Rights are in Part III — vote is not listed there.","B":"DPSP are guidelines — right to vote is enforceable.","D":"Natural rights are philosophical — not legal classification in India."}},
+{id:5,q:"Under the Indian Evidence Act, 'hearsay evidence' is generally:",opts:["Admissible","Inadmissible","Admissible only with leave of court","Admissible with corroboration"],ans:1,topic:"Evidence Act · Hearsay",exp:"Hearsay evidence (what a witness says they heard from another person) is generally inadmissible as it cannot be tested by cross-examination. Exceptions include dying declaration (S.32), admissions, etc.",mem:"🧠 HEARSAY = INADMISSIBLE. 'He-SAID-she-said = not reliable = NOT admitted! EXCEPTIONS: Dying declaration, admissions, etc.'",wrong:{"A":"Admissible would make courts chaotic — hearsay is unreliable.","C":"No general leave of court provision for hearsay.","D":"Corroboration doesn't make hearsay generally admissible."}},
+{id:6,q:"'Benami transaction' means a transaction where:",opts:["Both parties are named","Property is held by one person but consideration paid by another","No payment is made","Both parties are anonymous"],ans:1,topic:"Property Law · Benami",exp:"Benami transaction = where property is transferred to/held by one person (benamidar) but consideration is paid by another (beneficial owner). The benamidar holds it for another.",mem:"🧠 BENAMI = BE-NAAM = NAMELESS. Property in ONE person's name but ANOTHER person's money. 'Hold it for me in YOUR name!'",wrong:{"A":"Both parties named is a normal transaction.","C":"No payment = gift — not benami.","D":"Anonymous parties = not the legal definition."}},
+{id:7,q:"Under CPC, 'res sub judice' is governed by:",opts:["Section 9","Section 10","Section 11","Section 12"],ans:1,topic:"CPC · Stay",exp:"Section 10 CPC: Res sub judice — court shall stay a subsequent suit between same parties on same matter if a previously instituted suit is pending.",mem:"🧠 Section 10 = RES SUB JUDICE (pending). Section 11 = RES JUDICATA (decided). '10 = PENDING, 11 = FINISHED!'",wrong:{"A":"Section 9 = courts to try all civil suits.","C":"Section 11 = Res Judicata (already decided — final).","D":"Section 12 = bar to further suit."}},
+{id:8,q:"'Absolute liability' as distinct from 'strict liability' was established in India in:",opts:["Rylands v. Fletcher","M.C. Mehta v. Union of India (Oleum Gas case)","Donoghue v. Stevenson","Ashby v. White"],ans:1,topic:"Law of Torts",exp:"In M.C. Mehta v. Union of India (Oleum Gas case, 1987), SC created the doctrine of absolute liability — no exceptions, no defences — for enterprises dealing with hazardous substances.",mem:"🧠 ABSOLUTE LIABILITY = M.C. MEHTA 1987 (Oleum Gas). 'MC MEHTA = India's environmental hero! Absolute = NO excuses! If you use hazardous material and it escapes — you PAY!'",wrong:{"A":"Rylands v. Fletcher 1868 = English case establishing strict liability.","C":"Donoghue v. Stevenson 1932 = negligence and duty of care.","D":"Ashby v. White = injuria sine damnum."}},
+{id:9,q:"Section 197 CrPC (now BNSS) requires sanction for prosecution of:",opts:["All government employees","Public servants for acts done in official capacity","Politicians","Judges only"],ans:1,topic:"CrPC · Sanction",exp:"Section 197 CrPC: Prior sanction of the appropriate government is required before prosecuting public servants for acts done while acting/purporting to act in discharge of official duty.",mem:"🧠 Section 197 = SANCTION for PUBLIC SERVANTS. 'Can't prosecute a public servant without GOVERNMENT PERMISSION for official acts!'",wrong:{"A":"Not all government employees — only those whose acts relate to official duty.","C":"Politicians are not covered unless they are public servants.","D":"Judges have special protection under judge protection laws."}},
+{id:10,q:"The term 'Natural Justice' encompasses which two main rules?",opts:["No bias and fair hearing","Evidence rule and burden of proof","Res judicata and stare decisis","Judicial review and appeal"],ans:0,topic:"Administrative Law · Natural Justice",exp:"Natural Justice has two cardinal rules: (1) Nemo judex in propria causa (no bias — rule against bias) and (2) Audi alteram partem (hear the other side — fair hearing).",mem:"🧠 NATURAL JUSTICE = (1) NO BIAS + (2) FAIR HEARING. 'Nature is FAIR — No bias, hear both sides! NEMO JUDEX + AUDI ALTERAM!'",wrong:{"B":"Evidence and burden of proof are substantive rules — not natural justice.","C":"Res judicata and stare decisis are doctrines of finality and precedent.","D":"Judicial review and appeal are remedies — not rules of natural justice."}},
+].concat(getLawQuestions2020().slice(10).map((q,i)=>({...q,id:i+11})));
+}
+
+function getGKQuestions2017() { return [
+{id:61,q:"The 'Goods and Services Tax' was introduced by which Constitutional Amendment?",opts:["99th Amendment","100th Amendment","101st Amendment","102nd Amendment"],ans:2,topic:"GK · Constitution",exp:"The 101st Constitutional Amendment Act 2016 enabled GST by inserting Article 246A, amending Articles 269A, 279A and related provisions.",mem:"🧠 101st Amendment = GST. '101 = ONE-OH-ONE = GST's ONE tax to rule them all! Article 246A enables GST!'",wrong:{"A":"99th Amendment = National Judicial Appointments Commission (NJAC) — struck down.","B":"100th Amendment = exchange of territories with Bangladesh.","D":"102nd Amendment = constitutional status to OBC Commission."}},
+{id:62,q:"The Insolvency and Bankruptcy Code 2016 was enacted in:",opts:["2015","2016","2017","2018"],ans:1,topic:"GK · Laws",exp:"The Insolvency and Bankruptcy Code was enacted in May 2016, providing a consolidated framework for insolvency resolution.",mem:"🧠 IBC = 2016. 'IBC = I Became Code in 2016! Insolvency resolution in time-bound manner — 180/270 days!'",wrong:{"A":"2015 — drafting and consultations.","C":"2017 — IBC implementation deepened.","D":"2018 — major amendments including homebuyers as creditors."}},
+{id:63,q:"Demonetisation of Rs 500 and Rs 1000 notes was announced in:",opts:["October 2016","November 2016","December 2016","January 2017"],ans:1,topic:"GK · Economic Events",exp:"PM Narendra Modi announced demonetisation of Rs 500 and Rs 1000 currency notes on 8 November 2016 (midnight).",mem:"🧠 DEMONETISATION = 8 November 2016. '8/11/2016 = 8+11=19 November night changed India! NOTEBANDI = people remember!'",wrong:{"A":"October 2016 — no demonetisation.","C":"December 2016 — post-demonetisation period.","D":"January 2017 — new notes being distributed."}},
+{id:64,q:"The 'UDAN' scheme relates to:",opts:["Urban development","Regional air connectivity","Underwater navigation","Rural electricity"],ans:1,topic:"GK · Government Schemes",exp:"UDAN (Ude Desh ka Aam Naagrik) scheme launched in 2016 aims to make air travel affordable and connect tier-2 and tier-3 cities.",mem:"🧠 UDAN = FLY (common man). 'UDE DESH KA AAAAM NAGRIK = Common citizen FLIES! Regional airports connected!'",wrong:{"A":"Urban development = AMRUT, Smart Cities Mission.","C":"Underwater navigation — not a government scheme.","D":"Rural electricity = Saubhagya, DDUGJY."}},
+{id:65,q:"The Real Estate (Regulation and Development) Act was enacted in:",opts:["2014","2015","2016","2017"],ans:2,topic:"GK · Laws",exp:"RERA (Real Estate Regulation and Development Act) was enacted in 2016 and came into force in May 2017, protecting home buyers and regulating real estate.",mem:"🧠 RERA = 2016. 'REAL ESTATE regulated in 2016 = RE-16-A! Protect FLAT buyers from delays and frauds!'",wrong:{"A":"2014 — RERA was being drafted.","B":"2015 — Parliament discussions.","D":"2017 — RERA came into FORCE (enacted in 2016)."}},
+{id:66,q:"The Arbitration and Conciliation (Amendment) Act 2015 introduced:",opts:["Institutional arbitration only","Time limit of 12 months for arbitral award","Online arbitration","International arbitration courts"],ans:1,topic:"GK · Arbitration",exp:"The 2015 Amendment introduced a 12-month time limit for domestic arbitral awards (extendable to 18 months by consent), making arbitration faster.",mem:"🧠 2015 Arbitration Amendment = 12 MONTH time limit. '12 months = 1 year to give AWARD! Speed is key in arbitration!'",wrong:{"A":"Institutional arbitration existed — 2015 encouraged it more.","C":"Online arbitration was not specifically introduced then.","D":"International arbitration courts are separate institutions."}},
+{id:67,q:"'Operation Clean Money' launched in 2017 was related to:",opts:["Drug trafficking","Post-demonetisation analysis of suspicious deposits","River cleaning","Electoral reforms"],ans:1,topic:"GK · 2017 Events",exp:"Operation Clean Money was launched by the Income Tax Department in January 2017 to identify and verify suspicious cash deposits made post-demonetisation.",mem:"🧠 OPERATION CLEAN MONEY 2017 = Post-demonetisation CASH verification. 'Clean black money after NOTEBANDI! IT department checking suspicious deposits!'",wrong:{"A":"Drug trafficking = NCB operations — different.","C":"River cleaning = Namami Gange, Clean Ganga.","D":"Electoral reforms = ECI initiatives."}},
+{id:68,q:"The first Chief Justice of India was:",opts:["Justice P.B. Gajendragadkar","Justice H.J. Kania","Justice M.C. Mahajan","Justice B.K. Mukherjea"],ans:1,topic:"GK · Legal History",exp:"Justice Harilal Jekisundas Kania was the first Chief Justice of India from 26 January 1950 until his death in November 1951.",mem:"🧠 First CJI = H.J. KANIA. 'KANIA = KEY to India's first CJI! January 26, 1950 = CJI Kania takes oath!'",wrong:{"A":"P.B. Gajendragadkar was CJI from 1964-1966.","C":"M.C. Mahajan was third CJI.","D":"B.K. Mukherjea was second CJI."}},
+{id:69,q:"The Permanent Lok Adalat (for Public Utility Services) was established under:",opts:["Legal Services Authorities Act 1987","CPC","CrPC","Arbitration Act 1996"],ans:0,topic:"GK · ADR",exp:"Permanent Lok Adalat for Public Utility Services was established under Section 22B-22E of the Legal Services Authorities Act 1987 (inserted by 2002 Amendment).",mem:"🧠 PERMANENT LOK ADALAT = LSA Act 1987. 'SAME family as Lok Adalat — under Legal Services Authorities Act! Permanent = always open!'",wrong:{"B":"CPC = civil courts — not Lok Adalat basis.","C":"CrPC = criminal courts — not Lok Adalat.","D":"Arbitration Act = private dispute resolution — not Lok Adalat."}},
+{id:70,q:"The Juvenile Justice (Care and Protection of Children) Act 2015 treats juveniles aged 16-18 who commit heinous offences as:",opts:["Always adults","Adults only after inquiry by JJB","Cannot be tried at all","Sent to reformatory school only"],ans:1,topic:"GK · JJ Act",exp:"JJ Act 2015: A juvenile between 16-18 years who commits a heinous offence must be assessed by the Juvenile Justice Board, which may decide to try them as an adult.",mem:"🧠 JJ Act 2015: 16-18 + heinous offence → JJB assesses → may try as ADULT. 'JJB decides — not automatic! Assessment first!'",wrong:{"A":"Not always adults — JJB inquiry is mandatory first.","C":"They CAN be tried — as adults if JJB orders.","D":"Reformatory school is for juveniles tried as juveniles, not for adult trial cases."}},
+...getGKQuestions2020().slice(10)
+];}
+
+function getAptitudeQuestions2017() { return getAptitudeQuestions2020(); }
+
 // ============== UI LOGIC ==============
 let currentView = 'home';
 let mockQuestions = [];
@@ -823,7 +1537,7 @@ function showView(view) {
   document.getElementById('examView').style.display = 'none';
   document.getElementById('scorecardView').style.display = 'none';
   document.getElementById('mockView').style.display = 'none';
-  document.getElementById(view).style.display = view === 'examView' ? 'flex' : (view === 'scorecardView' ? 'block' : 'flex');
+  document.getElementById(view).style.display = view === 'examView' ? 'flex' : (view === 'scorecardView' ? 'block' : (view === 'mockView' ? 'flex' : 'flex'));
   currentView = view;
   window.scrollTo(0, 0);
 }
@@ -1082,74 +1796,6 @@ function restartExam() {
   loadExam(currentYear);
 }
 
-// ============== MOCK TEST ==============
-function loadMock() {
-  showView('mockView');
-  document.getElementById('mockSplash').style.display = 'block';
-  document.getElementById('mockQuestionsArea').style.display = 'none';
-}
-
-async function generateMock() {
-  const splash = document.getElementById('mockSplash');
-  splash.innerHTML = `<div style="text-align:center;padding:3rem 1.25rem;">
-    <div class="loader" style="margin:0 auto 1rem;"></div>
-    <div style="font-size:0.9rem;color:var(--text2);">Generating your personalised mock test...<br><span style="font-size:0.75rem;color:var(--text3);font-family:'JetBrains Mono',monospace;">AI analyzing 2018–2020 patterns</span></div>
-  </div>`;
-  
-  try {
-    const prompt = `You are a LAWCET exam expert. Generate exactly 10 multiple choice questions for an AP/TG LAWCET mock test. Follow this strict JSON format only, no other text:
-[
-  {
-    "id": 1,
-    "q": "Question text here?",
-    "opts": ["Option A", "Option B", "Option C", "Option D"],
-    "ans": 0,
-    "topic": "IPC · Topic",
-    "exp": "Explanation of correct answer in 2-3 sentences.",
-    "mem": "🧠 Memory trick or mnemonic for this question.",
-    "wrong": {"A": "Why A wrong", "B": "Why B wrong", "C": "Why C wrong"}
-  }
-]
-Include 5 law questions (IPC, CrPC, Contract Act, Constitution, TPA), 3 GK questions, 2 aptitude/English questions. Make them LAWCET-pattern specific, exam-ready, different from common textbook questions. The "wrong" object should have entries for all incorrect options only.`;
-
-    const response = await fetch(CLAUDE_API, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 3000,
-        messages: [{ role: 'user', content: prompt }]
-      })
-    });
-    
-    const data = await response.json();
-    const text = data.content[0].text;
-    const clean = text.replace(/```json|```/g, '').trim();
-    mockQuestions = JSON.parse(clean);
-    
-    renderMockQuestions();
-  } catch (err) {
-    // Fallback to sample questions
-    mockQuestions = generateFallbackMock();
-    renderMockQuestions();
-  }
-}
-
-function generateFallbackMock() {
-  return [
-    {id:1,q:"Under Section 107 IPC, abetment can be done by which of the following ways?",opts:["Instigation only","Conspiracy only","Intentional aid only","All three: instigation, conspiracy, or aid"],ans:3,topic:"IPC · Abetment",exp:"Section 107 IPC — Abetment can be done by: (a) instigation, (b) engaging in conspiracy, or (c) intentional aid in doing the act.",mem:"🧠 ICA = Instigation + Conspiracy + Aid = ABETMENT! Three ways!",wrong:{"A":"Instigation alone is just one mode of abetment.","B":"Conspiracy alone is just one mode.","C":"Aid alone is just one mode."}},
-    {id:2,q:"The writ of 'Quo Warranto' is issued against:",opts:["Illegal detention","Usurpation of public office","Transfer of case","Violation of fundamental rights"],ans:1,topic:"Constitution · Writs",exp:"Quo Warranto = 'By what authority?' It is issued against a person holding a public office without legal authority.",mem:"🧠 QUO WARRANTO = WHO AUTHORISED YOU? 'What WARRANT do you have for this office?!'",wrong:{"A":"Illegal detention = Habeas Corpus.","C":"Transfer of case is done by High Court under its supervisory jurisdiction.","D":"FR violation = various writs including Article 32."}},
-    {id:3,q:"Under CPC Order 1, a 'necessary party' is one without whom:",opts:["Case cannot be appealed","No effective decree can be passed","No summons can be issued","No evidence can be led"],ans:1,topic:"CPC · Parties",exp:"A necessary party is one in whose absence no effective decree can be passed. Their presence is essential for complete adjudication.",mem:"🧠 NECESSARY PARTY = Essential for EFFECTIVE DECREE. 'Necessary = Cannot proceed without!'",wrong:{"A":"Appeal is not what determines necessary party.","C":"Summons issue is procedural — not related to necessary party concept.","D":"Evidence rules don't determine necessary party status."}},
-    {id:4,q:"The 'Basic Structure' doctrine was propounded in:",opts:["Golaknath case 1967","Kesavananda Bharati case 1973","ADM Jabalpur case 1976","Maneka Gandhi case 1978"],ans:1,topic:"Constitution · Basic Structure",exp:"The Basic Structure doctrine was established by a 13-judge bench in Kesavananda Bharati v. State of Kerala (1973). Parliament cannot destroy the basic structure.",mem:"🧠 BASIC STRUCTURE = KESAVANANDA BHARATI 1973. '13 judges = 1+3=4 = FOUR core values protected!' Most landmark case!",wrong:{"A":"Golaknath 1967 held Parliament cannot amend FRs.","C":"ADM Jabalpur 1976 = habeas corpus case during Emergency.","D":"Maneka Gandhi 1978 = Article 21 expanded."}},
-    {id:5,q:"Under the Muslim Women (Protection of Rights on Divorce) Act 2019, triple talaq is:",opts:["Civil wrong","Void and criminal offence","Permitted","Requires court approval"],ans:1,topic:"Special Laws",exp:"The Muslim Women (Protection of Rights on Marriage) Act 2019 makes triple talaq (talaq-e-biddat) void and criminalises it with up to 3 years imprisonment.",mem:"🧠 Triple Talaq 2019 Act = VOID + CRIMINAL. 'THREE times talaq = THREE years jail post 2019!'",wrong:{"A":"It is not just a civil wrong — it is a criminal offence.","C":"It is specifically prohibited and criminalised.","D":"Court approval is not mentioned — it is simply criminalised."}},
-    {id:6,q:"Who is the first citizen of India?",opts:["Prime Minister","Chief Justice of India","President","Vice-President"],ans:2,topic:"GK · Constitution",exp:"The President of India is the first citizen of India and the constitutional head of the Republic.",mem:"🧠 PRESIDENT = FIRST CITIZEN. 'PREsident = PREfirst! Article 52 says there shall be a President = First citizen!'",wrong:{"A":"PM is the head of government, not first citizen.","B":"CJI heads judiciary — not called first citizen.","D":"VP is second to President."}},
-    {id:7,q:"The Headquarters of SAARC is located in:",opts:["New Delhi","Colombo","Kathmandu","Dhaka"],ans:2,topic:"GK · International",exp:"The SAARC Secretariat is located in Kathmandu, Nepal. SAARC has 8 member countries.",mem:"🧠 SAARC = KATHMANDU. 'South Asian = Nepal's CAPITAL = KATHMANDU hosts SAARC!'",wrong:{"A":"New Delhi = India's capital but not SAARC HQ.","B":"Colombo = Sri Lanka's capital.","D":"Dhaka = Bangladesh's capital."}},
-    {id:8,q:"The maximum age to be appointed as a Judge of Supreme Court of India is:",opts:["62 years","65 years","68 years","No maximum age"],ans:1,topic:"GK · Judiciary",exp:"SC judges hold office until 65 years of age (Article 124(2)). High Court judges retire at 62.",mem:"🧠 SC Judge = 65 years. HC Judge = 62 years. '65-62=3 = SC is 3 levels above HC!' Or: SC=65=SIXTY-FIVE=5+1=6=SC.",wrong:{"A":"62 is HC judges' retirement age.","C":"68 is not a retirement age in Indian judiciary.","D":"There is a maximum age of 65."}},
-    {id:9,q:"Which number is the odd one out: 8, 27, 64, 100, 125",opts:["8","27","64","100"],ans:3,topic:"Aptitude · Number Series",exp:"8=2³, 27=3³, 64=4³, 125=5³ are all perfect cubes. 100=10² is a perfect square but NOT a perfect cube.",mem:"🧠 Cubes: 2³=8, 3³=27, 4³=64, 5³=125. 100=10² = perfect square only, not cube = ODD ONE OUT!",wrong:{"A":"8=2³ — is a perfect cube.","B":"27=3³ — is a perfect cube.","C":"64=4³ — is a perfect cube."}},
-    {id:10,q:"Choose the correct one-word substitution: 'A person who speaks many languages'",opts:["Bilingual","Trilingual","Polyglot","Monolingual"],ans:2,topic:"English · Vocabulary",exp:"Polyglot = a person who speaks or writes several languages. From Greek 'poly' (many) + 'glotta' (tongue/language).",mem:"🧠 POLYGLOT = MANY languages. 'POLY=MANY + GLOT=language (like glossary)!' Bilingual=2, Trilingual=3, Polyglot=many!",wrong:{"A":"Bilingual = speaks 2 languages.","B":"Trilingual = speaks 3 languages.","D":"Monolingual = speaks only 1 language."}}
-  ];
-}
-
 // ======= 2021 QUESTIONS =======
 function getLawQuestions2021() { return [
 {id:1,q:"The three-tier Panchayati Raj system was recommended by which committee?",opts:["Balwant Rai Mehta Committee","Ashok Mehta Committee","L.M. Singhvi Committee","Sarkaria Commission"],ans:0,topic:"Constitutional Law · Panchayati Raj",exp:"The Balwant Rai Mehta Committee (1957) recommended the three-tier Panchayati Raj system: Gram Panchayat, Panchayat Samiti, Zila Parishad.",mem:"🧠 BALWANT RAI MEHTA = THREE TIER Panchayati Raj. 'BALWANT = BALANCE of three tiers! 1957 report.'",wrong:{"B":"Ashok Mehta Committee (1977) recommended two-tier.","C":"L.M. Singhvi Committee recommended constitutional status for Panchayats.","D":"Sarkaria Commission dealt with Centre-State relations."}},
@@ -1291,116 +1937,960 @@ function getGKQuestions2023() { return [
 
 function getAptitudeQuestions2023() { return getAptitudeQuestions2021(); }
 
-function renderMockQuestions() {
-  document.getElementById('mockSplash').style.display = 'none';
-  const area = document.getElementById('mockQuestionsArea');
-  area.style.display = 'block';
-  area.innerHTML = '';
-  
-  let mockAnswers = {};
-  let mockScore = 0;
-  
-  // Score bar
-  const topBar = document.createElement('div');
-  topBar.innerHTML = `<div style="padding:1rem 1.25rem;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--bg2);z-index:50;">
-    <div style="font-size:0.85rem;font-weight:600;">🤖 AI Mock Test</div>
-    <div class="score-badge"><div class="score-val" id="mockScoreVal">0</div><div class="score-label">Score</div></div>
-  </div>`;
-  area.appendChild(topBar);
-  
-  const qContainer = document.createElement('div');
-  qContainer.style.cssText = 'padding:1.25rem;display:flex;flex-direction:column;gap:1.25rem;';
-  
-  mockQuestions.forEach(q => {
-    const card = document.createElement('div');
-    card.className = 'q-card';
-    card.id = 'mqcard-' + q.id;
-    const keysArr = ['A','B','C','D'];
-    const optsHtml = q.opts.map((opt, i) => `
-      <button class="opt-btn" id="mopt-${q.id}-${i}" onclick="selectMockAnswer(${q.id},${i},${q.ans})">
-        <span class="opt-key">${keysArr[i]}</span>
-        <span class="opt-text">${opt}</span>
-      </button>`).join('');
-    card.innerHTML = `
-      <div class="q-header">
-        <div class="q-num" id="mqnum-${q.id}">${q.id}</div>
-        <div class="q-text">${q.q}</div>
-      </div>
-      <div class="q-topic"><span class="tag-law">${q.topic}</span></div>
-      <div class="options-grid">${optsHtml}</div>
-      <div class="explanation" id="mexp-${q.id}">
-        <div class="exp-section correct-ans">
-          <div class="exp-label">✅ Explanation</div>
-          <div class="exp-text">${q.exp}</div>
-        </div>
-        <div class="exp-section memory-box">
-          <div class="exp-label">🧠 Memory Trick</div>
-          <div class="exp-text">${q.mem}</div>
-        </div>
-        <div class="exp-section wrong-opts">
-          <div class="exp-label">❌ Why Others Are Wrong</div>
-          <div class="exp-text">${Object.entries(q.wrong||{}).map(([k,v])=>`<strong>${k}:</strong> ${v}`).join('<br>')}</div>
-        </div>
-      </div>`;
-    qContainer.appendChild(card);
-  });
-  
-  area.appendChild(qContainer);
-  
-  const finishBtn = document.createElement('div');
-  finishBtn.style.cssText = 'padding:0 1.25rem 3rem;';
-  finishBtn.innerHTML = '<button class="btn-primary" style="width:100%" onclick="newMockTest()">🔄 Generate New Mock Test</button><button class="btn-secondary" style="width:100%;margin-top:10px" onclick="goHome()">← Back to Home</button>';
-  area.appendChild(finishBtn);
-  
+// ===========================
+// TIMED MOCK EXAM SYSTEM
+// ===========================
+
+// State
+let mockMode        = 'full';   // full | half | quick | practice
+let mockSources     = ['all'];
+let mockPool        = [];        // shuffled question pool
+let mockAnswersMap  = {};        // { globalIdx: selectedOptIdx }
+let mockSkipped     = new Set(); // globalIdx values
+let mockVisited     = new Set();
+let mockTimerSecs   = 5400;      // 90 min default
+let mockTimerID     = null;
+let mockPracticeAnswered = {};   // for practice mode instant feedback
+let mockCurrentPart = 'A';
+let mockTotalQ      = 120;
+
+// Mode config
+const MOCK_MODES = {
+  full:     { label:'Full Mock',   qs:120, secs:5400 },
+  half:     { label:'Half Mock',   qs:60,  secs:2700 },
+  quick:    { label:'Quick Test',  qs:30,  secs:1320 },
+  practice: { label:'Practice',    qs:120, secs:0    }
+};
+
+function loadMock() {
+  // Stop any running timer
+  clearInterval(mockTimerID);
+  mockTimerID = null;
+
+  // Remove any stray overlays
+  document.querySelectorAll('.timeup-overlay').forEach(el => el.remove());
+  document.getElementById('qPaletteWrap').style.display = 'none';
+  document.getElementById('qPaletteBackdrop').style.display = 'none';
+
+  // Restore timer visibility for next run
+  const timerEl = document.getElementById('mockTimer');
+  if (timerEl) timerEl.style.display = '';
+
+  // Show setup, hide exam + result
+  document.getElementById('mockSetup').style.display = 'flex';
+  document.getElementById('mockExamScreen').style.display = 'none';
+  document.getElementById('mockResultScreen').style.display = 'none';
+  document.getElementById('mockResultScreen').innerHTML = '';
+
+  // Clear questions container to free memory
+  const qc = document.getElementById('mockQuestionsContainer');
+  if (qc) qc.innerHTML = '';
+
+  // Show the mockView itself
+  document.getElementById('mockView').style.display = 'flex';
+
+  // Make sure home/exam/scorecard are hidden
+  document.getElementById('homeView').style.display = 'none';
+  document.getElementById('examView').style.display = 'none';
+  document.getElementById('scorecardView').style.display = 'none';
+
   window.scrollTo(0, 0);
 }
 
-window.selectMockAnswer = function(qId, selectedIdx, correctIdx) {
-  if (document.getElementById('mopt-' + qId + '-0').disabled) return;
-  const isCorrect = selectedIdx === correctIdx;
-  
-  const card = document.getElementById('mqcard-' + qId);
-  if (isCorrect) card.classList.add('answered-correct');
-  else card.classList.add('answered-wrong');
-  
-  const qnum = document.getElementById('mqnum-' + qId);
-  qnum.classList.add(isCorrect ? 'correct' : 'wrong');
-  
-  const question = mockQuestions.find(q => q.id === qId);
-  for (let i = 0; i < 4; i++) {
-    const btn = document.getElementById('mopt-' + qId + '-' + i);
-    btn.disabled = true;
-    if (i === selectedIdx && isCorrect) btn.classList.add('selected-correct');
-    else if (i === selectedIdx && !isCorrect) btn.classList.add('selected-wrong');
-    else if (i === question.ans && !isCorrect) btn.classList.add('reveal-correct');
-  }
-  
-  document.getElementById('mexp-' + qId).classList.add('show');
-  
-  // Update score
-  if (isCorrect) {
-    const sv = document.getElementById('mockScoreVal');
-    sv.textContent = parseInt(sv.textContent) + 1;
-  }
-};
-
-function newMockTest() {
-  document.getElementById('mockQuestionsArea').style.display = 'none';
-  document.getElementById('mockSplash').style.display = 'block';
-  document.getElementById('mockSplash').innerHTML = `
-    <div style="margin:1.5rem 0 1rem;padding:1rem;background:linear-gradient(135deg,rgba(124,106,247,0.1),rgba(6,182,212,0.08));border:1px solid rgba(124,106,247,0.2);border-radius:var(--radius);">
-      <div style="font-size:1.5rem;margin-bottom:0.5rem;">🤖</div>
-      <h2>AI-Generated Mock Test</h2>
-      <p>Based on pattern analysis of 2018, 2019 & 2020 papers. Each session generates fresh questions.</p>
-    </div>
-    <button class="btn-primary" onclick="generateMock()" style="width:100%;margin-top:1.5rem">🚀 Generate New Mock Test (AI)</button>
-    <button class="btn-secondary" onclick="goHome()" style="width:100%;margin-top:10px">← Back to Home</button>`;
+function selectMockMode(mode, el) {
+  mockMode = mode;
+  document.querySelectorAll('.mock-mode-card').forEach(c => { c.classList.remove('selected'); });
+  document.querySelectorAll('.mode-check').forEach(c => { c.textContent = ''; });
+  el.classList.add('selected');
+  document.getElementById('modeCheck-' + mode).textContent = '✓';
 }
+
+function toggleSource(src, el) {
+  if (src === 'all') {
+    // reset all to "all"
+    mockSources = ['all'];
+    document.querySelectorAll('.source-chip').forEach(c => c.classList.remove('active'));
+    el.classList.add('active');
+    return;
+  }
+  // deactivate "all"
+  const allChip = document.querySelector('.source-chip[data-src="all"]');
+  allChip.classList.remove('active');
+  mockSources = mockSources.filter(s => s !== 'all');
+
+  if (el.classList.contains('active')) {
+    el.classList.remove('active');
+    mockSources = mockSources.filter(s => s !== src);
+    if (mockSources.length === 0) { mockSources = ['all']; allChip.classList.add('active'); }
+  } else {
+    el.classList.add('active');
+    mockSources.push(src);
+  }
+}
+
+// Build pool of questions from selected sources, shuffled
+function buildMockPool(targetCount) {
+  const years = ['2025','2024','2023','2022','2021','2020','2019','2018','2017'];
+  const useYears = (mockSources.includes('all')) ? years : mockSources;
+
+  // Gather all questions, tag with year and part
+  const lawPool = [], gkPool = [], aptPool = [];
+  useYears.forEach(yr => {
+    const paper = PAPERS[yr];
+    if (!paper) return;
+    paper.parts['A'].questions.forEach(q => lawPool.push({...q, _year:yr, _part:'A'}));
+    paper.parts['B'].questions.forEach(q => gkPool.push({...q, _year:yr, _part:'B'}));
+    paper.parts['C'].questions.forEach(q => aptPool.push({...q, _year:yr, _part:'C'}));
+  });
+
+  // Shuffle each pool
+  const shuffle = arr => { for(let i=arr.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]]; } return arr; };
+  shuffle(lawPool); shuffle(gkPool); shuffle(aptPool);
+
+  // Proportion: Law 50%, GK 25%, Apt 25%
+  const lawN = Math.round(targetCount * 0.50);
+  const gkN  = Math.round(targetCount * 0.25);
+  const aptN  = targetCount - lawN - gkN;
+
+  const pool = [
+    ...lawPool.slice(0, lawN),
+    ...gkPool.slice(0, gkN),
+    ...aptPool.slice(0, aptN)
+  ];
+
+  // Re-number sequentially
+  pool.forEach((q, i) => { q._idx = i; q._displayId = i + 1; });
+  return pool;
+}
+
+function startMockExam() {
+  const cfg = MOCK_MODES[mockMode];
+  mockTotalQ      = cfg.qs;
+  mockTimerSecs   = cfg.secs;
+  mockAnswersMap  = {};
+  mockSkipped     = new Set();
+  mockVisited     = new Set();
+  mockPracticeAnswered = {};
+  mockCurrentPart = 'A';
+
+  mockPool = buildMockPool(mockTotalQ);
+
+  // Show exam screen
+  document.getElementById('mockSetup').style.display = 'none';
+  document.getElementById('mockExamScreen').style.display = 'flex';
+  document.getElementById('mockExamScreen').style.flexDirection = 'column';
+  document.getElementById('mockResultScreen').style.display = 'none';
+
+  // Determine parts based on pool
+  document.getElementById('mockExamTitle').textContent = cfg.label.toUpperCase() + ' · ' + mockTotalQ + ' QUESTIONS';
+
+  // Build part tabs dynamically
+  rebuildMockPartTabs();
+
+  // Render current part
+  renderMockPart('A');
+
+  // Start timer
+  if (mockMode !== 'practice') {
+    updateTimerDisplay();
+    mockTimerID = setInterval(tickTimer, 1000);
+  } else {
+    document.getElementById('mockTimer').style.display = 'none';
+  }
+
+  updateMockProgress();
+  buildPalette();
+  window.scrollTo(0,0);
+}
+
+function getPart(idx) {
+  // Assign part based on sequential order of pool
+  const lawCount  = Math.round(mockTotalQ * 0.50);
+  const gkCount   = Math.round(mockTotalQ * 0.25);
+  if (idx < lawCount) return 'A';
+  if (idx < lawCount + gkCount) return 'B';
+  return 'C';
+}
+
+function getPartQs(part) {
+  return mockPool.filter(q => {
+    const p = getPart(q._idx);
+    return p === part;
+  });
+}
+
+function rebuildMockPartTabs() {
+  const tabs = document.getElementById('mockPartTabs');
+  tabs.innerHTML = '';
+  const partInfo = {
+    A: { label: 'Part A · Law',     count: getPartQs('A').length },
+    B: { label: 'Part B · GK',      count: getPartQs('B').length },
+    C: { label: 'Part C · Aptitude',count: getPartQs('C').length }
+  };
+  ['A','B','C'].forEach((p,i) => {
+    if (partInfo[p].count === 0) return;
+    const tab = document.createElement('div');
+    tab.className = 'part-tab' + (i === 0 ? ' active' : '');
+    tab.textContent = partInfo[p].label + ' (' + partInfo[p].count + ')';
+    tab.onclick = () => switchMockPart(p, tab);
+    tabs.appendChild(tab);
+  });
+}
+
+function switchMockPart(part, tabEl) {
+  mockCurrentPart = part;
+  document.querySelectorAll('#mockPartTabs .part-tab').forEach(t => t.classList.remove('active'));
+  if (tabEl) tabEl.classList.add('active');
+  renderMockPart(part);
+  document.getElementById('mockQuestionsContainer').scrollTop = 0;
+  window.scrollTo(0,0);
+}
+
+function renderMockPart(part) {
+  const container = document.getElementById('mockQuestionsContainer');
+  container.innerHTML = '';
+  const qs = getPartQs(part);
+  if (!qs.length) { container.innerHTML = '<div style="padding:2rem 1.25rem;text-align:center;color:var(--text3);">No questions in this section.</div>'; return; }
+  qs.forEach(q => container.appendChild(buildMockQCard(q)));
+}
+
+function buildMockQCard(q) {
+  const card = document.createElement('div');
+  card.className = 'q-card';
+  card.id = 'mqcard-' + q._idx;
+
+  const isPractice = mockMode === 'practice';
+  const answered   = mockAnswersMap.hasOwnProperty(q._idx);
+  const skipped    = mockSkipped.has(q._idx);
+
+  if (answered) card.classList.add(mockAnswersMap[q._idx] === q.ans ? 'answered-correct' : 'answered-wrong');
+  if (skipped && !answered)  card.classList.add('skipped-q');
+
+  const keysArr = ['A','B','C','D'];
+  const optsHtml = q.opts.map((opt, i) => {
+    let cls = 'opt-btn';
+    if (answered) {
+      if (i === mockAnswersMap[q._idx] && i === q.ans) cls += ' selected-correct';
+      else if (i === mockAnswersMap[q._idx] && i !== q.ans) cls += ' selected-wrong';
+      else if (i === q.ans && isPractice) cls += ' reveal-correct';
+    }
+    return `<button class="${cls}" id="mqopt-${q._idx}-${i}"
+      onclick="selectTimedMockAnswer(${q._idx},${i},${q.ans})"
+      ${answered ? 'disabled' : ''}>
+      <span class="opt-key">${keysArr[i]}</span>
+      <span class="opt-text">${opt}</span>
+    </button>`;
+  }).join('');
+
+  // Explanation — always shown in practice mode after answer; hidden in timed until results
+  const expDisplay = (isPractice && answered) ? '' : 'exam-mode-hide';
+  const wrongHtml = Object.entries(q.wrong || {}).map(([k,v]) => `<strong>${k}:</strong> ${v}`).join('<br>');
+
+  const qNumCls = answered ? (mockAnswersMap[q._idx] === q.ans ? ' correct' : ' wrong') : (skipped ? ' skipped' : '');
+
+  card.innerHTML = `
+    <div class="q-header">
+      <div class="q-num${qNumCls}" id="mqnum-${q._idx}">${q._displayId}</div>
+      <div class="q-text">${q.q}</div>
+    </div>
+    <div class="q-topic"><span class="tag-law">${q.topic || ''}</span> <span style="font-size:0.6rem;color:var(--text3);font-family:'JetBrains Mono',monospace;">${q._year}</span></div>
+    <div class="options-grid">${optsHtml}</div>
+    ${!answered && !isPractice ? `<button class="skip-btn" id="mqskip-${q._idx}" onclick="skipMockQ(${q._idx})">⏭ Skip for now</button>` : ''}
+    <div class="explanation ${expDisplay}" id="mexpblock-${q._idx}">
+      <div class="exp-section correct-ans">
+        <div class="exp-label">✅ Correct Answer & Explanation</div>
+        <div class="exp-text">${q.exp || ''}</div>
+      </div>
+      <div class="exp-section memory-box">
+        <div class="exp-label">🧠 Memory Trick</div>
+        <div class="exp-text">${q.mem || ''}</div>
+      </div>
+      ${wrongHtml ? `<div class="exp-section wrong-opts">
+        <div class="exp-label">❌ Why Others Are Wrong</div>
+        <div class="exp-text">${wrongHtml}</div>
+      </div>` : ''}
+    </div>`;
+
+  // Show explanation if practice + already answered
+  if (isPractice && answered) {
+    card.querySelector('.explanation').classList.add('show');
+    card.querySelector('.explanation').classList.remove('exam-mode-hide');
+  }
+
+  mockVisited.add(q._idx);
+  return card;
+}
+
+function selectTimedMockAnswer(idx, selectedOpt, correctOpt) {
+  if (mockAnswersMap.hasOwnProperty(idx)) return; // already answered
+
+  const isCorrect = selectedOpt === correctOpt;
+  mockAnswersMap[idx] = selectedOpt;
+  mockSkipped.delete(idx);
+
+  const card = document.getElementById('mqcard-' + idx);
+  if (card) {
+    card.classList.add(isCorrect ? 'answered-correct' : 'answered-wrong');
+    card.classList.remove('skipped-q');
+
+    // Style buttons
+    for (let i = 0; i < 4; i++) {
+      const btn = document.getElementById('mqopt-' + idx + '-' + i);
+      if (!btn) continue;
+      btn.disabled = true;
+      if (i === selectedOpt && isCorrect)       btn.classList.add('selected-correct');
+      else if (i === selectedOpt && !isCorrect)  btn.classList.add('selected-wrong');
+      else if (i === correctOpt && !isCorrect && mockMode === 'practice') btn.classList.add('reveal-correct');
+    }
+
+    // Update q-num badge
+    const qnum = document.getElementById('mqnum-' + idx);
+    if (qnum) { qnum.className = 'q-num ' + (isCorrect ? 'correct' : 'wrong'); }
+
+    // Remove skip button
+    const skipBtn = document.getElementById('mqskip-' + idx);
+    if (skipBtn) skipBtn.remove();
+
+    // Show explanation in practice mode
+    if (mockMode === 'practice') {
+      const expBlock = document.getElementById('mexpblock-' + idx);
+      if (expBlock) { expBlock.classList.remove('exam-mode-hide'); expBlock.classList.add('show'); }
+      // Reveal correct option if wrong
+      if (!isCorrect) {
+        const correctBtn = document.getElementById('mqopt-' + idx + '-' + correctOpt);
+        if (correctBtn) correctBtn.classList.add('reveal-correct');
+      }
+    }
+  }
+
+  // Update palette button
+  updatePaletteBtnState(idx, 'pal-ans');
+  updateMockProgress();
+}
+
+function skipMockQ(idx) {
+  if (mockAnswersMap.hasOwnProperty(idx)) return;
+  mockSkipped.add(idx);
+
+  const card = document.getElementById('mqcard-' + idx);
+  if (card) card.classList.add('skipped-q');
+  const qnum = document.getElementById('mqnum-' + idx);
+  if (qnum) qnum.classList.add('skipped');
+  const skipBtn = document.getElementById('mqskip-' + idx);
+  if (skipBtn) skipBtn.style.display = 'none';
+
+  updatePaletteBtnState(idx, 'pal-skip');
+  updateMockProgress();
+}
+
+// ─── Timer ────────────────────────────────────────────────────────────────────
+function tickTimer() {
+  if (mockTimerSecs <= 0) {
+    clearInterval(mockTimerID);
+    showTimeUp();
+    return;
+  }
+  mockTimerSecs--;
+  updateTimerDisplay();
+}
+
+function updateTimerDisplay() {
+  const m = Math.floor(mockTimerSecs / 60);
+  const s = mockTimerSecs % 60;
+  const display = String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
+  const el = document.getElementById('mockTimerVal');
+  const wrap = document.getElementById('mockTimer');
+  if (el) el.textContent = display;
+  if (wrap) {
+    wrap.classList.remove('warning','danger');
+    if (mockTimerSecs <= 300)      wrap.classList.add('danger');
+    else if (mockTimerSecs <= 900) wrap.classList.add('warning');
+  }
+}
+
+function showTimeUp() {
+  const overlay = document.createElement('div');
+  overlay.className = 'timeup-overlay';
+  overlay.innerHTML = `
+    <div class="timeup-box">
+      <div style="font-size:3rem;margin-bottom:0.75rem;">⏰</div>
+      <h2 style="font-size:1.2rem;font-weight:700;margin-bottom:0.5rem;">Time's Up!</h2>
+      <p style="color:var(--text2);font-size:0.85rem;margin-bottom:1.5rem;">Your 90-minute exam has ended. Your answers have been saved.</p>
+      <button class="btn-primary" style="width:100%" onclick="this.closest('.timeup-overlay').remove(); clearInterval(mockTimerID); showMockResults();">📊 See Results</button>
+    </div>`;
+  document.body.appendChild(overlay);
+}
+
+// ─── Palette ─────────────────────────────────────────────────────────────────
+function buildPalette() {
+  const pal = document.getElementById('qPalette');
+  pal.innerHTML = '';
+  mockPool.forEach((q, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'q-pal-btn';
+    btn.id = 'qpalBtn-' + i;
+    btn.textContent = q._displayId;
+    btn.onclick = () => { closePalette(); scrollToMockQ(i); };
+    pal.appendChild(btn);
+  });
+}
+
+function updatePaletteBtnState(idx, cls) {
+  const btn = document.getElementById('qpalBtn-' + idx);
+  if (!btn) return;
+  btn.classList.remove('pal-ans','pal-skip','pal-curr');
+  btn.classList.add(cls);
+}
+
+function openPalette() {
+  // Refresh all states
+  mockPool.forEach(q => {
+    const btn = document.getElementById('qpalBtn-' + q._idx);
+    if (!btn) return;
+    btn.classList.remove('pal-ans','pal-skip','pal-curr');
+    if (mockAnswersMap.hasOwnProperty(q._idx)) btn.classList.add('pal-ans');
+    else if (mockSkipped.has(q._idx))           btn.classList.add('pal-skip');
+  });
+  document.getElementById('qPaletteWrap').style.display = 'block';
+  document.getElementById('qPaletteBackdrop').style.display = 'block';
+}
+function closePalette() {
+  document.getElementById('qPaletteWrap').style.display = 'none';
+  document.getElementById('qPaletteBackdrop').style.display = 'none';
+}
+
+function scrollToMockQ(idx) {
+  const q = mockPool[idx];
+  const part = getPart(q._idx);
+  if (part !== mockCurrentPart) {
+    const tabs = document.querySelectorAll('#mockPartTabs .part-tab');
+    const partOrder = ['A','B','C'];
+    const tabIdx = partOrder.indexOf(part);
+    if (tabs[tabIdx]) switchMockPart(part, tabs[tabIdx]);
+  }
+  setTimeout(() => {
+    const card = document.getElementById('mqcard-' + idx);
+    if (card) card.scrollIntoView({ behavior:'smooth', block:'start' });
+  }, 100);
+}
+
+// ─── Progress ────────────────────────────────────────────────────────────────
+function updateMockProgress() {
+  const answered = Object.keys(mockAnswersMap).length;
+  const skipped  = mockSkipped.size;
+  const total    = mockTotalQ;
+  const pct      = Math.round((answered / total) * 100);
+
+  const correct = Object.entries(mockAnswersMap).filter(([idx, sel]) => {
+    const q = mockPool[parseInt(idx)];
+    return q && sel === q.ans;
+  }).length;
+
+  const bar   = document.getElementById('mockProgressBar');
+  const label = document.getElementById('mockProgressLabel');
+  const score = document.getElementById('mockScoreLive');
+  const bAns  = document.getElementById('mockBottomAns');
+  const bSkip = document.getElementById('mockBottomSkip');
+
+  if (bar)   bar.style.width = pct + '%';
+  if (label) label.textContent = answered + '/' + total;
+  if (score) score.textContent = 'Score: ' + correct;
+  if (bAns)  bAns.textContent  = answered + ' answered';
+  if (bSkip) bSkip.textContent = skipped  + ' skipped';
+}
+
+// ─── Confirm exit ─────────────────────────────────────────────────────────────
+function confirmMockExit() {
+  // Use custom modal — native confirm() is blocked on many mobile browsers
+  const overlay = document.createElement('div');
+  overlay.className = 'timeup-overlay';
+  overlay.id = 'exitConfirmOverlay';
+  overlay.innerHTML = `
+    <div class="timeup-box">
+      <div style="font-size:2.5rem;margin-bottom:0.75rem;">🚪</div>
+      <h2 style="font-size:1.1rem;font-weight:700;margin-bottom:0.5rem;">Exit Mock Exam?</h2>
+      <p style="color:var(--text2);font-size:0.82rem;margin-bottom:1.5rem;line-height:1.5;">Your progress and timer will be lost. You can start a new mock any time.</p>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <button class="btn-primary" style="background:linear-gradient(135deg,var(--red),#f97316);" onclick="doExitMock()">Yes, Exit</button>
+        <button class="btn-secondary" onclick="document.getElementById('exitConfirmOverlay').remove()">Cancel — Continue Exam</button>
+      </div>
+    </div>`;
+  document.body.appendChild(overlay);
+}
+
+function doExitMock() {
+  // Remove overlay
+  const ov = document.getElementById('exitConfirmOverlay');
+  if (ov) ov.remove();
+  // Stop timer
+  clearInterval(mockTimerID);
+  mockTimerID = null;
+  // Remove any time-up overlays
+  document.querySelectorAll('.timeup-overlay').forEach(el => el.remove());
+  // Go back to mock setup
+  loadMock();
+}
+
+// ─── Submit ───────────────────────────────────────────────────────────────────
+function submitMockExam() {
+  const answered   = Object.keys(mockAnswersMap).length;
+  const skipped    = mockSkipped.size;
+  const unattempted = mockTotalQ - answered - skipped;
+
+  const overlay = document.createElement('div');
+  overlay.className = 'timeup-overlay';
+  overlay.id = 'submitConfirmOverlay';
+  overlay.innerHTML = `
+    <div class="timeup-box">
+      <div style="font-size:2.5rem;margin-bottom:0.75rem;">📋</div>
+      <h2 style="font-size:1.1rem;font-weight:700;margin-bottom:0.75rem;">Submit Exam?</h2>
+      <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:0.85rem;margin-bottom:1.25rem;text-align:left;">
+        <div style="display:flex;justify-content:space-between;padding:4px 0;font-size:0.82rem;"><span style="color:var(--green2);">✅ Answered</span><span style="font-family:'JetBrains Mono',monospace;font-weight:700;">${answered}</span></div>
+        <div style="display:flex;justify-content:space-between;padding:4px 0;font-size:0.82rem;border-top:1px solid var(--border);"><span style="color:var(--gold2);">⏭ Skipped</span><span style="font-family:'JetBrains Mono',monospace;font-weight:700;">${skipped}</span></div>
+        <div style="display:flex;justify-content:space-between;padding:4px 0;font-size:0.82rem;border-top:1px solid var(--border);"><span style="color:var(--text3);">⬜ Unattempted</span><span style="font-family:'JetBrains Mono',monospace;font-weight:700;">${unattempted}</span></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <button class="btn-primary" onclick="doSubmitMock()">Submit & See Results →</button>
+        <button class="btn-secondary" onclick="document.getElementById('submitConfirmOverlay').remove()">Continue Exam</button>
+      </div>
+    </div>`;
+  document.body.appendChild(overlay);
+}
+
+function doSubmitMock() {
+  const ov = document.getElementById('submitConfirmOverlay');
+  if (ov) ov.remove();
+  clearInterval(mockTimerID);
+  mockTimerID = null;
+  showMockResults();
+}
+
+// ─── Results ─────────────────────────────────────────────────────────────────
+function showMockResults() {
+  document.getElementById('mockExamScreen').style.display = 'none';
+  document.getElementById('mockResultScreen').style.display = 'block';
+  document.getElementById('mockResultScreen').innerHTML = buildMockResultHTML();
+  window.scrollTo(0,0);
+  // Animate score ring
+  setTimeout(() => {
+    const ring = document.getElementById('resultRingCircle');
+    if (!ring) return;
+    const total   = mockTotalQ;
+    const correct = Object.entries(mockAnswersMap).filter(([idx,sel]) => {
+      const q = mockPool[parseInt(idx)]; return q && sel === q.ans;
+    }).length;
+    ring.style.strokeDashoffset = 314 - (correct/total) * 314;
+  }, 150);
+}
+
+function buildMockResultHTML() {
+  const total    = mockTotalQ;
+  const answered = Object.keys(mockAnswersMap).length;
+  const correct  = Object.entries(mockAnswersMap).filter(([idx,sel]) => {
+    const q = mockPool[parseInt(idx)]; return q && sel === q.ans;
+  }).length;
+  const wrong    = answered - correct;
+  const skipped  = mockSkipped.size;
+  const unatt    = total - answered - skipped;
+  const pct      = Math.round((correct / total) * 100);
+  const circumf  = 314;
+  const offset   = circumf - (pct / 100 * circumf);
+
+  // Part-wise breakdown
+  const partData = { A:{ name:'Part A — Law', cor:0, total:0 }, B:{ name:'Part B — GK', cor:0, total:0 }, C:{ name:'Part C — Aptitude', cor:0, total:0 } };
+  mockPool.forEach(q => {
+    const p = getPart(q._idx);
+    partData[p].total++;
+    if (mockAnswersMap.hasOwnProperty(q._idx) && mockAnswersMap[q._idx] === q.ans) partData[p].cor++;
+  });
+  const partBarsHTML = ['A','B','C'].map(p => {
+    const d = partData[p];
+    const pp = d.total ? Math.round((d.cor/d.total)*100) : 0;
+    return `<div class="result-part-row">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+        <div style="font-size:0.82rem;font-weight:600;">${d.name}</div>
+        <div style="font-size:0.82rem;font-family:'JetBrains Mono',monospace;color:var(--accent2);">${d.cor}/${d.total}</div>
+      </div>
+      <div class="mini-bar"><div class="mini-bar-fill" style="width:${pp}%"></div></div>
+      <div style="font-size:0.68rem;color:var(--text3);margin-top:4px;">${pp}% accuracy</div>
+    </div>`;
+  }).join('');
+
+  // Performance message
+  let emoji, msg, sub;
+  if (pct>=90){emoji='🏆';msg='Outstanding!';sub='LAWCET Champion! You are fully exam-ready!';}
+  else if(pct>=75){emoji='🎯';msg='Excellent!';sub='Strong performance. Keep this up!';}
+  else if(pct>=60){emoji='📈';msg='Good Effort!';sub='Above average. Focus on weak areas!';}
+  else if(pct>=40){emoji='💪';msg='Keep Going!';sub='Regular practice will boost your score!';}
+  else{emoji='📚';msg='More Study Needed';sub='Revisit concepts and practise daily!';}
+
+  // Config label
+  const cfg = MOCK_MODES[mockMode];
+  const srcLabel = mockSources.includes('all') ? 'All Years' : mockSources.join(', ');
+
+  return `
+  <div class="mock-result-topbar">
+    <button class="back-btn" onclick="loadMock()">← New Test</button>
+    <div style="font-size:0.7rem;font-family:'JetBrains Mono',monospace;color:var(--text3);">${cfg.label} · ${srcLabel}</div>
+  </div>
+  <div class="result-hero">
+    <div class="result-ring-wrap">
+      <svg width="130" height="130" viewBox="0 0 130 130">
+        <circle cx="65" cy="65" r="54" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="11"/>
+        <circle cx="65" cy="65" r="54" fill="none" stroke="url(#rg1)" stroke-width="11" stroke-linecap="round"
+          stroke-dasharray="${circumf}" stroke-dashoffset="${circumf}"
+          id="resultRingCircle" style="transition:stroke-dashoffset 1.2s ease;"/>
+        <defs><linearGradient id="rg1" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#7c6af7"/>
+          <stop offset="100%" stop-color="#06b6d4"/>
+        </linearGradient></defs>
+      </svg>
+      <div class="result-ring-center">
+        <div class="result-big">${correct}/${total}</div>
+        <div class="result-pct">${pct}%</div>
+      </div>
+    </div>
+    <div style="font-size:2rem;margin-bottom:0.4rem;">${emoji}</div>
+    <h2 style="font-size:1.3rem;font-weight:700;">${msg}</h2>
+    <p style="color:var(--text2);font-size:0.85rem;margin-top:0.4rem;">${sub}</p>
+  </div>
+
+  <div class="result-stats-grid">
+    <div class="result-stat result-correct"><div class="result-stat-num">${correct}</div><div class="result-stat-label">✅ Correct</div></div>
+    <div class="result-stat result-wrong"><div class="result-stat-num">${wrong}</div><div class="result-stat-label">❌ Wrong</div></div>
+    <div class="result-stat result-skipped"><div class="result-stat-num">${skipped + unatt}</div><div class="result-stat-label">⬜ Skipped</div></div>
+  </div>
+
+  <div class="result-part-bars">${partBarsHTML}</div>
+
+  <!-- Review section -->
+  <div class="result-review-section">
+    <div class="result-review-toggle" onclick="toggleMockReview(this)">
+      <div>
+        <div style="font-size:0.88rem;font-weight:600;">📋 Full Review with Answers</div>
+        <div style="font-size:0.72rem;color:var(--text2);margin-top:2px;">All ${total} questions with explanations & memory tips</div>
+      </div>
+      <div style="color:var(--text3);">▼</div>
+    </div>
+    <div id="mockReviewBody" style="display:none;"></div>
+  </div>
+
+  <div style="padding:1.5rem 1.25rem;display:flex;flex-direction:column;gap:10px;">
+    <button class="btn-primary" onclick="startMockExam()">🔄 Retake (New Shuffle)</button>
+    <button class="btn-secondary" onclick="loadMock()">⚙️ Change Mode / Source</button>
+    <button class="btn-secondary" onclick="goHome()">← Back to Home</button>
+  </div>`;
+}
+
+function toggleMockReview(headerEl) {
+  const body = document.getElementById('mockReviewBody');
+  if (body.style.display === 'none') {
+    body.style.display = 'block';
+    headerEl.querySelector('div:last-child').textContent = '▲';
+    if (!body.innerHTML) renderMockReviewBody(body);
+  } else {
+    body.style.display = 'none';
+    headerEl.querySelector('div:last-child').textContent = '▼';
+  }
+}
+
+function renderMockReviewBody(container) {
+  const keys = ['A','B','C','D'];
+  mockPool.forEach(q => {
+    const userAns  = mockAnswersMap.hasOwnProperty(q._idx) ? mockAnswersMap[q._idx] : -1;
+    const isCorrect = userAns === q.ans;
+    const wasSkipped = mockSkipped.has(q._idx) || userAns === -1;
+    const div = document.createElement('div');
+    div.className = 'review-q' + (wasSkipped ? '' : isCorrect ? ' rc' : ' rw');
+    div.style.marginBottom = '10px';
+    const wrongHtml = Object.entries(q.wrong||{}).map(([k,v]) => `<strong>${k}:</strong> ${v}`).join('<br>');
+    div.innerHTML = `
+      <div class="review-q-num">Q${q._displayId} · ${q._year} · ${q.topic || ''}</div>
+      <div class="review-q-text">${q.q}</div>
+      <div class="review-ans" style="gap:6px;flex-wrap:wrap;">
+        ${wasSkipped ? '<span class="ans-chip" style="background:rgba(245,158,11,0.12);color:var(--gold2);">⬜ Skipped</span>' :
+          (isCorrect ? '<span class="ans-chip correct">✅ Correct</span>' : `<span class="ans-chip wrong">❌ Your answer: ${keys[userAns]}) ${q.opts[userAns]}</span>`)}
+        <span class="ans-chip correct" style="margin-left:2px;">✅ ${keys[q.ans]}) ${q.opts[q.ans]}</span>
+      </div>
+      <div class="review-exp">${q.exp || ''}</div>
+      <div class="review-mem">${q.mem || ''}</div>
+      ${wrongHtml ? `<div style="font-size:0.75rem;color:var(--text3);margin-top:6px;padding:6px 8px;background:rgba(239,68,68,0.05);border-radius:6px;border-left:2px solid rgba(239,68,68,0.3);">${wrongHtml}</div>` : ''}`;
+    container.appendChild(div);
+  });
+
+  // Animate ring after DOM paint
+  setTimeout(() => {
+    const ring = document.getElementById('resultRingCircle');
+    if (ring) {
+      const total = mockTotalQ;
+      const correct = Object.entries(mockAnswersMap).filter(([idx,sel]) => {
+        const q = mockPool[parseInt(idx)]; return q && sel === q.ans;
+      }).length;
+      const pct = correct / total;
+      ring.style.strokeDashoffset = 314 - pct * 314;
+    }
+  }, 200);
+}
+
+// Animate ring on result render
+setTimeout(() => {
+  const ring = document.getElementById('resultRingCircle');
+  if (ring) ring.style.strokeDashoffset = 314;
+}, 100);
+
+function newMockTest() { loadMock(); }
+
+// ─── Legacy AI mock (kept for the AI-generate feature) ────────────────────────
+async function generateMock() { /* Legacy - now using pool */ startMockExam(); }
+function renderMockQuestions() {}
+
+window.selectMockAnswer = function() {};
+
 
 // Init
 document.getElementById('scorecardView').style.display = 'none';
 document.getElementById('examView').style.display = 'none';
 document.getElementById('mockView').style.display = 'none';
+
+// ===========================
+// SEARCH FEATURE
+// ===========================
+
+let searchFilter = 'all';
+let searchDebounceTimer = null;
+
+// Build flat index of ALL questions across all papers
+function buildSearchIndex() {
+  const index = [];
+  const years = ['2025','2024','2023','2022','2021','2020','2019','2018','2017'];
+  years.forEach(yr => {
+    const paper = PAPERS[yr];
+    if (!paper) return;
+    ['A','B','C'].forEach(part => {
+      const qs = paper.parts[part].questions;
+      qs.forEach(q => {
+        index.push({
+          year: yr,
+          part: part,
+          id: q.id,
+          q: q.q,
+          opts: q.opts,
+          ans: q.ans,
+          topic: q.topic || '',
+          exp: q.exp || '',
+          mem: q.mem || '',
+          wrong: q.wrong || {}
+        });
+      });
+    });
+  });
+  return index;
+}
+
+let _searchIndex = null;
+function getSearchIndex() {
+  if (!_searchIndex) _searchIndex = buildSearchIndex();
+  return _searchIndex;
+}
+
+function openSearch() {
+  document.getElementById('searchOverlay').classList.add('open');
+  setTimeout(() => document.getElementById('searchInput').focus(), 350);
+  document.body.style.overflow = 'hidden';
+}
+function closeSearch() {
+  document.getElementById('searchOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+// Close on escape key
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeSearch();
+});
+
+function clearSearch() {
+  const inp = document.getElementById('searchInput');
+  inp.value = '';
+  inp.focus();
+  document.getElementById('searchClear').style.display = 'none';
+  showSearchHome();
+}
+
+function setFilter(f, el) {
+  searchFilter = f;
+  document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  const query = document.getElementById('searchInput').value.trim();
+  if (query.length >= 2) runSearch(query);
+}
+
+function quickSearch(term) {
+  const inp = document.getElementById('searchInput');
+  inp.value = term;
+  document.getElementById('searchClear').style.display = 'block';
+  runSearch(term);
+}
+
+function onSearchInput(val) {
+  document.getElementById('searchClear').style.display = val ? 'block' : 'none';
+  clearTimeout(searchDebounceTimer);
+  if (!val.trim()) { showSearchHome(); return; }
+  if (val.trim().length < 2) return;
+  searchDebounceTimer = setTimeout(() => runSearch(val.trim()), 180);
+}
+
+function showSearchHome() {
+  document.getElementById('searchHomeState').style.display = 'block';
+  document.getElementById('searchResults').style.display = 'none';
+}
+
+function highlight(text, query) {
+  if (!query || !text) return escHtml(text || '');
+  const escaped = escHtml(text);
+  const words = query.trim().split(/\s+/).filter(w => w.length > 1);
+  if (!words.length) return escaped;
+  const pattern = words.map(w => w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|');
+  const re = new RegExp('(' + pattern + ')', 'gi');
+  return escaped.replace(re, '<mark>$1</mark>');
+}
+
+function escHtml(s) {
+  return String(s)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function scoreMatch(item, terms) {
+  let score = 0;
+  const fields = [
+    { text: item.q,                  weight: 10 },
+    { text: item.topic,              weight: 7  },
+    { text: item.opts.join(' '),     weight: 5  },
+    { text: item.exp,                weight: 4  },
+    { text: item.mem,                weight: 3  },
+    { text: Object.values(item.wrong||{}).join(' '), weight: 2 }
+  ];
+  terms.forEach(term => {
+    const tl = term.toLowerCase();
+    fields.forEach(f => {
+      if (f.text && f.text.toLowerCase().includes(tl)) score += f.weight;
+    });
+  });
+  return score;
+}
+
+function runSearch(query) {
+  const index = getSearchIndex();
+  document.getElementById('searchHomeState').style.display = 'none';
+  const resultsEl = document.getElementById('searchResults');
+  resultsEl.style.display = 'block';
+  resultsEl.innerHTML = '';
+
+  const terms = query.trim().split(/\s+/).filter(w => w.length > 1);
+  if (!terms.length) { showSearchHome(); return; }
+
+  // Filter by year/part
+  let pool = index;
+  if (searchFilter !== 'all') {
+    if (['A','B','C'].includes(searchFilter)) {
+      pool = index.filter(item => item.part === searchFilter);
+    } else {
+      pool = index.filter(item => item.year === searchFilter);
+    }
+  }
+
+  // Score and sort
+  const scored = pool
+    .map(item => ({ item, score: scoreMatch(item, terms) }))
+    .filter(x => x.score > 0)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 40);
+
+  // Build meta bar
+  const meta = document.createElement('div');
+  meta.className = 'search-meta';
+  meta.innerHTML = scored.length
+    ? `<span>${scored.length} result${scored.length !== 1 ? 's' : ''} for <strong style="color:var(--text)">"${escHtml(query)}"</strong></span><span>${pool.length} searched</span>`
+    : '';
+  resultsEl.appendChild(meta);
+
+  if (!scored.length) {
+    resultsEl.innerHTML += `<div class="no-results">
+      <div class="no-results-icon">🔍</div>
+      <h3>No results found</h3>
+      <p>Try different keywords, check spelling, or search for a section number, law name, or topic.</p>
+      <div class="search-suggestions" style="text-align:left;margin-top:1.5rem;">
+        <div class="suggest-label">Try these instead</div>
+        <div class="suggest-chips">
+          <span class="suggest-chip" onclick="quickSearch('murder')">murder</span>
+          <span class="suggest-chip" onclick="quickSearch('bail')">bail</span>
+          <span class="suggest-chip" onclick="quickSearch('contract')">contract</span>
+          <span class="suggest-chip" onclick="quickSearch('Article 21')">Article 21</span>
+        </div>
+      </div>
+    </div>`;
+    return;
+  }
+
+  const keys = ['A','B','C','D'];
+  scored.forEach(({ item }) => {
+    const card = document.createElement('div');
+    card.className = 'sr-card';
+    card.dataset.expanded = 'false';
+
+    const partLabel = item.part === 'A' ? 'Law' : item.part === 'B' ? 'GK' : 'Aptitude';
+
+    const optsHtml = item.opts.map((opt, i) => {
+      const isCorrect = i === item.ans;
+      return `<div class="sr-opt ${isCorrect ? 'correct-opt' : ''}">
+        <span class="sr-opt-key">${keys[i]}</span>
+        <span class="sr-opt-text">${isCorrect ? '<strong>' : ''}${highlight(opt, query)}${isCorrect ? '</strong>' : ''}</span>
+      </div>`;
+    }).join('');
+
+    const wrongHtml = Object.entries(item.wrong || {}).map(([k,v]) =>
+      `<span style="color:var(--text3);font-weight:600;">${escHtml(k)}:</span> ${highlight(v, query)}`
+    ).join('<br>');
+
+    card.innerHTML = `
+      <div class="sr-card-head">
+        <div class="sr-qnum">Q${item.id}</div>
+        <div style="flex:1;">
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">
+            <span class="sr-year-tag">${item.year} · ${partLabel}</span>
+          </div>
+          <div class="sr-q-text">${highlight(item.q, query)}</div>
+        </div>
+      </div>
+      <div class="sr-topic">${escHtml(item.topic)}</div>
+      <div class="sr-options">${optsHtml}</div>
+      <button class="sr-expand-btn" onclick="toggleSRCard(this)">
+        <span class="sr-expand-label">📖 Explanation · 🧠 Memory Tip · ❌ Wrong Options</span>
+        <span class="sr-expand-arrow">▼</span>
+      </button>
+      <div class="sr-details">
+        <div class="sr-det-block sr-exp">
+          <div class="sr-det-label">✅ Explanation</div>
+          <div class="sr-det-text sr-exp-text">${highlight(item.exp, query)}</div>
+        </div>
+        <div class="sr-det-block sr-mem-block">
+          <div class="sr-det-label">🧠 Memory Trick</div>
+          <div class="sr-det-text sr-mem">${highlight(item.mem, query)}</div>
+        </div>
+        ${wrongHtml ? `<div class="sr-det-block sr-wrong-block">
+          <div class="sr-det-label">❌ Why Others Are Wrong</div>
+          <div class="sr-det-text">${wrongHtml}</div>
+        </div>` : ''}
+      </div>`;
+
+    resultsEl.appendChild(card);
+  });
+}
+
+function toggleSRCard(btn) {
+  const card = btn.closest('.sr-card');
+  card.classList.toggle('expanded');
+}
+
 </script>
 </body>
 </html>

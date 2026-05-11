@@ -1,0 +1,1593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AP LAWCET 2026 — Complete Paper Discussion Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════
+   GLOBAL RESET & TOKENS
+═══════════════════════════════════════════ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'Source Serif 4', Georgia, serif;
+
+  /* Module accent colors */
+  --m1: #b5451b;   /* GK — burnt sienna */
+  --m2: #1a6b9e;   /* Mental — steel blue */
+  --m3: #2e7d32;   /* Current Affairs — forest green */
+  --m4: #5c2d6e;   /* Legal — deep purple */
+
+  --ink: #12100e;
+  --paper: #fdf8f0;
+  --surface: #ffffff;
+  --muted: #7a6a58;
+  --rule: #e0d4c0;
+  --gold: #c9942a;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.8;
+  min-height: 100vh;
+}
+
+/* ═══════════════════════════════════════════
+   MASTHEAD
+═══════════════════════════════════════════ */
+.masthead {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.masthead-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 52px 48px 40px;
+  position: relative;
+  z-index: 2;
+}
+
+/* decorative rule lines */
+.masthead::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--m1), var(--m2), var(--m3), var(--m4));
+}
+
+.masthead-eyebrow {
+  font-size: 11px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.masthead-eyebrow::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: rgba(255,255,255,0.12);
+  max-width: 200px;
+}
+
+.masthead h1 {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 5.5vw, 68px);
+  font-weight: 900;
+  line-height: 1.0;
+  letter-spacing: -1px;
+  margin-bottom: 12px;
+}
+
+.masthead h1 em {
+  font-style: italic;
+  color: rgba(253,248,240,0.45);
+  font-weight: 700;
+}
+
+.masthead-sub {
+  font-size: 15px;
+  color: rgba(253,248,240,0.55);
+  max-width: 560px;
+  line-height: 1.6;
+  margin-top: 10px;
+}
+
+.masthead-meta {
+  margin-top: 28px;
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.meta-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 20px;
+  padding: 5px 14px;
+  font-size: 12px;
+  color: rgba(253,248,240,0.65);
+  letter-spacing: 0.5px;
+}
+
+.meta-pill .dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* decorative background text */
+.masthead-bg-text {
+  position: absolute;
+  right: -20px; bottom: -30px;
+  font-family: var(--font-display);
+  font-size: 180px;
+  font-weight: 900;
+  color: rgba(255,255,255,0.025);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+  z-index: 1;
+}
+
+/* ═══════════════════════════════════════════
+   TAB NAVIGATION
+═══════════════════════════════════════════ */
+.tab-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--ink);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.25);
+}
+
+.tab-nav-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.tab-nav-inner::-webkit-scrollbar { display: none; }
+
+.tab-btn {
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: rgba(253,248,240,0.4);
+  font-family: var(--font-body);
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 18px 28px 16px;
+  position: relative;
+  transition: color 0.25s;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap;
+}
+
+.tab-btn .tab-num {
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 700;
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.4);
+  transition: all 0.25s;
+  flex-shrink: 0;
+}
+
+.tab-btn::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 3px;
+  border-radius: 3px 3px 0 0;
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+
+.tab-btn:hover { color: rgba(253,248,240,0.75); }
+
+.tab-btn.active { color: var(--paper); }
+.tab-btn.active .tab-num { color: white; }
+.tab-btn.active::after { opacity: 1; }
+
+/* Per-module active colors */
+.tab-btn[data-mod="1"]::after { background: var(--m1); }
+.tab-btn[data-mod="1"].active .tab-num { background: var(--m1); }
+.tab-btn[data-mod="2"]::after { background: var(--m2); }
+.tab-btn[data-mod="2"].active .tab-num { background: var(--m2); }
+.tab-btn[data-mod="3"]::after { background: var(--m3); }
+.tab-btn[data-mod="3"].active .tab-num { background: var(--m3); }
+.tab-btn[data-mod="4"]::after { background: var(--m4); }
+.tab-btn[data-mod="4"].active .tab-num { background: var(--m4); }
+
+/* progress bar */
+.progress-bar {
+  height: 2px;
+  background: rgba(255,255,255,0.05);
+  position: relative;
+}
+.progress-fill {
+  height: 100%;
+  width: 25%;
+  background: linear-gradient(90deg, var(--m1), var(--m2));
+  transition: width 0.4s ease, background 0.4s ease;
+}
+
+/* ═══════════════════════════════════════════
+   MODULE PANELS
+═══════════════════════════════════════════ */
+.module-panel {
+  display: none;
+  animation: fadeUp 0.35s ease both;
+}
+.module-panel.active { display: block; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Module hero banners */
+.mod-hero {
+  padding: 44px 48px 36px;
+  position: relative;
+  overflow: hidden;
+  color: white;
+}
+
+.mod-hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(0,0,0,0.35) 0%, transparent 70%);
+}
+
+.mod1 .mod-hero { background: linear-gradient(135deg, #7a2a0e 0%, #b5451b 100%); }
+.mod2 .mod-hero { background: linear-gradient(135deg, #0d3a5c 0%, #1a6b9e 100%); }
+.mod3 .mod-hero { background: linear-gradient(135deg, #1a4a1e 0%, #2e7d32 100%); }
+.mod4 .mod-hero { background: linear-gradient(135deg, #2d1040 0%, #5c2d6e 100%); }
+
+.mod-hero-inner { position: relative; z-index: 2; max-width: 700px; }
+
+.mod-hero-badge {
+  display: inline-block;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 16px;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 4px 14px;
+  margin-bottom: 14px;
+  color: rgba(255,255,255,0.8);
+}
+
+.mod-hero h2 {
+  font-family: var(--font-display);
+  font-size: clamp(26px, 4vw, 46px);
+  font-weight: 900;
+  line-height: 1.08;
+  margin-bottom: 10px;
+}
+
+.mod-hero-desc {
+  font-size: 15px;
+  color: rgba(255,255,255,0.65);
+  max-width: 540px;
+  line-height: 1.6;
+}
+
+.mod-hero-stamp {
+  position: absolute;
+  right: 48px; top: 50%; transform: translateY(-50%);
+  font-family: var(--font-display);
+  font-size: 90px;
+  font-weight: 900;
+  opacity: 0.06;
+  line-height: 1;
+  pointer-events: none;
+}
+
+/* ═══════════════════════════════════════════
+   CONTENT LAYOUT
+═══════════════════════════════════════════ */
+.mod-body {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 52px 48px 80px;
+}
+
+/* Section dividers */
+.mod-section {
+  margin-bottom: 56px;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 4px;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.section-label {
+  font-family: var(--font-body);
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-weight: 400;
+  margin-bottom: 6px;
+}
+
+.section-rule {
+  height: 2px;
+  background: var(--rule);
+  margin-bottom: 24px;
+  position: relative;
+}
+
+.section-rule::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 48px;
+}
+
+.mod1 .section-label { color: var(--m1); }
+.mod1 .section-rule::before { background: var(--m1); }
+.mod2 .section-label { color: var(--m2); }
+.mod2 .section-rule::before { background: var(--m2); }
+.mod3 .section-label { color: var(--m3); }
+.mod3 .section-rule::before { background: var(--m3); }
+.mod4 .section-label { color: var(--m4); }
+.mod4 .section-rule::before { background: var(--m4); }
+
+p { margin-bottom: 14px; }
+
+/* ═══════════════════════════════════════════
+   SHARED COMPONENTS
+═══════════════════════════════════════════ */
+
+/* Info box */
+.info-box {
+  border-radius: 8px;
+  padding: 18px 22px;
+  margin: 20px 0;
+  font-size: 15px;
+  border-left: 4px solid;
+}
+.info-box.note { background: #fef9ec; border-color: var(--gold); color: #5a3e0a; }
+.info-box.tip  { background: #edf7ed; border-color: #4caf50; color: #1b5e20; }
+.info-box.warn { background: #fdecea; border-color: #e53935; color: #7d1a10; }
+
+.info-box strong { display: block; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; opacity: 0.7; margin-bottom: 5px; }
+
+/* Overview table */
+.overview-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 14.5px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+
+.overview-table th {
+  background: var(--ink);
+  color: var(--gold);
+  padding: 11px 16px;
+  text-align: left;
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.overview-table td {
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--rule);
+  background: var(--surface);
+}
+
+.overview-table tr:last-child td { border-bottom: none; }
+.overview-table tr:hover td { background: #faf6f0; }
+
+/* Concept card */
+.concept-card {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  padding: 22px 26px;
+  margin: 18px 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.concept-card .card-tag {
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+.concept-card h4 {
+  font-family: var(--font-display);
+  font-size: 17px;
+  margin-bottom: 10px;
+  color: var(--ink);
+}
+
+.concept-card p, .concept-card li { font-size: 15px; }
+.concept-card ul, .concept-card ol { margin-left: 20px; margin-top: 6px; line-height: 2; }
+
+/* Key facts dark box */
+.facts-box {
+  background: var(--ink);
+  color: var(--paper);
+  border-radius: 10px;
+  padding: 24px 28px;
+  margin: 22px 0;
+}
+
+.facts-box h4 {
+  font-family: var(--font-display);
+  font-size: 16px;
+  color: var(--gold);
+  margin-bottom: 16px;
+  letter-spacing: 0.5px;
+}
+
+.facts-box ul { list-style: none; }
+
+.facts-box li {
+  padding: 6px 0;
+  font-size: 14.5px;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  color: rgba(253,248,240,0.82);
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+}
+
+.facts-box li:last-child { border-bottom: none; }
+
+.facts-box li::before {
+  content: '▸';
+  color: var(--gold);
+  flex-shrink: 0;
+  font-size: 12px;
+}
+
+/* Two-col grid */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 18px 0;
+}
+
+@media(max-width: 640px) { .two-col { grid-template-columns: 1fr; } }
+
+.mini-card {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: 16px 18px;
+  position: relative;
+  overflow: hidden;
+}
+
+.mini-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px; height: 100%;
+}
+
+.mod1 .mini-card::before { background: var(--m1); }
+.mod2 .mini-card::before { background: var(--m2); }
+.mod3 .mini-card::before { background: var(--m3); }
+.mod4 .mini-card::before { background: var(--m4); }
+
+.mini-card .mc-tag { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+.mini-card h5 { font-family: var(--font-display); font-size: 15px; margin-bottom: 6px; }
+.mini-card p { font-size: 13.5px; color: #4a3a2a; margin: 0; }
+
+/* P&F Question Block */
+.pf-block {
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 22px 0;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+
+.pf-principle {
+  padding: 16px 22px;
+  font-size: 14.5px;
+  color: white;
+  line-height: 1.6;
+}
+.mod4 .pf-principle { background: var(--m4); }
+
+.pf-principle strong {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 6px;
+  font-style: normal;
+}
+
+.pf-fact {
+  background: #f8f4fc;
+  padding: 14px 22px;
+  font-size: 14.5px;
+  color: #3a2a4a;
+  border-bottom: 1px solid var(--rule);
+  line-height: 1.6;
+}
+
+.pf-fact strong {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--m4);
+  margin-bottom: 5px;
+}
+
+.pf-opts { padding: 16px 22px; background: white; }
+.pf-opts-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+
+.opt { padding: 6px 0; font-size: 14.5px; color: #3a2a3a; }
+.opt.correct {
+  color: #1a6b2e;
+  font-weight: 700;
+  background: #e8f5e9;
+  padding: 7px 12px;
+  border-radius: 5px;
+  margin: 3px 0;
+}
+.opt.correct::before { content: "✓ "; }
+
+.pf-solution {
+  background: #f5f0fc;
+  padding: 14px 22px;
+  font-size: 14px;
+  color: #3a1a4a;
+  border-top: 1px solid var(--rule);
+  line-height: 1.6;
+}
+.pf-solution em { color: var(--m4); font-style: normal; font-weight: 600; }
+
+/* Worked example (non-legal) */
+.example-block {
+  background: #f4f8ff;
+  border: 1px solid #c8d8f0;
+  border-radius: 8px;
+  padding: 20px 24px;
+  margin: 18px 0;
+}
+
+.example-block .ex-tag { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--m2); margin-bottom: 10px; font-weight: 600; }
+.example-block .question { font-weight: 600; font-size: 15px; margin-bottom: 12px; }
+.example-block .opt { color: #3a4a5a; }
+.example-block .opt.correct { color: #1a4a1a; background: #e8f5e9; }
+.example-block .solution { border-top: 1px solid #c8d8f0; padding-top: 12px; margin-top: 10px; font-size: 14px; color: #2a3a5a; }
+.example-block .solution strong { color: var(--m2); }
+
+/* Q&A plain */
+.qa-block {
+  background: white;
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: 16px 22px;
+  margin: 14px 0;
+}
+.qa-q { font-weight: 600; font-size: 15px; margin-bottom: 7px; }
+.qa-q::before { content: "Q. "; color: var(--m1); }
+.qa-a { font-size: 15px; color: #2a1a0a; }
+.qa-a::before { content: "A. "; font-weight: 700; }
+
+.mod2 .qa-q::before { color: var(--m2); }
+.mod3 .qa-q::before { color: var(--m3); }
+.mod4 .qa-q::before { color: var(--m4); }
+
+/* Maxim table */
+.maxim-table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 14px; }
+.maxim-table th { background: var(--m4); color: var(--gold); padding: 10px 14px; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; }
+.maxim-table td { padding: 10px 14px; border-bottom: 1px solid var(--rule); background: white; }
+.maxim-table td:first-child { font-style: italic; color: var(--m4); font-weight: 600; }
+.maxim-table tr:hover td { background: #faf5ff; }
+
+/* Strategy table */
+.strat-table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 14px; border-radius: 8px; overflow: hidden; }
+.strat-table th { background: var(--ink); color: var(--gold); padding: 10px 14px; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; }
+.strat-table td { padding: 9px 14px; border-bottom: 1px solid var(--rule); background: white; }
+.strat-table tr:last-child td { border-bottom: none; }
+
+/* Writs grid */
+.writs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; margin: 18px 0; }
+.writ-card { background: white; border: 1px solid var(--rule); border-radius: 8px; padding: 14px 16px; text-align: center; }
+.writ-card .writ-latin { font-style: italic; font-size: 13px; color: var(--m4); font-weight: 600; margin-bottom: 4px; }
+.writ-card .writ-eng { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+.writ-card .writ-desc { font-size: 13px; color: #3a2a4a; }
+
+/* Article pills */
+.art-pill { display: inline-block; background: var(--m4); color: white; font-size: 11px; padding: 2px 9px; border-radius: 10px; margin: 2px; }
+
+/* ═══════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════ */
+.site-footer {
+  background: var(--ink);
+  color: rgba(253,248,240,0.4);
+  text-align: center;
+  padding: 32px 24px;
+  font-size: 13px;
+}
+
+.site-footer strong { color: var(--gold); }
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════ */
+@media(max-width: 640px) {
+  .masthead-inner { padding: 36px 24px 28px; }
+  .mod-hero { padding: 32px 24px 26px; }
+  .mod-hero-stamp { display: none; }
+  .mod-body { padding: 36px 24px 60px; }
+  .tab-btn { padding: 16px 18px 14px; font-size: 11px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════
+     MASTHEAD
+══════════════════════════════════════════════ -->
+<header class="masthead">
+  <div class="masthead-inner">
+    <div class="masthead-eyebrow">AP LAWCET 2026 · Paper Discussion Series</div>
+    <h1>Complete<br><em>Study</em> Guide</h1>
+    <p class="masthead-sub">Full paper analysis across all four sections — General Knowledge, Mental Ability, Current Affairs, and Legal Aptitude.</p>
+    <div class="masthead-meta">
+      <span class="meta-pill"><span class="dot" style="background:var(--m1)"></span>Exam: May 4, 2026</span>
+      <span class="meta-pill"><span class="dot" style="background:var(--m2)"></span>Results: May 18, 2026</span>
+      <span class="meta-pill"><span class="dot" style="background:var(--m3)"></span>Source: Lawcet Adda</span>
+      <span class="meta-pill"><span class="dot" style="background:var(--m4)"></span>4 Modules · All Sections</span>
+    </div>
+  </div>
+  <div class="masthead-bg-text">LAW</div>
+</header>
+
+<!-- ══════════════════════════════════════════════
+     TAB NAVIGATION
+══════════════════════════════════════════════ -->
+<nav class="tab-nav" role="tablist">
+  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  <div class="tab-nav-inner">
+    <button class="tab-btn active" data-mod="1" role="tab" onclick="switchTab(1)">
+      <span class="tab-num">1</span> General Knowledge
+    </button>
+    <button class="tab-btn" data-mod="2" role="tab" onclick="switchTab(2)">
+      <span class="tab-num">2</span> Mental Ability
+    </button>
+    <button class="tab-btn" data-mod="3" role="tab" onclick="switchTab(3)">
+      <span class="tab-num">3</span> Current Affairs
+    </button>
+    <button class="tab-btn" data-mod="4" role="tab" onclick="switchTab(4)">
+      <span class="tab-num">4</span> Legal Aptitude
+    </button>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════════════
+     MODULE 1: GENERAL KNOWLEDGE
+══════════════════════════════════════════════ -->
+<div id="mod1" class="module-panel mod1 active">
+  <div class="mod-hero">
+    <div class="mod-hero-inner">
+      <span class="mod-hero-badge">Module 1 · 00:00 – 24:27</span>
+      <h2>General Knowledge<br>Section A</h2>
+      <p class="mod-hero-desc">History, Polity, Geography, Science & Technology, Economy, Awards, and Andhra Pradesh-specific facts.</p>
+    </div>
+    <div class="mod-hero-stamp">GK</div>
+  </div>
+
+  <div class="mod-body">
+
+    <!-- Overview -->
+    <div class="mod-section">
+      <div class="section-label">Overview</div>
+      <div class="section-title">About Section A</div>
+      <div class="section-rule"></div>
+      <p>The General Knowledge section carries <strong>30 questions</strong>, each worth 1 mark with <strong>no negative marking</strong>. Questions span a wide range of topics at Class 10–12 level. The strategy is simple: attempt all 30, spend no more than 30 seconds each, and move on.</p>
+      <table class="overview-table">
+        <tr><th>Attribute</th><th>Details</th></tr>
+        <tr><td>No. of Questions</td><td>30</td></tr>
+        <tr><td>Marks per Question</td><td>1 mark</td></tr>
+        <tr><td>Negative Marking</td><td>None</td></tr>
+        <tr><td>Topics</td><td>History, Polity, Geography, Science, Economy, Sports, AP State GK</td></tr>
+        <tr><td>Difficulty Level</td><td>Moderate (Class 10–12 standard)</td></tr>
+      </table>
+    </div>
+
+    <!-- Polity -->
+    <div class="mod-section">
+      <div class="section-label">Topic 1</div>
+      <div class="section-title">Indian Polity & Constitution</div>
+      <div class="section-rule"></div>
+      <p>Constitutional questions are a staple. LAWCET frequently tests fundamental rights, writs, constitutional bodies, and landmark amendments.</p>
+
+      <div class="concept-card">
+        <div class="card-tag">Core Concept</div>
+        <h4>Fundamental Rights — Part III (Arts. 12–35)</h4>
+        <ul>
+          <li><strong>Art. 14</strong> — Equality before law; Equal protection of laws</li>
+          <li><strong>Art. 19</strong> — Six freedoms: speech, assembly, association, movement, residence, profession</li>
+          <li><strong>Art. 21</strong> — Right to Life & Personal Liberty (most expansively interpreted)</li>
+          <li><strong>Art. 21A</strong> — Right to Education (6–14 years); added by 86th Amendment 2002</li>
+          <li><strong>Art. 32</strong> — Right to Constitutional Remedies — Ambedkar called it "heart of the Constitution"</li>
+        </ul>
+      </div>
+
+      <div class="facts-box">
+        <h4>⚡ Constitutional Numbers — Quick Recall</h4>
+        <ul>
+          <li>Original articles: 395 &nbsp;|&nbsp; Current: 448</li>
+          <li>Original schedules: 8 &nbsp;|&nbsp; Current: 12</li>
+          <li>Parts: 25 (originally 22)</li>
+          <li>Emergency: Art. 352 (National), 356 (President's Rule), 360 (Financial)</li>
+          <li>Amendment procedure: Art. 368</li>
+          <li>Abolition of untouchability: Art. 17</li>
+        </ul>
+      </div>
+
+      <div class="qa-block">
+        <div class="qa-q">How many schedules does the Indian Constitution have?</div>
+        <div class="qa-a">12 Schedules. Originally 8; schedules were added through amendments. The 9th Schedule (asset protection), 10th (anti-defection), 11th & 12th (Panchayati Raj) were added later.</div>
+      </div>
+    </div>
+
+    <!-- History -->
+    <div class="mod-section">
+      <div class="section-label">Topic 2</div>
+      <div class="section-title">Indian History & Freedom Struggle</div>
+      <div class="section-rule"></div>
+
+      <div class="concept-card">
+        <div class="card-tag">Modern India</div>
+        <h4>Key Events Timeline</h4>
+        <ul>
+          <li><strong>1885</strong> — INC founded by A.O. Hume in Bombay</li>
+          <li><strong>1919</strong> — Jallianwala Bagh massacre; Rowlatt Act protests</li>
+          <li><strong>1920–22</strong> — Non-Cooperation Movement (Gandhi)</li>
+          <li><strong>1930</strong> — Dandi March / Salt Satyagraha (241 miles, 24 days)</li>
+          <li><strong>1942</strong> — Quit India Movement; "Do or Die" call by Gandhi</li>
+          <li><strong>1947</strong> — Independence Aug 15; Partition into India & Pakistan</li>
+          <li><strong>1950</strong> — Constitution adopted Jan 26 (Republic Day)</li>
+        </ul>
+      </div>
+
+      <div class="info-box tip">
+        <strong>Exam Tip</strong>
+        LAWCET loves "firsts" — First President, First PM, First CJI, First Governor-General, First woman to hold positions. Make a dedicated list and memorise it.
+      </div>
+    </div>
+
+    <!-- Geography -->
+    <div class="mod-section">
+      <div class="section-label">Topic 3</div>
+      <div class="section-title">Indian Geography</div>
+      <div class="section-rule"></div>
+
+      <table class="overview-table">
+        <tr><th>Feature</th><th>Name</th><th>Location</th></tr>
+        <tr><td>Longest river</td><td>Ganga</td><td>North India</td></tr>
+        <tr><td>Highest peak (uncontested)</td><td>Kangchenjunga</td><td>Sikkim border</td></tr>
+        <tr><td>Largest state (area)</td><td>Rajasthan</td><td>North-West</td></tr>
+        <tr><td>Smallest state (area)</td><td>Goa</td><td>West coast</td></tr>
+        <tr><td>Southernmost tip</td><td>Indira Point</td><td>Andaman & Nicobar</td></tr>
+        <tr><td>Largest lake</td><td>Chilika Lake</td><td>Odisha</td></tr>
+      </table>
+    </div>
+
+    <!-- Science -->
+    <div class="mod-section">
+      <div class="section-label">Topic 4</div>
+      <div class="section-title">Science, Technology & ISRO</div>
+      <div class="section-rule"></div>
+
+      <div class="facts-box">
+        <h4>🚀 India's Space Milestones</h4>
+        <ul>
+          <li>ISRO founded: 1969 | HQ: Bengaluru</li>
+          <li>First satellite: Aryabhata (1975)</li>
+          <li>Chandrayaan-3: First soft landing on Moon's south pole — Aug 23, 2023</li>
+          <li>Aditya-L1: India's first solar mission — reached L1 halo orbit Jan 2024</li>
+          <li>Gaganyaan: India's human spaceflight mission (in development)</li>
+          <li>Aug 23 declared National Space Day after Chandrayaan-3 success</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- AP State -->
+    <div class="mod-section">
+      <div class="section-label">Topic 5</div>
+      <div class="section-title">Andhra Pradesh State GK</div>
+      <div class="section-rule"></div>
+
+      <div class="two-col">
+        <div class="mini-card">
+          <div class="mc-tag">Formation</div>
+          <h5>Bifurcation 2014</h5>
+          <p>AP bifurcated June 2, 2014 → Andhra Pradesh + Telangana. AP day: November 1 (formation 1956).</p>
+        </div>
+        <div class="mini-card">
+          <div class="mc-tag">Government 2024</div>
+          <h5>TDP-led Alliance</h5>
+          <p>N. Chandrababu Naidu as CM; Pawan Kalyan as Deputy CM after 2024 Assembly elections.</p>
+        </div>
+        <div class="mini-card">
+          <div class="mc-tag">Capital</div>
+          <h5>Three-Capital Plan</h5>
+          <p>Amaravati (legislative), Visakhapatnam (executive), Kurnool (judicial). Amaravati development revived.</p>
+        </div>
+        <div class="mini-card">
+          <div class="mc-tag">LAWCET Authority</div>
+          <h5>SKU, Anantapur</h5>
+          <p>Sri Krishnadevaraya University conducts AP LAWCET. Famous for Tirupati Balaji temple, Araku Valley.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- National Symbols -->
+    <div class="mod-section">
+      <div class="section-label">Topic 6</div>
+      <div class="section-title">National Symbols — Must Know</div>
+      <div class="section-rule"></div>
+      <div class="facts-box">
+        <h4>🇮🇳 India's National Symbols</h4>
+        <ul>
+          <li>Animal: Bengal Tiger &nbsp;|&nbsp; Bird: Indian Peacock</li>
+          <li>Flower: Lotus &nbsp;|&nbsp; Fruit: Mango &nbsp;|&nbsp; Tree: Banyan</li>
+          <li>Game: Hockey (traditional) &nbsp;|&nbsp; River: Ganga</li>
+          <li>Song: Vande Mataram (Bankim Chandra Chatterjee)</li>
+          <li>Anthem: Jana Gana Mana (Tagore) — adopted Jan 24, 1950</li>
+          <li>Emblem: Lion Capital of Ashoka (Sarnath); motto: Satyameva Jayate</li>
+        </ul>
+      </div>
+      <div class="info-box note">
+        <strong>Strategy</strong>
+        No negative marking → attempt ALL 30 questions. Spend ≤30 seconds per GK question. Prioritise Polity, History, and National Symbols — the most predictable. Save time for Legal Aptitude.
+      </div>
+    </div>
+
+  </div><!-- /mod-body -->
+</div><!-- /mod1 -->
+
+<!-- ══════════════════════════════════════════════
+     MODULE 2: MENTAL ABILITY
+══════════════════════════════════════════════ -->
+<div id="mod2" class="module-panel mod2">
+  <div class="mod-hero">
+    <div class="mod-hero-inner">
+      <span class="mod-hero-badge">Module 2 · 24:27 – 30:43</span>
+      <h2>Mental Ability<br>&amp; Reasoning</h2>
+      <p class="mod-hero-desc">Series, Analogies, Coding-Decoding, Blood Relations, Syllogisms, Direction & Distance — with full worked examples.</p>
+    </div>
+    <div class="mod-hero-stamp">MA</div>
+  </div>
+
+  <div class="mod-body">
+
+    <div class="mod-section">
+      <div class="section-label">Overview</div>
+      <div class="section-title">About Mental Ability</div>
+      <div class="section-rule"></div>
+      <p>Mental Ability tests logical thinking and pattern recognition — not memory. Speed and accuracy both matter. Unlike GK, practice directly improves your score here.</p>
+      <table class="overview-table">
+        <tr><th>Attribute</th><th>Details</th></tr>
+        <tr><td>No. of Questions</td><td>~30</td></tr>
+        <tr><td>Negative Marking</td><td>None</td></tr>
+        <tr><td>Key Topics</td><td>Series, Analogies, Coding, Blood Relations, Syllogisms, Directions</td></tr>
+        <tr><td>Target Score</td><td>22+ out of 30 with consistent practice</td></tr>
+      </table>
+    </div>
+
+    <!-- Series -->
+    <div class="mod-section">
+      <div class="section-label">Type 1</div>
+      <div class="section-title">Number & Letter Series</div>
+      <div class="section-rule"></div>
+
+      <div class="concept-card">
+        <div class="card-tag">Common Patterns</div>
+        <h4>How to Identify the Pattern</h4>
+        <ul>
+          <li><strong>Arithmetic:</strong> Add/subtract constant (2, 5, 8, 11 → +3 each)</li>
+          <li><strong>Geometric:</strong> Multiply/divide by constant (3, 9, 27 → ×3)</li>
+          <li><strong>Squares/Cubes:</strong> 1, 4, 9, 16, 25... or 1, 8, 27, 64...</li>
+          <li><strong>Fibonacci-style:</strong> Each term = sum of two previous (1,1,2,3,5,8,13...)</li>
+          <li><strong>Alternating series:</strong> Split into two interleaved series; solve each separately</li>
+          <li><strong>Difference of differences:</strong> Take differences, then differences again to find constant</li>
+        </ul>
+      </div>
+
+      <div class="example-block">
+        <div class="ex-tag">Worked Example</div>
+        <div class="question">Find the missing term: 2, 6, 12, 20, 30, ___</div>
+        <div class="opt">(A) 40</div>
+        <div class="opt correct">(B) 42</div>
+        <div class="opt">(C) 44</div>
+        <div class="opt">(D) 38</div>
+        <div class="solution"><strong>Solution:</strong> Differences between terms: 4, 6, 8, 10... Each difference increases by 2. Next difference = 12. So: 30 + 12 = <strong>42</strong>.</div>
+      </div>
+    </div>
+
+    <!-- Analogies -->
+    <div class="mod-section">
+      <div class="section-label">Type 2</div>
+      <div class="section-title">Analogies</div>
+      <div class="section-rule"></div>
+      <p>Identify the relationship in the given pair, then apply the <em>exact same relationship</em> to find the answer.</p>
+
+      <div class="two-col">
+        <div class="example-block" style="margin:0;">
+          <div class="ex-tag">Word Analogy</div>
+          <div class="question">Doctor : Hospital :: Teacher : ___</div>
+          <div class="opt">(A) Book</div>
+          <div class="opt correct">(B) School</div>
+          <div class="opt">(C) Student</div>
+          <div class="solution"><strong>Relationship:</strong> Person → Workplace</div>
+        </div>
+        <div class="example-block" style="margin:0;">
+          <div class="ex-tag">Number Analogy</div>
+          <div class="question">9 : 81 :: 7 : ___</div>
+          <div class="opt">(A) 14</div>
+          <div class="opt">(B) 21</div>
+          <div class="opt correct">(C) 49</div>
+          <div class="solution"><strong>Relationship:</strong> n : n² → 7² = 49</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Coding -->
+    <div class="mod-section">
+      <div class="section-label">Type 3</div>
+      <div class="section-title">Coding & Decoding</div>
+      <div class="section-rule"></div>
+
+      <div class="concept-card">
+        <div class="card-tag">Common Coding Types</div>
+        <h4>Decoding Strategies</h4>
+        <ul>
+          <li><strong>Letter shift:</strong> A→D means +3. Apply same shift to every letter.</li>
+          <li><strong>Reverse alphabet:</strong> A=Z, B=Y, C=X (mirror the alphabet)</li>
+          <li><strong>Number coding:</strong> A=1, B=2…Z=26 (or reverse: A=26)</li>
+          <li><strong>Symbol/position:</strong> Look at position of each letter in given examples</li>
+        </ul>
+      </div>
+
+      <div class="example-block">
+        <div class="ex-tag">Worked Example</div>
+        <div class="question">If CAT = FDW, how is DOG coded?</div>
+        <div class="opt">(A) EPH</div>
+        <div class="opt correct">(B) GRJ</div>
+        <div class="opt">(C) HRI</div>
+        <div class="solution"><strong>Solution:</strong> C→F (+3), A→D (+3), T→W (+3). Apply: D→G, O→R, G→J = <strong>GRJ</strong>.</div>
+      </div>
+    </div>
+
+    <!-- Blood Relations -->
+    <div class="mod-section">
+      <div class="section-label">Type 4</div>
+      <div class="section-title">Blood Relations</div>
+      <div class="section-rule"></div>
+
+      <div class="info-box tip">
+        <strong>Method</strong>
+        Always draw a family tree diagram. Trace each relationship step by step. Never try to solve mentally — even one wrong step cascades.
+      </div>
+
+      <div class="facts-box">
+        <h4>🔑 Relationship Reference</h4>
+        <ul>
+          <li>Mother's/Father's son → Brother</li>
+          <li>Mother's/Father's daughter → Sister</li>
+          <li>Mother's brother → Maternal Uncle</li>
+          <li>Father's brother → Paternal Uncle</li>
+          <li>Uncle's/Aunt's child → Cousin</li>
+          <li>Son's wife → Daughter-in-law</li>
+          <li>Wife's/Husband's brother → Brother-in-law</li>
+        </ul>
+      </div>
+
+      <div class="example-block">
+        <div class="ex-tag">Worked Example</div>
+        <div class="question">Pointing to a girl, Ram says "She is the daughter of my grandfather's only son." How is the girl related to Ram?</div>
+        <div class="opt">(A) Aunt</div>
+        <div class="opt correct">(B) Sister</div>
+        <div class="opt">(C) Cousin</div>
+        <div class="solution"><strong>Solution:</strong> Grandfather's only son = Ram's Father. Father's daughter = Ram's Sister.</div>
+      </div>
+    </div>
+
+    <!-- Syllogisms -->
+    <div class="mod-section">
+      <div class="section-label">Type 5</div>
+      <div class="section-title">Syllogisms</div>
+      <div class="section-rule"></div>
+
+      <div class="concept-card">
+        <div class="card-tag">4-Step Method</div>
+        <h4>How to Solve Syllogisms</h4>
+        <ol>
+          <li>Accept both statements as absolute truth.</li>
+          <li>Draw a Venn diagram covering ALL possible arrangements.</li>
+          <li>Test each conclusion against your diagram(s).</li>
+          <li>A conclusion is valid only if it holds in ALL possible diagrams — not just one.</li>
+        </ol>
+      </div>
+
+      <div class="example-block">
+        <div class="ex-tag">Worked Example</div>
+        <div class="question">Statements: All cats are animals. All animals are living beings.<br>Conclusions: I. All cats are living beings. &nbsp;II. Some living beings are cats.</div>
+        <div class="opt">(A) Only I follows</div>
+        <div class="opt correct">(B) Both I and II follow</div>
+        <div class="opt">(C) Neither follows</div>
+        <div class="solution"><strong>Solution:</strong> Cats ⊆ Animals ⊆ Living Beings. So: All cats ARE living beings ✓, and since cats exist, some living beings ARE cats ✓. Both valid.</div>
+      </div>
+    </div>
+
+    <!-- Directions -->
+    <div class="mod-section">
+      <div class="section-label">Type 6</div>
+      <div class="section-title">Direction & Distance</div>
+      <div class="section-rule"></div>
+
+      <div class="facts-box">
+        <h4>🧭 Direction Rules</h4>
+        <ul>
+          <li>Turning LEFT from North → faces West</li>
+          <li>Turning RIGHT from North → faces East</li>
+          <li>Turning LEFT from East → faces North</li>
+          <li>Distance: use Pythagoras for right-angle movements</li>
+          <li>Sunrise is East → morning shadow falls West</li>
+          <li>Sunset is West → evening shadow falls East</li>
+        </ul>
+      </div>
+
+      <div class="info-box note">
+        <strong>Speed Tip</strong>
+        Draw every step on paper — never solve directions mentally. A compass sketch takes 10 seconds and eliminates almost all errors.
+      </div>
+    </div>
+
+    <!-- Strategy -->
+    <div class="mod-section">
+      <div class="section-label">Strategy</div>
+      <div class="section-title">Scoring Maximum in Mental Ability</div>
+      <div class="section-rule"></div>
+      <table class="strat-table">
+        <tr><th>Topic</th><th>Difficulty</th><th>Time</th><th>Priority</th></tr>
+        <tr><td>Series / Analogies</td><td>Easy–Medium</td><td>30 sec</td><td>⭐⭐⭐ High</td></tr>
+        <tr><td>Coding–Decoding</td><td>Easy</td><td>40 sec</td><td>⭐⭐⭐ High</td></tr>
+        <tr><td>Blood Relations</td><td>Medium</td><td>60 sec</td><td>⭐⭐ Medium</td></tr>
+        <tr><td>Syllogisms</td><td>Medium</td><td>60 sec</td><td>⭐⭐ Medium</td></tr>
+        <tr><td>Directions</td><td>Medium</td><td>60–90 sec</td><td>⭐⭐ Medium</td></tr>
+        <tr><td>Complex Puzzles</td><td>Hard</td><td>Skip first</td><td>⭐ Low</td></tr>
+      </table>
+    </div>
+
+  </div>
+</div><!-- /mod2 -->
+
+<!-- ══════════════════════════════════════════════
+     MODULE 3: CURRENT AFFAIRS
+══════════════════════════════════════════════ -->
+<div id="mod3" class="module-panel mod3">
+  <div class="mod-hero">
+    <div class="mod-hero-inner">
+      <span class="mod-hero-badge">Module 3 · 30:43 – 58:17</span>
+      <h2>Current Affairs<br>Section B</h2>
+      <p class="mod-hero-desc">The longest section in the video — national politics, international events, economy, awards, science, and sports from 2024–2026.</p>
+    </div>
+    <div class="mod-hero-stamp">CA</div>
+  </div>
+
+  <div class="mod-body">
+
+    <div class="mod-section">
+      <div class="section-label">Overview</div>
+      <div class="section-title">Section B — Current Affairs</div>
+      <div class="section-rule"></div>
+      <p>For the May 4, 2026 exam, focus on events from <strong>late 2024 through April 2026</strong>. The section is wide-ranging but predictable in category — politics, economy, awards, science, and sports dominate.</p>
+      <table class="overview-table">
+        <tr><th>Attribute</th><th>Details</th></tr>
+        <tr><td>No. of Questions</td><td>~30</td></tr>
+        <tr><td>Period Covered</td><td>Mid-2024 to May 2026</td></tr>
+        <tr><td>Key Categories</td><td>National events, International, Economy, Awards, Appointments, Sports</td></tr>
+        <tr><td>Best Preparation</td><td>Monthly current affairs capsules + following major headlines</td></tr>
+      </table>
+    </div>
+
+    <!-- National Politics -->
+    <div class="mod-section">
+      <div class="section-label">Topic 1</div>
+      <div class="section-title">National Politics & Governance</div>
+      <div class="section-rule"></div>
+
+      <div class="two-col">
+        <div class="mini-card">
+          <div class="mc-tag">General Elections 2024</div>
+          <h5>18th Lok Sabha</h5>
+          <p>NDA won majority (Apr–June 2024). Narendra Modi sworn in for 3rd term as PM on June 9, 2024.</p>
+        </div>
+        <div class="mini-card">
+          <div class="mc-tag">Judiciary</div>
+          <h5>Chief Justice Change</h5>
+          <p>D.Y. Chandrachud retired Nov 2024. Sanjiv Khanna became the 51st Chief Justice of India.</p>
+        </div>
+        <div class="mini-card">
+          <div class="mc-tag">AP Elections 2024</div>
+          <h5>TDP Alliance Wins</h5>
+          <p>Chandrababu Naidu became CM; Pawan Kalyan Deputy CM. Amaravati capital development resumed.</p>
+        </div>
+        <div class="mini-card">
+          <div class="mc-tag">New Criminal Laws</div>
+          <h5>Effective July 1, 2024</h5>
+          <p>BNS replaced IPC. BNSS replaced CrPC. BSA replaced Indian Evidence Act.</p>
+        </div>
+      </div>
+
+      <div class="qa-block">
+        <div class="qa-q">What are the three new criminal laws that came into force in July 2024?</div>
+        <div class="qa-a">Bharatiya Nyaya Sanhita (BNS) replaced IPC; Bharatiya Nagarik Suraksha Sanhita (BNSS) replaced CrPC; Bharatiya Sakshya Adhiniyam (BSA) replaced the Indian Evidence Act. All effective July 1, 2024.</div>
+      </div>
+    </div>
+
+    <!-- International -->
+    <div class="mod-section">
+      <div class="section-label">Topic 2</div>
+      <div class="section-title">International Affairs</div>
+      <div class="section-rule"></div>
+
+      <div class="facts-box">
+        <h4>🌍 Key Global Events 2024–2026</h4>
+        <ul>
+          <li>G20 2023: India hosted in New Delhi; African Union joined as 21st member</li>
+          <li>G20 2024: Brazil hosted in Rio de Janeiro</li>
+          <li>Paris Olympics 2024: India won 6 medals (1 Silver – Neeraj Chopra, 5 Bronze)</li>
+          <li>Manu Bhaker: First Indian to win 2 medals in single Olympics (pistol shooting)</li>
+          <li>Russia-Ukraine conflict: Ongoing since Feb 2022</li>
+          <li>Gaza conflict: Ongoing since Oct 2023; major global humanitarian crisis</li>
+          <li>UN Secretary-General: António Guterres (term extended to 2026)</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Economy -->
+    <div class="mod-section">
+      <div class="section-label">Topic 3</div>
+      <div class="section-title">Economy & Budget</div>
+      <div class="section-rule"></div>
+
+      <div class="qa-block">
+        <div class="qa-q">What is significant about the Union Budget 2025–26?</div>
+        <div class="qa-a">Finance Minister Nirmala Sitharaman presented the 2025–26 budget on February 1, 2025 — her 8th consecutive budget, a record. Key themes: infrastructure, Viksit Bharat 2047, and middle-class tax relief. India surpassed Japan to become the 4th largest economy by nominal GDP in 2025.</div>
+      </div>
+    </div>
+
+    <!-- Awards -->
+    <div class="mod-section">
+      <div class="section-label">Topic 4</div>
+      <div class="section-title">Awards & Honours 2024–25</div>
+      <div class="section-rule"></div>
+
+      <table class="overview-table">
+        <tr><th>Award</th><th>Category</th><th>Recipient</th></tr>
+        <tr><td>Nobel Peace 2024</td><td>Peace</td><td>Nihon Hidankyo (Japan atomic bomb survivors)</td></tr>
+        <tr><td>Nobel Literature 2024</td><td>Literature</td><td>Han Kang (South Korea)</td></tr>
+        <tr><td>Bharat Ratna 2024</td><td>Highest civilian</td><td>M.S. Swaminathan, Charan Singh, P.V. Narasimha Rao, L.K. Advani, Karpoori Thakur</td></tr>
+        <tr><td>Oscar 2024 Best Picture</td><td>Film</td><td>Oppenheimer (Christopher Nolan)</td></tr>
+        <tr><td>ICC T20 WC 2024</td><td>Cricket</td><td>India (beat South Africa; Rohit Sharma captain)</td></tr>
+      </table>
+
+      <div class="info-box tip">
+        <strong>Awards Tip</strong>
+        For Nobel Prizes: note the year, category, and any Indian connection. Bharat Ratna is almost always tested in state law exams. Know all 5 recipients of 2024.
+      </div>
+    </div>
+
+    <!-- Sports -->
+    <div class="mod-section">
+      <div class="section-label">Topic 5</div>
+      <div class="section-title">Sports 2024</div>
+      <div class="section-rule"></div>
+
+      <div class="two-col">
+        <div class="mini-card">
+          <div class="mc-tag">Chess</div>
+          <h5>D. Gukesh — World Champion</h5>
+          <p>Dommaraju Gukesh (age 18) became youngest World Chess Champion, Dec 2024, defeating Ding Liren of China.</p>
+        </div>
+        <div class="mini-card">
+          <div class="mc-tag">Paris Olympics</div>
+          <h5>India's 6 Medals</h5>
+          <p>Neeraj Chopra: Silver (javelin). Manu Bhaker: 2 Bronze (shooting). First Indian to win 2 medals in one Olympics.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Science -->
+    <div class="mod-section">
+      <div class="section-label">Topic 6</div>
+      <div class="section-title">Science & Technology</div>
+      <div class="section-rule"></div>
+
+      <div class="facts-box">
+        <h4>🚀 Key Science Events</h4>
+        <ul>
+          <li>Chandrayaan-3 south pole landing: August 23, 2023 (now National Space Day)</li>
+          <li>Aditya-L1 reached L1 halo orbit: January 2024 — India's first solar mission</li>
+          <li>India completed pan-India 5G rollout by 2024</li>
+          <li>AI Policy: India developing National AI Policy and Responsible AI framework</li>
+          <li>India: 4th largest renewable energy capacity globally (2024)</li>
+          <li>India's net-zero target: 2070 (declared at COP26, Glasgow)</li>
+        </ul>
+      </div>
+
+      <div class="info-box note">
+        <strong>Focus Window for 2026 Exam</strong>
+        Concentrate most heavily on events from January 2025 to April 2026. Events older than 18 months are rarely tested. Use monthly current affairs capsules rather than trying to read everything.
+      </div>
+    </div>
+
+  </div>
+</div><!-- /mod3 -->
+
+<!-- ══════════════════════════════════════════════
+     MODULE 4: LEGAL APTITUDE
+══════════════════════════════════════════════ -->
+<div id="mod4" class="module-panel mod4">
+  <div class="mod-hero">
+    <div class="mod-hero-inner">
+      <span class="mod-hero-badge">Module 4 · 58:17 – End</span>
+      <h2>Legal Aptitude<br>Section C</h2>
+      <p class="mod-hero-desc">The highest-weightage section. Principle–Fact questions, Torts, Contracts, Criminal Law, Constitutional Law, Family Law, and Legal Maxims — with full worked examples.</p>
+    </div>
+    <div class="mod-hero-stamp">⚖</div>
+  </div>
+
+  <div class="mod-body">
+
+    <div class="mod-section">
+      <div class="section-label">Overview</div>
+      <div class="section-title">Section C — Legal Aptitude</div>
+      <div class="section-rule"></div>
+      <p>This is the <strong>most important section</strong> — roughly 60 questions. It differentiates candidates and rewards structured thinking over rote memorisation.</p>
+      <table class="overview-table">
+        <tr><th>Attribute</th><th>Details</th></tr>
+        <tr><td>No. of Questions</td><td>~60 (largest section)</td></tr>
+        <tr><td>Question Types</td><td>Principle-Fact (P&F), Legal Knowledge MCQs</td></tr>
+        <tr><td>Core Topics</td><td>Torts, Contracts, Criminal Law (BNS/IPC), Constitution, Family Law, Property</td></tr>
+        <tr><td>Key Skill</td><td>Applying a given principle to facts — not just memorisation</td></tr>
+      </table>
+      <div class="info-box warn">
+        <strong>Critical Rule</strong>
+        In Principle-Fact questions, apply ONLY the given principle. Do not contradict it with your outside legal knowledge. Even if the stated principle seems different from real law, apply it exactly as stated.
+      </div>
+    </div>
+
+    <!-- P&F Method -->
+    <div class="mod-section">
+      <div class="section-label">Question Type</div>
+      <div class="section-title">Principle–Fact (P&F) Method</div>
+      <div class="section-rule"></div>
+
+      <div class="concept-card">
+        <div class="card-tag">4-Step Approach</div>
+        <h4>How to Solve Every P&F Question</h4>
+        <ol>
+          <li><strong>Read the Principle carefully</strong> — note every condition, qualifier, and exception.</li>
+          <li><strong>Read the Facts</strong> — identify the parties, the act, the harm, and the legal issue.</li>
+          <li><strong>Apply the Principle to Facts</strong> — do the facts meet the conditions of the principle?</li>
+          <li><strong>Choose the answer</strong> — pick the option that correctly states the legal outcome. Ignore outside knowledge.</li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- Torts -->
+    <div class="mod-section">
+      <div class="section-label">Area 1</div>
+      <div class="section-title">Law of Torts</div>
+      <div class="section-rule"></div>
+
+      <div class="facts-box">
+        <h4>⚖ Core Tort Principles</h4>
+        <ul>
+          <li><strong>Negligence:</strong> Duty of care + Breach + Causation + Damage (all 4 required)</li>
+          <li><strong>Strict Liability (Rylands v Fletcher):</strong> Dangerous thing escapes your land → liable regardless of fault</li>
+          <li><strong>Absolute Liability (M.C. Mehta):</strong> Indian rule — hazardous enterprise liable absolutely, no exceptions</li>
+          <li><strong>Volenti Non Fit Injuria:</strong> Plaintiff voluntarily assumed risk → defendant not liable</li>
+          <li><strong>Vicarious Liability:</strong> Master liable for servant's torts in course of employment</li>
+          <li><strong>Defamation:</strong> False statement lowering reputation. Libel (written) vs Slander (spoken)</li>
+          <li><strong>Res Ipsa Loquitur:</strong> The thing speaks for itself — negligence inferred from the occurrence itself</li>
+        </ul>
+      </div>
+
+      <div class="pf-block">
+        <div class="pf-principle">
+          <strong>Principle</strong>
+          A person is liable for negligence if they owe a duty of care to another, breach that duty, and the breach causes actual damage to that person.
+        </div>
+        <div class="pf-fact">
+          <strong>Facts</strong>
+          Dr. Rao operated on Priya and left a surgical sponge inside her body. Priya required a second surgery and suffered complications.
+        </div>
+        <div class="pf-opts">
+          <div class="pf-opts-label">Choose the Correct Option</div>
+          <div class="opt">(A) Not liable — surgery always carries risk.</div>
+          <div class="opt">(B) Not liable — Priya consented to the surgery.</div>
+          <div class="opt correct">(C) Liable for negligence — Dr. Rao breached his duty of care, causing actual damage.</div>
+          <div class="opt">(D) Liable only if Priya proves intention to leave the sponge.</div>
+        </div>
+        <div class="pf-solution">
+          <em>Explanation:</em> Doctor owes duty of care → leaving a sponge is a clear breach → breach caused actual damage (second surgery, complications). All three elements satisfied. Consent to surgery ≠ consent to negligence. Intent is irrelevant to negligence claims.
+        </div>
+      </div>
+    </div>
+
+    <!-- Contracts -->
+    <div class="mod-section">
+      <div class="section-label">Area 2</div>
+      <div class="section-title">Contract Law</div>
+      <div class="section-rule"></div>
+
+      <div class="concept-card">
+        <div class="card-tag">Indian Contract Act, 1872 — S.10</div>
+        <h4>Essentials of a Valid Contract</h4>
+        <ul>
+          <li><strong>Offer + Acceptance</strong> = Agreement → Agreement + Enforceability = Contract</li>
+          <li><strong>Consideration</strong> — something in return (past, present, or future)</li>
+          <li><strong>Free Consent</strong> — no coercion, undue influence, fraud, misrepresentation, or mistake</li>
+          <li><strong>Competent Parties</strong> — age 18+, sound mind, not disqualified by law</li>
+          <li><strong>Lawful Object</strong> — purpose must not be illegal, immoral, or against public policy</li>
+        </ul>
+      </div>
+
+      <div class="pf-block">
+        <div class="pf-principle">
+          <strong>Principle</strong>
+          An agreement without consideration is void, unless it is made on account of natural love and affection between parties in near relation and is in writing and registered.
+        </div>
+        <div class="pf-fact">
+          <strong>Facts</strong>
+          Out of love for his sister Meena, Ravi wrote and registered an agreement promising to give her his car as a gift. Ravi later refuses.
+        </div>
+        <div class="pf-opts">
+          <div class="pf-opts-label">Choose the Correct Option</div>
+          <div class="opt">(A) Void — no consideration.</div>
+          <div class="opt">(B) Void — gifts cannot be enforced.</div>
+          <div class="opt correct">(C) Valid — Meena can enforce it against Ravi.</div>
+          <div class="opt">(D) Voidable at Ravi's option.</div>
+        </div>
+        <div class="pf-solution">
+          <em>Explanation:</em> The principle creates an exception to "no consideration = void." Exception conditions: (1) natural love and affection ✓, (2) near relation (brother-sister) ✓, (3) written ✓, (4) registered ✓. All conditions met → valid and enforceable.
+        </div>
+      </div>
+    </div>
+
+    <!-- Criminal Law -->
+    <div class="mod-section">
+      <div class="section-label">Area 3</div>
+      <div class="section-title">Criminal Law — BNS / IPC</div>
+      <div class="section-rule"></div>
+
+      <div class="facts-box">
+        <h4>⚖ Core Criminal Law Concepts</h4>
+        <ul>
+          <li><strong>Actus Reus + Mens Rea:</strong> Crime = guilty act + guilty mind. No mens rea → generally no crime.</li>
+          <li><strong>Murder vs. CHN:</strong> "All murder is culpable homicide; not all culpable homicide is murder." Murder = highest degree of intent.</li>
+          <li><strong>Private Defence:</strong> Right to defend body and property. Force must be proportional to threat.</li>
+          <li><strong>Common Intention (S.34 IPC / S.3(5) BNS):</strong> Each member of a group with common intention liable for the act.</li>
+          <li><strong>Abetment:</strong> Instigating, aiding, or conspiring makes the abettor liable alongside the principal.</li>
+          <li><strong>Triple Talaq:</strong> Declared void by Supreme Court 2017; criminalised by Triple Talaq Act 2019.</li>
+        </ul>
+      </div>
+
+      <div class="pf-block">
+        <div class="pf-principle">
+          <strong>Principle</strong>
+          Voluntarily causing death, or bodily injury likely to cause death, is culpable homicide. If done with the intention of causing death, it is murder.
+        </div>
+        <div class="pf-fact">
+          <strong>Facts</strong>
+          During an argument, Suresh threw a heavy stone at Ramesh's head. Ramesh died. Suresh says he only intended to scare, not kill.
+        </div>
+        <div class="pf-opts">
+          <div class="pf-opts-label">Choose the Correct Option</div>
+          <div class="opt">(A) Not liable — no intent to kill.</div>
+          <div class="opt">(B) Liable for accidental death only.</div>
+          <div class="opt correct">(C) Guilty of at least culpable homicide — voluntary act likely to cause death.</div>
+          <div class="opt">(D) Not liable — it arose from an argument.</div>
+        </div>
+        <div class="pf-solution">
+          <em>Explanation:</em> Throwing a heavy stone at someone's head is voluntary and objectively likely to cause death. The principle requires only that the injury was likely to cause death — not a specific intent to kill — for culpable homicide. "Intent to scare" is irrelevant once the act meets the threshold.
+        </div>
+      </div>
+    </div>
+
+    <!-- Constitutional Law -->
+    <div class="mod-section">
+      <div class="section-label">Area 4</div>
+      <div class="section-title">Constitutional Law</div>
+      <div class="section-rule"></div>
+
+      <table class="overview-table">
+        <tr><th>Article</th><th>Subject</th><th>Key LAWCET Point</th></tr>
+        <tr><td><span class="art-pill">Art. 13</span></td><td>Laws inconsistent with FRs</td><td>State laws violating FRs are void to the extent of inconsistency</td></tr>
+        <tr><td><span class="art-pill">Art. 21</span></td><td>Right to Life</td><td>Expanded to include right to privacy, livelihood, health, clean environment</td></tr>
+        <tr><td><span class="art-pill">Art. 32</span></td><td>Constitutional Remedies</td><td>SC issues writs to enforce FRs; "heart and soul" — Dr. Ambedkar</td></tr>
+        <tr><td><span class="art-pill">Art. 226</span></td><td>HC Writ Power</td><td>HCs can issue writs for both FR violations AND any other legal right</td></tr>
+        <tr><td><span class="art-pill">Art. 300A</span></td><td>Right to Property</td><td>Not a FR (removed by 44th Amendment 1978); but a constitutional right</td></tr>
+        <tr><td><span class="art-pill">Art. 368</span></td><td>Amendment</td><td>Parliament can amend but cannot destroy the Basic Structure (Kesavananda Bharati, 1973)</td></tr>
+      </table>
+
+      <h3 style="font-family: var(--font-display); margin: 28px 0 14px; font-size: 18px;">The Five Writs</h3>
+      <div class="writs-grid">
+        <div class="writ-card">
+          <div class="writ-latin">Habeas Corpus</div>
+          <div class="writ-eng">Produce the Body</div>
+          <div class="writ-desc">Against unlawful detention. Most important writ.</div>
+        </div>
+        <div class="writ-card">
+          <div class="writ-latin">Mandamus</div>
+          <div class="writ-eng">We Command</div>
+          <div class="writ-desc">Orders a public authority to perform its legal duty.</div>
+        </div>
+        <div class="writ-card">
+          <div class="writ-latin">Prohibition</div>
+          <div class="writ-eng">Stop Proceeding</div>
+          <div class="writ-desc">Prevents lower court from exceeding jurisdiction.</div>
+        </div>
+        <div class="writ-card">
+          <div class="writ-latin">Certiorari</div>
+          <div class="writ-eng">To Be Certified</div>
+          <div class="writ-desc">Quashes order of lower court that exceeded jurisdiction.</div>
+        </div>
+        <div class="writ-card">
+          <div class="writ-latin">Quo Warranto</div>
+          <div class="writ-eng">By What Authority</div>
+          <div class="writ-desc">Challenges right to hold a public office.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Legal Maxims -->
+    <div class="mod-section">
+      <div class="section-label">Area 5</div>
+      <div class="section-title">Legal Maxims — Must Know</div>
+      <div class="section-rule"></div>
+      <table class="maxim-table">
+        <tr><th>Maxim</th><th>Meaning</th></tr>
+        <tr><td>Ignorantia juris non excusat</td><td>Ignorance of the law is no excuse</td></tr>
+        <tr><td>Audi alteram partem</td><td>Hear the other side (natural justice)</td></tr>
+        <tr><td>Nemo judex in causa sua</td><td>No one shall be a judge in their own case</td></tr>
+        <tr><td>Res ipsa loquitur</td><td>The thing speaks for itself (negligence)</td></tr>
+        <tr><td>Damnum sine injuria</td><td>Damage without legal injury — no remedy</td></tr>
+        <tr><td>Injuria sine damno</td><td>Legal injury without actual damage — still actionable</td></tr>
+        <tr><td>Ubi jus ibi remedium</td><td>Where there is a right, there is a remedy</td></tr>
+        <tr><td>Caveat emptor</td><td>Let the buyer beware</td></tr>
+        <tr><td>Ex post facto law</td><td>Law criminalising acts done before the law existed (Art. 20 prohibits this)</td></tr>
+        <tr><td>Volenti non fit injuria</td><td>To a willing person, no injury is done (consent is a defence)</td></tr>
+      </table>
+    </div>
+
+    <!-- Strategy -->
+    <div class="mod-section">
+      <div class="section-label">Strategy</div>
+      <div class="section-title">Scoring Maximum in Legal Aptitude</div>
+      <div class="section-rule"></div>
+      <table class="strat-table">
+        <tr><th>Sub-Topic</th><th>Qs (Approx.)</th><th>Priority</th><th>Key Advice</th></tr>
+        <tr><td>P&F — Torts</td><td>10–15</td><td>⭐⭐⭐ High</td><td>Practise 50+ P&F questions</td></tr>
+        <tr><td>P&F — Contracts</td><td>8–12</td><td>⭐⭐⭐ High</td><td>Know all essentials by heart</td></tr>
+        <tr><td>P&F — Criminal</td><td>8–10</td><td>⭐⭐⭐ High</td><td>Focus on mens rea, murder/CHN</td></tr>
+        <tr><td>Constitutional Law</td><td>8–10</td><td>⭐⭐⭐ High</td><td>Articles, writs, landmark cases</td></tr>
+        <tr><td>Legal Maxims</td><td>4–6</td><td>⭐⭐ Medium</td><td>Memorise 15–20 maxims</td></tr>
+        <tr><td>Family / Property Law</td><td>5–8</td><td>⭐⭐ Medium</td><td>Focus on definitions and exceptions</td></tr>
+      </table>
+
+      <div class="info-box tip">
+        <strong>The Golden Rule</strong>
+        In P&F questions: apply the principle as given. Never answer from what you think the real law says. The principle IS the law for that question. Read every word twice before choosing.
+      </div>
+
+      <div class="info-box note">
+        <strong>Recommended Practice</strong>
+        Solve 200+ previous-year Legal Aptitude questions from CLAT, AILET, and AP LAWCET papers. The reasoning pattern repeats across years. Lawcet Adda's test series (mentioned in the video) provides 100+ tests including 20 full-length mocks. Call: 9381109980.
+      </div>
+    </div>
+
+  </div>
+</div><!-- /mod4 -->
+
+<!-- ══════════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════════ -->
+<footer class="site-footer">
+  <p>AP LAWCET 2026 · Complete Paper Discussion Guide &nbsp;·&nbsp; <strong>Based on Lawcet Adda video analysis</strong></p>
+  <p style="margin-top:8px; font-size:12px; opacity:0.6;">Exam: May 4, 2026 &nbsp;·&nbsp; Objection Deadline: May 9, 2026 &nbsp;·&nbsp; Results: May 18, 2026</p>
+</footer>
+
+<!-- ══════════════════════════════════════════════
+     JAVASCRIPT
+══════════════════════════════════════════════ -->
+<script>
+  const progressColors = {
+    1: 'linear-gradient(90deg, #b5451b, #d4722a)',
+    2: 'linear-gradient(90deg, #1a6b9e, #2a9bd4)',
+    3: 'linear-gradient(90deg, #2e7d32, #4caf50)',
+    4: 'linear-gradient(90deg, #5c2d6e, #8e44ad)',
+  };
+
+  function switchTab(n) {
+    // Update buttons
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.classList.toggle('active', parseInt(btn.dataset.mod) === n);
+    });
+
+    // Update panels
+    document.querySelectorAll('.module-panel').forEach(panel => {
+      panel.classList.remove('active');
+    });
+    document.getElementById('mod' + n).classList.add('active');
+
+    // Update progress bar
+    const fill = document.getElementById('progressFill');
+    fill.style.width = (n * 25) + '%';
+    fill.style.background = progressColors[n];
+
+    // Scroll to top of content (below sticky nav)
+    const nav = document.querySelector('.tab-nav');
+    window.scrollTo({ top: nav.offsetTop - 10, behavior: 'smooth' });
+  }
+</script>
+
+</body>
+</html>
