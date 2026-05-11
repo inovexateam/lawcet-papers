@@ -661,9 +661,50 @@ body { background:var(--bg); color:var(--text); font-family:'Space Grotesk',sans
     <div class="stat-card"><div class="stat-num">∞</div><div class="stat-label">Mock Tests</div></div>
   </div>
 
+
+  <!-- PATTERN INSIGHTS SECTION -->
+  <div class="section-title" style="margin-top:0.5rem;"><h2>📊 Exam Pattern & Topic Bank</h2></div>
+  <div style="padding:0 1.25rem 1rem;">
+    <div class="year-card" style="background:linear-gradient(135deg,rgba(124,106,247,0.08),rgba(6,182,212,0.05));border-color:rgba(124,106,247,0.25);cursor:pointer;" onclick="showPatternView()">
+      <div class="year-card-top">
+        <div class="year-tag" style="background:rgba(124,106,247,0.15);color:var(--accent3);">STUDY TOOL</div>
+        <div class="year-status"><div class="dot live"></div><span style="color:var(--text2);font-size:0.7rem;">MUST READ</span></div>
+      </div>
+      <div class="year-title">Pattern Analysis + Topic Byheart Guide</div>
+      <div class="year-meta">
+        <div class="year-meta-item">📈 9-Year Pattern</div>
+        <div class="year-meta-item">📖 All Topics</div>
+        <div class="year-meta-item">🔗 Web Resources</div>
+      </div>
+      <div class="parts-pills">
+        <div class="part-pill">IPC Sections</div>
+        <div class="part-pill">Constitution Articles</div>
+        <div class="part-pill">Key Acts</div>
+        <div class="part-pill">High-Freq Topics</div>
+      </div>
+    </div>
+  </div>
+
   <div class="section-title"><h2>Previous Year Papers</h2></div>
   <div class="year-cards">
-    <div class="year-card y2025" onclick="loadExam('2025')">
+    <div class="year-card mock" onclick="loadMock()">
+      <div class="year-card-top">
+        <div class="year-tag">AI GENERATED</div>
+        <div class="year-status"><div class="dot live"></div><span style="color:var(--text2);font-size:0.7rem;">NEW</span></div>
+      </div>
+      <div class="year-title">AI Mock Test — Based on Pattern</div>
+      <div class="year-meta">
+        <div class="year-meta-item">🤖 AI-Powered</div>
+        <div class="year-meta-item">📊 Pattern-Based</div>
+        <div class="year-meta-item">🔄 Unlimited</div>
+      </div>
+      <div class="parts-pills">
+        <div class="part-pill">Mirrors Real Exam</div>
+        <div class="part-pill">Fresh Each Time</div>
+      </div>
+    </div>
+
+    <div class="year-card y2025"
       <div class="year-card-top">
         <div class="year-tag">AP & TG LAWCET</div>
         <div class="year-status"><div class="dot live"></div><span style="color:var(--text2);font-size:0.7rem;">LIVE</span></div>
@@ -822,23 +863,6 @@ body { background:var(--bg); color:var(--text); font-family:'Space Grotesk',sans
         <div class="part-pill">Part A · Law</div>
         <div class="part-pill">Part B · GK</div>
         <div class="part-pill">Part C · Aptitude</div>
-      </div>
-    </div>
-
-    <div class="year-card mock" onclick="loadMock()">
-      <div class="year-card-top">
-        <div class="year-tag">AI GENERATED</div>
-        <div class="year-status"><div class="dot live"></div><span style="color:var(--text2);font-size:0.7rem;">NEW</span></div>
-      </div>
-      <div class="year-title">AI Mock Test — Based on Pattern</div>
-      <div class="year-meta">
-        <div class="year-meta-item">🤖 AI-Powered</div>
-        <div class="year-meta-item">📊 Pattern-Based</div>
-        <div class="year-meta-item">🔄 Unlimited</div>
-      </div>
-      <div class="parts-pills">
-        <div class="part-pill">Mirrors Real Exam</div>
-        <div class="part-pill">Fresh Each Time</div>
       </div>
     </div>
 
@@ -1533,11 +1557,15 @@ let currentView = 'home';
 let mockQuestions = [];
 
 function showView(view) {
-  document.getElementById('homeView').style.display = 'none';
-  document.getElementById('examView').style.display = 'none';
-  document.getElementById('scorecardView').style.display = 'none';
-  document.getElementById('mockView').style.display = 'none';
-  document.getElementById(view).style.display = view === 'examView' ? 'flex' : (view === 'scorecardView' ? 'block' : (view === 'mockView' ? 'flex' : 'flex'));
+  ['homeView','examView','scorecardView','mockView','patternView'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.style.display = 'none';
+  });
+  const target = document.getElementById(view);
+  if (target) {
+    target.style.display = (view === 'scorecardView') ? 'block' : 'flex';
+    if (view !== 'scorecardView') target.style.flexDirection = 'column';
+  }
   currentView = view;
   window.scrollTo(0, 0);
 }
@@ -1563,11 +1591,11 @@ function loadExam(year) {
   // Set up part tabs
   const tabs = document.getElementById('partTabs');
   tabs.innerHTML = '';
+  const partLabels = { A:'⚖️ Part A · Law', B:'🌍 Part B · GK', C:'🧮 Part C · Aptitude' };
   ['A','B','C'].forEach((part,i) => {
-    const p = currentPaper.parts[part];
     const tab = document.createElement('div');
     tab.className = 'part-tab' + (i === 0 ? ' active' : '');
-    tab.textContent = p.name.replace('Part A — ', 'Part A · ').replace('Part B — ', 'Part B · ').replace('Part C — ', 'Part C · ');
+    tab.textContent = partLabels[part];
     tab.onclick = () => showPart(part, tab);
     tabs.appendChild(tab);
   });
@@ -2028,29 +2056,42 @@ function toggleSource(src, el) {
   }
 }
 
-// Build pool of questions from selected sources, shuffled
+// Build pool of questions from selected sources, shuffled — NO DUPLICATES
 function buildMockPool(targetCount) {
   const years = ['2025','2024','2023','2022','2021','2020','2019','2018','2017'];
   const useYears = (mockSources.includes('all')) ? years : mockSources;
 
-  // Gather all questions, tag with year and part
-  const lawPool = [], gkPool = [], aptPool = [];
+  // Gather unique questions — deduplicate by question text key
+  const lawMap = new Map(), gkMap = new Map(), aptMap = new Map();
   useYears.forEach(yr => {
     const paper = PAPERS[yr];
     if (!paper) return;
-    paper.parts['A'].questions.forEach(q => lawPool.push({...q, _year:yr, _part:'A'}));
-    paper.parts['B'].questions.forEach(q => gkPool.push({...q, _year:yr, _part:'B'}));
-    paper.parts['C'].questions.forEach(q => aptPool.push({...q, _year:yr, _part:'C'}));
+    paper.parts['A'].questions.forEach(q => {
+      const key = q.q.trim().toLowerCase().slice(0,60);
+      if (!lawMap.has(key)) lawMap.set(key, {...q, _year:yr, _part:'A'});
+    });
+    paper.parts['B'].questions.forEach(q => {
+      const key = q.q.trim().toLowerCase().slice(0,60);
+      if (!gkMap.has(key)) gkMap.set(key, {...q, _year:yr, _part:'B'});
+    });
+    paper.parts['C'].questions.forEach(q => {
+      const key = q.q.trim().toLowerCase().slice(0,60);
+      if (!aptMap.has(key)) aptMap.set(key, {...q, _year:yr, _part:'C'});
+    });
   });
+
+  const lawPool = [...lawMap.values()];
+  const gkPool  = [...gkMap.values()];
+  const aptPool = [...aptMap.values()];
 
   // Shuffle each pool
   const shuffle = arr => { for(let i=arr.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]]; } return arr; };
   shuffle(lawPool); shuffle(gkPool); shuffle(aptPool);
 
   // Proportion: Law 50%, GK 25%, Apt 25%
-  const lawN = Math.round(targetCount * 0.50);
-  const gkN  = Math.round(targetCount * 0.25);
-  const aptN  = targetCount - lawN - gkN;
+  const lawN = Math.min(Math.round(targetCount * 0.50), lawPool.length);
+  const gkN  = Math.min(Math.round(targetCount * 0.25), gkPool.length);
+  const aptN = Math.min(targetCount - lawN - gkN, aptPool.length);
 
   const pool = [
     ...lawPool.slice(0, lawN),
@@ -2127,11 +2168,12 @@ function rebuildMockPartTabs() {
     B: { label: 'Part B · GK',      count: getPartQs('B').length },
     C: { label: 'Part C · Aptitude',count: getPartQs('C').length }
   };
+  const mockPartEmojis = { A:'⚖️ Law', B:'🌍 GK', C:'🧮 Aptitude' };
   ['A','B','C'].forEach((p,i) => {
     if (partInfo[p].count === 0) return;
     const tab = document.createElement('div');
     tab.className = 'part-tab' + (i === 0 ? ' active' : '');
-    tab.textContent = partInfo[p].label + ' (' + partInfo[p].count + ')';
+    tab.textContent = mockPartEmojis[p] + ' (' + partInfo[p].count + ')';
     tab.onclick = () => switchMockPart(p, tab);
     tabs.appendChild(tab);
   });
@@ -2647,10 +2689,400 @@ function renderMockQuestions() {}
 window.selectMockAnswer = function() {};
 
 
+
+// ══════════════════════════════════════════════════════════════════════════════
+// PATTERN VIEW — Topic Bank & Study Guide
+// ══════════════════════════════════════════════════════════════════════════════
+
+function showPatternView() {
+  showView('patternView');
+  showPatternTab('overview', document.querySelector('#patternTabs .part-tab'));
+}
+
+function showPatternTab(tab, el) {
+  document.querySelectorAll('#patternTabs .part-tab').forEach(t => t.classList.remove('active'));
+  if (el) el.classList.add('active');
+  const c = document.getElementById('patternContent');
+  if (tab === 'overview')  c.innerHTML = renderPatternOverview();
+  if (tab === 'law')       c.innerHTML = renderPatternLaw();
+  if (tab === 'gk')        c.innerHTML = renderPatternGK();
+  if (tab === 'aptitude')  c.innerHTML = renderPatternAptitude();
+}
+
+// ── Helpers ──
+function patCard(title, body, accentColor) {
+  accentColor = accentColor || 'var(--accent)';
+  return `<div style="background:var(--bg3);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:12px;">
+    <div style="padding:0.85rem 1rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;">
+      <div style="width:3px;height:18px;background:${accentColor};border-radius:2px;"></div>
+      <div style="font-size:0.88rem;font-weight:700;">${title}</div>
+    </div>
+    <div style="padding:0.85rem 1rem;">${body}</div>
+  </div>`;
+}
+function sectionRow(sec, desc, freq) {
+  const freqCol = freq==='High'?'var(--red2)':freq==='Medium'?'var(--gold2)':'var(--text3)';
+  return `<div style="display:flex;align-items:flex-start;gap:10px;padding:7px 0;border-bottom:1px solid rgba(255,255,255,0.04);">
+    <div style="min-width:90px;font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--accent3);padding-top:1px;">${sec}</div>
+    <div style="flex:1;font-size:0.78rem;color:var(--text2);line-height:1.45;">${desc}</div>
+    <div style="font-size:0.62rem;font-weight:700;color:${freqCol};white-space:nowrap;padding-top:2px;">${freq}</div>
+  </div>`;
+}
+function topicPill(txt, color) {
+  color = color||'rgba(124,106,247,0.15)';
+  return `<span style="display:inline-block;background:${color};border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:3px 10px;font-size:0.7rem;margin:3px;color:var(--text2);">${txt}</span>`;
+}
+function webLink(txt, url) {
+  return `<a href="${url}" target="_blank" rel="noopener"
+    style="display:inline-flex;align-items:center;gap:5px;background:rgba(6,182,212,0.08);
+    border:1px solid rgba(6,182,212,0.2);border-radius:8px;padding:5px 10px;
+    font-size:0.75rem;color:#67e8f9;text-decoration:none;margin:3px;">
+    🔗 ${txt}</a>`;
+}
+
+// ─── Overview Tab ─────────────────────────────────────────────────────────────
+function renderPatternOverview() {
+  return `
+  <div style="margin-bottom:1rem;">
+    <div style="font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--text3);font-family:'JetBrains Mono',monospace;margin-bottom:0.75rem;">9-Year Pattern Analysis (2017–2025)</div>
+
+    ${patCard('📋 Exam Structure', `
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;">
+        <div style="background:var(--bg4);border-radius:8px;padding:0.65rem;text-align:center;">
+          <div style="font-size:1.2rem;font-weight:700;color:var(--accent2);font-family:'JetBrains Mono',monospace;">60</div>
+          <div style="font-size:0.68rem;color:var(--text3);">Part A — Law</div>
+        </div>
+        <div style="background:var(--bg4);border-radius:8px;padding:0.65rem;text-align:center;">
+          <div style="font-size:1.2rem;font-weight:700;color:var(--gold2);font-family:'JetBrains Mono',monospace;">30</div>
+          <div style="font-size:0.68rem;color:var(--text3);">Part B — GK</div>
+        </div>
+        <div style="background:var(--bg4);border-radius:8px;padding:0.65rem;text-align:center;">
+          <div style="font-size:1.2rem;font-weight:700;color:var(--green2);font-family:'JetBrains Mono',monospace;">30</div>
+          <div style="font-size:0.68rem;color:var(--text3);">Part C — Aptitude</div>
+        </div>
+        <div style="background:var(--bg4);border-radius:8px;padding:0.65rem;text-align:center;">
+          <div style="font-size:1.2rem;font-weight:700;color:var(--cyan);font-family:'JetBrains Mono',monospace;">120</div>
+          <div style="font-size:0.68rem;color:var(--text3);">Total · 90 min</div>
+        </div>
+      </div>
+      <div style="font-size:0.78rem;color:var(--text2);line-height:1.6;">
+        ✅ No negative marking &nbsp;·&nbsp; 1 mark per correct answer<br>
+        📌 Questions are MCQ with 4 options (A/B/C/D)<br>
+        📌 Qualifying marks vary yearly (usually 36–45%)
+      </div>`, '#7c6af7')}
+
+    ${patCard('🔥 Highest-Frequency Topics (Part A — Law)', `
+      <div style="margin-bottom:8px;font-size:0.75rem;color:var(--text2);">Topics appearing <strong style="color:var(--red2);">5+ times</strong> across 9 years:</div>
+      <div style="display:flex;flex-wrap:wrap;">
+        ${topicPill('IPC — Murder (302)','rgba(239,68,68,0.12)')}
+        ${topicPill('IPC — Theft/Robbery','rgba(239,68,68,0.12)')}
+        ${topicPill('IPC — Cheating (420)','rgba(239,68,68,0.12)')}
+        ${topicPill('Constitution — FRs','rgba(124,106,247,0.12)')}
+        ${topicPill('Constitution — Writs','rgba(124,106,247,0.12)')}
+        ${topicPill('Contract Act — Essentials','rgba(16,185,129,0.1)')}
+        ${topicPill('Evidence Act — Dying Declaration','rgba(245,158,11,0.12)')}
+        ${topicPill('CrPC — FIR (S.154)','rgba(6,182,212,0.1)')}
+        ${topicPill('CrPC — Bail','rgba(6,182,212,0.1)')}
+        ${topicPill('HMA — Divorce (S.13)','rgba(236,72,153,0.1)')}
+        ${topicPill('TPA — Sale (S.54)','rgba(249,115,22,0.1)')}
+        ${topicPill('Latin Maxims','rgba(139,92,246,0.1)')}
+      </div>`, '#ef4444')}
+
+    ${patCard('📈 Year-wise Topic Focus Shift', `
+      ${sectionRow('2017–2018','Classic IPC + CrPC sections. Heavy on definitions.','Baseline')}
+      ${sectionRow('2019–2020','More Constitution + Evidence Act. PIL introduced.','Evolution')}
+      ${sectionRow('2021–2022','Consumer law, POCSO, Environmental law added.','Modern')}
+      ${sectionRow('2023','BNS/BNSS/BSA awareness questions. Digital laws.','Current')}
+      ${sectionRow('2024–2025','New criminal laws in force. SC judgments 2024.','Latest')}
+    `, '#f59e0b')}
+
+    ${patCard('⚡ Quick Score Strategy', `
+      <div style="font-size:0.8rem;color:var(--text2);line-height:1.8;">
+        🎯 <strong style="color:var(--green2);">Sure-shot 30–35 marks:</strong> IPC sections, Writs meanings, Contract Act basics, Latin maxims<br>
+        🎯 <strong style="color:var(--gold2);">Next 20–25 marks:</strong> Constitution articles, CrPC procedures, Evidence Act sections<br>
+        🎯 <strong style="color:var(--accent3);">GK 20+ marks:</strong> Current affairs, Constitutional amendments, Government schemes<br>
+        🎯 <strong style="color:var(--cyan);">Aptitude 20+ marks:</strong> Syllogism, Series, Legal vocabulary, Grammar
+      </div>`, '#10b981')}
+  </div>`;
+}
+
+// ─── Law Topics Tab ────────────────────────────────────────────────────────────
+function renderPatternLaw() {
+  return `
+  <div style="font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--text3);font-family:'JetBrains Mono',monospace;margin-bottom:0.75rem;">Part A — Law (60 Questions)</div>
+
+  ${patCard('⚖️ Indian Penal Code 1860 (IPC / BNS 2023)', `
+    <div style="font-size:0.72rem;color:var(--accent3);margin-bottom:8px;font-weight:600;">🔴 Must Byheart These Sections:</div>
+    ${sectionRow('S.96–106','Right of Private Defence (body & property)','High')}
+    ${sectionRow('S.107–120','Abetment — 3 modes: instigation, conspiracy, aid','High')}
+    ${sectionRow('S.120A–B','Criminal Conspiracy — definition & punishment','High')}
+    ${sectionRow('S.141–146','Unlawful Assembly (5 persons) → Rioting','High')}
+    ${sectionRow('S.299–304','Culpable Homicide → Murder → Punishments','High')}
+    ${sectionRow('S.302','Murder — Death or Life Imprisonment','High')}
+    ${sectionRow('S.304B','Dowry Death — min 7 yrs to Life','High')}
+    ${sectionRow('S.306','Abetment of Suicide','Medium')}
+    ${sectionRow('S.307','Attempt to Murder','Medium')}
+    ${sectionRow('S.309','Attempt to Suicide (decriminalised)','Medium')}
+    ${sectionRow('S.319–320','Hurt & Grievous Hurt (8 kinds)','High')}
+    ${sectionRow('S.354A–D','Sexual Harassment, Stalking, Voyeurism','High')}
+    ${sectionRow('S.375–376','Rape — Definition & Punishment','High')}
+    ${sectionRow('S.378–382','Theft → Robbery → Dacoity chain','High')}
+    ${sectionRow('S.383','Extortion definition','Medium')}
+    ${sectionRow('S.390–395','Robbery & Dacoity (5 persons)','High')}
+    ${sectionRow('S.415–420','Cheating (420 = most famous)','High')}
+    ${sectionRow('S.498A','Cruelty by husband — 3 years','High')}
+    <div style="margin-top:10px;font-size:0.72rem;color:var(--text3);">📖 Study Resource:</div>
+    <div style="margin-top:4px;">
+      ${webLink('Bare Act IPC — IndianKanoon','https://indiankanoon.org/doc/1569253/')}
+      ${webLink('IPC Section List','https://www.lawnn.com/sections-of-ipc/')}
+    </div>`, '#ef4444')}
+
+  ${patCard('📜 Code of Criminal Procedure 1973 (CrPC / BNSS 2023)', `
+    <div style="font-size:0.72rem;color:var(--accent3);margin-bottom:8px;font-weight:600;">🔴 Must Byheart These Sections:</div>
+    ${sectionRow('S.154','FIR — First Information Report','High')}
+    ${sectionRow('S.161','Examination of witnesses by police','Medium')}
+    ${sectionRow('S.164','Recording confession by Magistrate','High')}
+    ${sectionRow('S.173','Final Report / Charge Sheet','High')}
+    ${sectionRow('S.197','Sanction for prosecution of public servants','Medium')}
+    ${sectionRow('S.313','Court examines accused — after prosecution evidence','High')}
+    ${sectionRow('S.436','Bail in bailable offences — right','High')}
+    ${sectionRow('S.437','Bail in non-bailable — Magistrate discretion','High')}
+    ${sectionRow('S.438','Anticipatory Bail — Sessions/HC','High')}
+    ${sectionRow('S.439','Special powers of HC/Sessions for bail','Medium')}
+    ${sectionRow('S.482','HC inherent powers — quash FIR','High')}
+    ${sectionRow('S.125','Maintenance — wife, children, parents','High')}
+    ${sectionRow('S.228','Framing of charge in Sessions trial','Medium')}
+    <div style="margin-top:10px;font-size:0.72rem;color:var(--text3);">📖 Study Resource:</div>
+    <div style="margin-top:4px;">
+      ${webLink('CrPC Bare Act','https://indiankanoon.org/doc/445276/')}
+      ${webLink('BNSS 2023 Overview','https://www.livelaw.in/tags/bnss-2023')}
+    </div>`, '#06b6d4')}
+
+  ${patCard('🏛️ Constitution of India', `
+    <div style="font-size:0.72rem;color:var(--accent3);margin-bottom:8px;font-weight:600;">🔴 Must Byheart These Articles:</div>
+    ${sectionRow('Art.12–13','Definition of State; Laws inconsistent with FRs void','High')}
+    ${sectionRow('Art.14','Equality before law','High')}
+    ${sectionRow('Art.15','Prohibition of discrimination','High')}
+    ${sectionRow('Art.17','Abolition of untouchability','High')}
+    ${sectionRow('Art.19','Six freedoms (speech, assembly, movement...)','High')}
+    ${sectionRow('Art.20','Protection in conviction (double jeopardy, self-incrim)','High')}
+    ${sectionRow('Art.21','Right to life and personal liberty','High')}
+    ${sectionRow('Art.21A','Right to education (86th Amendment)','Medium')}
+    ${sectionRow('Art.22','Protection against arrest & detention','High')}
+    ${sectionRow('Art.32','Right to Constitutional Remedies — SC writs','High')}
+    ${sectionRow('Art.51A','Fundamental Duties (42nd Amendment 1976)','High')}
+    ${sectionRow('Art.123','Presidential Ordinance','Medium')}
+    ${sectionRow('Art.124','SC Judges appointment','High')}
+    ${sectionRow('Art.131','SC Original jurisdiction (inter-state)','Medium')}
+    ${sectionRow('Art.136','Special Leave Petition (SLP)','High')}
+    ${sectionRow('Art.148','CAG — appointed by President','Medium')}
+    ${sectionRow('Art.226','HC writ jurisdiction — wider than Art.32','High')}
+    ${sectionRow('Art.300A','Right to Property — legal right (44th Amendment)','High')}
+    ${sectionRow('Art.341–342','SC & ST notification by President','Medium')}
+    ${sectionRow('Art.352','National Emergency','High')}
+    ${sectionRow('Art.356','President Rule in State','High')}
+    <div style="margin-top:10px;font-size:0.72rem;color:var(--text3);">📖 Study Resource:</div>
+    <div style="margin-top:4px;">
+      ${webLink('Constitution of India','https://indiankanoon.org/doc/237570/')}
+      ${webLink('Constitutional Articles Summary','https://www.clearias.com/list-of-important-articles-of-constitution/')}
+    </div>`, '#7c6af7')}
+
+  ${patCard('📝 Indian Contract Act 1872', `
+    ${sectionRow('S.2(h)','Contract = Agreement enforceable by law','High')}
+    ${sectionRow('S.10','Essentials of a valid contract (6 elements)','High')}
+    ${sectionRow('S.15','Coercion — IPC forbidden act','High')}
+    ${sectionRow('S.16','Undue influence','Medium')}
+    ${sectionRow('S.17','Fraud','Medium')}
+    ${sectionRow('S.19','Voidable — coercion/fraud/misrep','High')}
+    ${sectionRow('S.27','Restraint of trade — void','Medium')}
+    ${sectionRow('S.68','Necessaries to incompetent person','Medium')}
+    <div style="margin-top:10px;">${webLink('Contract Act Bare Act','https://indiankanoon.org/doc/1281984/')}</div>`, '#10b981')}
+
+  ${patCard('🔬 Indian Evidence Act 1872 (/ BSA 2023)', `
+    ${sectionRow('S.32','Dying Declaration — admissible as exception','High')}
+    ${sectionRow('S.45','Expert Opinion — 5 types','High')}
+    ${sectionRow('S.63/65B','Electronic Records admissibility','High')}
+    ${sectionRow('S.115–117','Estoppel — 3 types','Medium')}
+    <div style="margin-top:10px;">${webLink('Evidence Act','https://indiankanoon.org/doc/1752186/')}</div>`, '#f59e0b')}
+
+  ${patCard('🏠 Transfer of Property Act 1882', `
+    ${sectionRow('S.52','Lis Pendens — pending suit','High')}
+    ${sectionRow('S.54','Sale — definition','High')}
+    ${sectionRow('S.58','Mortgage — 6 types','High')}
+    ${sectionRow('S.105','Lease — definition','Medium')}
+    <div style="margin-top:10px;">${webLink('TPA Bare Act','https://indiankanoon.org/doc/1353566/')}</div>`, '#ec4899')}
+
+  ${patCard('👨‍⚖️ Important Latin Maxims', `
+    ${sectionRow('Actus reus','Wrongful act (physical element)','High')}
+    ${sectionRow('Mens rea','Guilty mind (mental element)','High')}
+    ${sectionRow('Res judicata','Thing already decided (CPC S.11)','High')}
+    ${sectionRow('Res sub judice','Pending suit (CPC S.10)','High')}
+    ${sectionRow('Habeas Corpus','You shall have the body','High')}
+    ${sectionRow('Mandamus','We command — public duty','High')}
+    ${sectionRow('Certiorari','Quash inferior court order','High')}
+    ${sectionRow('Quo Warranto','By what authority — public office','High')}
+    ${sectionRow('Audi alteram partem','Hear the other side (NJ Rule 1)','High')}
+    ${sectionRow('Nemo judex','No man judge of own cause (NJ Rule 2)','High')}
+    ${sectionRow('Damnum sine injuria','Damage without legal wrong','High')}
+    ${sectionRow('Injuria sine damno','Legal wrong without actual damage','High')}
+    ${sectionRow('Res ipsa loquitur','Thing speaks for itself','High')}
+    ${sectionRow('Volenti non fit injuria','Consent is defence in tort','High')}
+    ${sectionRow('Caveat emptor','Buyer beware','Medium')}
+    ${sectionRow('De facto / De jure','In fact / By law','High')}
+    ${sectionRow('Ultra vires','Beyond powers','High')}
+    ${sectionRow('Sub judice','Under consideration of court','Medium')}
+    ${sectionRow('Locus standi','Right to bring case to court','High')}
+    ${sectionRow('Obiter dicta','Said by the way — not binding','High')}
+    ${sectionRow('Ratio decidendi','Reason for decision — binding','High')}
+  `, '#a78bfa')}
+  `;
+}
+
+// ─── GK Topics Tab ────────────────────────────────────────────────────────────
+function renderPatternGK() {
+  return `
+  <div style="font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--text3);font-family:'JetBrains Mono',monospace;margin-bottom:0.75rem;">Part B — General Knowledge (30 Questions)</div>
+
+  ${patCard('📅 Important Years & Acts to Remember', `
+    ${sectionRow('1860','Indian Penal Code (IPC)','High')}
+    ${sectionRow('1872','Indian Evidence Act + Indian Contract Act','High')}
+    ${sectionRow('1882','Transfer of Property Act','High')}
+    ${sectionRow('1908','CPC + Registration Act','High')}
+    ${sectionRow('1950','Constitution in force (Republic Day)','High')}
+    ${sectionRow('1955','Hindu Marriage Act','High')}
+    ${sectionRow('1956','Hindu Succession Act','Medium')}
+    ${sectionRow('1961','Dowry Prohibition Act','High')}
+    ${sectionRow('1963','Specific Relief Act + Limitation Act','High')}
+    ${sectionRow('1973','CrPC enacted (in force 1974)','High')}
+    ${sectionRow('1987','Legal Services Authorities Act (NALSA)','High')}
+    ${sectionRow('1989','SC/ST Prevention of Atrocities Act','Medium')}
+    ${sectionRow('1996','Arbitration & Conciliation Act','Medium')}
+    ${sectionRow('2002','PMLA + SARFAESI','Medium')}
+    ${sectionRow('2005','RTI Act + PWDVA','High')}
+    ${sectionRow('2012','POCSO Act','High')}
+    ${sectionRow('2013','Land Acquisition Act','Medium')}
+    ${sectionRow('2014','Telangana State formed (2 June)','High')}
+    ${sectionRow('2016','IBC + RERA + Benami Amendment + GST 101st Amend','High')}
+    ${sectionRow('2019','Consumer Protection Act + POCSO Amendment','High')}
+    ${sectionRow('2023','BNS + BNSS + BSA + DPDPA + Women Reservation','High')}
+    ${sectionRow('2024','New criminal laws in force (1 July)','High')}
+    <div style="margin-top:10px;">${webLink('Important Acts Timeline','https://www.gktoday.in/important-acts-of-india/')}</div>`, '#f59e0b')}
+
+  ${patCard('🏛️ Constitutional Amendments — Must Know', `
+    ${sectionRow('1st (1951)','Ninth Schedule — laws protected from JR','Medium')}
+    ${sectionRow('42nd (1976)','Preamble: Socialist+Secular; Fundamental Duties','High')}
+    ${sectionRow('44th (1978)','Property right removed from FRs → Art.300A','High')}
+    ${sectionRow('52nd (1985)','Anti-Defection Law — 10th Schedule','High')}
+    ${sectionRow('61st (1989)','Voting age 21 → 18','Medium')}
+    ${sectionRow('73rd (1992)','Panchayati Raj — 11th Schedule','Medium')}
+    ${sectionRow('74th (1992)','Urban Local Bodies — 12th Schedule','Medium')}
+    ${sectionRow('86th (2002)','Art.21A — RTE (Free education 6-14 yrs)','High')}
+    ${sectionRow('97th (2011)','Cooperative Societies — Art.43B + Part IX-B','Medium')}
+    ${sectionRow('101st (2016)','GST — Art.246A','High')}
+    ${sectionRow('103rd (2019)','EWS 10% reservation','High')}
+    ${sectionRow('104th (2020)','SC/ST Lok Sabha reservation extended 10 yrs','Medium')}
+    ${sectionRow('106th (2023)','33% Women reservation in LS + Assemblies','High')}
+    <div style="margin-top:10px;">${webLink('Constitutional Amendments','https://www.mea.gov.in/Images/pdf1/S368.pdf')}</div>`, '#7c6af7')}
+
+  ${patCard('⚖️ Key Constitutional Bodies & Their Articles', `
+    ${sectionRow('Art.52','President of India established','High')}
+    ${sectionRow('Art.54','Election of President','High')}
+    ${sectionRow('Art.63','Vice-President','Medium')}
+    ${sectionRow('Art.64','VP = ex-officio RS Chairman','High')}
+    ${sectionRow('Art.79','Parliament = President + LS + RS','High')}
+    ${sectionRow('Art.108','Joint Session of Parliament','Medium')}
+    ${sectionRow('Art.148','CAG — appointed by President','Medium')}
+    ${sectionRow('Art.153','Governor — appointed by President','High')}
+    ${sectionRow('Art.324','Election Commission of India','High')}
+    ${sectionRow('NHRC','Retired CJI as Chairman','High')}
+    ${sectionRow('NALSA','CJI as Patron-in-Chief','High')}`, '#10b981')}
+
+  ${patCard('🌍 International Organisations', `
+    ${sectionRow('ICJ','International Court of Justice — The Hague','High')}
+    ${sectionRow('ICC','International Criminal Court — The Hague','High')}
+    ${sectionRow('SAARC HQ','Kathmandu, Nepal','Medium')}
+    ${sectionRow('TRIPS','Trade-Related Intellectual Property — WTO','Medium')}
+    ${sectionRow('VCLT 1969','Vienna Convention on Law of Treaties','Medium')}
+    <div style="margin-top:10px;">${webLink('International Law Bodies','https://www.un.org/en/about-us/main-bodies')}</div>`, '#06b6d4')}
+
+  ${patCard('📰 Recent Current Affairs (2023–2025)', `
+    ${sectionRow('Chandrayaan-3','South Pole landing — 23 Aug 2023','High')}
+    ${sectionRow('Aditya-L1','Solar mission — 2 Sept 2023','High')}
+    ${sectionRow('G20 Summit 2023','New Delhi — Bharat Mandapam','High')}
+    ${sectionRow('Electoral Bonds','SC struck down — Feb 2024','High')}
+    ${sectionRow('Paris Olympics 2024','India: 1 Silver + 5 Bronze','High')}
+    ${sectionRow('UCC — Uttarakhand','First state to implement UCC — 2024','High')}
+    ${sectionRow('New Criminal Laws','BNS+BNSS+BSA in force 1 July 2024','High')}
+    ${sectionRow('CJI 2024','Sanjiv Khanna — 51st CJI (Nov 2024)','High')}
+    <div style="margin-top:10px;">${webLink('Latest Current Affairs','https://www.thehindu.com/law/')}</div>`, '#f472b6')}
+  `;
+}
+
+// ─── Aptitude Topics Tab ────────────────────────────────────────────────────────
+function renderPatternAptitude() {
+  return `
+  <div style="font-size:0.65rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--text3);font-family:'JetBrains Mono',monospace;margin-bottom:0.75rem;">Part C — Aptitude & English (30 Questions)</div>
+
+  ${patCard('📚 Legal Vocabulary — Must Know Words', `
+    ${sectionRow('Plaintiff','Person who initiates civil suit','High')}
+    ${sectionRow('Defendant','Person against whom suit filed','High')}
+    ${sectionRow('Appellant','Who files appeal','High')}
+    ${sectionRow('Respondent','Who responds to appeal','High')}
+    ${sectionRow('Litigant','Party to a lawsuit','High')}
+    ${sectionRow('Acquit','Declare not guilty','High')}
+    ${sectionRow('Convict','Declare guilty','High')}
+    ${sectionRow('Subpoena','Court order to appear/produce','High')}
+    ${sectionRow('Injunction','Court order to stop/do action','High')}
+    ${sectionRow('Affidavit','Sworn written statement','High')}
+    ${sectionRow('Mandate','Official command','Medium')}
+    ${sectionRow('Perjury','False statement under oath (S.191 IPC)','High')}
+    ${sectionRow('Incarcerate','To imprison','Medium')}
+    ${sectionRow('Amicus Curiae','Friend of the Court','High')}
+    ${sectionRow('Sub judice','Under consideration of court','High')}
+    ${sectionRow('Caveat','Warning notice to court','High')}
+    ${sectionRow('In camera','Private/closed court proceedings','Medium')}
+    ${sectionRow('Jurisprudence','Science/philosophy of law','High')}
+    ${sectionRow('Jurisdiction','Court authority to hear case','High')}`, '#f59e0b')}
+
+  ${patCard('🧮 Aptitude — Formulas to Remember', `
+    ${sectionRow('SI','P × R × T / 100','High')}
+    ${sectionRow('CI','P(1+r/100)ⁿ − P','High')}
+    ${sectionRow('Speed/Time','Distance ÷ Time; m/s × 18/5 = km/h','High')}
+    ${sectionRow('Train (pole)','Length ÷ Speed','High')}
+    ${sectionRow('Train (opposite)','Sum of lengths ÷ Sum of speeds','High')}
+    ${sectionRow('Work','A+B = 1/a + 1/b per day','High')}
+    ${sectionRow('Partnership','Profit ∝ Investment','High')}
+    ${sectionRow('Average','Sum ÷ Count; remove = new sum − old sum','High')}
+    ${sectionRow('Percentage','(Diff/Original) × 100','High')}
+    ${sectionRow('Boats','Still water = (Up+Down)/2','Medium')}
+    ${sectionRow('Fibonacci','Each = sum of previous two','Medium')}
+    <div style="margin-top:10px;">${webLink('Aptitude Practice','https://www.indiabix.com/aptitude/questions-and-answers/')}</div>`, '#10b981')}
+
+  ${patCard('✍️ English Grammar — Common Error Types', `
+    ${sectionRow('Subject-Verb Agreement','Each/Every/Neither = singular verb','High')}
+    ${sectionRow('Dangling Modifier','Modifier must agree with main subject','High')}
+    ${sectionRow('Active/Passive Voice','Tense must remain same in conversion','High')}
+    ${sectionRow('Prepositions','Accused OF, Convicted OF, Guilty OF','High')}
+    ${sectionRow('Articles','A/An/The — before vowel sounds use An','Medium')}
+    ${sectionRow('Legal collocations','Court QUASHES orders; Parliament REPEALS laws','High')}
+    <div style="margin-top:10px;">${webLink('English Grammar','https://www.grammarly.com/blog/category/handbook/')}</div>`, '#a78bfa')}
+
+  ${patCard('🔤 Direction & Reasoning Shortcuts', `
+    ${sectionRow('CW from N','N→E→S→W→N (Clockwise)','High')}
+    ${sectionRow('ACW from N','N→W→S→E→N (Anti-CW)','High')}
+    ${sectionRow('Blood Relation','Draw family tree; identify relation step-by-step','High')}
+    ${sectionRow('Coding','Find +/− shift; A=1,B=2...Z=26','High')}
+    ${sectionRow('Odd One Out','Find the category that does NOT belong','High')}
+    ${sectionRow('Analogies','Find the relationship pattern','High')}
+    ${sectionRow('Syllogism','Draw Venn diagram mentally','High')}`, '#06b6d4')}
+  `;
+}
+
 // Init
 document.getElementById('scorecardView').style.display = 'none';
 document.getElementById('examView').style.display = 'none';
 document.getElementById('mockView').style.display = 'none';
+document.getElementById('patternView').style.display = 'none';
 
 // ===========================
 // SEARCH FEATURE
@@ -2892,5 +3324,26 @@ function toggleSRCard(btn) {
 }
 
 </script>
+
+<!-- PATTERN VIEW -->
+<div id="patternView" style="display:none;min-height:100vh;flex-direction:column;">
+  <div style="position:sticky;top:0;z-index:100;background:rgba(10,10,15,0.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0.85rem 1.25rem;">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <button class="back-btn" onclick="goHome()">← Home</button>
+      <div style="font-size:0.82rem;font-weight:600;">Pattern & Topic Guide</div>
+      <div class="badge">STUDY</div>
+    </div>
+  </div>
+
+  <!-- Tab bar -->
+  <div class="part-tabs" id="patternTabs" style="background:var(--bg2);">
+    <div class="part-tab active" onclick="showPatternTab('overview',this)">📊 Overview</div>
+    <div class="part-tab" onclick="showPatternTab('law',this)">⚖️ Law Topics</div>
+    <div class="part-tab" onclick="showPatternTab('gk',this)">🌍 GK Topics</div>
+    <div class="part-tab" onclick="showPatternTab('aptitude',this)">🧮 Aptitude</div>
+  </div>
+
+  <div id="patternContent" style="padding:1.25rem;padding-bottom:3rem;"></div>
+</div>
 </body>
 </html>
