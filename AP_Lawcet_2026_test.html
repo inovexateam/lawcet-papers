@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AP LAWCET 2026 — Mock Test</title>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1410;
+    --ink2: #4a4440;
+    --ink3: #8a8480;
+    --cream: #faf8f4;
+    --cream2: #f2ede4;
+    --cream3: #e8e0d4;
+    --gold: #b8860b;
+    --gold-light: #f5f0e0;
+    --red: #c0392b;
+    --red-light: #fdf0ee;
+    --green: #1a6b3c;
+    --green-light: #edf7f1;
+    --blue: #1a4a8a;
+    --blue-light: #eef3fb;
+    --border: #d4cdc4;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    min-height: 100vh;
+  }
+
+  /* ===== SPLASH ===== */
+  #splash {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    background: var(--ink);
+    position: relative;
+    overflow: hidden;
+  }
+
+  #splash::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 60px,
+      rgba(184,134,11,0.04) 60px,
+      rgba(184,134,11,0.04) 61px
+    );
+    pointer-events: none;
+  }
+
+  .splash-emblem {
+    width: 80px;
+    height: 80px;
+    border: 2px solid var(--gold);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2rem;
+    font-size: 32px;
+    color: var(--gold);
+  }
+
+  .splash-title {
+    font-family: 'Crimson Pro', serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    color: #fff;
+    text-align: center;
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
+  }
+
+  .splash-sub {
+    font-size: 14px;
+    color: var(--gold);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .splash-rules {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    padding: 1.5rem 2rem;
+    max-width: 560px;
+    width: 100%;
+    margin-bottom: 2.5rem;
+  }
+
+  .splash-rules h3 {
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+    font-weight: 600;
+  }
+
+  .rule-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    font-size: 14px;
+    color: rgba(255,255,255,0.75);
+  }
+
+  .rule-row:last-child { border-bottom: none; }
+  .rule-icon { color: var(--gold); font-size: 16px; width: 20px; text-align: center; }
+
+  .btn-start {
+    background: var(--gold);
+    color: var(--ink);
+    border: none;
+    padding: 16px 48px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    letter-spacing: 0.05em;
+    transition: all 0.2s;
+  }
+
+  .btn-start:hover { background: #d4a012; transform: translateY(-1px); }
+  .btn-start:active { transform: translateY(0); }
+
+  /* ===== EXAM ===== */
+  #exam { display: none; min-height: 100vh; flex-direction: column; }
+
+  .exam-header {
+    background: var(--ink);
+    color: #fff;
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .exam-title {
+    font-family: 'Crimson Pro', serif;
+    font-size: 16px;
+    color: rgba(255,255,255,0.9);
+  }
+
+  .timer-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 8px;
+    padding: 8px 16px;
+  }
+
+  .timer-icon { font-size: 16px; color: var(--gold); }
+
+  #timer {
+    font-size: 20px;
+    font-weight: 600;
+    font-family: 'DM Sans', monospace;
+    color: #fff;
+    min-width: 70px;
+    text-align: center;
+  }
+
+  #timer.urgent { color: #ff6b6b; animation: pulse 1s infinite; }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+  }
+
+  .progress-bar {
+    height: 3px;
+    background: rgba(255,255,255,0.1);
+    position: relative;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: var(--gold);
+    transition: width 0.3s ease;
+  }
+
+  .exam-body {
+    display: flex;
+    flex: 1;
+    min-height: calc(100vh - 60px);
+  }
+
+  /* ===== SIDEBAR ===== */
+  .sidebar {
+    width: 220px;
+    min-width: 220px;
+    background: var(--cream2);
+    border-right: 1px solid var(--border);
+    padding: 16px;
+    overflow-y: auto;
+    position: sticky;
+    top: 63px;
+    height: calc(100vh - 63px);
+  }
+
+  .sidebar-section { margin-bottom: 16px; }
+
+  .sidebar-label {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink3);
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  .q-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 4px;
+  }
+
+  .q-num {
+    width: 32px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 500;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.15s;
+    border: 1px solid var(--border);
+    background: var(--cream);
+    color: var(--ink2);
+  }
+
+  .q-num:hover { border-color: var(--gold); color: var(--gold); }
+  .q-num.answered { background: var(--gold); color: var(--ink); border-color: var(--gold); }
+  .q-num.current { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .q-num.answered.current { background: var(--gold); color: var(--ink); box-shadow: 0 0 0 2px var(--ink); }
+
+  .legend {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    color: var(--ink2);
+  }
+
+  .legend-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+    border: 1px solid;
+    flex-shrink: 0;
+  }
+
+  .legend-dot.answered { background: var(--gold); border-color: var(--gold); }
+  .legend-dot.unanswered { background: var(--cream); border-color: var(--border); }
+  .legend-dot.current { background: var(--ink); border-color: var(--ink); }
+
+  .submit-btn {
+    width: 100%;
+    padding: 12px;
+    background: var(--red);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 8px;
+    letter-spacing: 0.03em;
+  }
+
+  .submit-btn:hover { background: #a93226; }
+
+  /* ===== QUESTION PANEL ===== */
+  .question-panel {
+    flex: 1;
+    padding: 32px;
+    overflow-y: auto;
+    max-width: 720px;
+  }
+
+  .q-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .q-number-badge {
+    background: var(--ink);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 20px;
+    letter-spacing: 0.05em;
+  }
+
+  .q-topic-badge {
+    background: var(--gold-light);
+    color: var(--gold);
+    font-size: 11px;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 20px;
+    border: 1px solid rgba(184,134,11,0.3);
+  }
+
+  .q-part-label {
+    font-size: 11px;
+    color: var(--ink3);
+    margin-left: auto;
+  }
+
+  .question-text {
+    font-family: 'Crimson Pro', serif;
+    font-size: 20px;
+    line-height: 1.5;
+    color: var(--ink);
+    margin-bottom: 28px;
+  }
+
+  .options-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 32px;
+  }
+
+  .option {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 14px 18px;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.15s;
+    background: var(--cream);
+  }
+
+  .option:hover { border-color: var(--gold); background: var(--gold-light); }
+  .option.selected { border-color: var(--gold); background: var(--gold-light); }
+
+  .opt-letter {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1.5px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+    flex-shrink: 0;
+    transition: all 0.15s;
+    color: var(--ink2);
+  }
+
+  .option.selected .opt-letter {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: var(--ink);
+  }
+
+  .opt-text {
+    font-size: 15px;
+    line-height: 1.4;
+    color: var(--ink);
+    padding-top: 2px;
+  }
+
+  .q-nav {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .btn-nav {
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s;
+    border: 1.5px solid var(--border);
+    background: var(--cream);
+    color: var(--ink);
+  }
+
+  .btn-nav:hover { border-color: var(--ink); }
+  .btn-nav:disabled { opacity: 0.4; cursor: not-allowed; }
+  .btn-nav.primary { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .btn-nav.primary:hover { background: #2d2520; }
+
+  .btn-clear {
+    margin-left: auto;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    border: 1.5px solid var(--border);
+    background: transparent;
+    color: var(--ink3);
+  }
+
+  .btn-clear:hover { color: var(--red); border-color: var(--red); }
+
+  /* ===== RESULTS ===== */
+  #results { display: none; min-height: 100vh; background: var(--cream); }
+
+  .results-header {
+    background: var(--ink);
+    padding: 40px 24px 60px;
+    text-align: center;
+    position: relative;
+  }
+
+  .results-title {
+    font-family: 'Crimson Pro', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: #fff;
+    margin-bottom: 8px;
+  }
+
+  .results-sub {
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .score-card {
+    max-width: 760px;
+    margin: -36px auto 32px;
+    padding: 0 16px;
+  }
+
+  .score-inner {
+    background: var(--cream);
+    border-radius: 16px;
+    padding: 28px;
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.1);
+  }
+
+  .score-big {
+    text-align: center;
+    margin-bottom: 24px;
+  }
+
+  .score-number {
+    font-family: 'Crimson Pro', serif;
+    font-size: 72px;
+    line-height: 1;
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .score-denom {
+    font-size: 20px;
+    color: var(--ink3);
+    font-family: 'Crimson Pro', serif;
+  }
+
+  .score-pct {
+    font-size: 16px;
+    color: var(--ink2);
+    margin-top: 4px;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .stat-box {
+    background: var(--cream2);
+    border-radius: 10px;
+    padding: 16px;
+    text-align: center;
+  }
+
+  .stat-num { font-size: 28px; font-weight: 600; font-family: 'Crimson Pro', serif; }
+  .stat-label { font-size: 11px; color: var(--ink3); margin-top: 4px; letter-spacing: 0.05em; text-transform: uppercase; }
+
+  .stat-box.correct .stat-num { color: var(--green); }
+  .stat-box.wrong .stat-num { color: var(--red); }
+  .stat-box.skipped .stat-num { color: var(--ink3); }
+
+  .part-breakdown {
+    border-top: 1px solid var(--border);
+    padding-top: 20px;
+  }
+
+  .part-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .part-name { font-size: 13px; color: var(--ink2); width: 200px; }
+
+  .part-bar-wrap {
+    flex: 1;
+    height: 8px;
+    background: var(--cream3);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .part-bar { height: 100%; background: var(--gold); border-radius: 4px; transition: width 0.6s ease; }
+  .part-score { font-size: 13px; font-weight: 500; width: 60px; text-align: right; }
+
+  .results-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin: 24px 0 32px;
+    flex-wrap: wrap;
+  }
+
+  .btn-action {
+    padding: 12px 28px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1.5px solid var(--border);
+    background: var(--cream);
+    color: var(--ink);
+    transition: all 0.15s;
+  }
+
+  .btn-action:hover { border-color: var(--ink); }
+  .btn-action.primary { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .btn-action.primary:hover { background: #2d2520; }
+  .btn-action.danger { background: var(--red); color: #fff; border-color: var(--red); }
+
+  /* ===== REVIEW ===== */
+  #review-section {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 16px 60px;
+    display: none;
+  }
+
+  .review-filters {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+  }
+
+  .filter-btn {
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    border: 1.5px solid var(--border);
+    background: var(--cream);
+    color: var(--ink2);
+    transition: all 0.15s;
+  }
+
+  .filter-btn.active { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .filter-btn.wrong-filter.active { background: var(--red); border-color: var(--red); }
+  .filter-btn.correct-filter.active { background: var(--green); border-color: var(--green); }
+
+  .review-card {
+    background: var(--cream);
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 12px;
+    transition: border-color 0.15s;
+  }
+
+  .review-card.wrong { border-left: 4px solid var(--red); }
+  .review-card.correct { border-left: 4px solid var(--green); }
+  .review-card.skipped { border-left: 4px solid var(--ink3); }
+
+  .review-q-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .review-badge {
+    font-size: 10px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 20px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .review-badge.correct { background: var(--green-light); color: var(--green); }
+  .review-badge.wrong { background: var(--red-light); color: var(--red); }
+  .review-badge.skipped { background: var(--cream2); color: var(--ink3); }
+
+  .review-q-text {
+    font-family: 'Crimson Pro', serif;
+    font-size: 17px;
+    line-height: 1.5;
+    margin-bottom: 14px;
+    color: var(--ink);
+  }
+
+  .review-opts {
+    display: grid;
+    gap: 6px;
+    margin-bottom: 12px;
+  }
+
+  .review-opt {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 14px;
+    border: 1px solid transparent;
+    background: var(--cream2);
+  }
+
+  .review-opt.correct-ans { background: var(--green-light); border-color: rgba(26,107,60,0.2); color: var(--green); }
+  .review-opt.user-wrong { background: var(--red-light); border-color: rgba(192,57,43,0.2); color: var(--red); text-decoration: line-through; }
+  .review-opt-icon { font-size: 14px; width: 18px; text-align: center; }
+
+  .explanation-box {
+    background: var(--blue-light);
+    border: 1px solid rgba(26,74,138,0.15);
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-top: 10px;
+  }
+
+  .exp-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 6px;
+  }
+
+  .exp-text { font-size: 13px; color: var(--ink2); line-height: 1.5; }
+
+  .memory-box {
+    background: var(--gold-light);
+    border: 1px solid rgba(184,134,11,0.2);
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin-top: 8px;
+    font-size: 12px;
+    color: #7a5800;
+    line-height: 1.5;
+  }
+
+  .review-card .toggle-exp {
+    font-size: 12px;
+    color: var(--blue);
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+    font-family: 'DM Sans', sans-serif;
+    text-decoration: underline;
+    margin-top: 4px;
+  }
+
+  /* ===== CONFIRM MODAL ===== */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+
+  .modal-overlay.show { display: flex; }
+
+  .modal {
+    background: var(--cream);
+    border-radius: 16px;
+    padding: 32px;
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+  }
+
+  .modal-icon { font-size: 40px; margin-bottom: 16px; }
+  .modal h2 { font-family: 'Crimson Pro', serif; font-size: 22px; margin-bottom: 8px; }
+  .modal p { font-size: 14px; color: var(--ink2); margin-bottom: 24px; line-height: 1.5; }
+  .modal-btns { display: flex; gap: 12px; justify-content: center; }
+
+  .btn-modal {
+    padding: 12px 28px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .btn-modal.cancel { background: var(--cream2); border: 1px solid var(--border); color: var(--ink); }
+  .btn-modal.confirm { background: var(--red); border: none; color: #fff; }
+  .btn-modal.confirm:hover { background: #a93226; }
+
+  @media (max-width: 640px) {
+    .exam-body { flex-direction: column; }
+    .sidebar { width: 100%; min-width: unset; height: auto; position: relative; top: 0; }
+    .question-panel { padding: 20px 16px; }
+    .stats-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== SPLASH ===== -->
+<div id="splash">
+  <div class="splash-emblem">⚖</div>
+  <h1 class="splash-title">AP LAWCET 2026<br>Mock Test</h1>
+  <p class="splash-sub">Official Paper — 4th May 2026</p>
+
+  <div class="splash-rules">
+    <h3>Exam Instructions</h3>
+    <div class="rule-row"><span class="rule-icon">⏱</span> Duration: 90 minutes (no extension)</div>
+    <div class="rule-row"><span class="rule-icon">📋</span> 120 questions across 3 parts</div>
+    <div class="rule-row"><span class="rule-icon">✓</span> Each correct answer: 1 mark</div>
+    <div class="rule-row"><span class="rule-icon">✗</span> No negative marking</div>
+    <div class="rule-row"><span class="rule-icon">⚡</span> Auto-submit when time expires</div>
+    <div class="rule-row"><span class="rule-icon">📊</span> Detailed review after submission</div>
+  </div>
+
+  <button class="btn-start" onclick="startExam()">Begin Exam →</button>
+</div>
+
+<!-- ===== EXAM ===== -->
+<div id="exam">
+  <div class="exam-header">
+    <div class="exam-title">AP LAWCET 2026 — Mock Test</div>
+    <div class="timer-wrap">
+      <span class="timer-icon">⏱</span>
+      <div id="timer">90:00</div>
+    </div>
+    <div id="header-progress" style="font-size:13px;color:rgba(255,255,255,0.6)">0/120 answered</div>
+  </div>
+  <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0"></div></div>
+
+  <div class="exam-body">
+    <div class="sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-label">Part A — GK (1–30)</div>
+        <div class="q-grid" id="grid-a"></div>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-label">Part B — Current Affairs (31–60)</div>
+        <div class="q-grid" id="grid-b"></div>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-label">Part C — Law (61–120)</div>
+        <div class="q-grid" id="grid-c"></div>
+      </div>
+      <div class="sidebar-section">
+        <div class="legend">
+          <div class="legend-item"><div class="legend-dot answered"></div> Answered</div>
+          <div class="legend-item"><div class="legend-dot unanswered"></div> Not answered</div>
+          <div class="legend-item"><div class="legend-dot current"></div> Current</div>
+        </div>
+      </div>
+      <button class="submit-btn" onclick="showSubmitModal()">Submit Exam</button>
+    </div>
+
+    <div class="question-panel" id="question-panel"></div>
+  </div>
+</div>
+
+<!-- ===== RESULTS ===== -->
+<div id="results">
+  <div class="results-header">
+    <div class="results-title" id="result-title">Exam Complete</div>
+    <div class="results-sub">AP LAWCET 2026 Mock Test — Performance Report</div>
+  </div>
+
+  <div class="score-card">
+    <div class="score-inner">
+      <div class="score-big">
+        <div class="score-number" id="score-display">0 <span class="score-denom">/ 120</span></div>
+        <div class="score-pct" id="score-pct"></div>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-box correct"><div class="stat-num" id="s-correct">0</div><div class="stat-label">Correct</div></div>
+        <div class="stat-box wrong"><div class="stat-num" id="s-wrong">0</div><div class="stat-label">Wrong</div></div>
+        <div class="stat-box skipped"><div class="stat-num" id="s-skipped">0</div><div class="stat-label">Skipped</div></div>
+      </div>
+
+      <div class="part-breakdown">
+        <div class="sidebar-label" style="margin-bottom:14px">Section-wise Performance</div>
+        <div class="part-row">
+          <div class="part-name">Part A — General Knowledge</div>
+          <div class="part-bar-wrap"><div class="part-bar" id="bar-a" style="width:0"></div></div>
+          <div class="part-score" id="ps-a">0/30</div>
+        </div>
+        <div class="part-row">
+          <div class="part-name">Part B — Current Affairs</div>
+          <div class="part-bar-wrap"><div class="part-bar" id="bar-b" style="width:0"></div></div>
+          <div class="part-score" id="ps-b">0/30</div>
+        </div>
+        <div class="part-row">
+          <div class="part-name">Part C — Law & Legal GK</div>
+          <div class="part-bar-wrap"><div class="part-bar" id="bar-c" style="width:0"></div></div>
+          <div class="part-score" id="ps-c">0/60</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="results-actions">
+    <button class="btn-action" onclick="filterReview('wrong')">Review Wrong Answers</button>
+    <button class="btn-action" onclick="filterReview('all')">Review All Questions</button>
+    <button class="btn-action primary" onclick="retakeExam()">Retake Exam</button>
+  </div>
+
+  <div id="review-section">
+    <div style="max-width:760px;margin:0 auto 16px;padding:0 16px">
+      <div class="review-filters">
+        <button class="filter-btn active" id="f-all" onclick="setFilter('all')">All (120)</button>
+        <button class="filter-btn wrong-filter" id="f-wrong" onclick="setFilter('wrong')">Wrong</button>
+        <button class="filter-btn correct-filter" id="f-correct" onclick="setFilter('correct')">Correct</button>
+        <button class="filter-btn" id="f-skipped" onclick="setFilter('skipped')">Skipped</button>
+      </div>
+    </div>
+    <div id="review-list" style="max-width:760px;margin:0 auto;padding:0 16px"></div>
+  </div>
+</div>
+
+<!-- ===== CONFIRM MODAL ===== -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal">
+    <div class="modal-icon">📋</div>
+    <h2>Submit Exam?</h2>
+    <p id="modal-msg">You have answered 0 of 120 questions.<br>Unanswered questions will be marked as skipped.</p>
+    <div class="modal-btns">
+      <button class="btn-modal cancel" onclick="closeModal()">Go Back</button>
+      <button class="btn-modal confirm" onclick="submitExam()">Submit Now</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const QUESTIONS = [
+{id:1,q:"In India, which is the highest peacetime gallantry award?",opts:["Ashoka Chakra","Param Vir Chakra","Kirti Chakra","Shaurya Chakra"],ans:0,topic:"GK · Awards",exp:"Ashoka Chakra is the highest peacetime gallantry award in India. Param Vir Chakra is the highest wartime gallantry award.",mem:"🧠 PEACETIME = ASHOKA CHAKRA. 'PEACE = ASHOKA (the peace emperor)! PVC = War, AC = Peace!'",part:"A"},
+{id:2,q:"India's 'Padma Awards' are announced annually on the eve of:",opts:["Constitution Day","Republic Day","New Year's Day","Independence Day"],ans:1,topic:"GK · Awards",exp:"Padma Awards are announced on the eve of Republic Day (26th January) every year.",mem:"🧠 PADMA AWARDS = Republic Day eve (25 January).",part:"A"},
+{id:3,q:"The National Voters' Day in India is celebrated on:",opts:["23rd January","26th January","25th January","22nd January"],ans:2,topic:"GK · Important Days",exp:"National Voters' Day is celebrated on 25th January every year to mark the founding day of the Election Commission of India (1950).",mem:"🧠 NATIONAL VOTERS DAY = 25 JANUARY. 'ECI founded 25 Jan 1950!'",part:"A"},
+{id:4,q:"Which public entity is responsible for publishing the 'National Institutional Ranking Framework' (NIRF)?",opts:["University Grants Commission (UGC)","NITI Aayog","Competition Commission of India","Ministry of Education, Government of India"],ans:3,topic:"GK · Education",exp:"The National Institutional Ranking Framework (NIRF) is published by the Ministry of Education, Government of India.",mem:"🧠 NIRF = Ministry of Education.",part:"A"},
+{id:5,q:"Which Indian nationalist leader has earned the title 'Grand Old Man of India'?",opts:["Dadabhai Naoroji","Bal Gangadhar Tilak","Lala Lajpat Rai","Gopal Krishna Gokhale"],ans:0,topic:"GK · Freedom Movement",exp:"Dadabhai Naoroji is known as the 'Grand Old Man of India.' He proposed the idea of swaraj.",mem:"🧠 Grand Old Man of India = DADABHAI NAOROJI.",part:"A"},
+{id:6,q:"From the following, which country has a national flag that does not have four sides?",opts:["Albania","Nepal","Bhutan","Angola"],ans:1,topic:"GK · Geography",exp:"Nepal is the only country in the world with a non-rectangular national flag. It is a double pennon shape.",mem:"🧠 Non-rectangular flag = NEPAL.",part:"A"},
+{id:7,q:"Which classical dance form traces its origin to the State of Andhra Pradesh?",opts:["Kathakali","Bharatanatyam","Kuchipudi","Kathak"],ans:2,topic:"GK · Art & Culture",exp:"Kuchipudi is a classical dance form that originated in Kuchipudi village in Andhra Pradesh.",mem:"🧠 KUCHIPUDI = ANDHRA PRADESH.",part:"A"},
+{id:8,q:"Which one of the following administrative capital cities is situated at the highest elevation above sea level?",opts:["Kathmandu, Nepal","Thimpu, Bhutan","Quito, Ecuador","La Paz, Bolivia"],ans:3,topic:"GK · Geography",exp:"La Paz, Bolivia is the world's highest administrative capital city at about 3,640 metres above sea level.",mem:"🧠 Highest capital = LA PAZ, Bolivia.",part:"A"},
+{id:9,q:"'One Astronomical Unit' (AU) is defined as the average distance between which of the two celestial bodies?",opts:["Earth and the Sun","Earth and the Moon","Earth and the Venus","Earth and the Mars"],ans:0,topic:"GK · Science",exp:"One Astronomical Unit (AU) is the average distance between the Earth and the Sun, approximately 149.6 million km.",mem:"🧠 1 AU = Earth to SUN.",part:"A"},
+{id:10,q:"'Jana Gana Mana' was adopted as National Anthem of India on _____ by the Constituent Assembly.",opts:["15th August 1949","24th January 1950","26th November 1949","26th January 1950"],ans:1,topic:"GK · Constitution",exp:"Jana Gana Mana was adopted as the National Anthem of India on 24th January 1950 by the Constituent Assembly.",mem:"🧠 Jana Gana Mana adopted = 24 JANUARY 1950.",part:"A"},
+{id:11,q:"The Nalanda University was established under the rule of:",opts:["Samudragupta","Skandagupta","Kumaragupta - I","Chandragupta - II"],ans:2,topic:"GK · History",exp:"Nalanda University was established under the rule of Kumaragupta I of the Gupta dynasty in the 5th century CE.",mem:"🧠 NALANDA = KUMARAGUPTA I.",part:"A"},
+{id:12,q:"The Strait of Gibraltar connects the Atlantic Ocean with:",opts:["Black sea","Caspian Sea","North Sea","Mediterranean Sea"],ans:3,topic:"GK · Geography",exp:"The Strait of Gibraltar connects the Atlantic Ocean with the Mediterranean Sea, separating Spain from Morocco.",mem:"🧠 Gibraltar = Atlantic + Mediterranean.",part:"A"},
+{id:13,q:"The '38th parallel N' is the border line between which of the following countries?",opts:["North Korea and South Korea","Japan and China","Israel and Lebanon","Germany and Poland"],ans:0,topic:"GK · Geography",exp:"The 38th parallel N is the border line between North Korea and South Korea since the Korean War armistice (1953).",mem:"🧠 38th Parallel = North + South KOREA.",part:"A"},
+{id:14,q:"Who was the first Chief Election Commissioner of India?",opts:["Sri S.P. Sen","Sri Sukumar Sen","Sri T.N. Seshan","Sri K.V.K. Sundaram"],ans:1,topic:"GK · Constitutional History",exp:"Sri Sukumar Sen was the first Chief Election Commissioner of India (1950-1958). He conducted the first two general elections.",mem:"🧠 First CEC = SUKUMAR SEN.",part:"A"},
+{id:15,q:"The well-known female figurine called the 'Dancing Girl', discovered at Mohenjo-daro, was made from which metal?",opts:["Iron","Silver","Bronze","Copper"],ans:2,topic:"GK · History",exp:"The famous 'Dancing Girl' of Mohenjo-daro is made of bronze. It is about 10.5 cm tall and depicts a young woman.",mem:"🧠 Dancing Girl = BRONZE. 'BRONZE age = Bronze girl!'",part:"A"},
+{id:16,q:"What is the full form of 'SIR' introduced by the Election Commission of India?",opts:["Systematic Information Review","Statewide Identity Registration","Standard Inspection Report","Special Intensive Revision"],ans:3,topic:"GK · Elections",exp:"SIR = Special Intensive Revision — the Election Commission's intensive voter list revision drive.",mem:"🧠 SIR = Special Intensive Revision.",part:"A"},
+{id:17,q:"The famous 'Astadiggajalu' is associated with which one of the following kings?",opts:["Sri Krishnadevarayalu","Vikramaditya","Rajaraja Narendra","Ashoka"],ans:0,topic:"GK · History · AP",exp:"Astadiggajalu (Eight Great Poets) were the eight poets in the court of Sri Krishnadevaraya of the Vijayanagara Empire.",mem:"🧠 Astadiggajalu = KRISHNADEVARAYA.",part:"A"},
+{id:18,q:"Who wrote the song 'Maa telugu talliki mallepudanda'?",opts:["Sri Sri","Shankarambadi Sundaraachari","Annamacharya","C. Narayana Reddy"],ans:1,topic:"GK · Telugu Culture",exp:"'Maa Telugu Talliki Mallepudanda' was written by Shankarambadi Sundaraachari.",mem:"🧠 Maa Telugu Talliki = SHANKARAMBADI SUNDARAACHARI.",part:"A"},
+{id:19,q:"In 1918, during which of the following events did Mahatma Gandhi first administer hunger strike as a method of protest?",opts:["Madras Labour Strike","Bombay Textile Workers Protest","Ahmedabad Mill Strike","Calcutta Jute Mill Agitation"],ans:2,topic:"GK · Freedom Movement",exp:"Gandhi first used hunger strike as a method of protest in 1918 during the Ahmedabad Mill Strike by textile workers against mill owners.",mem:"🧠 Gandhi's first hunger strike = AHMEDABAD MILL STRIKE 1918.",part:"A"},
+{id:20,q:"A 'Phlebotomist' is a person who:",opts:["Administers medications to patients","Assists in performing surgical procedures","Encourages the donors for organ donation","Collects blood samples for laboratory testing"],ans:3,topic:"GK · Science/Medical",exp:"A Phlebotomist is a medical professional who draws blood from patients/donors for laboratory tests, transfusions, or donations.",mem:"🧠 PHLEBOTOMIST = collects BLOOD samples.",part:"A"},
+{id:21,q:"From the following, which Institution publishes the 'Economic Survey of India' annually?",opts:["Ministry of Finance, Government of India","NITI Aayog, Government of India","Reserve Bank of India","Indian Statistical Institute"],ans:0,topic:"GK · Economy",exp:"The Economic Survey of India is published annually by the Ministry of Finance, Government of India, just before the Union Budget.",mem:"🧠 Economic Survey = MINISTRY OF FINANCE.",part:"A"},
+{id:22,q:"'Ailurophobia' refers to the fear of:",opts:["Dogs","Cats","Alligators","Birds"],ans:1,topic:"GK · Vocabulary",exp:"Ailurophobia is the fear of cats. From Greek 'ailuros' (cat) + 'phobia' (fear).",mem:"🧠 AILUROPHOBIA = fear of CATS.",part:"A"},
+{id:23,q:"The 'Statue of Unity' was built in honour of which prominent Indian leader?",opts:["Mahatma Gandhi","Dr. B.R. Ambedkar","Sardar Vallabhbhai Patel","Subhas Chandra Bose"],ans:2,topic:"GK · India",exp:"The Statue of Unity in Gujarat is built in honour of Sardar Vallabhbhai Patel, the Iron Man of India. It is the world's tallest statue at 182 metres.",mem:"🧠 Statue of Unity = SARDAR PATEL.",part:"A"},
+{id:24,q:"Who of the following is prominently known as the 'Missile Woman of India'?",opts:["Ritu Karidhal","Kalpana Chawla","Sunita Williams","Tessy Thomas"],ans:3,topic:"GK · Science",exp:"Tessy Thomas is known as the 'Missile Woman of India' for her work as Director General of Aeronautical Systems and her contributions to India's missile program (Agni series).",mem:"🧠 Missile Woman of India = TESSY THOMAS.",part:"A"},
+{id:25,q:"Who among the following is popularly referred to as 'The King of Clay' in tennis?",opts:["Rafael Nadal","Novak Djokovic","Andy Murray","Roger Federer"],ans:0,topic:"GK · Sports",exp:"Rafael Nadal is known as 'The King of Clay' for his dominance on clay courts. He has won the French Open (Roland Garros) a record 14 times.",mem:"🧠 King of Clay = RAFAEL NADAL.",part:"A"},
+{id:26,q:"A number is increased by 30% and then decreased by 30%. What is the net percentage change from the original number?",opts:["No change","9% decrease","9% increase","30% decrease"],ans:1,topic:"Aptitude · Percentage",exp:"Net change: 100 → 130 → 91. Net = 9% decrease.",mem:"🧠 Up 30% then down 30% = 9% NET LOSS.",part:"A"},
+{id:27,q:"What is the next number in the number series: 2, 6, 18, 54, __?",opts:["142","182","162","216"],ans:2,topic:"Aptitude · Number Series",exp:"Pattern: each number × 3. 54×3=162.",mem:"🧠 2, 6, 18, 54... multiply by 3 each time! 54×3=162.",part:"A"},
+{id:28,q:"While pointing to a person in photograph, Shyam said: 'She is the daughter of the only son of my mother.' How is Shyam related to the person in the photograph?",opts:["Maternal Uncle","Brother","Grandfather","Father"],ans:3,topic:"Aptitude · Blood Relations",exp:"Shyam's mother's only son = Shyam himself. The person is Shyam's daughter. So Shyam = Father.",mem:"🧠 'Only son of my mother' = Shyam himself. She is daughter = Shyam is FATHER.",part:"A"},
+{id:29,q:"If 'NAME' is coded as 'MZLD', then how will 'PEON' be coded?",opts:["ODNM","ONDM","ODMN","OMND"],ans:0,topic:"Aptitude · Coding",exp:"Each letter shifted -1: P→O, E→D, O→N, N→M = ODNM.",mem:"🧠 -1 shift coding. P-1=O, E-1=D, O-1=N, N-1=M = ODNM!",part:"A"},
+{id:30,q:"Which of the following words is the closest synonym of the term 'ebriate'?",opts:["Sober","Intoxicated","Unsteady","Alert"],ans:1,topic:"English · Vocabulary",exp:"Ebriate means intoxicated or drunk. It comes from Latin 'ebriatus' meaning made drunk.",mem:"🧠 EBRIATE = INTOXICATED.",part:"A"},
+{id:31,q:"During India's 77th Republic Day celebrations in 2026, Ursula von der Leyen and António Costa were invited as Chief Guests. Which designations did they hold respectively?",opts:["President of the European Council & President of the European Parliament","President of the European Commission & President of the European Parliament","President of the European Commission & President of the European Council","President of the European Parliament & President of the European Commission"],ans:2,topic:"Current Affairs 2026 · International",exp:"Ursula von der Leyen = President of the European Commission; António Costa = President of the European Council. Both were chief guests at India's 77th Republic Day (2026).",mem:"🧠 Ursula = European COMMISSION, Costa = European COUNCIL.",part:"B"},
+{id:32,q:"The 'Indira Gandhi Prize for Peace, Disarmament and Development' award for the year 2025 was presented to:",opts:["Ellen Johnson Sirleaf","Malala Yousafzai","Kailash Satyarthi","Graca Machel"],ans:3,topic:"Current Affairs 2026 · Awards",exp:"The Indira Gandhi Prize for Peace, Disarmament and Development for 2025 was awarded to Graca Machel — Mozambican humanitarian and former First Lady.",mem:"🧠 Indira Gandhi Prize 2025 = GRACA MACHEL.",part:"B"},
+{id:33,q:"Which of the following countries has won the Men's T20 Cricket World Cup 2026?",opts:["India","England","South Africa","New Zealand"],ans:0,topic:"Current Affairs 2026 · Sports",exp:"India won the Men's T20 Cricket World Cup 2026.",mem:"🧠 T20 WC 2026 = INDIA.",part:"B"},
+{id:34,q:"What was the official theme of the 20th meeting of 'G20 Summit 2025' held under the Presidency of South Africa?",opts:["One Earth, One Family, One Future","Solidarity, Equality and Sustainability","Inclusive Growth and Climate Action","Global Peace and Prosperity"],ans:1,topic:"Current Affairs 2025 · International",exp:"The G20 Summit 2025 under South Africa's presidency had the theme 'Solidarity, Equality and Sustainability'.",mem:"🧠 G20 2025 South Africa = Solidarity, Equality, Sustainability.",part:"B"},
+{id:35,q:"After the 56th GST Council meeting held in 2025, what is the GST rate applied to 'Sin goods and certain Luxury goods' in India?",opts:["18%","5%","40%","28%"],ans:2,topic:"Current Affairs 2025 · Economy",exp:"After the 56th GST Council meeting (2025), the GST rate on sin goods and certain luxury goods was revised to 40%.",mem:"🧠 GST sin/luxury goods = 40%.",part:"B"},
+{id:36,q:"As of March 2026, who is the Chairperson of the 16th Finance Commission of India?",opts:["Dr. Manoj Panda","Dr. Raghuram Rajan","Smt. Nirmala Sitharaman","Dr. Arvind Panagariya"],ans:3,topic:"Current Affairs 2026 · Government",exp:"Dr. Arvind Panagariya is the Chairperson of the 16th Finance Commission of India.",mem:"🧠 16th Finance Commission = ARVIND PANAGARIYA.",part:"B"},
+{id:37,q:"Which of the following was officially inscribed on UNESCO's Representative List of the Intangible Cultural Heritage of Humanity in 2025?",opts:["Deepavali","Kumbhmela","Garba-Gujarat","Durga puja-Kolkata"],ans:0,topic:"Current Affairs 2025 · Culture",exp:"Deepavali (Diwali) was officially inscribed on UNESCO's Representative List of Intangible Cultural Heritage of Humanity in 2025.",mem:"🧠 UNESCO 2025 = DEEPAVALI inscribed.",part:"B"},
+{id:38,q:"In which of the following places was 'Bharat Ratna Dr. Babasaheb Ambedkar Advocate Training and Research Centre' (BBATRC) inaugurated in 2026?",opts:["Pune","Navi Mumbai","New Delhi","Nagpur"],ans:1,topic:"Current Affairs 2026 · Legal",exp:"The Bharat Ratna Dr. Babasaheb Ambedkar Advocate Training and Research Centre (BBATRC) was inaugurated in Navi Mumbai in 2026.",mem:"🧠 BBATRC = Navi Mumbai.",part:"B"},
+{id:39,q:"Where was India's first 'Open-Sea Marine Fish Farming Project' launched in January 2026?",opts:["Gulf of Mannar, Tamil Nadu","Chilika Lake, Odisha","North Bay, Andaman Sea","Kochi, Kerala"],ans:2,topic:"Current Affairs 2026 · Agriculture",exp:"India's first Open-Sea Marine Fish Farming Project was launched at North Bay, Andaman Sea in January 2026.",mem:"🧠 First Open-Sea Fish Farming = NORTH BAY, Andaman Sea.",part:"B"},
+{id:40,q:"Which country hosted the 30th United Nations Climate Change Conference (COP30) in November 2025?",opts:["Japan","France","Canada","Brazil"],ans:3,topic:"Current Affairs 2025 · Environment",exp:"COP30 was held in Belém, Brazil in November 2025.",mem:"🧠 COP30 = BRAZIL 2025.",part:"B"},
+{id:41,q:"The 17th edition of trilateral coastguard exercise 'DOSTI-17', was carried out by which of the following countries?",opts:["India, Sri Lanka and Maldives","India, Bangladesh and Myanmar","India, Thailand and Indonesia","India, Malaysia and Singapore"],ans:0,topic:"Current Affairs 2026 · Defence",exp:"DOSTI is a trilateral coast guard exercise involving India, Sri Lanka, and Maldives.",mem:"🧠 DOSTI = India + Sri Lanka + Maldives.",part:"B"},
+{id:42,q:"The Special rumble strips of Mumbai Coastal Road inaugurated in February 2026, produce the tune of _____ when motorists drive over them at a designated speed.",opts:["Vande Mataram","Jai Ho","Sare Jahan Se Acha","Ae mere watan ke logo"],ans:1,topic:"Current Affairs 2026 · Infrastructure",exp:"The special musical rumble strips on Mumbai's Coastal Road play 'Jai Ho' when vehicles drive over them at the designated speed.",mem:"🧠 Mumbai Coastal Road rumble strips = JAI HO.",part:"B"},
+{id:43,q:"The 'Khelo India Tribal Games, 2026' was hosted by the State of:",opts:["Jharkhand","Gujarat","Chattisgarh","Maharashtra"],ans:2,topic:"Current Affairs 2026 · Sports",exp:"Khelo India Tribal Games 2026 was hosted by Chhattisgarh.",mem:"🧠 Khelo India Tribal Games 2026 = CHATTISGARH.",part:"B"},
+{id:44,q:"Who is the Vice-President of India as on April 2026?",opts:["Smt. Pratibha Patil","Sri. M. Venkaiah Naidu","Smt. Droupadi Murmu","Sri. C.P. Radhakrishnan"],ans:3,topic:"Current Affairs 2026 · Government",exp:"Sri C.P. Radhakrishnan is the Vice-President of India as of 2026.",mem:"🧠 VP of India 2026 = C.P. RADHAKRISHNAN.",part:"B"},
+{id:45,q:"In March 2026, the world's first Autonomous Maritime Ship building and Systems Centre's foundation was laid at which minor port in Andhra Pradesh?",opts:["Juvvaladinne","Vodarevu","Nizampatnam","Bhavanapadu"],ans:0,topic:"Current Affairs 2026 · AP",exp:"The world's first Autonomous Maritime Ship Building and Systems Centre's foundation was laid at Juvvaladinne minor port in Andhra Pradesh in March 2026.",mem:"🧠 World's first autonomous maritime centre = JUVVALADINNE, AP.",part:"B"},
+{id:46,q:"In India, National Women's Day is celebrated on:",opts:["28th January","13th February","08th March","19th November"],ans:1,topic:"Current Affairs · Important Days",exp:"National Women's Day in India is celebrated on 13th February — the birth anniversary of Sarojini Naidu.",mem:"🧠 India National Women's Day = 13 FEBRUARY (Sarojini Naidu birthday).",part:"B"},
+{id:47,q:"In February 2026, the foundation stone for India's first Quantum Computing facility was laid at:",opts:["Bengaluru","Visakhapatnam","Amaravati","Pune"],ans:2,topic:"Current Affairs 2026 · Technology",exp:"The foundation stone for India's first Quantum Computing facility was laid at Amaravati, Andhra Pradesh in February 2026.",mem:"🧠 India's first Quantum Computing facility = AMARAVATI.",part:"B"},
+{id:48,q:"Among the 2026 Padma Awardees, who from Andhra Pradesh was posthumously awarded the Padma Shri for their contribution to the field of Art?",opts:["Sri Gosaveedu Shaik Hassan Saheb","Sri Miriyala Apparao","Sri Sripathi Panditaradhyula Balasubrahmanyam","Sri Garimella Balakrishna Prasad"],ans:3,topic:"Current Affairs 2026 · Awards",exp:"Sri Garimella Balakrishna Prasad from Andhra Pradesh was posthumously awarded Padma Shri in 2026 for contributions to art.",mem:"🧠 Padma Shri 2026 posthumous AP = GARIMELLA BALAKRISHNA PRASAD.",part:"B"},
+{id:49,q:"In 2025, The Indian Space Research Organization (ISRO) has inaugurated 'the Himalayan Outpost for Planetary Exploration' (HOPE) space analog mission at:",opts:["Tso Kar Valley, Ladakh","Zanskar Range, Ladakh","Drass Sector, Ladakh","Siachen Glacier, Ladakh"],ans:0,topic:"Current Affairs 2025 · Science",exp:"ISRO inaugurated the HOPE (Himalayan Outpost for Planetary Exploration) space analog mission at Tso Kar Valley, Ladakh in 2025.",mem:"🧠 HOPE = Tso Kar Valley, Ladakh.",part:"B"},
+{id:50,q:"Which cricket team has won the Women's Premier League (WPL) 2026 title?",opts:["Mumbai Indians Women","Royal Challengers Bengaluru Women","Delhi Capitals Women","U.P. Warriors Women"],ans:1,topic:"Current Affairs 2026 · Sports",exp:"Royal Challengers Bengaluru Women won the Women's Premier League (WPL) 2026 title.",mem:"🧠 WPL 2026 = ROYAL CHALLENGERS BENGALURU WOMEN.",part:"B"},
+{id:51,q:"According to Association of Democratic Reforms (ADR) 2025 report, who is India's richest Chief Minister?",opts:["Sri Nitish Kumar","Smt. Rekha Gupta","Sri Nara Chandrababu Naidu","Sri M.K. Stalin"],ans:2,topic:"Current Affairs 2025 · Government",exp:"According to ADR 2025 report, Sri Nara Chandrababu Naidu (AP CM) is India's richest Chief Minister.",mem:"🧠 Richest CM 2025 = CHANDRABABU NAIDU.",part:"B"},
+{id:52,q:"Which of the following countries is set to host the World Environment Day 2026?",opts:["Sweden","Republic of Korea","China","Republic of Azerbaijan"],ans:3,topic:"Current Affairs 2026 · Environment",exp:"Republic of Azerbaijan is set to host World Environment Day 2026 (June 5, 2026).",mem:"🧠 World Environment Day 2026 = AZERBAIJAN.",part:"B"},
+{id:53,q:"Who was awarded the Nobel Peace Prize in 2025?",opts:["María Corina Machado","László Krasznahorkai","Nihon Hidankyo","Narges Mohammadi"],ans:0,topic:"Current Affairs 2025 · Awards",exp:"María Corina Machado, Venezuelan opposition leader and democracy activist, was awarded the Nobel Peace Prize in 2025.",mem:"🧠 Nobel Peace 2025 = MARIA CORINA MACHADO.",part:"B"},
+{id:54,q:"In October 2025, which Indian city was recognized as the UNESCO 'Creative City of Gastronomy'?",opts:["Chandigarh","Lucknow","Indore","Bengaluru"],ans:1,topic:"Current Affairs 2025 · Culture",exp:"Lucknow was recognized as a UNESCO Creative City of Gastronomy in October 2025.",mem:"🧠 UNESCO Gastronomy City 2025 = LUCKNOW.",part:"B"},
+{id:55,q:"Which country is set to host the 2026 Commonwealth Games?",opts:["Australia","France","Scotland","India"],ans:2,topic:"Current Affairs 2026 · Sports",exp:"Scotland (Glasgow) is set to host the 2026 Commonwealth Games.",mem:"🧠 Commonwealth Games 2026 = SCOTLAND (Glasgow).",part:"B"},
+{id:56,q:"What is the name of India's first next-generation, voice-based billing and accounting AI agent launched in Andhra Pradesh in February 2026?",opts:["Coin Box AI","Vyappar Bot","Ledgerbooks AI","Pilloo AI"],ans:3,topic:"Current Affairs 2026 · Technology",exp:"Pilloo AI is India's first next-generation voice-based billing and accounting AI agent, launched in Andhra Pradesh in February 2026.",mem:"🧠 India's first voice billing AI = PILLOO AI.",part:"B"},
+{id:57,q:"Which of the following textile craft of Andhra Pradesh was officially granted the Geographical Indication (GI) tag in 2025?",opts:["Ponduru Khadi","Venkatagiri Sarees","Srikalahasti Kalamkari","Pochampally Ikat"],ans:0,topic:"Current Affairs 2025 · AP",exp:"Ponduru Khadi from Andhra Pradesh was officially granted the Geographical Indication (GI) tag in 2025.",mem:"🧠 GI tag 2025 AP = PONDURU KHADI.",part:"B"},
+{id:58,q:"The bust of Edwin Lutyens at Rashtrapati Bhavan was replaced by which leader's statue?",opts:["Subhash Chandra Bose","C. Rajagopalachari","Sardar Vallabhbhai Patel","Mahatma Gandhi"],ans:1,topic:"Current Affairs 2025 · History",exp:"The bust of Edwin Lutyens (British architect of New Delhi) at Rashtrapati Bhavan was replaced by the bust of C. Rajagopalachari (Rajaji), India's last Governor-General.",mem:"🧠 Lutyens bust replaced by = C. RAJAGOPALACHARI.",part:"B"},
+{id:59,q:"In February 2026, India has signed an Agreement on Mutual Legal Assistance in Criminal Matters with which country?",opts:["Bhutan","Sri Lanka","Nepal","Maldives"],ans:2,topic:"Current Affairs 2026 · International Law",exp:"India signed the Mutual Legal Assistance Treaty (MLAT) in Criminal Matters with Nepal in February 2026.",mem:"🧠 India MLAT 2026 = NEPAL.",part:"B"},
+{id:60,q:"As of March 2026, who is the minister for Agriculture in the State of Andhra Pradesh?",opts:["Sri Kollu Ravindra","Sri Kondapalli Srinivas","Dr. Nimmala Ramanaidu","Sri Kinjarapu Atchannaidu"],ans:3,topic:"Current Affairs 2026 · AP Government",exp:"Sri Kinjarapu Atchannaidu is the Agriculture Minister of Andhra Pradesh as of 2026 in the TDP-led NDA government.",mem:"🧠 AP Agriculture Minister 2026 = KINJARAPU ATCHANNAIDU.",part:"B"},
+{id:61,q:"The Supreme Court of India came into existence on:",opts:["26th January 1950","15th August 1949","26th November 1949","1st April 1950"],ans:0,topic:"Law · SC History",exp:"The Supreme Court of India came into existence on 26th January 1950 — the day the Constitution of India came into force (Republic Day).",mem:"🧠 SC established = 26 JANUARY 1950 = Republic Day.",part:"C"},
+{id:62,q:"Who is the 53rd Chief Justice of India?",opts:["Justice B.R. Gavai","Justice Surya Kant","Justice D.Y. Chandrachud","Justice B.V. Nagarathna"],ans:1,topic:"Law · Judiciary 2026",exp:"Justice Surya Kant is the 53rd Chief Justice of India, having succeeded CJI Sanjiv Khanna.",mem:"🧠 53rd CJI = JUSTICE SURYA KANT.",part:"C"},
+{id:63,q:"The SHANTI Bill, 2025 primarily focuses on which of the following areas?",opts:["Promotion of peace and global cooperation","Promotion of exploration of conventional fossil fuels","Reforming and modernizing India's civil nuclear energy sector","Protection and empowerment of women"],ans:2,topic:"Law · Special Laws 2025",exp:"The SHANTI (Strategic and Holistic Approach to Nuclear Technology for India) Bill 2025 focuses on reforming and modernizing India's civil nuclear energy sector.",mem:"🧠 SHANTI Bill = CIVIL NUCLEAR ENERGY reform.",part:"C"},
+{id:64,q:"During whose period in 1860 the first budget of British India was introduced?",opts:["Lord Ripon","Lord Dalhousie","Lord Wellesley","Lord Canning"],ans:3,topic:"Law · Legal History",exp:"The first budget of British India was introduced in 1860 during the period of Lord Canning, the first Viceroy of India, by Finance Minister James Wilson.",mem:"🧠 First Indian budget 1860 = LORD CANNING period.",part:"C"},
+{id:65,q:"Who was granted permission for passive euthanasia by the Supreme Court of India for the first time?",opts:["Harish Rana","Aruna Shanbaug","Tony Bland","Gian Kaur"],ans:0,topic:"Law · Landmark Cases",exp:"Harish Rana case — in 2023, the Supreme Court of India for the first time granted permission for passive euthanasia (withdrawal of medical support) to a comatose patient.",mem:"🧠 First passive euthanasia permission = HARISH RANA (2023 SC).",part:"C"},
+{id:66,q:"The Preamble of the Indian Constitution begins with:",opts:["We, the Citizens of India","We, the People of India","Republic of India","In the name of God"],ans:1,topic:"Law · Constitution",exp:"The Preamble of the Indian Constitution begins with 'WE, THE PEOPLE OF INDIA'.",mem:"🧠 Preamble begins = 'WE THE PEOPLE OF INDIA'.",part:"C"},
+{id:67,q:"The Abolition of Titles is enshrined under _____ Article of the Indian Constitution.",opts:["16","17","18","19"],ans:2,topic:"Law · Constitution",exp:"Article 18 of the Indian Constitution abolishes titles (except military/academic distinctions).",mem:"🧠 Article 18 = ABOLITION OF TITLES.",part:"C"},
+{id:68,q:"Under which part of the Indian Constitution the Fundamental Rights are enlisted?",opts:["Part V","Part IV","Part IVA","Part III"],ans:3,topic:"Law · Constitution",exp:"Fundamental Rights are enshrined in Part III of the Indian Constitution (Articles 12-35).",mem:"🧠 Fundamental Rights = PART III.",part:"C"},
+{id:69,q:"Which Article is known as the 'Heart and Soul' of the Indian Constitution?",opts:["Article 32","Article 14","Article 19","Article 21"],ans:0,topic:"Law · Constitution",exp:"Article 32 (Right to Constitutional Remedies) is called the 'Heart and Soul' of the Constitution by Dr. B.R. Ambedkar.",mem:"🧠 Heart and Soul = ARTICLE 32.",part:"C"},
+{id:70,q:"A 'Zero FIR' is an:",opts:["FIR with no evidence","FIR filed at any police station regardless of where the crime occurred","FIR filed in between 12 noon and 1 pm","FIR that has been cancelled"],ans:1,topic:"Law · Criminal Law",exp:"Zero FIR can be registered at any police station regardless of territorial jurisdiction. It is then transferred to the jurisdictional police station.",mem:"🧠 ZERO FIR = any police station, ANY jurisdiction.",part:"C"},
+{id:71,q:"According to Supreme Court rulings, the Preamble of the Indian Constitution is regarded as:",opts:["Optional provision","A Temporary Right","Integral Part of the Indian Constitution","Government Policy"],ans:2,topic:"Law · Constitution",exp:"In Kesavananda Bharati v. State of Kerala (1973), the SC held that the Preamble is an integral part of the Constitution.",mem:"🧠 Preamble = INTEGRAL PART of Constitution.",part:"C"},
+{id:72,q:"When does the offence of robbery become dacoity?",opts:["No difference between robbery and dacoity","Robbery occurs during the day; dacoity occurs at night","When the value of stolen property exceeds fifty lakh rupees","When five or more persons are involved in robbery"],ans:3,topic:"Law · IPC",exp:"Section 391 IPC: When five or more persons conjointly commit or attempt to commit robbery, every person is guilty of dacoity.",mem:"🧠 ROBBERY + 5 persons = DACOITY.",part:"C"},
+{id:73,q:"What is the statutory time limit for a Public Information Officer (PIO) to respond for an application filed under Right to Information Act, 2005?",opts:["30 days","45 days","60 days","90 days"],ans:0,topic:"Law · RTI Act",exp:"Section 7 RTI Act 2005: PIO must provide information within 30 days of receipt of application.",mem:"🧠 RTI PIO response = 30 DAYS.",part:"C"},
+{id:74,q:"How many members are nominated to the Rajya Sabha by the President?",opts:["2","12","10","15"],ans:1,topic:"Law · Parliament",exp:"Article 80(1)(a): The President nominates 12 members to the Rajya Sabha from persons with expertise in literature, science, art, and social service.",mem:"🧠 President nominates 12 to RS.",part:"C"},
+{id:75,q:"Article 21A of the Indian Constitution deals with:",opts:["Right to recall","Right to information","Right to education","Right to privacy"],ans:2,topic:"Law · Constitution",exp:"Article 21A (inserted by 86th Amendment Act 2002): The State shall provide free and compulsory education to all children 6-14 years.",mem:"🧠 Article 21A = RIGHT TO EDUCATION.",part:"C"},
+{id:76,q:"The President of India has the power to grant 'Pardon' under _____ Article of the Constitution.",opts:["69","70","71","72"],ans:3,topic:"Law · Constitution",exp:"Article 72: The President of India has the power to grant pardon, reprieve, respite, remission, or suspend/remit/commute sentence.",mem:"🧠 Article 72 = President's PARDON power.",part:"C"},
+{id:77,q:"According to Article 75(1A) of the Indian Constitution, the total number of Ministers including the Prime Minister in the Council of Ministers shall not exceed _____ of the total number of members of the House of the People.",opts:["15%","7%","10%","18%"],ans:0,topic:"Law · Constitution",exp:"Article 75(1A): Total ministers including PM shall not exceed 15% of total Lok Sabha members.",mem:"🧠 Article 75(1A) = 15% cap on ministers.",part:"C"},
+{id:78,q:"What is the importance of 10th schedule of Indian Constitution?",opts:["Provisions as to the Administration and Control of Scheduled Areas","Provisions as to disqualification on ground of defection","Languages","Forms of Oaths or Affirmations"],ans:1,topic:"Law · Constitution · Schedules",exp:"The 10th Schedule (added by 52nd Amendment 1985) contains the Anti-Defection Law.",mem:"🧠 10th Schedule = ANTI-DEFECTION LAW.",part:"C"},
+{id:79,q:"Which of the following is not a power of the Indian Parliament?",opts:["Enacting laws on the subjects in the Union List","Enacting laws on the subjects in the Concurrent List","Granting pardons","Amending the Constitution"],ans:2,topic:"Law · Parliament",exp:"Granting pardons is a power of the President (Article 72), NOT of Parliament.",mem:"🧠 Parliament CANNOT grant pardons. PARDON = PRESIDENT (Art.72).",part:"C"},
+{id:80,q:"From the following, 'Immovable Property' generally does not include:",opts:["Land","Grass","Growing crops","Both (2) and (3)"],ans:3,topic:"Law · Property Law",exp:"Section 3 Transfer of Property Act: Immovable property does not include standing timber, growing crops, or grass.",mem:"🧠 NOT immovable = GRASS + GROWING CROPS.",part:"C"},
+{id:81,q:"From the following, who can file a 'Public Interest Litigation' (PIL) in the Court?",opts:["Any public-spirited person","A Public servant only","Only by the police officer of the police station concerned","Only by the aggrieved person"],ans:0,topic:"Law · PIL",exp:"PIL can be filed by any public-spirited person or organization on behalf of those who cannot approach the court.",mem:"🧠 PIL = ANY public-spirited person.",part:"C"},
+{id:82,q:"As of March 2026, who is the Solicitor General of India?",opts:["K.M. Nataraj","Tushar Mehta","Mukul Rohatgi","Venkata Ramani"],ans:1,topic:"Law · Legal Appointments 2026",exp:"Tushar Mehta is the Solicitor General of India as of 2026.",mem:"🧠 Solicitor General 2026 = TUSHAR MEHTA.",part:"C"},
+{id:83,q:"The statutory or written law, that defines rights and duties is known as:",opts:["Law of Rights","Procedural law","Substantive law","Case law"],ans:2,topic:"Law · Jurisprudence",exp:"Substantive law defines rights and duties — it tells WHAT the law is. Procedural law tells HOW to enforce those rights.",mem:"🧠 SUBSTANTIVE LAW = defines RIGHTS and DUTIES.",part:"C"},
+{id:84,q:"Which of the following methods is not associated to 'Alternative Dispute Resolution'?",opts:["Conciliation","Mediation","Arbitration","Cooperation"],ans:3,topic:"Law · ADR",exp:"Alternative Dispute Resolution (ADR) methods include Mediation, Conciliation, Arbitration, Negotiation, and Lok Adalat. 'Cooperation' is not a formal ADR method.",mem:"🧠 ADR = Mediation + Conciliation + Arbitration + Negotiation. NOT 'Cooperation'!",part:"C"},
+{id:85,q:"An 'Ex Parte Decree' is passed by the court, when:",opts:["The plaintiff(s) present and the defendant(s) absent","Both plaintiff(s) and the defendant(s) are present","Both plaintiff(s) and the defendant(s) are absent","The defendant(s) present and the plaintiff(s) absent"],ans:0,topic:"Law · CPC",exp:"Order 9 Rule 6 CPC: Ex parte decree is passed when the defendant fails to appear and the plaintiff is present.",mem:"🧠 EX PARTE = Plaintiff present + Defendant ABSENT.",part:"C"},
+{id:86,q:"According to Indian Contract Act, which of these is one of the requirements for a contract to be a valid one?",opts:["It must be written on stamp paper","There must be Consideration","It must be attested by a notary","It must be signed by a judge"],ans:1,topic:"Law · Contract Act",exp:"Consideration is one of the essential requirements of a valid contract under Section 10 ICA.",mem:"🧠 Valid contract = CONSIDERATION required.",part:"C"},
+{id:87,q:"The legal meaning of the term 'Amicus Curiae' is:",opts:["A friend of the police","A friend of defence counsel","A friend of the court","A friend of the prosecution"],ans:2,topic:"Law · Legal Latin",exp:"Amicus Curiae = 'Friend of the Court.' A person or organization that is not a party to a case but assists the court.",mem:"🧠 AMICUS CURIAE = Friend of the COURT.",part:"C"},
+{id:88,q:"A 'Decree' is:",opts:["Applicable only in criminal law","A law made by the Parliament","An application before public officer","An adjudication by a civil court"],ans:3,topic:"Law · CPC",exp:"Section 2(2) CPC: A decree is the formal expression of an adjudication which conclusively determines the rights of parties.",mem:"🧠 DECREE = Civil court's ADJUDICATION.",part:"C"},
+{id:89,q:"The Latin maxim 'ubi jus ibi remedium' means:",opts:["Where there is right, there is remedy","Ignorance of law is not excusable","Justice delayed is justice denied","Hear the both sides for appropriate remedy"],ans:0,topic:"Law · Latin Maxims",exp:"Ubi jus ibi remedium = 'where there is a right, there is a remedy.'",mem:"🧠 Ubi jus ibi remedium = WHERE RIGHT = THERE REMEDY.",part:"C"},
+{id:90,q:"The Supreme Court exercises its _____ when the President seeks any advice/opinion under Indian Constitution.",opts:["Original Jurisdiction","Advisory Jurisdiction","Appellate Jurisdiction","Writ Jurisdiction"],ans:1,topic:"Law · Constitution",exp:"Article 143: When the President refers a question of law/fact to the SC for its opinion, the SC exercises its Advisory Jurisdiction.",mem:"🧠 President asks SC opinion = ADVISORY JURISDICTION.",part:"C"},
+{id:91,q:"Which of the following is NOT a Fundamental Duty under the Indian Constitution?",opts:["To respect the national flag","To defend the country when called upon to do so","To promote village and cottage industries","To safeguard public property"],ans:2,topic:"Law · Fundamental Duties",exp:"'To promote village and cottage industries' is NOT a Fundamental Duty under Article 51A. It is a DPSP (Directive Principle under Article 43).",mem:"🧠 NOT Fundamental Duty = PROMOTE VILLAGE INDUSTRIES.",part:"C"},
+{id:92,q:"A Government official refuses to perform a public duty, which the official is legally bound to do. In that case a citizen can approach the High Court/Supreme Court under the writ of:",opts:["Writ of Certiorari","Writ of Prohibition","Writ of Quo warranto","Writ of Mandamus"],ans:3,topic:"Law · Writs",exp:"Writ of Mandamus = 'We command.' Issued to compel a public authority to perform its public duty when it refuses to do so.",mem:"🧠 Official refuses duty = WRIT OF MANDAMUS.",part:"C"},
+{id:93,q:"In the eighteenth century, the slogan 'Liberty, Equality and Fraternity' was used by _____ to revolt against the landed feudal aristocracy and monarchy.",opts:["French Revolutionaries","Russian Revolutionaries","American Revolutionaries","Workers in Industrial Revolution"],ans:0,topic:"Law · Legal History",exp:"'Liberty, Equality, Fraternity' was the slogan of the French Revolution (1789) against the monarchy and feudal aristocracy.",mem:"🧠 Liberty Equality Fraternity = FRENCH REVOLUTION.",part:"C"},
+{id:94,q:"As of March 2026, who is the Minister of Law and Justice for the Union of India?",opts:["Sri Kiren Rijiju","Sri Arjun Ram Meghwal","Sri Amit Shah","Sri Nitin Gadkari"],ans:1,topic:"Law · Government 2026",exp:"Sri Arjun Ram Meghwal is the Minister of Law and Justice for the Union of India as of 2026.",mem:"🧠 Law Minister 2026 = ARJUN RAM MEGHWAL.",part:"C"},
+{id:95,q:"Who administers the oath of office to the President of India?",opts:["The Vice-President of India","The Prime Minister of India","The Chief Justice of India","The Governor of the State"],ans:2,topic:"Law · Constitution",exp:"Article 60: The Chief Justice of India administers the oath to the President of India.",mem:"🧠 President's oath = administered by CJI.",part:"C"},
+{id:96,q:"Plaintiff files Plaint, Defendant files:",opts:["Application","Caveat","Writ Petition","Written Statement"],ans:3,topic:"Law · CPC",exp:"In civil courts: Plaintiff files Plaint. Defendant files Written Statement (Order 8 CPC).",mem:"🧠 Plaintiff = PLAINT. Defendant = WRITTEN STATEMENT.",part:"C"},
+{id:97,q:"Which of the following has replaced the Indian Evidence Act, 1872?",opts:["Bharatiya Sakshya Adhiniyam","Bharatiya Nyaya Sanhita","Bharatiya Siksha Adhiniyam","Bharatiya Sakshya Sanhita"],ans:0,topic:"Law · New Criminal Laws",exp:"Bharatiya Sakshya Adhiniyam (BSA) 2023 replaced the Indian Evidence Act 1872, effective from 1 July 2024.",mem:"🧠 Evidence Act replaced by = BHARATIYA SAKSHYA ADHINIYAM.",part:"C"},
+{id:98,q:"The sanctioned strength of Judges of Supreme Court of India including the Chief Justice is:",opts:["30","34","32","28"],ans:1,topic:"Law · Judiciary",exp:"The sanctioned strength of SC judges including CJI is 34 (as per SC (Number of Judges) Amendment Act 2019).",mem:"🧠 SC judges total = 34 (including CJI).",part:"C"},
+{id:99,q:"The minimum age for becoming Governor of a State in India is _____ years.",opts:["25","30","35","40"],ans:2,topic:"Law · Constitution",exp:"Article 157: The minimum age for becoming a Governor of a State in India is 35 years.",mem:"🧠 Governor minimum age = 35 YEARS.",part:"C"},
+{id:100,q:"What is the duration taken to draft the Indian Constitution?",opts:["2 years 3 months 26 days","2 years 6 months 23 days","2 years 5 months 11 days","2 years 11 months 18 days"],ans:3,topic:"Law · Constitutional History",exp:"The Constituent Assembly took 2 years, 11 months, and 18 days to draft the Constitution (Dec 9, 1946 to Nov 26, 1949).",mem:"🧠 Constitution drafting = 2 years 11 months 18 days.",part:"C"},
+{id:101,q:"A scientist invents a new machine that can turn salt water into drinking water in seconds. Which form of Intellectual Property Right should the scientist apply for?",opts:["Patent","Trademark","Copyright","Geographical Identification tag"],ans:0,topic:"Law · Intellectual Property",exp:"A Patent is the correct IP protection for an invention — a new process or machine. Patents protect inventions for 20 years.",mem:"🧠 Invention = PATENT.",part:"C"},
+{id:102,q:"Who was the Permanent President of the Constituent Assembly of India?",opts:["Sri B.N. Rau","Dr. Babu Rajendra Prasad","Pandit Jawaharlal Nehru","Dr. B.R. Ambedkar"],ans:1,topic:"Law · Constitutional History",exp:"Dr. Babu Rajendra Prasad was the Permanent President of the Constituent Assembly of India.",mem:"🧠 Constituent Assembly Permanent President = RAJENDRA PRASAD.",part:"C"},
+{id:103,q:"'Pleadings' shall mean:",opts:["Judgment or Appeal","Order or decree","Plaint or written Statement","Arrest warrant or search warrant"],ans:2,topic:"Law · CPC",exp:"Under CPC Order 6 Rule 1: 'Pleadings' means Plaint or Written Statement.",mem:"🧠 PLEADINGS = PLAINT (plaintiff) or WRITTEN STATEMENT (defendant).",part:"C"},
+{id:104,q:"Which document is filed by the police in court after completing an investigation?",opts:["Writ petition","First information report","No objection certificate","Charge sheet"],ans:3,topic:"Law · Criminal Law",exp:"After completing investigation, police file a Charge Sheet (Section 173 CrPC / Section 193 BNSS) in court.",mem:"🧠 Police file after investigation = CHARGE SHEET.",part:"C"},
+{id:105,q:"When was the First Amendment made to the Indian Constitution?",opts:["1951","1952","1953","1954"],ans:0,topic:"Law · Constitutional Amendments",exp:"The First Constitutional Amendment was made in 1951 — it added the Ninth Schedule and placed restrictions on right to property and freedom of speech.",mem:"🧠 First Constitutional Amendment = 1951.",part:"C"},
+{id:106,q:"Before establishment of the Supreme Court, which was India's highest court?",opts:["House of Lords","Federal Court of India","Court of Chancery","Court of Equity"],ans:1,topic:"Law · Legal History",exp:"Before the SC, the Federal Court of India (established under Government of India Act 1935) was the highest court. SC replaced it on 26 January 1950.",mem:"🧠 Before SC = FEDERAL COURT OF INDIA (1935).",part:"C"},
+{id:107,q:"In law, a person who helps in commission of a crime is known as:",opts:["Defendant","Witness","Abettor","Victim"],ans:2,topic:"Law · Criminal Law",exp:"An Abettor is a person who aids, instigates, or abets another to commit a crime. Defined under Sections 107-109 IPC.",mem:"🧠 Helps commit crime = ABETTOR.",part:"C"},
+{id:108,q:"The Attorney General of India holds office during the pleasure of:",opts:["Parliament","Chief Justice of India","Prime Minister of India","President of India"],ans:3,topic:"Law · Constitution",exp:"Article 76(4): The Attorney General holds office during the pleasure of the President of India.",mem:"🧠 AG holds office at PRESIDENT'S pleasure.",part:"C"},
+{id:109,q:"In legal proceedings, Summons is a document issued by the court to:",opts:["Formally notify a person to appear in the court","Allowing the judge to decide the case","Stay the execution of a final decree passed","Authorize the police to conduct a search"],ans:0,topic:"Law · CPC/CrPC",exp:"A Summons is a legal document issued by court formally notifying a person to appear before it at a specified time and place.",mem:"🧠 SUMMONS = Court notifies person to APPEAR.",part:"C"},
+{id:110,q:"Which of the following terms is not expressly mentioned in the Preamble of Indian Constitution?",opts:["Fraternity","Federal","Dignity","Equality"],ans:1,topic:"Law · Constitution",exp:"The Preamble mentions Sovereign, Socialist, Secular, Democratic, Republic, Justice, Liberty, Equality, Fraternity, and Dignity. 'Federal' is NOT mentioned.",mem:"🧠 NOT in Preamble = FEDERAL.",part:"C"},
+{id:111,q:"The 'Golden Triangle' in the Indian Constitution refers to:",opts:["Articles 14, 18 and 22","Articles 14, 32 and 226","Articles 14, 19 and 21","Articles 14, 25 and 32"],ans:2,topic:"Law · Constitution",exp:"The 'Golden Triangle' refers to Articles 14 (Equality), 19 (Freedoms), and 21 (Right to Life).",mem:"🧠 Golden Triangle = Articles 14, 19, 21.",part:"C"},
+{id:112,q:"The Fundamental Duties were added in the Indian Constitution on the recommendation of:",opts:["Verma Committee","Sarkaria Commission","Ashok Mehta committee","Swaran Singh Committee"],ans:3,topic:"Law · Constitution",exp:"Fundamental Duties were added by the 42nd Constitutional Amendment 1976 on the recommendation of the Swaran Singh Committee.",mem:"🧠 Fundamental Duties added on SWARAN SINGH Committee recommendation.",part:"C"},
+{id:113,q:"In India, The Governor of a State holds office during the pleasure of:",opts:["The President","The Prime Minister","The Chief Justice of India","The Chief minister of the State"],ans:0,topic:"Law · Constitution",exp:"Article 156: Governor holds office during the pleasure of the President of India.",mem:"🧠 Governor serves at PRESIDENT'S pleasure.",part:"C"},
+{id:114,q:"In India, The Union Council of Ministers is collectively responsible to:",opts:["Rajya Sabha","Lok Sabha","The President","The Prime Minister"],ans:1,topic:"Law · Parliament",exp:"Article 75(3): The Council of Ministers is collectively responsible to the Lok Sabha (House of the People).",mem:"🧠 Council of Ministers = collectively responsible to LOK SABHA.",part:"C"},
+{id:115,q:"As per the Indian Constitution, the term of Finance Commission of India is:",opts:["Three years","Six years","Five years","Two years"],ans:2,topic:"Law · Constitution",exp:"Article 280: The Finance Commission is constituted every five years by the President of India.",mem:"🧠 Finance Commission = every FIVE YEARS.",part:"C"},
+{id:116,q:"Who was the Chairman of the Drafting Committee of the Constituent Assembly?",opts:["Dr. Babu Rajendra Prasad","Sri B.N. Rau","Pandit Jawaharlal Nehru","Dr. B.R. Ambedkar"],ans:3,topic:"Law · Constitutional History",exp:"Dr. B.R. Ambedkar was the Chairman of the Drafting Committee of the Constituent Assembly. He is rightly called the 'Father of the Indian Constitution'.",mem:"🧠 Drafting Committee Chairman = AMBEDKAR.",part:"C"},
+{id:117,q:"The 'Single Citizenship' in India is a feature of:",opts:["Unitary system","Federal system","Presidential system","Secularism"],ans:0,topic:"Law · Constitution",exp:"Single Citizenship is a feature of the UNITARY system adopted by India. Unlike USA, Indian citizens have only one citizenship — Indian, not state citizenship.",mem:"🧠 Single Citizenship = UNITARY feature.",part:"C"},
+{id:118,q:"As of April 2026, the number of Schedules mentioned under the Indian Constitution is:",opts:["8","12","10","15"],ans:1,topic:"Law · Constitution",exp:"The Indian Constitution has 12 Schedules.",mem:"🧠 Constitution Schedules = 12.",part:"C"},
+{id:119,q:"In India, the 'National Commission for Scheduled Castes' is primarily a:",opts:["Statutory body","Judicial body","Constitutional body","Non-Governmental Organisation"],ans:2,topic:"Law · Constitution",exp:"Article 338: The National Commission for Scheduled Castes (NCSC) is a Constitutional body established under Article 338 of the Constitution.",mem:"🧠 NCSC = CONSTITUTIONAL body.",part:"C"},
+{id:120,q:"What is the primary purpose of an 'Anticipatory Bail'?",opts:["To seek protection from arrest in bailable offenses only","To get released after spending 14 days in prison","To cancel death sentence","To seek protection from arrest in the cases of non-bailable offenses"],ans:3,topic:"Law · Criminal Law",exp:"Anticipatory Bail (Section 438 CrPC/484 BNSS) is applied before arrest to seek protection from arrest in non-bailable offences.",mem:"🧠 ANTICIPATORY BAIL = protection BEFORE arrest in NON-BAILABLE offences.",part:"C"}
+];
+
+let currentQ = 0;
+let answers = new Array(120).fill(-1);
+let timerInterval = null;
+let timeLeft = 90 * 60;
+let examStarted = false;
+let activeFilter = 'wrong';
+
+function startExam() {
+  document.getElementById('splash').style.display = 'none';
+  document.getElementById('exam').style.display = 'flex';
+  buildGrids();
+  renderQuestion(0);
+  startTimer();
+}
+
+function buildGrids() {
+  const grids = { A: document.getElementById('grid-a'), B: document.getElementById('grid-b'), C: document.getElementById('grid-c') };
+  QUESTIONS.forEach((q, i) => {
+    const btn = document.createElement('div');
+    btn.className = 'q-num';
+    btn.id = 'qn-' + i;
+    btn.textContent = i + 1;
+    btn.onclick = () => gotoQ(i);
+    grids[q.part].appendChild(btn);
+  });
+}
+
+function gotoQ(idx) {
+  currentQ = idx;
+  renderQuestion(idx);
+}
+
+function renderQuestion(idx) {
+  const q = QUESTIONS[idx];
+  const letters = ['A', 'B', 'C', 'D'];
+  const partNames = { A: 'Part A — General Knowledge', B: 'Part B — Current Affairs', C: 'Part C — Law & Legal GK' };
+
+  const panel = document.getElementById('question-panel');
+  panel.innerHTML = `
+    <div class="q-meta">
+      <div class="q-number-badge">Q ${idx + 1} of 120</div>
+      <div class="q-topic-badge">${q.topic}</div>
+      <div class="q-part-label">${partNames[q.part]}</div>
+    </div>
+    <div class="question-text">${q.q}</div>
+    <div class="options-list">
+      ${q.opts.map((opt, oi) => `
+        <div class="option ${answers[idx] === oi ? 'selected' : ''}" onclick="selectOption(${idx},${oi})" id="opt-${oi}">
+          <div class="opt-letter">${letters[oi]}</div>
+          <div class="opt-text">${opt}</div>
+        </div>
+      `).join('')}
+    </div>
+    <div class="q-nav">
+      <button class="btn-nav" onclick="prevQ()" ${idx === 0 ? 'disabled' : ''}>← Previous</button>
+      <button class="btn-nav primary" onclick="nextQ()" ${idx === 119 ? 'disabled' : ''}>Next →</button>
+      <button class="btn-clear" onclick="clearAnswer(${idx})">Clear</button>
+    </div>
+  `;
+
+  updateGridHighlights(idx);
+  updateProgress();
+  panel.scrollTop = 0;
+}
+
+function selectOption(qIdx, optIdx) {
+  answers[qIdx] = optIdx;
+  renderQuestion(qIdx);
+}
+
+function clearAnswer(qIdx) {
+  answers[qIdx] = -1;
+  renderQuestion(qIdx);
+}
+
+function nextQ() { if (currentQ < 119) gotoQ(currentQ + 1); }
+function prevQ() { if (currentQ > 0) gotoQ(currentQ - 1); }
+
+function updateGridHighlights(current) {
+  QUESTIONS.forEach((q, i) => {
+    const el = document.getElementById('qn-' + i);
+    if (!el) return;
+    el.className = 'q-num';
+    if (answers[i] !== -1) el.classList.add('answered');
+    if (i === current) el.classList.add('current');
+  });
+}
+
+function updateProgress() {
+  const answered = answers.filter(a => a !== -1).length;
+  document.getElementById('header-progress').textContent = `${answered}/120 answered`;
+  document.getElementById('progress-fill').style.width = (answered / 120 * 100) + '%';
+}
+
+function startTimer() {
+  timerInterval = setInterval(() => {
+    timeLeft--;
+    const mins = Math.floor(timeLeft / 60);
+    const secs = timeLeft % 60;
+    const timerEl = document.getElementById('timer');
+    timerEl.textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+    if (timeLeft <= 300) timerEl.classList.add('urgent');
+    if (timeLeft <= 0) {
+      clearInterval(timerInterval);
+      submitExam();
+    }
+  }, 1000);
+}
+
+function showSubmitModal() {
+  const answered = answers.filter(a => a !== -1).length;
+  document.getElementById('modal-msg').innerHTML = `You have answered <strong>${answered}</strong> of 120 questions.<br>Unanswered questions will be marked as skipped.`;
+  document.getElementById('modal-overlay').classList.add('show');
+}
+
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('show');
+}
+
+function submitExam() {
+  clearInterval(timerInterval);
+  closeModal();
+  document.getElementById('exam').style.display = 'none';
+  document.getElementById('results').style.display = 'block';
+  showResults();
+}
+
+function showResults() {
+  let correct = 0, wrong = 0, skipped = 0;
+  let partScores = { A: { c: 0, t: 30 }, B: { c: 0, t: 30 }, C: { c: 0, t: 60 } };
+
+  QUESTIONS.forEach((q, i) => {
+    if (answers[i] === -1) skipped++;
+    else if (answers[i] === q.ans) { correct++; partScores[q.part].c++; }
+    else wrong++;
+  });
+
+  const pct = Math.round(correct / 120 * 100);
+  let grade = pct >= 75 ? '🏆 Excellent!' : pct >= 60 ? '✅ Good Performance' : pct >= 45 ? '📘 Keep Practicing' : '💪 Needs More Preparation';
+
+  document.getElementById('result-title').textContent = grade;
+  document.getElementById('score-display').innerHTML = `${correct} <span class="score-denom">/ 120</span>`;
+  document.getElementById('score-pct').textContent = `${pct}% — ${correct} marks`;
+  document.getElementById('s-correct').textContent = correct;
+  document.getElementById('s-wrong').textContent = wrong;
+  document.getElementById('s-skipped').textContent = skipped;
+
+  setTimeout(() => {
+    document.getElementById('bar-a').style.width = (partScores.A.c / partScores.A.t * 100) + '%';
+    document.getElementById('bar-b').style.width = (partScores.B.c / partScores.B.t * 100) + '%';
+    document.getElementById('bar-c').style.width = (partScores.C.c / partScores.C.t * 100) + '%';
+  }, 300);
+
+  document.getElementById('ps-a').textContent = `${partScores.A.c}/${partScores.A.t}`;
+  document.getElementById('ps-b').textContent = `${partScores.B.c}/${partScores.B.t}`;
+  document.getElementById('ps-c').textContent = `${partScores.C.c}/${partScores.C.t}`;
+}
+
+function filterReview(type) {
+  const section = document.getElementById('review-section');
+  section.style.display = 'block';
+  activeFilter = type;
+  setFilter(type);
+  section.scrollIntoView({ behavior: 'smooth' });
+}
+
+function setFilter(filter) {
+  activeFilter = filter;
+  ['all', 'wrong', 'correct', 'skipped'].forEach(f => {
+    const btn = document.getElementById('f-' + f);
+    if (btn) btn.classList.remove('active');
+  });
+  const activeBtn = document.getElementById('f-' + filter);
+  if (activeBtn) activeBtn.classList.add('active');
+
+  const letters = ['A', 'B', 'C', 'D'];
+  const list = document.getElementById('review-list');
+  list.innerHTML = '';
+
+  QUESTIONS.forEach((q, i) => {
+    const userAns = answers[i];
+    const isCorrect = userAns === q.ans;
+    const isSkipped = userAns === -1;
+    const isWrong = !isSkipped && !isCorrect;
+
+    if (filter === 'wrong' && !isWrong) return;
+    if (filter === 'correct' && !isCorrect) return;
+    if (filter === 'skipped' && !isSkipped) return;
+
+    const status = isSkipped ? 'skipped' : isCorrect ? 'correct' : 'wrong';
+    const badge = isSkipped ? 'Skipped' : isCorrect ? '✓ Correct' : '✗ Wrong';
+
+    const optsHtml = q.opts.map((opt, oi) => {
+      let cls = '';
+      if (oi === q.ans) cls = 'correct-ans';
+      else if (oi === userAns && isWrong) cls = 'user-wrong';
+      const icon = oi === q.ans ? '✓' : (oi === userAns && isWrong ? '✗' : '');
+      return `<div class="review-opt ${cls}"><span class="review-opt-icon">${icon}</span>${letters[oi]}. ${opt}</div>`;
+    }).join('');
+
+    const card = document.createElement('div');
+    card.className = `review-card ${status}`;
+    card.innerHTML = `
+      <div class="review-q-header">
+        <span class="review-badge ${status}">${badge}</span>
+        <span style="font-size:12px;color:var(--ink3)">Q${i+1} · ${q.topic}</span>
+      </div>
+      <div class="review-q-text">${q.q}</div>
+      <div class="review-opts">${optsHtml}</div>
+      <button class="toggle-exp" onclick="toggleExp(this)">Show explanation & memory tip</button>
+      <div class="exp-hidden" style="display:none">
+        <div class="explanation-box">
+          <div class="exp-label">Explanation</div>
+          <div class="exp-text">${q.exp}</div>
+        </div>
+        <div class="memory-box">${q.mem}</div>
+      </div>
+    `;
+    list.appendChild(card);
+  });
+
+  if (list.children.length === 0) {
+    list.innerHTML = '<div style="text-align:center;padding:40px;color:var(--ink3)">No questions in this category.</div>';
+  }
+}
+
+function toggleExp(btn) {
+  const hidden = btn.nextElementSibling;
+  const isVisible = hidden.style.display !== 'none';
+  hidden.style.display = isVisible ? 'none' : 'block';
+  btn.textContent = isVisible ? 'Show explanation & memory tip' : 'Hide explanation';
+}
+
+function retakeExam() {
+  answers = new Array(120).fill(-1);
+  currentQ = 0;
+  timeLeft = 90 * 60;
+  document.getElementById('results').style.display = 'none';
+  document.getElementById('review-section').style.display = 'none';
+  document.getElementById('exam').style.display = 'flex';
+  document.getElementById('timer').classList.remove('urgent');
+  renderQuestion(0);
+  startTimer();
+}
+</script>
+</body>
+</html>
