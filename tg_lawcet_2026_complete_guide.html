@@ -1,0 +1,1169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TG LAWCET 2026 — Complete Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0d0f12;--surface:#15171c;--surface2:#1c1f27;--surface3:#232730;--border:#252930;--border2:#2e333d;--gold:#d4a853;--gold-l:#f0c978;--gold-d:#8a6a2e;--text:#e6e4de;--text-dim:#888580;--text-muted:#444;--red:#e05555;--green:#4caf7d;--blue:#5b8ee6;--purple:#9b6fd4;--teal:#3bbfb0;--amber:#d4853a;--r:10px;--rlg:14px;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.7;}
+
+/* ── HEADER ── */
+.hdr{background:var(--surface);border-bottom:1px solid var(--border);padding:1rem 1.5rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;position:sticky;top:0;z-index:200;}
+.logo{font-family:'Playfair Display',serif;font-size:1.25rem;color:var(--gold);white-space:nowrap;flex-shrink:0;}
+.logo small{color:var(--text-dim);font-size:.75rem;font-family:'DM Sans',sans-serif;font-weight:400;display:block;margin-top:-3px;}
+.nav{display:flex;gap:5px;flex-wrap:wrap;flex:1;}
+.nb{padding:6px 13px;border:1px solid var(--border2);border-radius:999px;font-size:12.5px;cursor:pointer;background:transparent;color:var(--text-dim);font-family:'DM Sans',sans-serif;transition:all .2s;white-space:nowrap;}
+.nb:hover{border-color:var(--gold-d);color:var(--gold-l);}
+.nb.on{background:var(--gold);color:#0d0f12;border-color:var(--gold);font-weight:600;}
+.nb.new-tag::after{content:'NEW';font-size:9px;background:var(--red);color:#fff;border-radius:3px;padding:1px 4px;margin-left:5px;vertical-align:1px;}
+
+/* ── LAYOUT ── */
+.wrap{max-width:980px;margin:0 auto;padding:2rem 1.5rem;}
+.sec{display:none;}.sec.on{display:block;}
+.sh{margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:1px solid var(--border);}
+.sh h2{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--gold);}
+.sh p{font-size:13px;color:var(--text-dim);margin-top:3px;}
+
+/* ── CARDS ── */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--rlg);padding:1.15rem 1.4rem;margin-bottom:1rem;}
+.ct{font-size:15px;font-weight:600;color:var(--text);margin-bottom:.8rem;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.bh{font-size:11px;padding:2px 9px;border-radius:999px;font-weight:600;background:#3a1a1a;color:#f08080;}
+.bm{font-size:11px;padding:2px 9px;border-radius:999px;font-weight:600;background:#2e2510;color:#d4a853;}
+.bl{font-size:11px;padding:2px 9px;border-radius:999px;font-weight:600;background:#102a1a;color:#4caf7d;}
+.bi{font-size:11px;padding:2px 9px;border-radius:999px;font-weight:600;background:#101e3a;color:#5b8ee6;}
+.bn{font-size:11px;padding:2px 9px;border-radius:999px;font-weight:600;background:#2a1a10;color:#f0a060;}
+
+/* ── MNEMONICS ── */
+.mn{background:var(--surface2);border-left:3px solid var(--purple);border-radius:0 var(--r) var(--r) 0;padding:.6rem .95rem;margin:.45rem 0;font-size:13px;color:var(--text);}
+.mn b{color:#c4a0f0;font-weight:500;}
+.mng{background:var(--surface2);border-left:3px solid var(--green);border-radius:0 var(--r) var(--r) 0;padding:.6rem .95rem;margin:.45rem 0;font-size:13px;color:var(--text);}
+.mng b{color:#4caf7d;font-weight:500;}
+.mna{background:var(--surface2);border-left:3px solid var(--amber);border-radius:0 var(--r) var(--r) 0;padding:.6rem .95rem;margin:.45rem 0;font-size:13px;color:var(--text);}
+.mna b{color:#f0a060;font-weight:500;}
+
+/* ── POINTS ── */
+.pt{font-size:13.5px;color:var(--text);line-height:1.85;padding:1px 0;}
+.pt::before{content:"→ ";color:var(--gold-d);}
+
+/* ── FORMULA ── */
+.fm{display:inline-block;background:#0f1e35;color:#7fb3f5;font-family:'DM Mono',monospace;font-size:12px;padding:2px 8px;border-radius:5px;border:1px solid #1e3a60;}
+
+/* ── TABLE ── */
+table{width:100%;border-collapse:collapse;font-size:13px;}
+th{text-align:left;padding:8px 10px;font-weight:600;color:var(--text-dim);border-bottom:1px solid var(--border);font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;}
+td{padding:7px 10px;color:var(--text);border-bottom:1px solid var(--border);vertical-align:top;line-height:1.6;}
+tr:last-child td{border-bottom:none;}
+tr:hover td{background:var(--surface2);}
+
+/* ── GRID ── */
+.g2{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;}
+
+/* ── TIP BOX ── */
+.tip{background:#0d1f10;border:1px solid #1a4a25;border-radius:var(--r);padding:.7rem 1rem;font-size:13px;color:#4caf7d;margin-top:.5rem;}
+.warn{background:#2a1a00;border:1px solid #6a4000;border-radius:var(--r);padding:.7rem 1rem;font-size:13px;color:#d4a853;margin:.5rem 0;}
+
+/* ── EXAM STATS ── */
+.estats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:1.5rem;}
+.ecard{background:var(--surface);border:1px solid var(--border);border-radius:var(--rlg);padding:.9rem 1rem;text-align:center;}
+.enum{font-family:'Playfair Display',serif;font-size:1.6rem;color:var(--gold);}
+.elbl{font-size:11.5px;color:var(--text-dim);margin-top:2px;}
+
+/* ── FLASH CARDS ── */
+.fcgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px;}
+.fc{background:var(--surface);border:1px solid var(--border);border-radius:var(--rlg);padding:1rem;cursor:pointer;min-height:90px;transition:border-color .2s,background .2s;}
+.fc:hover{border-color:var(--gold-d);}
+.fc.flip{background:var(--surface2);border-color:var(--gold-d);}
+.fcq{font-size:13px;font-weight:500;color:var(--text);line-height:1.5;}
+.fca{font-size:12.5px;color:var(--gold-l);margin-top:8px;display:none;line-height:1.6;}
+.fc.flip .fca{display:block;}
+.fch{font-size:11px;color:var(--text-muted);margin-top:6px;}
+.fc.flip .fch{color:var(--gold-d);}
+
+/* ── QUIZ ── */
+.sbar{background:var(--surface);border:1px solid var(--border);border-radius:var(--rlg);padding:1rem 1.4rem;margin-bottom:1.5rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;}
+.snum{font-family:'Playfair Display',serif;font-size:2rem;color:var(--gold);min-width:55px;}
+.prog{flex:1;min-width:120px;}
+.ptrack{height:5px;background:var(--border);border-radius:3px;overflow:hidden;}
+.pfill{height:100%;background:var(--gold);border-radius:3px;transition:width .4s;}
+.qcard{background:var(--surface);border:1px solid var(--border);border-radius:var(--rlg);padding:1.1rem 1.4rem;margin-bottom:.75rem;}
+.qnum{font-size:11px;font-weight:500;color:var(--text-dim);text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px;}
+.qcat{display:inline-block;font-size:11px;padding:1px 7px;border-radius:999px;margin-left:5px;}
+.qcat-l{background:#101e3a;color:#5b8ee6;}
+.qcat-m{background:#102a1a;color:#4caf7d;}
+.qcat-g{background:#2e2510;color:#d4a853;}
+.qcat-e{background:#2a1030;color:#9b6fd4;}
+.qcat-c{background:#2a1a00;color:#d4a853;}
+.qt{font-size:14px;font-weight:500;color:var(--text);line-height:1.55;margin-bottom:.8rem;}
+.qopts{display:grid;gap:6px;}
+.qo{padding:8px 12px;border:1px solid var(--border);border-radius:var(--r);font-size:13px;cursor:pointer;color:var(--text);background:var(--surface2);transition:all .15s;text-align:left;font-family:'DM Sans',sans-serif;line-height:1.5;}
+.qo:hover:not(:disabled){border-color:var(--gold-d);color:var(--gold-l);}
+.qo.ok{background:#0f2a1a;border-color:var(--green);color:#7ee8a2;}
+.qo.no{background:#2a0f0f;border-color:var(--red);color:#f08080;}
+.qo:disabled{cursor:default;}
+.qexp{font-size:12.5px;color:var(--text-dim);margin-top:.6rem;padding:.6rem .85rem;background:var(--surface2);border-radius:var(--r);display:none;line-height:1.65;}
+.qexp.on{display:block;}
+
+/* ── FOOTER ── */
+.footer{text-align:center;padding:2rem;font-size:12px;color:var(--text-muted);border-top:1px solid var(--border);margin-top:2rem;}
+
+@media(max-width:600px){.hdr{padding:.75rem 1rem;}.wrap{padding:1rem;}.logo{font-size:1rem;}}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="logo">TG LAWCET 2026 <small>Complete Study Guide — All Subjects</small></div>
+  <nav class="nav">
+    <button class="nb on"  onclick="show('legal',this)">⚖️ Legal Aptitude</button>
+    <button class="nb"     onclick="show('newcodes',this)">📜 New Codes</button>
+    <button class="nb"     onclick="show('maths',this)">🔢 Maths</button>
+    <button class="nb"     onclick="show('amend',this)">📋 Amendments</button>
+    <button class="nb"     onclick="show('acts',this)">📁 Acts</button>
+    <button class="nb"     onclick="show('gk',this)">🏛️ GK & Judiciary</button>
+    <button class="nb"     onclick="show('history',this)">🗺️ History & Geo</button>
+    <button class="nb new-tag" onclick="show('current',this)">📰 Current Affairs</button>
+    <button class="nb new-tag" onclick="show('economy',this)">💰 Economy</button>
+    <button class="nb new-tag" onclick="show('scitech',this)">🔬 Sci & Tech</button>
+    <button class="nb new-tag" onclick="show('sports',this)">🏆 Awards & Sports</button>
+    <button class="nb"     onclick="show('english',this)">✍️ English</button>
+    <button class="nb"     onclick="show('mental',this)">🧠 Mental Ability</button>
+    <button class="nb"     onclick="show('flash',this)">🃏 Flash Cards</button>
+    <button class="nb"     onclick="show('quiz',this)">🎯 Quiz (45 Qs)</button>
+    <button class="nb"     onclick="show('strategy',this)">📌 Strategy</button>
+  </nav>
+</div>
+
+<div class="wrap">
+
+<!-- ═══════════════════ LEGAL APTITUDE ═══════════════════ -->
+<div id="legal" class="sec on">
+  <div class="sh"><h2>Legal Aptitude</h2><p>Part C — 60 questions, 60 marks. Highest weightage. Master principles, IPC, maxims & contracts.</p></div>
+
+  <div class="card">
+    <div class="ct">Fundamental Rights — Art 12–35 (Part III)<span class="bh">High Priority</span></div>
+    <div class="mn"><b>Mnemonic "REPL-EC":</b> Right to Equality (14–18), Right against Exploitation (23–24), Personal Liberty (19–22), Liberty of thought (25–28), Equality before law, Cultural & Educational Rights (29–30)</div>
+    <div class="pt">Art 14 – Equality before law | Art 15 – No discrimination | Art 16 – Equal opportunity in public employment</div>
+    <div class="pt">Art 19 – 6 Freedoms: speech, assembly (unarmed), association, movement, residence, profession</div>
+    <div class="pt">Art 20 – Protection against double jeopardy & self-incrimination | Art 21 – Right to life & liberty</div>
+    <div class="pt">Art 21A – Free education (6–14 yrs) | Art 22 – Protection against arbitrary arrest</div>
+    <div class="pt">Art 32 – Constitutional Remedies (Dr. Ambedkar: "Heart & Soul of the Constitution")</div>
+    <div class="mn"><b>5 Writs — "HMC-PQ":</b> Habeas Corpus (unlawful detention), Mandamus (compel duty), Certiorari (quash order), Prohibition (prevent excess jurisdiction), Quo Warranto (challenge to public office)</div>
+  </div>
+
+  <div class="card">
+    <div class="ct">IPC — Key Sections<span class="bh">High Priority</span></div>
+    <div class="mn"><b>Series trick:</b> 299–325 = body offences | 354–376 = offences against women | 378–420 = property | 498A = matrimonial cruelty</div>
+    <div class="g2">
+      <div>
+        <div class="pt">Sec 299 – Culpable homicide (CHnM) definition</div>
+        <div class="pt">Sec 300 – Murder definition (subset of CHnM)</div>
+        <div class="pt">Sec 302 – Punishment: murder (death/life+fine)</div>
+        <div class="pt">Sec 304 – Punishment: CHnM not amounting to murder</div>
+        <div class="pt">Sec 304A – Death by negligence (rash/negligent act)</div>
+        <div class="pt">Sec 307 – Attempt to murder</div>
+        <div class="pt">Sec 319 – Hurt | Sec 320 – Grievous hurt (8 kinds)</div>
+        <div class="pt">Sec 323 – Voluntarily causing hurt</div>
+        <div class="pt">Sec 325 – Voluntarily causing grievous hurt</div>
+      </div>
+      <div>
+        <div class="pt">Sec 354 – Assault / outrage modesty of woman</div>
+        <div class="pt">Sec 375 – Rape definition | Sec 376 – Punishment</div>
+        <div class="pt">Sec 378 – Theft definition | Sec 379 – Punishment</div>
+        <div class="pt">Sec 383 – Extortion | Sec 390 – Robbery</div>
+        <div class="pt">Sec 415 – Cheating def | Sec 420 – Punishment</div>
+        <div class="pt">Sec 441 – Criminal trespass | Sec 463 – Forgery</div>
+        <div class="pt">Sec 499 – Defamation | Sec 500 – Punishment</div>
+        <div class="pt">Sec 498A – Cruelty by husband/relatives</div>
+        <div class="pt">Sec 506 – Criminal intimidation</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ct">Law of Torts<span class="bm">Medium</span></div>
+    <div class="mn"><b>Negligence "DBCD":</b> Duty of care → Breach → Causation → Damage</div>
+    <div class="pt">Donoghue v Stevenson — Neighbour principle; duty of care to all foreseeable persons</div>
+    <div class="pt">Rylands v Fletcher — Strict liability: non-natural use + escape of dangerous thing (exceptions exist)</div>
+    <div class="pt">MC Mehta v UOI — Absolute liability: no exceptions for hazardous industries (stronger than Rylands)</div>
+    <div class="pt">Volenti non fit injuria — Consent is a complete defence to tort</div>
+    <div class="pt">Res ipsa loquitur — Negligence inferred from circumstances ("the thing speaks for itself")</div>
+    <div class="pt">Contributory negligence — Plaintiff's own fault reduces damages</div>
+    <div class="pt">Vicarious liability — Employer liable for employee's tort done in course of employment</div>
+    <div class="pt">Damnum sine injuria — Actual damage but no legal right violated; no remedy</div>
+    <div class="pt">Injuria sine damno — Legal right violated but no actual damage; remedy still exists (Ashby v White)</div>
+  </div>
+
+  <div class="card">
+    <div class="ct">Indian Contract Act 1872<span class="bh">High Priority</span></div>
+    <div class="mn"><b>Valid Contract "OACCL":</b> Offer + Acceptance + Consideration + Capacity + Lawful object</div>
+    <div class="pt">Sec 2(a) Proposal | 2(b) Promise | 2(e) Agreement | 2(h) Contract</div>
+    <div class="pt">Free consent vitiated by: Coercion (15), Undue influence (16), Fraud (17), Misrepresentation (18), Mistake (20–22)</div>
+    <div class="pt">Void ab initio: minor's contract, unlawful consideration, impossible act</div>
+    <div class="pt">Voidable: contract by coercion/fraud/misrepresentation — option to rescind</div>
+    <div class="pt">Sec 56 — Frustration of contract (impossibility of performance discharges contract)</div>
+    <div class="pt">Sec 73 — Compensation for breach | Sec 74 — Liquidated damages / penalty</div>
+    <div class="mn"><b>Indemnity vs Guarantee:</b> Indemnity = 2 parties, protect from loss | Guarantee = 3 parties (debtor, creditor, surety)</div>
+    <div class="mn"><b>Consideration rule:</b> Must be real but need not be adequate. Past consideration is valid in India (unlike UK).</div>
+  </div>
+
+  <div class="card">
+    <div class="ct">Legal Maxims — Top 12<span class="bh">Must Memorise</span></div>
+    <table>
+      <tr><th>Maxim</th><th>Meaning</th></tr>
+      <tr><td><em>Ignorantia juris non excusat</em></td><td>Ignorance of law is no excuse</td></tr>
+      <tr><td><em>Actus reus + Mens rea</em></td><td>Guilty act + guilty mind = crime</td></tr>
+      <tr><td><em>Audi alteram partem</em></td><td>Hear the other side (natural justice rule 1)</td></tr>
+      <tr><td><em>Nemo judex in causa sua</em></td><td>No one can be judge in their own cause (rule 2)</td></tr>
+      <tr><td><em>Res ipsa loquitur</em></td><td>The thing speaks for itself (negligence)</td></tr>
+      <tr><td><em>Volenti non fit injuria</em></td><td>No injury to one who consents</td></tr>
+      <tr><td><em>Damnum sine injuria</em></td><td>Damage without legal injury — no remedy</td></tr>
+      <tr><td><em>Injuria sine damno</em></td><td>Legal injury without actual damage — remedy exists</td></tr>
+      <tr><td><em>In loco parentis</em></td><td>In place of a parent</td></tr>
+      <tr><td><em>Caveat emptor</em></td><td>Let the buyer beware</td></tr>
+      <tr><td><em>Res judicata</em></td><td>The matter has been decided — no re-litigation</td></tr>
+      <tr><td><em>Ubi jus ibi remedium</em></td><td>Where there is a right, there is a remedy</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="ct">CrPC & CPC Quick Reference<span class="bm">Medium</span></div>
+    <div class="g2">
+      <div>
+        <div class="pt">FIR — Sec 154 CrPC (registered at police station)</div>
+        <div class="pt">Arrest without warrant — Sec 41 CrPC</div>
+        <div class="pt">Bail bailable offence — Sec 436 CrPC (right)</div>
+        <div class="pt">Bail non-bailable — Sec 437 CrPC (discretion)</div>
+        <div class="pt">Prohibitory orders (Sec 144) — restrict assembly</div>
+        <div class="pt">Charge sheet — Sec 173 CrPC</div>
+        <div class="pt">Statement to police — Sec 161 CrPC</div>
+      </div>
+      <div>
+        <div class="pt">Res judicata — Sec 11 CPC (bars re-litigation)</div>
+        <div class="pt">Temporary injunction — Order 39 CPC</div>
+        <div class="pt">Summary suit — Order 37 CPC</div>
+        <div class="pt">Execution of decree — Sec 51 CPC</div>
+        <div class="pt">Review of judgment — Sec 114 CPC</div>
+        <div class="pt">Revision to HC — Sec 115 CPC</div>
+        <div class="pt">Appeal — Sec 96 (from decree), Sec 100 (2nd appeal to HC)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ct">Principle-Based Questions — Strategy<span class="bh">Exam Technique</span></div>
+    <div class="mng"><b>Golden Rule:</b> Apply ONLY the given principle. Ignore your outside legal knowledge completely.</div>
+    <div class="pt">Step 1: Read the principle → identify the key condition/trigger word</div>
+    <div class="pt">Step 2: Extract facts that match or don't match the condition</div>
+    <div class="pt">Step 3: Apply mechanically — if condition met → consequence follows</div>
+    <div class="pt">Trigger words: "only if", "provided that", "unless", "subject to", "notwithstanding"</div>
+    <div class="pt">If principle requires intent — check if facts show intent clearly</div>
+    <div class="tip">Negative questions: "Which is NOT correct?" → eliminate 3 correct options; remaining = answer.</div>
+  </div>
+</div>
+
+<!-- ═══════════════════ NEW CRIMINAL CODES ═══════════════════ -->
+<div id="newcodes" class="sec">
+  <div class="sh"><h2>New Criminal Codes (2024)</h2><p>IPC, CrPC & Evidence Act replaced from 1 July 2024 — almost certain to be tested in 2026.</p></div>
+
+  <div class="card">
+    <div class="ct">The Three Replacements<span class="bh">Critical for 2026</span></div>
+    <div class="mna"><b>Effective 1 July 2024</b> — all three old laws officially replaced. Know both old and new names!</div>
+    <table>
+      <tr><th>Old Law (Repealed)</th><th>New Law</th><th>Full Name of New Law</th><th>Year Passed</th></tr>
+      <tr><td>Indian Penal Code (IPC) 1860</td><td><b>BNS</b></td><td>Bharatiya Nyaya Sanhita</td><td>2023</td></tr>
+      <tr><td>Code of Criminal Procedure (CrPC) 1973</td><td><b>BNSS</b></td><td>Bharatiya Nagarik Suraksha Sanhita</td><td>2023</td></tr>
+      <tr><td>Indian Evidence Act 1872</td><td><b>BSA</b></td><td>Bharatiya Sakshya Adhiniyam</td><td>2023</td></tr>
+    </table>
+    <div class="mn" style="margin-top:.75rem"><b>Memory trick "BNS-BNSS-BSA":</b> Nyaya=Justice, Nagarik=Citizen, Sakshya=Evidence</div>
+  </div>
+
+  <div class="card">
+    <div class="ct">Key Changes in BNS vs IPC<span class="bh">High Priority</span></div>
+    <div class="pt">Murder = <b>Sec 101 BNS</b> (was Sec 302 IPC)</div>
+    <div class="pt">Culpable Homicide = <b>Sec 100 BNS</b> (was Sec 299 IPC)</div>
+    <div class="pt">Rape = <b>Sec 63 BNS</b> (was Sec 375 IPC)</div>
+    <div class="pt">Cheating = <b>Sec 318 BNS</b> (was Sec 420 IPC)</div>
+    <div class="pt">Theft = <b>Sec 303 BNS</b> (was Sec 378 IPC)</div>
+    <div class="pt">Cruelty by husband = <b>Sec 85 BNS</b> (was Sec 498A IPC)</div>
+    <div class="mna"><b>New additions in BNS:</b> Terrorism added as separate chapter | Community service as new punishment | Organized crime codified | Sedition (Sec 124A IPC) removed — replaced by Sec 152 BNS (acts against sovereignty)</div>
+  </div>
+
+  <div class="card">
+    <div class="ct">Key Changes in BNSS vs CrPC<span class="bm">Medium</span></div>
+    <div class="pt">FIR = <b>Sec 173 BNSS</b> (was Sec 154 CrPC) | Now e-FIR allowed</div>
+    <div class="pt">Arrest without warrant = <b>Sec 35 BNSS</b> (was Sec 41 CrPC)</div>
+    <div class="pt">Bail for bailable offences = <b>Sec 478 BNSS</b> (was Sec 436 CrPC)</div>
+    <div class="pt">Zero FIR — can be filed at any police station regardless of jurisdiction</div>
+    <div class="pt">Trial in absentia — court can proceed even if accused is absconding</div>
+    <div class="pt">Mandatory video recording of search and seizure in heinous offences</div>
+    <div class="pt">Forensic investigation mandatory in offences punishable with 7+ years</div>
+    <div class="mna"><b>Time limit for trial:</b> Judgement within 45 days of completing arguments; Charge framing within 60 days of first hearing.</div>
+  </div>
+</div>
+
+<!-- ═══════════════════ MATHS ═══════════════════ -->
+<div id="maths" class="sec">
+  <div class="sh"><h2>Maths Formulas</h2><p>Part A — ~8–10 questions from quantitative aptitude. Memorise formulas + tricks.</p></div>
+
+  <div class="card">
+    <div class="ct">Percentage & Profit / Loss<span class="bh">High Priority</span></div>
+    <div class="pt">% change = <span class="fm">(New−Old)/Old × 100</span></div>
+    <div class="pt">Profit% = <span class="fm">Profit/CP × 100</span> | SP (profit) = <span class="fm">CP × (100+P%)/100</span></div>
+    <div class="pt">SP (loss) = <span class="fm">CP × (100−L%)/100</span> | CP from SP = <span class="fm">SP × 100/(100+P%)</span></div>
+    <div class="mn"><b>Trick:</b> Same SP, one at x% profit & one at x% loss → always a LOSS. Loss% = <span class="fm">x²/100</span></div>
+  </div>
+
+  <div class="card">
+    <div class="ct">Simple & Compound Interest</div>
+    <div class="pt">SI = <span class="fm">PRT/100</span> | CI Amount = <span class="fm">P(1+R/100)ᵀ</span></div>
+    <div class="pt">CI − SI for 2 yrs = <span class="fm">P(R/100)²</span> | For 3 yrs = <span class="fm">P(R/100)²(3+R/100)</span></div>
+    <div class="mn"><b>Quick check:</b> 2 yrs at 10% → SI=20%, CI=21%. Difference = SI on first year's interest.</div>
+  </div>
+
+  <div class="card">
+    <div class="ct">Speed, Distance & Time</div>
+    <div class="pt">Speed = <span class="fm">D/T</span> | Avg speed (equal dist) = <span class="fm">2xy/(x+y)</span> (NOT simple average)</div>
+    <div class="pt">Same dir relative speed = <span class="fm">|s1−s2|</span> | Opp dir = <span class="fm">s1+s2</span></div>
+    <div class="pt">km/h→m/s: <span class="fm">×5/18</span> | m/s→km/h: <span class="fm">×18/5</span></div>
+    <div class="pt">Train crossing platform: <span class="fm">(train+platform)/speed</span></div>
+    <div class="mn"><b>Boats & Streams:</b> Downstream=u+v | Upstream=u−v | Boat speed=(D+U)/2 | Stream speed=(D−U)/2</div>
+  </div>
+
+  <div class="card">
+    <div class="ct">Number Series, P&C, Probability</div>
+    <div class="pt">AP nth term = <span class="fm">a+(n−1)d</span> | Sum = <span class="fm">n/2×(2a+(n−1)d)</span></div>
+    <div class="pt">GP nth term = <span class="fm">arⁿ⁻¹</span></div>
+    <div class="pt">nPr = <span class="fm">n!/(n−r)!</span> (order matters) | nCr = <span class="fm">n!/r!(n−r)!</span></div>
+    <div class="pt">Probability = <span class="fm">Favourable/Total</span> | P(A or B) = <span class="fm">P(A)+P(B)−P(A∩B)</span></div>
+    <div class="mn"><b>Series check:</b> Constant diff? (AP) → Constant ratio? (GP) → Diffs form series? → Squares/cubes?</div>
+    <div class="mn"><b>EJOTY:</b> E=5, J=10, O=15, T=20, Y=25 — instant letter position lookup for coding questions!</div>
+  </div>
+
+  <div class="card">
+    <div class="ct">Geometry & Clocks</div>
+    <div class="g2">
+      <div>
+        <div class="pt">Circle: A=<span class="fm">πr²</span>, P=<span class="fm">2πr</span></div>
+        <div class="pt">Triangle: A=<span class="fm">½bh</span> | Equil: <span class="fm">√3/4 a²</span></div>
+        <div class="pt">Rectangle: <span class="fm">lb</span> | Trapezium: <span class="fm">½(a+b)h</span></div>
+        <div class="pt">Pythagoras: <span class="fm">a²+b²=c²</span> | Triplets: 3-4-5, 5-12-13</div>
+        <div class="pt">Cylinder vol: <span class="fm">πr²h</span> | Sphere: <span class="fm">4/3πr³</span></div>
+      </div>
+      <div>
+        <div class="pt">Clock angle = <span class="fm">|30H−5.5M|</span> degrees</div>
+        <div class="pt">Min hand: 6°/min | Hour hand: 0.5°/min</div>
+        <div class="pt">Hands coincide every 65⁵⁄₁₁ minutes</div>
+        <div class="pt">Alligation: <span class="fm">(d−m):(m−c)</span></div>
+        <div class="pt">Partnership profit ∝ <span class="fm">Capital × Time</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ AMENDMENTS ═══════════════════ -->
+<div id="amend" class="sec">
+  <div class="sh"><h2>Constitutional Amendments</h2><p>Year + what changed — tested in both GK and Legal Aptitude sections.</p></div>
+  <div class="card">
+    <div class="ct">Critical Amendments<span class="bh">Must Know</span></div>
+    <table>
+      <tr><th>Amendment</th><th>Year</th><th>Key Change</th></tr>
+      <tr><td><b>1st</b></td><td>1951</td><td>Added 9th Schedule — land reform laws immune from judicial review</td></tr>
+      <tr><td><b>7th</b></td><td>1956</td><td>Reorganised states on linguistic basis; abolished Part B states</td></tr>
+      <tr><td><b>24th</b></td><td>1971</td><td>Parliament can amend any part of Constitution including Fundamental Rights</td></tr>
+      <tr><td><b>42nd</b></td><td>1976</td><td>"Mini Constitution" — Secular+Socialist in Preamble, Art 51A (10 FDs added), extended Parliament term</td></tr>
+      <tr><td><b>44th</b></td><td>1978</td><td>Reversed many 42nd changes; Right to Property removed as FR → Art 300A (legal right)</td></tr>
+      <tr><td><b>52nd</b></td><td>1985</td><td>Anti-defection law (10th Schedule)</td></tr>
+      <tr><td><b>61st</b></td><td>1989</td><td>Voting age lowered 21→18 years</td></tr>
+      <tr><td><b>69th</b></td><td>1991</td><td>Delhi given special status as NCT (National Capital Territory)</td></tr>
+      <tr><td><b>73rd</b></td><td>1992</td><td>Panchayati Raj — constitutional status (Part IX, Art 243)</td></tr>
+      <tr><td><b>74th</b></td><td>1992</td><td>Urban local bodies / municipalities (Part IXA, Art 243P)</td></tr>
+      <tr><td><b>86th</b></td><td>2002</td><td>Art 21A — free & compulsory education 6–14 yrs; 11th Fundamental Duty added</td></tr>
+      <tr><td><b>101st</b></td><td>2016</td><td>GST introduced — Art 246A, 269A, 279A</td></tr>
+      <tr><td><b>103rd</b></td><td>2019</td><td>10% EWS reservation — Art 15(6) and Art 16(6)</td></tr>
+      <tr><td><b>105th</b></td><td>2021</td><td>Restored states' power to identify OBC communities</td></tr>
+    </table>
+    <div class="mn" style="margin-top:.75rem"><b>42nd memory "SDFD":</b> Secular+Socialist, DPSPs got priority, Fundamental Duties added, Duration of Parliament extended to 6 yrs</div>
+  </div>
+  <div class="card">
+    <div class="ct">The 12 Schedules<span class="bm">Medium</span></div>
+    <div class="mn"><b>Trick 1–12:</b> States | Elections | Oaths | RS Seats | Tribal Areas | NE Tribal Areas | 3 Lists | Languages | Land Reforms | Anti-defection | Panchayat powers | Municipality powers</div>
+    <table style="margin-top:.75rem">
+      <tr><th>Schedule</th><th>Content</th></tr>
+      <tr><td>1st</td><td>List of States and Union Territories</td></tr>
+      <tr><td>7th</td><td>Union list (97), State list (66), Concurrent list (47)</td></tr>
+      <tr><td>8th</td><td>22 official languages of India</td></tr>
+      <tr><td>9th</td><td>Laws protected from judicial review (land reforms etc.)</td></tr>
+      <tr><td>10th</td><td>Anti-defection law (added by 52nd Amendment 1985)</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════════════════ ACTS ═══════════════════ -->
+<div id="acts" class="sec">
+  <div class="sh"><h2>Important Acts & Legislation</h2><p>Year + purpose — tested in legal aptitude and GK. Know both old and new laws.</p></div>
+  <div class="card">
+    <div class="ct">Core Civil & Criminal Laws<span class="bh">High Priority</span></div>
+    <table>
+      <tr><th>Act</th><th>Year</th><th>Key Purpose / Note</th></tr>
+      <tr><td>BNS (replaced IPC)</td><td>2023 (eff. 2024)</td><td>New criminal offences code; murder = Sec 101</td></tr>
+      <tr><td>BNSS (replaced CrPC)</td><td>2023 (eff. 2024)</td><td>New criminal procedure; e-FIR, Zero FIR</td></tr>
+      <tr><td>BSA (replaced Evidence Act)</td><td>2023 (eff. 2024)</td><td>New evidence law; includes electronic records</td></tr>
+      <tr><td>Code of Civil Procedure (CPC)</td><td>1908</td><td>Civil suit procedure — still in force</td></tr>
+      <tr><td>Indian Contract Act</td><td>1872</td><td>Contracts, agreements, breach — still in force</td></tr>
+      <tr><td>Transfer of Property Act</td><td>1882</td><td>Sale, mortgage, lease, gift of property</td></tr>
+      <tr><td>Specific Relief Act</td><td>1963</td><td>Specific performance of contracts</td></tr>
+      <tr><td>Limitation Act</td><td>1963</td><td>Time limits: money = 3 yrs, property = 12 yrs</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <div class="ct">Family & Personal Laws<span class="bh">High Priority</span></div>
+    <table>
+      <tr><th>Act</th><th>Year</th><th>Applies To</th></tr>
+      <tr><td>Hindu Marriage Act</td><td>1955</td><td>Conditions of Hindu marriage; grounds for divorce</td></tr>
+      <tr><td>Hindu Succession Act (amended 2005)</td><td>1956</td><td>Daughters = equal coparcenary rights as sons (2005 amendment)</td></tr>
+      <tr><td>Hindu Adoption & Maintenance Act</td><td>1956</td><td>Adoption rules; maintenance obligations</td></tr>
+      <tr><td>Muslim Personal Law (Shariat) Act</td><td>1937</td><td>Muslim personal matters — not fully codified</td></tr>
+      <tr><td>Special Marriage Act</td><td>1954</td><td>Inter-religion / civil (secular) marriage</td></tr>
+      <tr><td>Dowry Prohibition Act</td><td>1961</td><td>Giving/taking dowry prohibited; punishment</td></tr>
+      <tr><td>Protection of Women from DV Act</td><td>2005</td><td>Civil remedy for domestic violence</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <div class="ct">Social & Rights Laws<span class="bm">Medium</span></div>
+    <table>
+      <tr><th>Act</th><th>Year</th><th>Key Provision</th></tr>
+      <tr><td>SC/ST (Prevention of Atrocities) Act</td><td>1989</td><td>Strict punishment for atrocities on SC/ST</td></tr>
+      <tr><td>POCSO Act</td><td>2012</td><td>Offences against children below 18; reverse burden of proof</td></tr>
+      <tr><td>RTI Act</td><td>2005</td><td>Info within 30 days; life/liberty = 48 hours</td></tr>
+      <tr><td>Consumer Protection Act</td><td>2019</td><td>District (≤1cr), State (1–10cr), National (&gt;10cr)</td></tr>
+      <tr><td>POSH Act</td><td>2013</td><td>Sexual harassment at workplace; ICC mandatory</td></tr>
+      <tr><td>Advocates Act</td><td>1961</td><td>Governs Bar Council of India; legal profession</td></tr>
+      <tr><td>Legal Services Authority Act</td><td>1987</td><td>Free legal aid; NALSA; Lok Adalat</td></tr>
+      <tr><td>Juvenile Justice Act</td><td>2015</td><td>Care and protection of children; JJBs</td></tr>
+      <tr><td>Lokpal Act</td><td>2013</td><td>Anti-corruption ombudsman for Central govt</td></tr>
+      <tr><td>Waqf (Amendment) Act</td><td>2025</td><td>Major changes to Waqf Board powers — recent law</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════════════════ GK & JUDICIARY ═══════════════════ -->
+<div id="gk" class="sec">
+  <div class="sh"><h2>GK & Judiciary</h2><p>Constitutional articles, key numbers, judiciary facts, Telangana-specific GK, and landmark cases.</p></div>
+
+  <div class="card">
+    <div class="ct">Numbers You Must Know<span class="bh">Must Know</span></div>
+    <div class="g2">
+      <div>
+        <div class="pt">Articles in Constitution — 448 (originally 395)</div>
+        <div class="pt">Parts — 25 | Schedules — 12</div>
+        <div class="pt">Fundamental Rights — 6 | FDs — 11 | DPSPs — Part IV, Art 36–51</div>
+        <div class="pt">Lok Sabha — 543 elected | Rajya Sabha max — 250</div>
+        <div class="pt">SC judges max — 34 (incl. CJI)</div>
+      </div>
+      <div>
+        <div class="pt">Union list — 97 | State list — 66 | Concurrent — 47</div>
+        <div class="pt">Official languages — 22 (8th Schedule)</div>
+        <div class="pt">Lok Sabha term — 5 yrs | RS member term — 6 yrs</div>
+        <div class="pt">CJI retires at — 65 yrs | HC judge — 62 yrs</div>
+        <div class="pt">Qualifying marks TG LAWCET — 42/120 (35%)</td></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ct">Key Constitutional Articles<span class="bh">High Priority</span></div>
+    <table>
+      <tr><th>Article</th><th>Subject</th></tr>
+      <tr><td>Art 13</td><td>Laws inconsistent with FRs are void to that extent</td></tr>
+      <tr><td>Art 21</td><td>Right to life & personal liberty (broadest FR — privacy, livelihood etc.)</td></tr>
+      <tr><td>Art 32</td><td>Right to Constitutional Remedies — SC writs (Heart & Soul)</td></tr>
+      <tr><td>Art 44</td><td>Uniform Civil Code — Directive Principle</td></tr>
+      <tr><td>Art 51A</td><td>Fundamental Duties (11 duties)</td></tr>
+      <tr><td>Art 76</td><td>Attorney General of India</td></tr>
+      <tr><td>Art 124–147</td><td>Supreme Court of India</td></tr>
+      <tr><td>Art 148</td><td>Comptroller & Auditor General (CAG)</td></tr>
+      <tr><td>Art 226</td><td>High Court writ jurisdiction (broader than Art 32)</td></tr>
+      <tr><td>Art 300A</td><td>Right to property — legal right (not FR after 44th Amendment)</td></tr>
+      <tr><td>Art 352 / 356 / 360</td><td>National Emergency / President's Rule / Financial Emergency</td></tr>
+      <tr><td>Art 368</td><td>Amendment procedure — Parliament's constituent power</td></tr>
+      <tr><td>Art 370</td><td>Special status of J&K — abrogated 5 August 2019</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="ct">Telangana — Specific GK<span class="bh">High Priority for TG LAWCET</span></div>
+    <div class="pt">Telangana formed — <b>2 June 2014</b> (29th state of India)</div>
+    <div class="pt">Carved from — Andhra Pradesh Reorganisation Act 2014</div>
+    <div class="pt">Capital — Hyderabad (shared with AP; AP to get new capital Amaravati)</div>
+    <div class="pt">CM of Telangana — A. Revanth Reddy (INC, from December 2023)</div>
+    <div class="pt">Governor — Jishnu Dev Varma (from 2024)</div>
+    <div class="pt">TG LAWCET — conducted by Osmania University on behalf of TGCHE</div>
+    <div class="pt">Telangana High Court — Hyderabad; separate from AP HC since 1 January 2019</div>
+    <div class="pt">Districts — 33 | TG Panchayati Raj Act — 2018</div>
+    <div class="mn"><b>Major law universities:</b> NALSAR Hyderabad (ranked #1 in India), Osmania University, Kakatiya University, HCU</div>
+  </div>
+
+  <div class="card">
+    <div class="ct">Landmark Cases<span class="bh">Must Know</span></div>
+    <table>
+      <tr><th>Case</th><th>Year</th><th>Principle</th></tr>
+      <tr><td>Kesavananda Bharati v State of Kerala</td><td>1973</td><td>Basic Structure doctrine — Parliament cannot destroy basic features</td></tr>
+      <tr><td>Maneka Gandhi v UOI</td><td>1978</td><td>Art 21 = fair procedure; expanded right to life enormously</td></tr>
+      <tr><td>Vishaka v State of Rajasthan</td><td>1997</td><td>Sexual harassment at workplace guidelines (pre-POSH)</td></tr>
+      <tr><td>Indra Sawhney v UOI</td><td>1992</td><td>OBC reservation upheld; 50% ceiling on reservations</td></tr>
+      <tr><td>S.R. Bommai v UOI</td><td>1994</td><td>Limits on President's Rule; federalism = basic structure</td></tr>
+      <tr><td>Puttaswamy v UOI</td><td>2017</td><td>Right to Privacy = Fundamental Right under Art 21</td></tr>
+      <tr><td>MC Mehta v UOI</td><td>1986</td><td>Absolute liability for hazardous industries (no exceptions)</td></tr>
+      <tr><td>Shayara Bano v UOI</td><td>2017</td><td>Triple talaq (instant) declared unconstitutional</td></tr>
+      <tr><td>Navtej Singh Johar v UOI</td><td>2018</td><td>Sec 377 IPC (consensual same-sex acts) decriminalised</td></tr>
+      <tr><td>Electoral Bonds case</td><td>2024</td><td>SC struck down Electoral Bonds Scheme — violates right to information</td></tr>
+      <tr><td>Sub-classification of SC/ST</td><td>2024</td><td>States can sub-classify SC/ST for targeted reservation (7-judge bench)</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════════════════ HISTORY & GEOGRAPHY ═══════════════════ -->
+<div id="history" class="sec">
+  <div class="sh"><h2>History & Geography</h2><p>Part A GK — ~6–8 questions. Focus on Freedom Movement, key personalities, and India's physical geography.</p></div>
+
+  <div class="card">
+    <div class="ct">Indian Freedom Movement — Chronology<span class="bh">High Priority</span></div>
+    <div class="mn"><b>Year chain:</b> 1857 → 1885 → 1905 → 1919 → 1920 → 1929 → 1930 → 1942 → 1947</div>
+    <table>
+      <tr><th>Year</th><th>Event</th><th>Key Person / Note</th></tr>
+      <tr><td>1857</td><td>First War of Independence / Sepoy Mutiny</td><td>Mangal Pandey, Rani Lakshmibai</td></tr>
+      <tr><td>1885</td><td>Indian National Congress founded</td><td>A.O. Hume; first session Bombay</td></tr>
+      <tr><td>1905</td><td>Partition of Bengal → Swadeshi Movement</td><td>Bal Gangadhar Tilak</td></tr>
+      <tr><td>1919</td><td>Jallianwala Bagh massacre (13 April); Rowlatt Act</td><td>General Dyer ordered firing</td></tr>
+      <tr><td>1920</td><td>Non-Cooperation Movement launched</td><td>Mahatma Gandhi</td></tr>
+      <tr><td>1929</td><td>Lahore Session — Poorna Swaraj declared (26 Jan)</td><td>Jawaharlal Nehru (president)</td></tr>
+      <tr><td>1930</td><td>Civil Disobedience / Dandi March (12 March–6 April)</td><td>Gandhi walked 241 miles</td></tr>
+      <tr><td>1942</td><td>Quit India Movement (8 August) — "Do or Die"</td><td>Gandhi; mass arrests followed</td></tr>
+      <tr><td>1947</td><td>Independence (15 Aug); Partition — India & Pakistan</td><td>Mountbatten Plan / Radcliffe Line</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="ct">Important Personalities<span class="bm">Medium</span></div>
+    <div class="g2">
+      <div>
+        <div class="pt">Mahatma Gandhi — Father of Nation; born 2 Oct 1869; assassinated 30 Jan 1948</div>
+        <div class="pt">Nehru — 1st PM; "Tryst with Destiny" speech; Discovery of India (book)</div>
+        <div class="pt">Dr. Ambedkar — "Father of Constitution"; Law Minister; Bharat Ratna 1990</div>
+        <div class="pt">Sardar Patel — Iron Man; integrated 562 princely states; Bharat Ratna 1991</div>
+        <div class="pt">Subhas Chandra Bose — INA; "Give me blood, I will give you freedom"</div>
+      </div>
+      <div>
+        <div class="pt">Bhagat Singh — hanged 23 March 1931 (Lahore Conspiracy Case)</div>
+        <div class="pt">Dr. Rajendra Prasad — 1st President of India (1950–1962)</div>
+        <div class="pt">Rabindranath Tagore — wrote Jana Gana Mana; Nobel Prize 1913 (Literature)</div>
+        <div class="pt">A.P.J. Abdul Kalam — "Missile Man"; 11th President; Wings of Fire (book)</div>
+        <div class="pt">B.R. Ambedkar — drafted Constitution; converted to Buddhism 1956</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ct">India — Geography Quick Facts<span class="bm">Medium</span></div>
+    <div class="g2">
+      <div>
+        <div class="pt">Largest state (area) — Rajasthan | Smallest — Goa</div>
+        <div class="pt">Most populous — Uttar Pradesh</div>
+        <div class="pt">Longest river (India) — Ganga | Total coastline — 7,516 km</div>
+        <div class="pt">Highest peak — Kangchenjunga (within India border)</div>
+        <div class="pt">Largest desert — Thar (Rajasthan)</div>
+        <div class="pt">Southernmost point — Indira Point (Andaman & Nicobar)</div>
+      </div>
+      <div>
+        <div class="pt">Tropic of Cancer — passes through 8 states (Gujarat to Mizoram)</div>
+        <div class="pt">Largest freshwater lake — Wular Lake (J&K)</div>
+        <div class="pt">India shares longest border with — Bangladesh (~4,156 km)</div>
+        <div class="pt">Neighbouring countries — 7 (Pakistan, China, Nepal, Bhutan, Bangladesh, Myanmar, Sri Lanka)</div>
+        <div class="pt">Standard time — IST = UTC+5:30 (based on 82.5°E meridian)</div>
+        <div class="pt">India's land area — 3.29 million km² (7th largest country)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ct">World — Capitals (Trap Questions)<span class="bm">Medium</span></div>
+    <div class="mn"><b>Common traps — the capital is NOT the famous city:</b></div>
+    <table>
+      <tr><th>Country</th><th>Capital (correct)</th><th>Trap answer (wrong)</th></tr>
+      <tr><td>Australia</td><td>Canberra</td><td>Sydney (largest city)</td></tr>
+      <tr><td>Brazil</td><td>Brasília</td><td>Rio de Janeiro</td></tr>
+      <tr><td>Canada</td><td>Ottawa</td><td>Toronto</td></tr>
+      <tr><td>Sri Lanka</td><td>Sri Jayawardenepura Kotte</td><td>Colombo (commercial capital)</td></tr>
+      <tr><td>Pakistan</td><td>Islamabad</td><td>Karachi (largest city)</td></tr>
+      <tr><td>South Africa</td><td>Pretoria (executive); Cape Town (legislative)</td><td>Johannesburg</td></tr>
+      <tr><td>New Zealand</td><td>Wellington</td><td>Auckland</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════════════════ CURRENT AFFAIRS ═══════════════════ -->
+<div id="current" class="sec">
+  <div class="sh"><h2>Current Affairs 2024–25</h2><p>Part B — 30 questions = 30 marks. Also the TIE-BREAKER section. Cover last 12 months thoroughly.</p></div>
+
+  <div class="warn">⚠ TIE-BREAKER RULE: If two candidates have equal total marks, the one with more marks in Current Affairs is ranked higher. This section decides your admission rank in close competition!</div>
+
+  <div class="card">
+    <div class="ct">Major Appointments (India)<span class="bh">High Priority</span></div>
+    <table>
+      <tr><th>Position</th><th>Person (current)</th><th>Key Note</th></tr>
+      <tr><td>Chief Justice of India (CJI)</td><td>Justice B.R. Gavai (from Nov 2024)</td><td>51st CJI; first Dalit CJI of India</td></tr>
+      <tr><td>President of India</td><td>Droupadi Murmu (from 2022)</td><td>First tribal woman President</td></tr>
+      <tr><td>Vice President</td><td>Jagdeep Dhankhar (from 2022)</td><td>Also Chairman of Rajya Sabha</td></tr>
+      <tr><td>Prime Minister</td><td>Narendra Modi</td><td>3rd consecutive term from June 2024</td></tr>
+      <tr><td>Governor of Telangana</td><td>Jishnu Dev Varma (2024)</td><td>Replaced C.P. Radhakrishnan</td></tr>
+      <tr><td>CM of Telangana</td><td>A. Revanth Reddy (Dec 2023)</td><td>Indian National Congress government</td></tr>
+      <tr><td>RBI Governor</td><td>Sanjay Malhotra (Dec 2024)</td><td>Replaced Shaktikanta Das</td></tr>
+      <tr><td>CAG of India</td><td>K. Sanjay Murthy (2024)</td><td>114th CAG of India</td></tr>
+      <tr><td>Attorney General of India</td><td>R. Venkataramani</td><td>Appointed under Art 76</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="ct">Supreme Court Judgments 2024<span class="bh">High Priority — Legal + Current Affairs</span></div>
+    <table>
+      <tr><th>Case / Topic</th><th>Held</th></tr>
+      <tr><td>Electoral Bonds Scheme (Feb 2024)</td><td>5-judge bench struck down as unconstitutional — violates right to information under Art 19(1)(a)</td></tr>
+      <tr><td>Sub-classification within SC/ST (Aug 2024)</td><td>7-judge bench: states CAN sub-classify SC/ST communities for targeted reservation (overruled E.V. Chinnaiah 2004)</td></tr>
+      <tr><td>Bulldozer demolitions (Nov 2024)</td><td>Demolishing property of accused without due process is unconstitutional — "bulldozer justice" is illegal</td></tr>
+      <tr><td>Same-sex marriage (Oct 2023)</td><td>5-judge bench: no fundamental right to same-sex marriage; referred legislation to Parliament</td></tr>
+      <tr><td>Chandigarh Mayor election</td><td>SC took suo motu cognizance of ballot tampering; restored original result</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="ct">New Laws & Government Initiatives 2024–25<span class="bh">High Priority</span></div>
+    <div class="pt"><b>BNS, BNSS, BSA</b> — replaced IPC, CrPC, Evidence Act from <b>1 July 2024</b></div>
+    <div class="pt"><b>Waqf (Amendment) Act 2025</b> — major changes to Waqf Board powers and oversight</div>
+    <div class="pt"><b>Uniform Civil Code</b> — Uttarakhand became first state to implement UCC (2024)</div>
+    <div class="pt"><b>One Nation One Election</b> — constitutional amendment bill proposed (2024)</div>
+    <div class="pt"><b>PM Surya Ghar Muft Bijli Yojana</b> — free rooftop solar scheme (2024)</div>
+    <div class="pt"><b>IMEC</b> — India-Middle East-Europe Economic Corridor (announced G20 2023)</div>
+    <div class="mna"><b>Digital India Act</b> — proposed to replace IT Act 2000; will regulate AI and social media.</div>
+  </div>
+
+  <div class="card">
+    <div class="ct">International Affairs 2024–25<span class="bm">Medium</span></div>
+    <table>
+      <tr><th>Topic</th><th>Key Fact</th></tr>
+      <tr><td>US President</td><td>Donald Trump re-elected (Jan 2025); 47th President of USA</td></tr>
+      <tr><td>UK Prime Minister</td><td>Keir Starmer (Labour Party, since July 2024)</td></tr>
+      <tr><td>G20 Summit 2023</td><td>India hosted (New Delhi); African Union became permanent member</td></tr>
+      <tr><td>G20 Summit 2024</td><td>Brazil hosted (Rio de Janeiro, Nov 2024)</td></tr>
+      <tr><td>BRICS 2024</td><td>Kazan Summit; Egypt, UAE, Ethiopia, Iran joined as new members</td></tr>
+      <tr><td>UN Secretary General</td><td>António Guterres (serving 2nd term)</td></tr>
+      <tr><td>Paris Olympics 2024</td><td>India: 6 medals (0 gold, 1 silver, 5 bronze); host = France</td></tr>
+      <tr><td>ICC (International Criminal Court)</td><td>Issued arrest warrant for Israeli PM Netanyahu (Nov 2024)</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="ct">Awards 2024–25<span class="bm">Medium</span></div>
+    <div class="g2">
+      <div>
+        <div class="pt"><b>Bharat Ratna 2024:</b> Karpoori Thakur (posthumous), L.K. Advani, P.V. Narasimha Rao (p), M.S. Swaminathan (p), Chaudhary Charan Singh (p)</div>
+        <div class="pt"><b>Nobel Peace 2024:</b> Nihon Hidankyo (Japanese atomic bomb survivors organisation)</div>
+        <div class="pt"><b>Nobel Literature 2024:</b> Han Kang (South Korea)</div>
+      </div>
+      <div>
+        <div class="pt"><b>Booker Prize 2024:</b> Samantha Harvey — Orbital</div>
+        <div class="pt"><b>Jnanpith Award 2023:</b> Gulzar (Hindi) & Rambhadracharya (Sanskrit)</div>
+        <div class="pt"><b>Dadasaheb Phalke 2023:</b> Mithun Chakraborty</div>
+        <div class="pt"><b>ICC T20 World Cup 2024:</b> India beat South Africa in final (Barbados)</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ ECONOMY ═══════════════════ -->
+<div id="economy" class="sec">
+  <div class="sh"><h2>Indian Economy</h2><p>Part A GK — 4–6 questions. Focus on key concepts, RBI, GST, and budget basics.</p></div>
+
+  <div class="card">
+    <div class="ct">Key Economic Concepts<span class="bh">High Priority</span></div>
+    <div class="g2">
+      <div>
+        <div class="pt">GDP — total monetary value of all goods & services produced in a year</div>
+        <div class="pt">GNP = GDP + income from abroad − income paid to foreigners</div>
+        <div class="pt">Inflation — general price level rise | measured by CPI & WPI</div>
+        <div class="pt">Repo Rate — rate at which RBI lends to banks (currently ~6.5%)</div>
+        <div class="pt">Reverse Repo — rate at which banks park surplus with RBI</div>
+        <div class="pt">CRR — % of deposits banks must keep with RBI as cash</div>
+      </div>
+      <div>
+        <div class="pt">SLR — % banks must invest in govt approved securities</div>
+        <div class="pt">Fiscal Deficit — govt expenditure exceeds revenue (excl. borrowings)</div>
+        <div class="pt">Direct tax — borne by taxpayer (Income Tax, Corporate Tax)</div>
+        <div class="pt">Indirect tax — shifted to consumer (GST replaced most)</div>
+        <div class="pt">FDI — Foreign Direct Investment (long term, ownership stake)</div>
+        <div class="pt">FPI/FII — Foreign Portfolio Investment (short term, stocks/bonds)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ct">India's Economy — Key Facts<span class="bm">Medium</span></div>
+    <div class="pt">India's GDP rank — 5th largest (nominal); 3rd largest by PPP (purchasing power)</div>
+    <div class="pt">GDP growth rate — ~7–8% (among fastest growing major economies globally)</div>
+    <div class="pt">RBI — established 1935; nationalised 1949; HQ Mumbai | Full form: Reserve Bank of India</div>
+    <div class="pt">NSE — Nifty 50 index | BSE — Sensex (30 stocks) — both in Mumbai</div>
+    <div class="pt">NITI Aayog — replaced Planning Commission on 1 January 2015; not a constitutional body</div>
+    <div class="pt">Finance Commission — Art 280; recommends tax devolution Centre→States</div>
+    <div class="pt">Union Budget — presented by Finance Minister on 1 February each year</div>
+    <div class="mna"><b>GST Quick Facts:</b> 4 slabs — 5%, 12%, 18%, 28% | GST Council headed by Finance Minister | Implemented 1 July 2017 via 101st Constitutional Amendment</div>
+  </div>
+
+  <div class="card">
+    <div class="ct">Key Schemes & Bodies<span class="bl">Low-Medium</span></div>
+    <div class="pt">Viksit Bharat 2047 — India's goal to become developed nation by 100th Independence year</div>
+    <div class="pt">PM Gati Shakti — national master plan for multi-modal infrastructure connectivity</div>
+    <div class="pt">PLI Scheme — Production Linked Incentive for manufacturing boost in 14 sectors</div>
+    <div class="pt">UPI — Unified Payments Interface; managed by NPCI; India's digital payment revolution</div>
+    <div class="pt">PM Jan Dhan Yojana — financial inclusion; opened millions of zero-balance accounts</div>
+    <div class="pt">Ayushman Bharat — health insurance ₹5 lakh/year for BPL families; launched 2018</div>
+  </div>
+</div>
+
+<!-- ═══════════════════ SCIENCE & TECH ═══════════════════ -->
+<div id="scitech" class="sec">
+  <div class="sh"><h2>Science & Technology</h2><p>Part A — 4–6 questions. ISRO achievements, defence, environment, and health are most tested.</p></div>
+
+  <div class="card">
+    <div class="ct">ISRO Achievements 2023–25<span class="bh">High Priority</span></div>
+    <div class="mng"><b>Chandrayaan-3 (23 Aug 2023)</b> — India became the FIRST country to land on Moon's south pole. Lander = Vikram, Rover = Pragyan. Launched by LVM3.</div>
+    <div class="pt">Aditya-L1 — India's first solar mission; launched Sep 2023; reached L1 orbit Jan 2024</div>
+    <div class="pt">XPoSat — India's first X-ray polarimetry satellite (January 2024)</div>
+    <div class="pt">Gaganyaan — India's first crewed spaceflight mission (planned 2025–26)</div>
+    <div class="pt">PSLV, GSLV Mk III (now LVM3) — India's main launch vehicles</div>
+    <div class="mn"><b>ISRO basics:</b> HQ — Bengaluru | Founded — 1969 | Current Chairman — V. Narayanan (2024)</div>
+  </div>
+
+  <div class="card">
+    <div class="ct">Defence & Technology<span class="bm">Medium</span></div>
+    <div class="pt">DRDO — Defence Research and Development Organisation; HQ New Delhi</div>
+    <div class="pt">Tejas — India's indigenous Light Combat Aircraft (LCA); supersonic</div>
+    <div class="pt">INS Vikrant — India's first indigenously built aircraft carrier (commissioned Sep 2022)</div>
+    <div class="pt">BrahMos — world's fastest supersonic cruise missile; India-Russia joint venture</div>
+    <div class="pt">Agni-V — ICBM with range 5,000+ km; MIRV capable (tested 2024)</div>
+    <div class="pt">5G in India — launched October 2022; Jio and Airtel first to roll out</div>
+    <div class="pt">AI — India released National AI Strategy; IndiaAI Mission launched 2024</div>
+  </div>
+
+  <div class="card">
+    <div class="ct">Environment & Ecology<span class="bm">Medium</span></div>
+    <div class="pt">COP29 (2024) — UN Climate Conference held in Baku, Azerbaijan</div>
+    <div class="pt">Paris Agreement (2015) — limit warming to 1.5°C above pre-industrial levels</div>
+    <div class="pt">India's NDC — Net zero by 2070; 50% energy from non-fossil fuels by 2030</div>
+    <div class="pt">Project Tiger — launched 1973; tiger count ≈3,682 (India has 75% of world's tigers)</div>
+    <div class="pt">Ramsar Sites — 80 wetlands (India has world's largest network as of 2024)</div>
+    <div class="pt">National Animal — Bengal Tiger | National Bird — Peacock | National Tree — Banyan | National Flower — Lotus</div>
+    <div class="mna"><b>3 key environment laws:</b> Environment Protection Act 1986 | Wildlife Protection Act 1972 | Forest Conservation Act 1980</div>
+  </div>
+</div>
+
+<!-- ═══════════════════ AWARDS & SPORTS ═══════════════════ -->
+<div id="sports" class="sec">
+  <div class="sh"><h2>Awards, Sports & National Symbols</h2><p>Part B Current Affairs — 4–6 questions typically from here. Also tested in Part A GK.</p></div>
+
+  <div class="card">
+    <div class="ct">Civilian Awards — India<span class="bh">High Priority</span></div>
+    <table>
+      <tr><th>Award</th><th>Rank</th><th>Key Recipients 2024</th></tr>
+      <tr><td>Bharat Ratna</td><td>Highest civilian</td><td>Karpoori Thakur (posth.), L.K. Advani, P.V. Narasimha Rao (posth.), M.S. Swaminathan (posth.), Chaudhary Charan Singh (posth.)</td></tr>
+      <tr><td>Padma Vibhushan</td><td>2nd highest</td><td>Venkaiah Naidu, Bindeshwar Pathak (posth.), Padma Subrahmanyam</td></tr>
+      <tr><td>Padma Bhushan</td><td>3rd highest</td><td>Multiple — arts, science, sports</td></tr>
+      <tr><td>Padma Shri</td><td>4th civilian</td><td>Grassroots / unsung heroes</td></tr>
+    </table>
+    <div class="mn"><b>Military awards:</b> Param Vir Chakra (highest, wartime) → Maha Vir Chakra → Vir Chakra. Peacetime: Ashok Chakra → Kirti Chakra → Shaurya Chakra</div>
+  </div>
+
+  <div class="card">
+    <div class="ct">Sports — Key Results 2024<span class="bh">High Priority</span></div>
+    <div class="g2">
+      <div>
+        <div class="pt">Paris Olympics 2024 — India: 6 medals (1 silver + 5 bronze)</div>
+        <div class="pt">Neeraj Chopra — silver, javelin throw</div>
+        <div class="pt">Manu Bhaker — 2 bronze (shooting); first Indian woman with 2 medals in single Olympics</div>
+        <div class="pt">ICC T20 World Cup 2024 — India won (beat South Africa, Barbados final)</div>
+        <div class="pt">IPL 2024 — Kolkata Knight Riders won</div>
+      </div>
+      <div>
+        <div class="pt">Chess World Championship Dec 2024 — D. Gukesh (youngest ever, age 18)</div>
+        <div class="pt">Wimbledon 2024 — Carlos Alcaraz (men), Barbora Krejčíková (women)</div>
+        <div class="pt">FIFA World Cup 2026 — USA, Canada, Mexico (upcoming)</div>
+        <div class="pt">National Sports Day — 29 August (Major Dhyan Chand birthday)</div>
+        <div class="pt">Khel Ratna = highest sports award | Arjuna Award = for athletes</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ct">National Symbols & Important Days<span class="bm">Medium</span></div>
+    <div class="g2">
+      <div>
+        <div class="pt">National Anthem — Jana Gana Mana (Tagore); duration 52 seconds</div>
+        <div class="pt">National Song — Vande Mataram (Bankim Chandra Chattopadhyay)</div>
+        <div class="pt">National Calendar — Saka Era (22 March = 1st Chaitra)</div>
+        <div class="pt">National Animal — Bengal Tiger | National Bird — Peacock</div>
+        <div class="pt">National Flower — Lotus | National Tree — Banyan</div>
+        <div class="pt">National Fruit — Mango | National River — Ganga</div>
+      </div>
+      <div>
+        <div class="pt">Republic Day — 26 January</div>
+        <div class="pt">Independence Day — 15 August</div>
+        <div class="pt">Constitution Day — 26 November (adopted 1949)</div>
+        <div class="pt">National Law Day — 26 November</div>
+        <div class="pt">Human Rights Day — 10 December</div>
+        <div class="pt">World Environment Day — 5 June</div>
+        <div class="pt">National Voters Day — 25 January</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ ENGLISH ═══════════════════ -->
+<div id="english" class="sec">
+  <div class="sh"><h2>English Language</h2><p>Part A — grammar, vocabulary, error spotting and reading comprehension.</p></div>
+
+  <div class="card">
+    <div class="ct">Grammar — Tenses<span class="bh">High Priority</span></div>
+    <table>
+      <tr><th>Tense</th><th>Formula</th><th>Example</th></tr>
+      <tr><td>Simple Present</td><td>V1 / V1+s</td><td>He goes to court daily</td></tr>
+      <tr><td>Present Continuous</td><td>is/am/are + V-ing</td><td>She is arguing the case</td></tr>
+      <tr><td>Present Perfect</td><td>have/has + V3</td><td>He has filed the petition</td></tr>
+      <tr><td>Simple Past</td><td>V2</td><td>The judge pronounced judgment</td></tr>
+      <tr><td>Past Perfect</td><td>had + V3</td><td>He had already appealed</td></tr>
+      <tr><td>Future Simple</td><td>will + V1</td><td>The court will decide tomorrow</td></tr>
+      <tr><td>Future Perfect</td><td>will have + V3</td><td>They will have submitted by then</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="ct">Error Spotting — Common Traps<span class="bh">High Priority</span></div>
+    <div class="pt"><b>Neither/Either</b> → singular verb: "Neither of them <u>is</u> correct"</div>
+    <div class="pt"><b>Less vs Fewer:</b> Less = uncountable | Fewer = countable: "Fewer lawyers, less justice"</div>
+    <div class="pt"><b>Between vs Among:</b> Between = 2 people/things | Among = 3 or more</div>
+    <div class="pt"><b>Lay vs Lie:</b> Lay = to place (transitive) | Lie = to recline (intransitive)</div>
+    <div class="pt"><b>Each/Every/None/Anyone</b> → always take singular verb</div>
+    <div class="pt"><b>Who/Whom:</b> Who = subject pronoun | Whom = object pronoun ("To whom it may concern")</div>
+    <div class="pt"><b>One of the + plural noun</b> → singular verb: "One of the judges WAS present"</div>
+    <div class="pt"><b>Neither A nor B</b> → verb agrees with B (nearest): "Neither the lawyer nor the witnesses WERE present"</div>
+    <div class="mn"><b>FANBOYS</b> (coordinating conjunctions): For, And, Nor, But, Or, Yet, So</div>
+  </div>
+
+  <div class="card">
+    <div class="ct">Legal Vocabulary<span class="bm">Medium</span></div>
+    <div class="g2">
+      <div>
+        <div class="pt">Plaintiff — files civil suit | Defendant — defends</div>
+        <div class="pt">Prosecution — criminal case | Accused — criminal case</div>
+        <div class="pt">Affidavit — sworn written statement</div>
+        <div class="pt">Subpoena — court summons to witness</div>
+        <div class="pt">Injunction — court order to stop action</div>
+        <div class="pt">Estoppel — cannot deny earlier statement</div>
+      </div>
+      <div>
+        <div class="pt">Decree — civil court final determination</div>
+        <div class="pt">Judgment — reasoning behind decree</div>
+        <div class="pt">Bail — release pending trial | Parole — post-conviction conditional release</div>
+        <div class="pt">Indemnity — compensation for loss</div>
+        <div class="pt">Caveat — notice to court ("beware")</div>
+        <div class="pt">Amicus Curiae — friend of the court</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ MENTAL ABILITY ═══════════════════ -->
+<div id="mental" class="sec">
+  <div class="sh"><h2>Mental Ability & Reasoning</h2><p>Part A — ~10–12 questions. Coding, blood relations, directions, syllogisms, series.</p></div>
+
+  <div class="card">
+    <div class="ct">Coding-Decoding<span class="bh">High Priority</span></div>
+    <div class="mn"><b>EJOTY trick:</b> E=5, J=10, O=15, T=20, Y=25 → instantly know any letter's position!</div>
+    <div class="pt">Opposite letter pairs: A↔Z, B↔Y, C↔X... (pair sum always = 27)</div>
+    <div class="pt">Letter positions: A=1, B=2... Z=26 | Reverse: A=26, Z=1</div>
+    <div class="pt">Step 1: Identify shift direction (+, −, opposite) | Step 2: Verify on 2–3 letters before applying</div>
+    <div class="tip">Always check both +1 shift AND mirror/reverse before trying complex patterns.</div>
+  </div>
+
+  <div class="card">
+    <div class="ct">Blood Relations<span class="bh">High Priority</span></div>
+    <div class="mng"><b>Golden Rule: DRAW a family tree for every question. Never solve in your head.</b></div>
+    <div class="pt">Assign gender first: wife→female, husband→male, son→male, daughter→female</div>
+    <div class="pt">Mother's brother = Maternal uncle | Father's sister = Paternal aunt</div>
+    <div class="pt">Parent of parent = Grandparent | Child of sibling = Nephew/Niece</div>
+    <div class="pt">"My mother's only daughter" = My sister | "My father's only son" = Me</div>
+  </div>
+
+  <div class="card">
+    <div class="ct">Directions & Syllogisms<span class="bm">Medium</span></div>
+    <div class="mn"><b>Compass:</b> "Never Eat Stale Wheat" → N, E, S, W (clockwise)</div>
+    <div class="pt">Facing North: left=West, right=East | Facing South: left=East, right=West (reversed!)</div>
+    <div class="pt">Sunrise=East; shadow points West | Sunset=West; shadow points East</div>
+    <div class="mn"><b>Syllogism rules:</b> All+All=All | All+No=No | Some+All=Some | Some+No=Some Not</div>
+    <div class="pt">"All A are B" → Some B are A (true) but NOT "All B are A"</div>
+    <div class="pt">"No A is B" → "No B is A" (always true — reversible)</div>
+    <div class="tip">Draw Venn diagrams for every syllogism. Pictorial approach never fails.</div>
+  </div>
+</div>
+
+<!-- ═══════════════════ FLASH CARDS ═══════════════════ -->
+<div id="flash" class="sec">
+  <div class="sh"><h2>Flash Cards — 30 Cards</h2><p>Tap any card to flip. Answer before flipping for best results!</p></div>
+  <div class="fcgrid" id="fcgrid"></div>
+</div>
+
+<!-- ═══════════════════ QUIZ ═══════════════════ -->
+<div id="quiz" class="sec">
+  <div class="sh"><h2>Practice Quiz — 45 Questions</h2><p>All subjects including new Current Affairs, Economy, and Sci-Tech. No negative marking — attempt every question!</p></div>
+  <div class="sbar">
+    <div><div class="snum" id="sc">0</div><div style="font-size:13px;color:var(--text-dim)">correct</div></div>
+    <div class="prog">
+      <div style="font-size:12px;color:var(--text-dim);margin-bottom:4px" id="sc-lbl">0 of 45 attempted</div>
+      <div class="ptrack"><div class="pfill" id="pfill" style="width:0%"></div></div>
+    </div>
+    <button onclick="resetQuiz()" style="font-size:13px;padding:7px 16px;border-radius:999px;border:1px solid var(--border2);background:transparent;color:var(--text-dim);cursor:pointer;font-family:'DM Sans',sans-serif">↺ Reset</button>
+  </div>
+  <div id="qz"></div>
+</div>
+
+<!-- ═══════════════════ STRATEGY ═══════════════════ -->
+<div id="strategy" class="sec">
+  <div class="sh"><h2>Exam Strategy & Last-Minute Revision</h2><p>Read this the night before and morning of the exam.</p></div>
+
+  <div class="card">
+    <div class="ct">Exam Pattern — Official 2026<span class="bh">Memorise This</span></div>
+    <div class="estats">
+      <div class="ecard"><div class="enum">120</div><div class="elbl">Total Questions</div></div>
+      <div class="ecard"><div class="enum">120</div><div class="elbl">Total Marks</div></div>
+      <div class="ecard"><div class="enum">90 min</div><div class="elbl">Duration</div></div>
+      <div class="ecard"><div class="enum">+1 / 0</div><div class="elbl">Marking (no negatives!)</div></div>
+      <div class="ecard"><div class="enum">42</div><div class="elbl">Min marks to qualify (35%)</div></div>
+    </div>
+    <table>
+      <tr><th>Part</th><th>Subject</th><th>Questions</th><th>Marks</th><th>Recommended Time</th></tr>
+      <tr><td>Part C</td><td>Aptitude for Study of Law (Legal)</td><td>60</td><td>60</td><td>45 minutes</td></tr>
+      <tr><td>Part B</td><td>Current Affairs</td><td>30</td><td>30</td><td>20 minutes</td></tr>
+      <tr><td>Part A</td><td>GK & Mental Ability</td><td>30</td><td>30</td><td>20 minutes</td></tr>
+      <tr><td colspan="3"><b>Buffer for review</b></td><td></td><td>5 minutes</td></tr>
+    </table>
+    <div class="warn" style="margin-top:.75rem">TIE-BREAKER: Candidates with equal total marks are ranked by their Current Affairs score. Attempt ALL Part B questions — even guesses help!</div>
+  </div>
+
+  <div class="card">
+    <div class="ct">Commonly Confused Pairs<span class="bm">Medium</span></div>
+    <table>
+      <tr><th>Term A</th><th>Term B</th><th>Key Difference</th></tr>
+      <tr><td>Bail</td><td>Parole</td><td>Bail = before conviction (pending trial) | Parole = after conviction (conditional release)</td></tr>
+      <tr><td>Cognizable</td><td>Non-cognizable</td><td>Cognizable = police arrest without warrant | Non-cognizable = warrant required</td></tr>
+      <tr><td>Bailable</td><td>Non-bailable</td><td>Bailable = bail as of right | Non-bailable = court's discretion</td></tr>
+      <tr><td>Void</td><td>Voidable</td><td>Void = never valid from beginning | Voidable = valid until one party avoids</td></tr>
+      <tr><td>IPC</td><td>BNS</td><td>IPC (1860) = repealed | BNS (2023) = replaced it from 1 July 2024</td></tr>
+      <tr><td>CrPC</td><td>BNSS</td><td>CrPC (1973) = repealed | BNSS (2023) = replaced it from 1 July 2024</td></tr>
+      <tr><td>Strict liability</td><td>Absolute liability</td><td>Strict (Rylands) = has exceptions | Absolute (MC Mehta) = no exceptions at all</td></tr>
+      <tr><td>Decree</td><td>Order</td><td>Decree = final determination of civil rights | Order = interlocutory/procedural</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="ct">5-Minute Final Memory Pegs<span class="bl">Quick Revision</span></div>
+    <div class="g2">
+      <div>
+        <div class="mng"><b>Part III = FRs | Part IV = DPSPs | Part IVA = FDs</b></div>
+        <div class="pt">Art 21 = Life | Art 32 = Remedies | Art 226 = HC writs</div>
+        <div class="pt">IPC 302=Murder | 376=Rape | 420=Cheating | 498A=Cruelty</div>
+        <div class="pt">BNS replaces IPC | BNSS replaces CrPC | BSA replaces Evidence Act</div>
+        <div class="pt">FIR = Sec 154 CrPC / Sec 173 BNSS | Arrest = Sec 41 / Sec 35</div>
+        <div class="pt">Chandrayaan-3 = 23 Aug 2023 = first Moon south pole landing</div>
+      </div>
+      <div>
+        <div class="mng"><b>Kesavananda(1973)=Basic Structure | Puttaswamy(2017)=Privacy FR</b></div>
+        <div class="pt">CJI = Justice B.R. Gavai | RBI Governor = Sanjay Malhotra</div>
+        <div class="pt">Telangana = 2 June 2014 = 29th state | CM = Revanth Reddy</div>
+        <div class="pt">T20 WC 2024 = India won | Chess WC 2024 = D. Gukesh</div>
+        <div class="pt">Bharat Ratna 2024 — 5 recipients incl. L.K. Advani & M.S. Swaminathan</div>
+        <div class="pt">Paris Olympics 2024 — India 6 medals; Neeraj=silver; Manu=2 bronze</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ct">Exam-Day Do's and Don'ts<span class="bh">Critical</span></div>
+    <div class="mng"><b>GOLDEN RULE for Legal Principles:</b> Apply ONLY the given principle. Completely ignore your outside knowledge.</div>
+    <div class="pt">Attempt order: Part C (Legal) → Part B (Current Affairs) → Part A (GK+Reasoning)</div>
+    <div class="pt">NO negative marking → attempt EVERY question. A blank = 0; a guess = 0–1.</div>
+    <div class="pt">If stuck after 60 seconds → mark, move on, come back at the end</div>
+    <div class="pt">Watch trigger words in principles: "only if", "provided that", "unless", "subject to"</div>
+    <div class="pt">Negative questions ("NOT true?") → eliminate 3 correct statements; what remains = answer</div>
+    <div class="tip">Target: attempt all 120. Even if unsure about 20 questions, guess — you'll statistically get 5 correct (25% chance each).</div>
+  </div>
+</div>
+
+</div><!-- /wrap -->
+<div class="footer">TG LAWCET 2026 Complete Study Guide — All 16 sections. Covers Legal Aptitude, New Criminal Codes, Maths, Amendments, Acts, GK, History, Current Affairs, Economy, Science & Tech, Awards, English, Mental Ability, Flash Cards (30), Quiz (45 Qs), Strategy. Best of luck! 🏛️</div>
+
+<script>
+// ── NAVIGATION ──
+function show(id,btn){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('on'));
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  btn.classList.add('on');
+  window.scrollTo(0,0);
+}
+
+// ── FLASH CARDS ──
+const cards=[
+  {q:"What is the 'Basic Structure' doctrine and which case?",a:"Parliament cannot amend the Constitution to destroy its basic structure. Kesavananda Bharati v State of Kerala (1973), 13-judge bench 7:6. Basics: judicial review, democracy, federalism, secularism, FRs."},
+  {q:"BNS, BNSS, BSA — what did each replace?",a:"BNS (Bharatiya Nyaya Sanhita 2023) replaced IPC 1860 | BNSS (Bharatiya Nagarik Suraksha Sanhita 2023) replaced CrPC 1973 | BSA (Bharatiya Sakshya Adhiniyam 2023) replaced Indian Evidence Act 1872. All effective 1 July 2024."},
+  {q:"Section 498A IPC / Section 85 BNS — what does it cover?",a:"Cruelty by husband or relatives of husband. Cognizable, non-bailable, non-compoundable. Punishment: up to 3 years + fine. Old: 498A IPC. New: Section 85 BNS (same substance)."},
+  {q:"What is 'Mens Rea'?",a:"Guilty mind — mental element/criminal intention required for a crime. Without mens rea, generally no crime exists. Exceptions: strict liability offences (POCSO, NDPS) where intent need not be proved."},
+  {q:"POCSO Act — year, full form, key features",a:"Protection of Children from Sexual Offences Act 2012. Applies to victims below 18 years. Establishes Special Courts. Reverses burden of proof — accused presumed guilty. Gender-neutral for victim."},
+  {q:"Art 32 vs Art 226 — key difference?",a:"Art 32 = SC writs (FRs only; the right itself is a FR — 'Heart & Soul'). Art 226 = HC writs (broader — FR AND any legal right). HC writ jurisdiction wider geographically. Both courts can issue all 5 writs."},
+  {q:"Chandrayaan-3 — date, significance, mission details",a:"Landed 23 August 2023. India became the FIRST country to land on Moon's south pole. Lander = Vikram, Rover = Pragyan. Launched by LVM3. Part of ISRO's lunar exploration programme."},
+  {q:"Who is the current Chief Justice of India and what is notable about them?",a:"Justice B.R. Gavai (from November 2024). He is the 51st Chief Justice of India and notably the first Dalit CJI in India's history."},
+  {q:"ICC T20 World Cup 2024 — winner and venue of final?",a:"India won the ICC Men's T20 World Cup 2024, defeating South Africa in the final held in Barbados. India's first T20 World Cup title in 17 years (since 2007)."},
+  {q:"Bharat Ratna 2024 — who were the recipients?",a:"Five recipients in 2024: (1) Karpoori Thakur (posthumous), (2) L.K. Advani, (3) P.V. Narasimha Rao (posthumous), (4) M.S. Swaminathan (posthumous), (5) Chaudhary Charan Singh (posthumous). Most ever in a single year."},
+  {q:"What is Absolute Liability and how does it differ from Strict Liability?",a:"MC Mehta v UOI (1986): Absolute Liability — industries engaged in hazardous/inherently dangerous activity are absolutely liable; NO exceptions. Rylands v Fletcher (Strict Liability) has exceptions: Act of God, consent, natural use of land etc."},
+  {q:"What is 'Res Judicata' (Sec 11 CPC)?",a:"A matter once finally decided by a competent court cannot be re-litigated between the same parties on the same subject matter. Prevents multiplicity of proceedings. Applies to both civil and criminal matters."},
+  {q:"Consumer Forum — 3 tiers and pecuniary limits (2019 Act)",a:"District Consumer Commission: claims up to ₹1 crore | State Consumer Commission: ₹1 crore to ₹10 crore | National Consumer Commission: above ₹10 crore. Under Consumer Protection Act 2019 (replaced 1986 Act)."},
+  {q:"India's GDP rank globally and target by 2047?",a:"India is the 5th largest economy by nominal GDP (2024), 3rd largest by PPP. India aims to become 'Viksit Bharat' (developed nation) by 2047 — its 100th Independence anniversary."},
+  {q:"Puttaswamy judgment 2017 — significance",a:"Justice K.S. Puttaswamy v UOI (2017). 9-judge bench unanimously held that Right to Privacy is a Fundamental Right under Article 21. Overruled Kharak Singh (1962) and M.P. Sharma (1954). Triggered data protection legislation."},
+  {q:"Electoral Bonds case 2024 — what was decided?",a:"5-judge Constitutional bench (Feb 2024) struck down the Electoral Bonds Scheme as unconstitutional. Held it violates the right to information under Art 19(1)(a). SBI ordered to disclose all bond data to Election Commission."},
+  {q:"What is Habeas Corpus?",a:"Writ meaning 'produce the body.' Issued to release a person from unlawful/illegal detention. Can be filed by the detained person or any person on their behalf. Fastest protection of personal liberty."},
+  {q:"Indra Sawhney case 1992 — key rulings",a:"(1) OBC reservation upheld as constitutional. (2) 50% ceiling on total reservations — cannot ordinarily exceed 50%. (3) Creamy layer exclusion from OBC benefits. (4) No reservation in promotions."},
+  {q:"42nd Constitutional Amendment — what did it do?",a:"Called 'Mini Constitution'. Added Secular+Socialist to Preamble. Added Art 51A (10 Fundamental Duties). Gave DPSPs priority over FRs. Extended Lok Sabha and state assembly terms to 6 years. Curtailed judicial review. (1976, Emergency era)"},
+  {q:"GST — rate slabs, who heads GST Council, when implemented?",a:"4 slabs: 5%, 12%, 18%, 28%. GST Council headed by Finance Minister of India. Implemented 1 July 2017 via 101st Constitutional Amendment. Replaced multiple indirect taxes (VAT, service tax, excise etc.)."},
+  {q:"What is Lok Adalat and what laws govern it?",a:"Alternative dispute resolution forum. Legal Services Authorities Act 1987. Award has same force as civil court decree; no appeal possible. No court fee. If case was in court, fee is refunded when settled via Lok Adalat."},
+  {q:"D. Gukesh — why is he in news in 2024?",a:"D. Gukesh became the youngest ever World Chess Champion in December 2024 at age 18, defeating China's Ding Liren. He became World Champion younger than Magnus Carlsen's record."},
+  {q:"UCC — Uniform Civil Code — where was it first implemented?",a:"Uttarakhand became the first state in India to implement the Uniform Civil Code (UCC) in 2024. UCC is mentioned in Art 44 as a Directive Principle. Applies the same civil laws to all citizens regardless of religion."},
+  {q:"What is the Writ of Mandamus?",a:"Mandamus = 'We command.' Issued by SC/HC to direct a public body/official to perform a legal duty they have failed or refused to perform. Cannot be issued against: President/Governor, private individuals, Chief Justice."},
+  {q:"Sub-classification of SC/ST judgment 2024 — what changed?",a:"7-judge bench (Aug 2024) held that states CAN sub-classify SC/ST communities to ensure most backward among them get benefits first. Overruled E.V. Chinnaiah v State of AP (2004) which disallowed sub-classification."},
+  {q:"Paris Olympics 2024 — India's medal count and standout performers",a:"India won 6 medals: 1 silver + 5 bronze. Notable: Neeraj Chopra (silver, javelin), Manu Bhaker (2 bronze in shooting — first Indian woman with 2 medals in single Olympics), wrestling and hockey bronze."},
+  {q:"What is the Doctrine of Promissory Estoppel?",a:"A party who makes a clear representation on which another relies to their detriment cannot go back on that representation. Operates even without formal consideration. Applied against government departments too (UOI v Anglo Afghan Agencies)."},
+  {q:"Limitation periods — money suit vs property suit",a:"Limitation Act 1963. Money recovery suit = 3 years. Suit for immovable property = 12 years. Consumer forum complaint = 2 years. All periods start from date 'cause of action' arises, not date of knowledge."},
+  {q:"RTI Act 2005 — time limits for providing information",a:"Normal response: 30 days. If information concerns life or liberty: 48 hours. Information from third parties: 40 days. If rejected: First Appeal within 30 days to senior officer → Second Appeal to Information Commission."},
+  {q:"NALSA — what is it and what law created it?",a:"National Legal Services Authority — established under Legal Services Authorities Act 1987. Provides free legal services to marginalised sections (poor, SC/ST, women, disabled, etc.). Administers Lok Adalats. Every HC and District Court has a Legal Services Committee."}
+];
+
+function buildFC(){
+  const g=document.getElementById('fcgrid');
+  g.innerHTML='';
+  cards.forEach((c,i)=>{
+    const d=document.createElement('div');
+    d.className='fc';
+    d.innerHTML=`<div class="fcq">${c.q}</div><div class="fca" id="fca${i}">${c.a}</div><div class="fch">tap to flip</div>`;
+    d.onclick=()=>{
+      d.classList.toggle('flip');
+      d.querySelector('.fch').textContent=d.classList.contains('flip')?'tap to hide':'tap to flip';
+    };
+    g.appendChild(d);
+  });
+}
+
+// ── QUIZ ──
+const qdata=[
+  // Legal Aptitude
+  {cat:'l',q:"Which Article is called the 'Heart and Soul' of the Constitution by Dr. Ambedkar?",opts:["Art 19","Art 21","Art 32","Art 14"],ans:2,exp:"Art 32 — Right to Constitutional Remedies. It allows enforcement of all other FRs by moving the Supreme Court. Ambedkar called it the 'heart and soul' of the Constitution."},
+  {cat:'l',q:"Which writ is issued to release a person from unlawful detention?",opts:["Mandamus","Certiorari","Habeas Corpus","Quo Warranto"],ans:2,exp:"Habeas Corpus means 'produce the body.' It compels the detaining authority to produce the person before the court to justify the detention. The fastest protection of personal liberty."},
+  {cat:'l',q:"The maxim 'Audi alteram partem' means:",opts:["Let the buyer beware","The thing speaks for itself","Hear the other side","No one is above the law"],ans:2,exp:"Audi alteram partem is the first principle of natural justice — no person should be condemned unheard. Both sides must be given a fair opportunity to present their case."},
+  {cat:'l',q:"Under the Indian Contract Act, free consent is absent when the contract is made by:",opts:["Two illiterate parties","Through an agent","Coercion, fraud, or misrepresentation","Oral communication only"],ans:2,exp:"Sec 14 of Contract Act: Consent is free only when not caused by coercion (Sec 15), undue influence (Sec 16), fraud (Sec 17), misrepresentation (Sec 18), or mistake (Sec 20–22). Such contracts are voidable."},
+  {cat:'l',q:"Donoghue v Stevenson established which principle in Tort Law?",opts:["Strict liability","Neighbour principle / duty of care","Absolute liability","Contributory negligence"],ans:1,exp:"Donoghue v Stevenson (1932) — Lord Atkin's 'neighbour principle': a manufacturer owes a duty of care to the ultimate consumer. Foundation of modern negligence law. The snail in the ginger beer bottle case."},
+  {cat:'l',q:"Under the Indian Contract Act, a contract with a minor is:",opts:["Voidable at minor's option","Valid if parents consent","Void ab initio","Unenforceable only"],ans:2,exp:"A contract with a minor (below 18 years) is void ab initio — void from the very beginning. There is no valid contract at all. No ratification on attaining majority can validate it either. (Mohori Bibee v Dharmodas Ghosh)"},
+  {cat:'l',q:"Which case held that 'Absolute Liability' allows no exceptions for hazardous industries?",opts:["Rylands v Fletcher","Donoghue v Stevenson","MC Mehta v UOI","Olga Tellis v BEST"],ans:2,exp:"MC Mehta v Union of India (1986) — the Bhopal gas tragedy context. SC laid down Absolute Liability: industries involved in hazardous activities are absolutely liable with NO exceptions, unlike Strict Liability (Rylands v Fletcher)."},
+  {cat:'l',q:"FIR is registered under which provision of the old CrPC and the new BNSS?",opts:["Sec 154 CrPC / Sec 173 BNSS","Sec 161 CrPC / Sec 180 BNSS","Sec 41 CrPC / Sec 35 BNSS","Sec 173 CrPC / Sec 193 BNSS"],ans:0,exp:"FIR (First Information Report): Sec 154 of CrPC (now replaced by Sec 173 of BNSS — Bharatiya Nagarik Suraksha Sanhita 2023). Under BNSS, e-FIR is also allowed and Zero FIR can be filed at any station."},
+  {cat:'l',q:"Section 498A IPC corresponds to which section in the new BNS?",opts:["Sec 63","Sec 85","Sec 101","Sec 303"],ans:1,exp:"Sec 498A IPC (cruelty by husband/relatives) = Sec 85 BNS (Bharatiya Nyaya Sanhita 2023). Murder (302 IPC) = 101 BNS. Rape (375 IPC) = 63 BNS. Theft (378 IPC) = 303 BNS."},
+  {cat:'l',q:"The 'Basic Structure' doctrine means Parliament cannot amend which aspect of the Constitution?",opts:["Any article at all","Its basic/essential features like federalism, democracy, judicial review","Only the Preamble","Only Fundamental Rights"],ans:1,exp:"Kesavananda Bharati v State of Kerala (1973): Parliament can amend any provision BUT cannot destroy the 'basic structure.' Basic features include: supremacy of Constitution, judicial review, secularism, democracy, federalism, free elections, rule of law."},
+  // Current Affairs
+  {cat:'c',q:"Which scheme was struck down by the Supreme Court as unconstitutional in February 2024?",opts:["PM MUDRA Yojana","Electoral Bonds Scheme","Digital India Scheme","PM Kisan Yojana"],ans:1,exp:"The Electoral Bonds Scheme was struck down by a 5-judge Constitutional Bench in February 2024. The court held it violates the right to information under Art 19(1)(a) and allows anonymous political funding. SBI was ordered to disclose all data."},
+  {cat:'c',q:"Who became India's Chief Justice of India in November 2024?",opts:["Justice D.Y. Chandrachud","Justice Sanjiv Khanna","Justice B.R. Gavai","Justice Surya Kant"],ans:2,exp:"Justice B.R. Gavai became the 51st Chief Justice of India in November 2024. He is historically significant as the first Dalit CJI of India. Before him, Justice Sanjiv Khanna served briefly, and D.Y. Chandrachud served before that."},
+  {cat:'c',q:"IPC, CrPC and the Evidence Act were replaced by BNS, BNSS and BSA effective from:",opts:["1 January 2024","15 August 2024","1 July 2024","26 January 2024"],ans:2,exp:"All three new criminal codes — BNS (replaces IPC), BNSS (replaces CrPC), and BSA (replaces Evidence Act) — came into force on 1 July 2024. Passed by Parliament in December 2023 and notified thereafter."},
+  {cat:'c',q:"D. Gukesh won the World Chess Championship in December 2024. What record did he set?",opts:["First Indian World Chess Champion","Youngest ever World Chess Champion","First to defeat Magnus Carlsen","All of the above"],ans:1,exp:"D. Gukesh (18 years old) became the youngest ever World Chess Champion in December 2024, defeating China's Ding Liren. He broke the record held by Garry Kasparov. He is the second Indian after Viswanathan Anand to win the title."},
+  {cat:'c',q:"India won how many medals at the Paris Olympics 2024?",opts:["4 medals","6 medals","8 medals","10 medals"],ans:1,exp:"India won 6 medals at Paris Olympics 2024: 0 gold, 1 silver (Neeraj Chopra — javelin), 5 bronze. Manu Bhaker won 2 bronze medals in shooting, becoming the first Indian woman to win 2 medals at a single Olympic Games."},
+  {cat:'c',q:"Which state became the first in India to implement the Uniform Civil Code (UCC) in 2024?",opts:["Gujarat","Uttarakhand","Himachal Pradesh","Goa"],ans:1,exp:"Uttarakhand became the first state in India to implement the Uniform Civil Code in 2024. UCC is mentioned as a Directive Principle in Art 44. It provides common civil laws for all citizens regardless of religion, caste or gender."},
+  {cat:'c',q:"The ICC T20 World Cup 2024 final was held in which country?",opts:["West Indies (Barbados)","USA (New York)","England (Lords)","Australia (Melbourne)"],ans:0,exp:"The ICC Men's T20 World Cup 2024 final was held in Barbados (West Indies). India defeated South Africa to win the title — India's first T20 World Cup win since 2007. Rohit Sharma captained the team."},
+  {cat:'c',q:"Who was appointed as RBI Governor in December 2024?",opts:["Shaktikanta Das","Urjit Patel","Sanjay Malhotra","Raghuram Rajan"],ans:2,exp:"Sanjay Malhotra was appointed as the Governor of the Reserve Bank of India in December 2024, replacing Shaktikanta Das whose term ended. Sanjay Malhotra previously served as the Revenue Secretary, Government of India."},
+  // GK & History
+  {cat:'g',q:"Telangana was formed on which date and became which numbered state of India?",opts:["1 June 2014, 28th state","2 June 2014, 29th state","2 June 2014, 30th state","15 Aug 2014, 29th state"],ans:1,exp:"Telangana became the 29th state of India on 2 June 2014, carved out of Andhra Pradesh under the Andhra Pradesh Reorganisation Act 2014. Hyderabad serves as the shared capital for a period of time."},
+  {cat:'g',q:"The Dandi March of 1930 was led by Mahatma Gandhi to protest against:",opts:["Partition of Bengal","Rowlatt Act","Salt Tax (salt law)","Jallianwala Bagh massacre"],ans:2,exp:"The Dandi March (12 March–6 April 1930) was led by Gandhi to protest against the British salt tax. Gandhi and 78 followers marched 241 miles to Dandi, Gujarat, to make salt from sea water. This launched the Civil Disobedience Movement."},
+  {cat:'g',q:"Which Constitutional Amendment lowered the voting age from 21 to 18 years?",opts:["52nd Amendment","61st Amendment","73rd Amendment","86th Amendment"],ans:1,exp:"61st Constitutional Amendment Act 1989 lowered the voting age for elections from 21 years to 18 years. This added millions of young voters to the electoral rolls and was first implemented in the 1989 general elections."},
+  {cat:'g',q:"How many Fundamental Duties are listed in Article 51A of the Constitution?",opts:["9","10","11","12"],ans:2,exp:"11 Fundamental Duties. 10 were added by the 42nd Amendment 1976. The 11th — duty to provide opportunities for education to children (6–14 years) — was added by the 86th Amendment 2002."},
+  // Economy & Science
+  {cat:'g',q:"GST in India replaced several indirect taxes. Under which Constitutional Amendment was it introduced?",opts:["99th Amendment","100th Amendment","101st Amendment","103rd Amendment"],ans:2,exp:"101st Constitutional Amendment Act 2016 introduced GST (Goods and Services Tax). Added Art 246A (power to make GST laws), Art 269A (levy and collection of GST in inter-state trade), and Art 279A (GST Council)."},
+  {cat:'g',q:"Chandrayaan-3 landed on the Moon on which date and what was its significance?",opts:["23 July 2023, first Indian Moon mission","23 August 2023, first landing near south pole","14 August 2023, first soft landing on Moon","23 August 2023, first crewed Moon mission"],ans:1,exp:"Chandrayaan-3 made a historic soft landing on the Moon's south pole on 23 August 2023. India became the FIRST country in the world to land near the lunar south pole. Lander = Vikram, Rover = Pragyan."},
+  {cat:'g',q:"NITI Aayog was established in 2015 replacing which body?",opts:["Finance Commission","Planning Commission","Economic Advisory Council","National Development Council"],ans:1,exp:"NITI Aayog (National Institution for Transforming India) was established on 1 January 2015 replacing the Planning Commission (which was established in 1950). The PM is the ex-officio chairman of NITI Aayog."},
+  // English
+  {cat:'e',q:"Choose the correct sentence:",opts:["The committee have decided to postpone","Each of the students were present","The jury has delivered its verdict","Neither the plaintiff nor the lawyers was present"],ans:2,exp:"C is correct: 'The jury has delivered its verdict' — collective noun 'jury' acting as one unit takes singular verb 'has' and singular pronoun 'its'. Errors: A) committee→has, B) each→was, D) neither...nor: verb agrees with nearest noun (lawyers) → were."},
+  {cat:'e',q:"Which is the correct use of 'fewer' vs 'less'?",opts:["There were less students today","There were fewer students today","There was fewer water available","Both A and B are correct"],ans:1,exp:"'Fewer' is used with countable nouns (students = countable). 'Less' is used with uncountable nouns (water, time, money). Correct: 'fewer students,' 'less water.' Common exam trap — always check if the noun is countable."},
+  // Mental Ability
+  {cat:'m',q:"If JUDGE = KVEHF (each letter +1), how would LAW be coded?",opts:["MBX","NBY","MCX","LBX"],ans:0,exp:"Each letter moved forward by +1: L→M, A→B, W→X. So LAW = MBX. Verify: L(12)+1=M(13)✓, A(1)+1=B(2)✓, W(23)+1=X(24)✓. This is a simple Caesar cipher shift of +1."},
+  {cat:'m',q:"In a series: 2, 6, 12, 20, 30, 42 — what is the pattern?",opts:["Each term +4","Differences are 4,6,8,10,12 (even numbers)","Each term doubled","Sum of two previous terms"],ans:1,exp:"Differences: 6−2=4, 12−6=6, 20−12=8, 30−20=10, 42−30=12. The differences form the sequence 4,6,8,10,12 (increasing by 2 each time). This is a second-order arithmetic series. Next term: 42+14=56."},
+  {cat:'m',q:"Statements: All judges are lawyers. No lawyers are doctors. Conclusion: No judges are doctors.",opts:["Conclusion follows","Conclusion does not follow","Partially follows","Data insufficient"],ans:0,exp:"All judges → lawyers. No lawyers → doctors. Since all judges are lawyers, and no lawyers are doctors, it logically follows that no judges are doctors. This is a valid syllogism: All A are B; No B are C; ∴ No A are C."},
+  // Mixed
+  {cat:'l',q:"The Vishaka guidelines on sexual harassment at workplace were laid down in which case?",opts:["Rupan Deol v KPS Gill","Vishaka v State of Rajasthan","Medha Kotwal v UOI","Apparel Export Council v AK Chopra"],ans:1,exp:"Vishaka v State of Rajasthan (1997): SC laid down guidelines to prevent sexual harassment at workplace after the gang rape of social worker Bhanwari Devi. These guidelines were later codified into the POSH Act 2013."},
+  {cat:'c',q:"Which 7-judge bench ruling in 2024 allowed states to sub-classify SC/ST reservations?",opts:["Indra Sawhney v UOI","Sub-classification judgment (overruling E.V. Chinnaiah)","Mandal Commission case","Nagaraj case"],ans:1,exp:"In August 2024, a 7-judge Constitutional bench held that states can sub-classify within SC/ST categories to ensure the most backward among them get reservation benefits first. This overruled E.V. Chinnaiah v State of Andhra Pradesh (2004)."},
+  {cat:'g',q:"Which of the following best describes 'Injuria sine damno'?",opts:["Damage without legal injury","Legal injury without actual damage","No injury to one who consents","The act speaks for itself"],ans:1,exp:"Injuria sine damno = legal injury without actual damage. A legal right is violated but no actual pecuniary loss results. Yet a remedy (damages) exists (Ashby v White). Opposite: Damnum sine injuria = actual damage without legal right violation = no remedy."},
+  {cat:'l',q:"The Puttaswamy judgment (2017) held that Right to Privacy is:",opts:["A Directive Principle","A Fundamental Right under Art 21","A Fundamental Duty","A Constitutional right but not enforceable"],ans:1,exp:"Justice K.S. Puttaswamy v Union of India (2017) — 9-judge bench unanimously declared Right to Privacy a Fundamental Right under Art 21 (Right to Life). This overruled M.P. Sharma (1954) and Kharak Singh (1962). Led to Personal Data Protection legislation."},
+  {cat:'c',q:"The Waqf (Amendment) Act was passed in which year?",opts:["2023","2024","2025","2022"],ans:2,exp:"The Waqf (Amendment) Act was passed in 2025. It made significant changes to the Waqf Act 1995, including provisions for oversight of Waqf Board management, inclusion of non-Muslims in Waqf boards, and changes to property dispute resolution."},
+  {cat:'g',q:"India shares its longest international border with which country?",opts:["China","Pakistan","Bangladesh","Nepal"],ans:2,exp:"India shares its longest international border with Bangladesh — approximately 4,156 km (also called the Radcliffe Line on the eastern side). China: ~3,488 km (Line of Actual Control). Pakistan: ~3,323 km. Nepal: ~1,758 km."},
+  {cat:'l',q:"Under the Limitation Act 1963, what is the limitation period for filing a suit to recover immovable property?",opts:["3 years","6 years","10 years","12 years"],ans:3,exp:"Limitation Act 1963: suits relating to immovable property = 12 years (Art 65). Money recovery suits = 3 years. Consumer forum complaint = 2 years from cause of action. The period starts from the date the cause of action arises."},
+  {cat:'g',q:"The right to information under the RTI Act 2005 must be provided within how many days? (Normal cases)",opts:["15 days","21 days","30 days","45 days"],ans:2,exp:"Under Sec 7 of RTI Act 2005, a PIO must provide information within 30 days of receipt. Exception: if information concerns life or liberty = 48 hours. For information from third parties = 40 days. Failure can lead to penalty of ₹250/day."}
+];
+
+let score=0,attempted=0;
+const total=qdata.length;
+const catLabel={l:'Legal',m:'Mental Ability',g:'GK/History',e:'English',c:'Current Affairs'};
+const catClass={l:'qcat-l',m:'qcat-e',g:'qcat-g',e:'qcat-e',c:'qcat-c'};
+
+function buildQuiz(){
+  const c=document.getElementById('qz');
+  c.innerHTML='';
+  qdata.forEach((q,i)=>{
+    const d=document.createElement('div');
+    d.className='qcard';
+    const opts=q.opts.map((o,j)=>`<button class="qo" id="qo${i}_${j}" onclick="pick(${i},${j})">${String.fromCharCode(65+j)}. ${o}</button>`).join('');
+    d.innerHTML=`<div class="qnum">Q${i+1}<span class="${catClass[q.cat]} qcat">${catLabel[q.cat]}</span></div><div class="qt">${q.q}</div><div class="qopts">${opts}</div><div class="qexp" id="qexp${i}">${q.exp}</div>`;
+    c.appendChild(d);
+  });
+}
+
+function pick(qi,oi){
+  const opts=document.querySelectorAll(`[id^="qo${qi}_"]`);
+  let done=false;
+  opts.forEach(o=>{if(o.disabled)done=true;});
+  if(done)return;
+  attempted++;
+  opts.forEach((o,j)=>{
+    o.disabled=true;
+    if(j===qdata[qi].ans)o.classList.add('ok');
+    else if(j===oi)o.classList.add('no');
+  });
+  if(oi===qdata[qi].ans)score++;
+  document.getElementById('qexp'+qi).classList.add('on');
+  document.getElementById('sc').textContent=score;
+  document.getElementById('sc-lbl').textContent=`${attempted} of ${total} attempted`;
+  document.getElementById('pfill').style.width=(attempted/total*100)+'%';
+}
+
+function resetQuiz(){
+  score=0;attempted=0;
+  document.getElementById('sc').textContent='0';
+  document.getElementById('sc-lbl').textContent=`0 of ${total} attempted`;
+  document.getElementById('pfill').style.width='0%';
+  buildQuiz();
+}
+
+buildFC();
+buildQuiz();
+</script>
+</body>
+</html>
