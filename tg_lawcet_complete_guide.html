@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TG LAWCET Fast-Track Guide 2025</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0e0f11;
+    --surface: #16181c;
+    --surface2: #1e2128;
+    --border: #2a2d35;
+    --gold: #d4a853;
+    --gold-light: #f0c978;
+    --gold-dim: #8a6a2e;
+    --text: #e8e6e0;
+    --text-dim: #8a8880;
+    --text-muted: #555;
+    --red: #e05555;
+    --green: #4caf7d;
+    --blue: #5b8ee6;
+    --purple: #9b6fd4;
+    --teal: #3bbfb0;
+    --radius: 10px;
+    --radius-lg: 14px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    line-height: 1.7;
+  }
+
+  /* HEADER */
+  .header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 1.5rem 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: var(--gold);
+    white-space: nowrap;
+  }
+  .logo span { color: var(--text-dim); font-size: .85rem; font-family: 'DM Sans', sans-serif; font-weight: 400; display: block; margin-top: -2px; }
+  .nav {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    flex: 1;
+  }
+  .nav-btn {
+    padding: 7px 14px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    font-size: 13px;
+    cursor: pointer;
+    background: transparent;
+    color: var(--text-dim);
+    font-family: 'DM Sans', sans-serif;
+    transition: all .2s;
+    white-space: nowrap;
+  }
+  .nav-btn:hover { border-color: var(--gold-dim); color: var(--gold-light); }
+  .nav-btn.active { background: var(--gold); color: #0e0f11; border-color: var(--gold); font-weight: 600; }
+
+  /* LAYOUT */
+  .content { max-width: 960px; margin: 0 auto; padding: 2rem 1.5rem; }
+  .section { display: none; }
+  .section.active { display: block; }
+
+  /* CARDS */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .card-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: .85rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .badge {
+    font-size: 11px;
+    padding: 2px 9px;
+    border-radius: 999px;
+    font-weight: 600;
+    letter-spacing: .02em;
+  }
+  .bh { background: #3a1a1a; color: #f08080; }
+  .bm { background: #2e2510; color: #d4a853; }
+  .bl { background: #102a1a; color: #4caf7d; }
+  .bi { background: #101e3a; color: #5b8ee6; }
+
+  .mnemonic {
+    background: var(--surface2);
+    border-left: 3px solid var(--purple);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: .65rem 1rem;
+    margin: .5rem 0;
+    font-size: 13px;
+    color: var(--text);
+  }
+  .mnemonic b { color: #c4a0f0; font-weight: 500; }
+
+  .pt { font-size: 13.5px; color: var(--text); line-height: 1.85; padding: 1px 0; }
+  .pt::before { content: "→ "; color: var(--gold-dim); }
+
+  .formula {
+    display: inline-block;
+    background: #0f1e35;
+    color: #7fb3f5;
+    font-family: 'DM Mono', monospace;
+    font-size: 12.5px;
+    padding: 2px 8px;
+    border-radius: 5px;
+    border: 1px solid #1e3a60;
+  }
+
+  .grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+
+  /* TABLE */
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { text-align: left; padding: 8px 10px; font-weight: 600; color: var(--text-dim); border-bottom: 1px solid var(--border); font-size: 12px; letter-spacing: .03em; text-transform: uppercase; }
+  td { padding: 7px 10px; color: var(--text); border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.6; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: var(--surface2); }
+
+  /* FLASH CARDS */
+  .fc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 10px; }
+  .fc {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1rem;
+    cursor: pointer;
+    min-height: 90px;
+    transition: border-color .2s, background .2s;
+  }
+  .fc:hover { border-color: var(--gold-dim); }
+  .fc.flipped { background: var(--surface2); border-color: var(--gold-dim); }
+  .fc-q { font-size: 13px; font-weight: 500; color: var(--text); line-height: 1.5; }
+  .fc-a { font-size: 12.5px; color: var(--gold-light); margin-top: 8px; display: none; line-height: 1.6; }
+  .fc.flipped .fc-a { display: block; }
+  .fc-hint { font-size: 11px; color: var(--text-muted); margin-top: 6px; }
+  .fc.flipped .fc-hint { color: var(--gold-dim); }
+
+  /* QUIZ */
+  .q-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.1rem 1.4rem;
+    margin-bottom: .75rem;
+    cursor: pointer;
+    transition: border-color .2s;
+  }
+  .q-card:hover { border-color: var(--gold-dim); }
+  .q-text { font-size: 14px; font-weight: 500; color: var(--text); line-height: 1.5; }
+  .q-options { margin-top: .75rem; display: grid; gap: 6px; }
+  .q-opt {
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    font-size: 13px;
+    cursor: pointer;
+    color: var(--text);
+    background: var(--surface2);
+    transition: all .15s;
+    text-align: left;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .q-opt:hover:not(:disabled) { border-color: var(--gold-dim); color: var(--gold-light); }
+  .q-opt.correct { background: #0f2a1a; border-color: var(--green); color: #7ee8a2; }
+  .q-opt.wrong { background: #2a0f0f; border-color: var(--red); color: #f08080; }
+  .q-opt:disabled { cursor: default; }
+  .q-explanation { font-size: 12.5px; color: var(--text-dim); margin-top: .6rem; padding: .6rem .8rem; background: var(--surface2); border-radius: var(--radius); display: none; line-height: 1.6; }
+  .q-explanation.show { display: block; }
+
+  .score-bar { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1rem 1.5rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+  .score-num { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--gold); min-width: 60px; }
+  .score-label { font-size: 13px; color: var(--text-dim); }
+  .progress { flex: 1; min-width: 120px; }
+  .prog-track { height: 5px; background: var(--border); border-radius: 3px; overflow: hidden; }
+  .prog-fill { height: 100%; background: var(--gold); border-radius: 3px; transition: width .4s; }
+
+  /* SECTION HEADER */
+  .sec-header { margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
+  .sec-header h2 { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--gold); }
+  .sec-header p { font-size: 13px; color: var(--text-dim); margin-top: 4px; }
+
+  /* TIPS BOX */
+  .tip-box { background: #0d1f10; border: 1px solid #1a4a25; border-radius: var(--radius); padding: .75rem 1rem; font-size: 13px; color: #4caf7d; margin-top: .5rem; }
+
+  /* FOOTER */
+  .footer { text-align: center; padding: 2rem; font-size: 12px; color: var(--text-muted); border-top: 1px solid var(--border); margin-top: 2rem; }
+
+  @media (max-width: 600px) {
+    .header { padding: 1rem; }
+    .content { padding: 1rem; }
+    .logo { font-size: 1.1rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="logo">TG LAWCET <span>Fast-Track Study Guide 2025</span></div>
+  <nav class="nav">
+    <button class="nav-btn active" onclick="showSection('legal')">Legal Aptitude</button>
+    <button class="nav-btn" onclick="showSection('maths')">Maths Formulas</button>
+    <button class="nav-btn" onclick="showSection('amend')">Amendments</button>
+    <button class="nav-btn" onclick="showSection('acts')">Important Acts</button>
+    <button class="nav-btn" onclick="showSection('gk')">GK & Judiciary</button>
+    <button class="nav-btn" onclick="showSection('english')">English</button>
+    <button class="nav-btn" onclick="showSection('mental')">Mental Ability</button>
+    <button class="nav-btn" onclick="showSection('flash')">Flash Cards</button>
+    <button class="nav-btn" onclick="showSection('quiz')">Quiz (35 Qs)</button>
+    <button class="nav-btn" onclick="showSection('lastmin')">Last-Minute</button>
+  </nav>
+</div>
+
+<div class="content">
+
+<!-- ========== LEGAL APTITUDE ========== -->
+<div id="legal" class="section active">
+  <div class="sec-header"><h2>Legal Aptitude</h2><p>Highest weightage — ~50 marks. Master principles, IPC sections & maxims.</p></div>
+
+  <div class="card">
+    <div class="card-title">Fundamental Rights (Art 12–35, Part III)<span class="badge bh">High Priority</span></div>
+    <div class="mnemonic"><b>Mnemonic "REPL-EC":</b> Right to Equality (14–18), Right against Exploitation (23–24), Personal Liberty (19–22), Liberty of thought (25–28), Equality before law, Cultural & Educational Rights (29–30)</div>
+    <div class="pt">Art 14 – Equality before law | Art 15 – No discrimination | Art 16 – Equal opportunity</div>
+    <div class="pt">Art 19 – 6 Freedoms (speech, assembly, association, movement, residence, profession)</div>
+    <div class="pt">Art 20 – Protection in conviction | Art 21 – Right to life & liberty | Art 21A – Education (6–14 yrs)</div>
+    <div class="pt">Art 22 – Protection against arbitrary arrest</div>
+    <div class="pt">Art 32 – Right to Constitutional Remedies (Dr. Ambedkar: "Heart & Soul of Constitution")</div>
+    <div class="mnemonic"><b>5 Writs — "HMC-PQ":</b> Habeas Corpus (unlawful detention), Mandamus (compel duty), Certiorari (quash order), Prohibition (prevent excess jurisdiction), Quo Warranto (challenge authority)</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">IPC — Key Sections<span class="badge bh">High Priority</span></div>
+    <div class="mnemonic"><b>Series trick:</b> 300s = offences against body | 400s = property crimes | 498A = matrimonial cruelty</div>
+    <div class="grid2">
+      <div>
+        <div class="pt">Sec 299 – Culpable homicide definition</div>
+        <div class="pt">Sec 300 – Murder definition</div>
+        <div class="pt">Sec 302 – Punishment for murder (death/life)</div>
+        <div class="pt">Sec 304 – Culpable homicide not murder</div>
+        <div class="pt">Sec 304A – Death by negligence</div>
+        <div class="pt">Sec 307 – Attempt to murder</div>
+        <div class="pt">Sec 319 – Hurt | Sec 320 – Grievous hurt</div>
+        <div class="pt">Sec 323 – Voluntarily causing hurt</div>
+        <div class="pt">Sec 325 – Voluntarily causing grievous hurt</div>
+      </div>
+      <div>
+        <div class="pt">Sec 354 – Assault/outrage modesty of woman</div>
+        <div class="pt">Sec 375 – Rape definition | Sec 376 – Punishment</div>
+        <div class="pt">Sec 378 – Theft definition | Sec 379 – Punishment</div>
+        <div class="pt">Sec 383 – Extortion | Sec 390 – Robbery</div>
+        <div class="pt">Sec 415 – Cheating def | Sec 420 – Punishment</div>
+        <div class="pt">Sec 441 – Criminal trespass</div>
+        <div class="pt">Sec 463 – Forgery | Sec 499 – Defamation</div>
+        <div class="pt">Sec 498A – Cruelty by husband/relatives</div>
+        <div class="pt">Sec 506 – Criminal intimidation</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Law of Torts<span class="badge bm">Medium</span></div>
+    <div class="mnemonic"><b>Negligence elements — "DBCD":</b> Duty of care, Breach of duty, Causation, Damage</div>
+    <div class="pt">Donoghue v Stevenson — Neighbour principle (duty of care to foreseeable persons)</div>
+    <div class="pt">Rylands v Fletcher — Strict liability for non-natural use of land + escape of dangerous thing</div>
+    <div class="pt">MC Mehta v UOI — Absolute liability (no exceptions, stricter than Rylands)</div>
+    <div class="pt">Volenti non fit injuria — Consent negates liability</div>
+    <div class="pt">Res ipsa loquitur — Negligence inferred from circumstances itself</div>
+    <div class="pt">Contributory negligence — Plaintiff's own fault reduces damages</div>
+    <div class="pt">Vicarious liability — Employer liable for employee's tort in course of employment</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Indian Contract Act 1872<span class="badge bh">High Priority</span></div>
+    <div class="mnemonic"><b>Valid Contract — "OACCL":</b> Offer + Acceptance + Consideration + Capacity + Legal object</div>
+    <div class="pt">Sec 2(a) Proposal | 2(b) Promise | 2(e) Agreement | 2(h) Contract</div>
+    <div class="pt">Void (never valid) vs Voidable (can be avoided by one party) vs Unenforceable</div>
+    <div class="pt">Free consent absent when: Coercion (15), Undue influence (16), Fraud (17), Misrepresentation (18), Mistake (20–22)</div>
+    <div class="pt">Sec 73 — Compensation for breach | Sec 74 — Liquidated damages</div>
+    <div class="pt">Discharge: Performance, Agreement, Breach, Impossibility (frustration — Sec 56)</div>
+    <div class="mnemonic"><b>Indemnity vs Guarantee:</b> Indemnity — 2 parties, protect from loss | Guarantee — 3 parties (principal debtor, creditor, surety)</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Legal Maxims — Top 10<span class="badge bh">Must Memorise</span></div>
+    <table>
+      <tr><th>Maxim</th><th>Meaning</th></tr>
+      <tr><td><em>Ignorantia juris non excusat</em></td><td>Ignorance of law is no excuse</td></tr>
+      <tr><td><em>Actus reus + Mens rea</em></td><td>Guilty act + guilty mind = crime</td></tr>
+      <tr><td><em>Audi alteram partem</em></td><td>Hear the other side (natural justice)</td></tr>
+      <tr><td><em>Nemo judex in causa sua</em></td><td>No one can be judge in their own cause</td></tr>
+      <tr><td><em>Res ipsa loquitur</em></td><td>The thing speaks for itself (negligence)</td></tr>
+      <tr><td><em>Volenti non fit injuria</em></td><td>No injury to one who consents</td></tr>
+      <tr><td><em>Damnum sine injuria</em></td><td>Damage without legal injury (no remedy)</td></tr>
+      <tr><td><em>Injuria sine damno</em></td><td>Legal injury without actual damage (remedy exists)</td></tr>
+      <tr><td><em>In loco parentis</em></td><td>In place of a parent</td></tr>
+      <tr><td><em>Caveat emptor</em></td><td>Let the buyer beware</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-title">CrPC & CPC Quick Points<span class="badge bm">Medium</span></div>
+    <div class="grid2">
+      <div>
+        <div class="pt">FIR — Sec 154 CrPC</div>
+        <div class="pt">Arrest without warrant — Sec 41</div>
+        <div class="pt">Bail — Sec 436 (bailable), 437 (non-bailable)</div>
+        <div class="pt">Prohibitory orders — Sec 144</div>
+        <div class="pt">Charge sheet — Sec 173</div>
+        <div class="pt">Statement to police — Sec 161</div>
+      </div>
+      <div>
+        <div class="pt">Res judicata — Sec 11 CPC</div>
+        <div class="pt">Temporary injunction — Order 39 CPC</div>
+        <div class="pt">Summary suit — Order 37 CPC</div>
+        <div class="pt">Execution of decree — Sec 51 CPC</div>
+        <div class="pt">Review — Sec 114 CPC</div>
+        <div class="pt">Revision — Sec 115 CPC</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== MATHS ========== -->
+<div id="maths" class="section">
+  <div class="sec-header"><h2>Maths Formulas</h2><p>All arithmetic shortcuts — memorise once, apply fast in exam.</p></div>
+
+  <div class="card">
+    <div class="card-title">Percentage & Profit/Loss<span class="badge bh">High Priority</span></div>
+    <div class="pt">Percentage change = <span class="formula">(New−Old) / Old × 100</span></div>
+    <div class="pt">Profit % = <span class="formula">Profit / CP × 100</span></div>
+    <div class="pt">SP (profit known) = <span class="formula">CP × (100 + P%) / 100</span></div>
+    <div class="pt">SP (loss known) = <span class="formula">CP × (100 − L%) / 100</span></div>
+    <div class="pt">CP from SP & profit% = <span class="formula">SP × 100 / (100 + P%)</span></div>
+    <div class="mnemonic"><b>Trick:</b> Two items sold at same SP, one at x% profit & one at x% loss → always a LOSS. Loss% = <span class="formula">(x²/100)%</span></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Simple & Compound Interest</div>
+    <div class="pt">SI = <span class="formula">P × R × T / 100</span></div>
+    <div class="pt">Amount (SI) = <span class="formula">P + SI = P(1 + RT/100)</span></div>
+    <div class="pt">CI Amount = <span class="formula">P × (1 + R/100)ᵀ</span></div>
+    <div class="pt">CI − SI for 2 yrs = <span class="formula">P × (R/100)²</span></div>
+    <div class="pt">CI − SI for 3 yrs = <span class="formula">P(R/100)²(3 + R/100)</span></div>
+    <div class="mnemonic"><b>Quick check:</b> 2 yrs at 10% → SI=20%, CI=21%. Difference is always SI on SI of first year.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Time, Speed & Distance</div>
+    <div class="pt">Speed = <span class="formula">Distance / Time</span></div>
+    <div class="pt">Avg speed (equal dist) = <span class="formula">2xy / (x+y)</span> (harmonic mean — NOT arithmetic)</div>
+    <div class="pt">Relative speed (same dir) = <span class="formula">|s1 − s2|</span></div>
+    <div class="pt">Relative speed (opp dir) = <span class="formula">s1 + s2</span></div>
+    <div class="pt">km/h → m/s: <span class="formula">× 5/18</span> | m/s → km/h: <span class="formula">× 18/5</span></div>
+    <div class="pt">Train crossing platform: <span class="formula">Time = (Train + Platform length) / Speed</span></div>
+    <div class="mnemonic"><b>Boat & Stream:</b> Downstream = u+v | Upstream = u−v | Speed of boat = (D+U)/2 | Speed of stream = (D−U)/2</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Ratio, Proportion & Mixtures</div>
+    <div class="pt">If a:b = p:q → <span class="formula">aq = bp</span></div>
+    <div class="pt">Alligation rule: <span class="formula">(d−m) : (m−c)</span> where d=dearer, c=cheaper, m=mean</div>
+    <div class="pt">Partnership profit ∝ <span class="formula">Capital × Time</span></div>
+    <div class="pt">Compound ratio of a:b and c:d = <span class="formula">ac : bd</span></div>
+    <div class="mnemonic"><b>Alligation cross:</b> Write dearer top-left, cheaper top-right, mean in center. Subtract diagonally → ratio of quantities.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Number Series Patterns</div>
+    <div class="pt">AP: a, a+d, a+2d... | nth term = <span class="formula">a + (n−1)d</span></div>
+    <div class="pt">GP: a, ar, ar²... | nth term = <span class="formula">arⁿ⁻¹</span></div>
+    <div class="pt">Sum of AP = <span class="formula">n/2 × (2a + (n−1)d)</span></div>
+    <div class="pt">Squares: 1,4,9,16,25,36,49,64,81,100,121,144,169,196,225</div>
+    <div class="pt">Cubes: 1,8,27,64,125,216,343,512,729,1000</div>
+    <div class="mnemonic"><b>Series check order:</b> 1) Constant diff? (AP) → 2) Constant ratio? (GP) → 3) Diffs form a series? (2nd order) → 4) Squares/cubes?</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Permutation, Combination & Probability</div>
+    <div class="pt">nPr = <span class="formula">n! / (n−r)!</span> (arrangements, ORDER matters)</div>
+    <div class="pt">nCr = <span class="formula">n! / r!(n−r)!</span> (selections, order irrelevant)</div>
+    <div class="pt">Probability = <span class="formula">Favourable / Total outcomes</span></div>
+    <div class="pt">P(A or B) = <span class="formula">P(A) + P(B) − P(A∩B)</span></div>
+    <div class="pt">P(A and B) independent = <span class="formula">P(A) × P(B)</span></div>
+    <div class="mnemonic"><b>Cards deck:</b> 52 cards, 4 suits (13 each), 2 colours | Dice: 6 faces | nC0 = nCn = 1 | nC1 = n</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Geometry & Mensuration</div>
+    <div class="grid2">
+      <div>
+        <div class="pt">Circle: Area = <span class="formula">πr²</span>, Perimeter = <span class="formula">2πr</span></div>
+        <div class="pt">Triangle: Area = <span class="formula">½bh</span></div>
+        <div class="pt">Equilateral △: <span class="formula">√3/4 × a²</span></div>
+        <div class="pt">Rectangle: <span class="formula">l × b</span>, Perim = <span class="formula">2(l+b)</span></div>
+        <div class="pt">Trapezium: <span class="formula">½(a+b)h</span></div>
+      </div>
+      <div>
+        <div class="pt">Pythagoras: <span class="formula">a²+b²=c²</span></div>
+        <div class="pt">Triplets: 3-4-5, 5-12-13, 8-15-17, 7-24-25</div>
+        <div class="pt">Cylinder Vol: <span class="formula">πr²h</span>, SA = <span class="formula">2πr(r+h)</span></div>
+        <div class="pt">Sphere Vol: <span class="formula">4/3 πr³</span>, SA = <span class="formula">4πr²</span></div>
+        <div class="pt">Cone Vol: <span class="formula">1/3 πr²h</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Clocks & Calendars</div>
+    <div class="pt">Minute hand speed: <span class="formula">6°/min</span> | Hour hand speed: <span class="formula">0.5°/min</span></div>
+    <div class="pt">Angle between hands = <span class="formula">|30H − 5.5M|</span> degrees</div>
+    <div class="pt">Hands coincide every: <span class="formula">65 5/11 minutes</span></div>
+    <div class="pt">Odd days: Jan=3, Feb=0(28days), Mar=3, Apr=2, May=3, Jun=2, Jul=3, Aug=3, Sep=2, Oct=3, Nov=2, Dec=3</div>
+    <div class="mnemonic"><b>Day of week:</b> 0=Sun, 1=Mon, 2=Tue, 3=Wed, 4=Thu, 5=Fri, 6=Sat. Leap year = 366 days = 2 odd days</div>
+  </div>
+</div>
+
+<!-- ========== AMENDMENTS ========== -->
+<div id="amend" class="section">
+  <div class="sec-header"><h2>Constitutional Amendments</h2><p>Year + what changed — most tested in GK section.</p></div>
+  <div class="card">
+    <div class="card-title">Critical Amendments<span class="badge bh">Must Know</span></div>
+    <table>
+      <tr><th>Amendment</th><th>Year</th><th>Key Change</th></tr>
+      <tr><td><b>1st</b></td><td>1951</td><td>Added 9th Schedule — protects land reform laws from judicial review</td></tr>
+      <tr><td><b>7th</b></td><td>1956</td><td>Reorganised states on linguistic basis; abolished Part B states</td></tr>
+      <tr><td><b>24th</b></td><td>1971</td><td>Parliament can amend any part of Constitution including FRs</td></tr>
+      <tr><td><b>25th</b></td><td>1971</td><td>Right to property not absolute; DPSPs can override FRs</td></tr>
+      <tr><td><b>42nd</b></td><td>1976</td><td>"Mini Constitution" — added Secular+Socialist to Preamble, Art 51A (FDs), 10 FDs, extended Parliament term to 6 yrs</td></tr>
+      <tr><td><b>43rd & 44th</b></td><td>1977–78</td><td>Reversed many 42nd changes; Right to Property removed as FR (Art 300A)</td></tr>
+      <tr><td><b>52nd</b></td><td>1985</td><td>Anti-defection law (10th Schedule)</td></tr>
+      <tr><td><b>61st</b></td><td>1989</td><td>Voting age 21→18 years</td></tr>
+      <tr><td><b>69th</b></td><td>1991</td><td>Delhi given special status as NCT</td></tr>
+      <tr><td><b>73rd</b></td><td>1992</td><td>Panchayati Raj constitutional status (Part IX, Art 243)</td></tr>
+      <tr><td><b>74th</b></td><td>1992</td><td>Urban local bodies (Part IXA, Art 243P)</td></tr>
+      <tr><td><b>86th</b></td><td>2002</td><td>Art 21A — free education 6–14 yrs; 11th FD added</td></tr>
+      <tr><td><b>97th</b></td><td>2011</td><td>Constitutional status to cooperative societies</td></tr>
+      <tr><td><b>100th</b></td><td>2015</td><td>Land boundary agreement with Bangladesh</td></tr>
+      <tr><td><b>101st</b></td><td>2016</td><td>GST introduced (Art 246A, 269A, 279A)</td></tr>
+      <tr><td><b>102nd</b></td><td>2018</td><td>Constitutional status to NCBC (National Commission for Backward Classes)</td></tr>
+      <tr><td><b>103rd</b></td><td>2019</td><td>10% EWS reservation (Art 15(6), Art 16(6))</td></tr>
+      <tr><td><b>105th</b></td><td>2021</td><td>Restored states' power to identify OBCs</td></tr>
+    </table>
+    <div class="mnemonic" style="margin-top:.75rem"><b>42nd Amendment memory:</b> "SDFD" → Secular+Socialist added, Directive Principles given priority, Fundamental Duties added, Duration of Parliament extended</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">The 12 Schedules<span class="badge bm">Medium</span></div>
+    <div class="mnemonic"><b>Trick 1-12:</b> States | Elections | Oaths | Rajya Sabha seats | Tribal Areas (5th) | NE Tribal Areas (6th) | Union-State-Concurrent Lists | Languages | Land reforms (9th) | Anti-defection (10th) | Panchayat powers | Municipality powers</div>
+    <table style="margin-top:.75rem">
+      <tr><th>Schedule</th><th>Subject</th></tr>
+      <tr><td>1st</td><td>List of States and Union Territories</td></tr>
+      <tr><td>3rd</td><td>Oaths and affirmations forms</td></tr>
+      <tr><td>7th</td><td>Union (97), State (66), Concurrent (47) lists</td></tr>
+      <tr><td>8th</td><td>22 official languages</td></tr>
+      <tr><td>9th</td><td>Laws immune from judicial review (added by 1st Amendment)</td></tr>
+      <tr><td>10th</td><td>Anti-defection provisions (added by 52nd Amendment)</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ========== IMPORTANT ACTS ========== -->
+<div id="acts" class="section">
+  <div class="sec-header"><h2>Important Acts & Legislation</h2><p>Year + purpose — frequently tested in legal aptitude and GK sections.</p></div>
+
+  <div class="card">
+    <div class="card-title">Core Civil & Criminal Laws<span class="badge bh">High Priority</span></div>
+    <table>
+      <tr><th>Act</th><th>Year</th><th>Purpose</th></tr>
+      <tr><td>Indian Penal Code (IPC)</td><td>1860</td><td>Criminal offences and punishments</td></tr>
+      <tr><td>Code of Criminal Procedure (CrPC)</td><td>1973</td><td>Criminal trial procedure</td></tr>
+      <tr><td>Code of Civil Procedure (CPC)</td><td>1908</td><td>Civil suit procedure</td></tr>
+      <tr><td>Indian Evidence Act</td><td>1872</td><td>Rules of evidence; burden of proof</td></tr>
+      <tr><td>Indian Contract Act</td><td>1872</td><td>Contracts, agreements, breach</td></tr>
+      <tr><td>Transfer of Property Act</td><td>1882</td><td>Sale, mortgage, lease, gift of property</td></tr>
+      <tr><td>Specific Relief Act</td><td>1963</td><td>Specific performance of contracts</td></tr>
+      <tr><td>Limitation Act</td><td>1963</td><td>Time periods for filing suits</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Family & Personal Laws<span class="badge bh">High Priority</span></div>
+    <table>
+      <tr><th>Act</th><th>Year</th><th>Applies To</th></tr>
+      <tr><td>Hindu Marriage Act</td><td>1955</td><td>Conditions of Hindu marriage; divorce</td></tr>
+      <tr><td>Hindu Succession Act</td><td>1956</td><td>Inheritance (equal rights to daughters via 2005 amendment)</td></tr>
+      <tr><td>Hindu Adoption & Maintenance Act</td><td>1956</td><td>Adoption rules for Hindus</td></tr>
+      <tr><td>Muslim Personal Law (Shariat) Act</td><td>1937</td><td>Muslim personal matters</td></tr>
+      <tr><td>Christian Marriage Act</td><td>1872</td><td>Christian marriages</td></tr>
+      <tr><td>Special Marriage Act</td><td>1954</td><td>Inter-religion / civil marriage (secular)</td></tr>
+      <tr><td>Dowry Prohibition Act</td><td>1961</td><td>Prohibits giving/taking dowry</td></tr>
+      <tr><td>Protection of Women from DV Act</td><td>2005</td><td>Civil remedy for domestic violence</td></tr>
+      <tr><td>Maintenance and Welfare of Parents Act</td><td>2007</td><td>Children must maintain parents</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Social Welfare & Rights Laws<span class="badge bm">Medium</span></div>
+    <table>
+      <tr><th>Act</th><th>Year</th><th>Key Provision</th></tr>
+      <tr><td>SC/ST (Prevention of Atrocities) Act</td><td>1989</td><td>Strict punishment for crimes against SC/ST</td></tr>
+      <tr><td>POCSO Act</td><td>2012</td><td>Protection of children from sexual offences</td></tr>
+      <tr><td>RTI Act</td><td>2005</td><td>Right to info from public authorities within 30 days</td></tr>
+      <tr><td>Consumer Protection Act</td><td>2019</td><td>Replaces 1986 Act; covers e-commerce</td></tr>
+      <tr><td>Legal Services Authority Act</td><td>1987</td><td>Free legal aid (NALSA)</td></tr>
+      <tr><td>Advocates Act</td><td>1961</td><td>Governs Bar Council; regulates legal profession</td></tr>
+      <tr><td>Juvenile Justice Act</td><td>2015</td><td>Care and protection of children</td></tr>
+      <tr><td>POSH Act</td><td>2013</td><td>Prevention of sexual harassment at workplace</td></tr>
+      <tr><td>Lokpal Act</td><td>2013</td><td>Anti-corruption ombudsman for Central Govt</td></tr>
+      <tr><td>NDPS Act</td><td>1985</td><td>Narcotics and psychotropic substances control</td></tr>
+      <tr><td>Arms Act</td><td>1959</td><td>Regulation of firearms</td></tr>
+      <tr><td>Prevention of Corruption Act</td><td>1988</td><td>Punishes public servants for bribery</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Limitation Periods<span class="badge bm">Medium</span></div>
+    <div class="pt">Suit on promissory note / money recovery — <b>3 years</b></div>
+    <div class="pt">Suit for immovable property — <b>12 years</b></div>
+    <div class="pt">Suit for movable property — <b>3 years</b></div>
+    <div class="pt">Appeal to High Court — <b>90 days</b></div>
+    <div class="pt">Appeal to Supreme Court — <b>90 days</b></div>
+    <div class="pt">Consumer forum complaint — <b>2 years</b> from cause of action</div>
+    <div class="pt">Enforcement of decree — <b>12 years</b></div>
+    <div class="mnemonic"><b>Rule:</b> Limitation period begins from the date the "cause of action" arises, not from the date of knowledge.</div>
+  </div>
+</div>
+
+<!-- ========== GK & JUDICIARY ========== -->
+<div id="gk" class="section">
+  <div class="sec-header"><h2>GK & Judiciary</h2><p>Constitutional numbers, judicial facts, and Telangana-specific knowledge.</p></div>
+
+  <div class="card">
+    <div class="card-title">Key Constitutional Articles<span class="badge bh">High Priority</span></div>
+    <div class="mnemonic"><b>Critical articles to memorise:</b> 1, 12, 13, 14, 19, 21, 21A, 32, 44, 51A, 124, 148, 226, 300A, 368</div>
+    <table>
+      <tr><th>Article</th><th>Subject</th></tr>
+      <tr><td>Art 1</td><td>India is a Union of States (not federation)</td></tr>
+      <tr><td>Art 13</td><td>Laws inconsistent with FRs are void</td></tr>
+      <tr><td>Art 44</td><td>Uniform Civil Code (DPSP)</td></tr>
+      <tr><td>Art 51A</td><td>Fundamental Duties (11 duties)</td></tr>
+      <tr><td>Art 76</td><td>Attorney General of India</td></tr>
+      <tr><td>Art 105</td><td>Parliamentary privilege</td></tr>
+      <tr><td>Art 124–147</td><td>Supreme Court</td></tr>
+      <tr><td>Art 148</td><td>Comptroller & Auditor General (CAG)</td></tr>
+      <tr><td>Art 214–231</td><td>High Courts</td></tr>
+      <tr><td>Art 226</td><td>High Court writ jurisdiction</td></tr>
+      <tr><td>Art 300A</td><td>Right to property (legal right, not FR)</td></tr>
+      <tr><td>Art 343–351</td><td>Official language provisions</td></tr>
+      <tr><td>Art 352</td><td>National Emergency | Art 356 – President's Rule | Art 360 – Financial Emergency</td></tr>
+      <tr><td>Art 368</td><td>Amendment procedure</td></tr>
+      <tr><td>Art 370</td><td>Special status J&K (abrogated 5 Aug 2019)</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Numbers to Memorise Tonight<span class="badge bh">Must Know</span></div>
+    <div class="grid2">
+      <div>
+        <div class="pt">Articles in Constitution — 448 (originally 395)</div>
+        <div class="pt">Parts — 25 | Schedules — 12</div>
+        <div class="pt">Fundamental Rights — 6 rights</div>
+        <div class="pt">Fundamental Duties — 11 duties</div>
+        <div class="pt">DPSPs — Part IV, Art 36–51</div>
+        <div class="pt">Lok Sabha strength — 543 elected</div>
+        <div class="pt">Rajya Sabha max — 250 (238+12)</div>
+      </div>
+      <div>
+        <div class="pt">SC judges max — 34 (incl. CJI)</div>
+        <div class="pt">Union list — 97 subjects</div>
+        <div class="pt">State list — 66 subjects</div>
+        <div class="pt">Concurrent list — 47 subjects</div>
+        <div class="pt">Official languages — 22 (8th Schedule)</div>
+        <div class="pt">Lok Sabha term — 5 years</div>
+        <div class="pt">Rajya Sabha term per member — 6 years</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Judiciary Facts<span class="badge bh">High Priority</span></div>
+    <div class="pt">Supreme Court established — 28 January 1950 | Art 124–147</div>
+    <div class="pt">CJI retirement age — 65 years</div>
+    <div class="pt">High Court judge retirement — 62 years</div>
+    <div class="pt">President appoints judges on recommendation of collegium (CJI + 4 senior-most judges)</div>
+    <div class="pt">District Court — lowest civil court | Sessions Court — lowest criminal court</div>
+    <div class="pt">Lok Adalat — alternative dispute resolution; award = civil court decree; no court fee</div>
+    <div class="pt">NALSA — National Legal Services Authority; free legal aid under 1987 Act</div>
+    <div class="mnemonic"><b>Collegium system:</b> Not in Constitution — evolved through case law (Supreme Court Advocates-on-Record Association v UOI 1993 & 1998)</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Telangana — Specific GK<span class="badge bh">High Priority for TG LAWCET</span></div>
+    <div class="pt">Telangana formed — 2 June 2014 (29th state of India)</div>
+    <div class="pt">Carved from — Andhra Pradesh Reorganisation Act 2014</div>
+    <div class="pt">Capital — Hyderabad (joint capital with AP till 2024)</div>
+    <div class="pt">TG LAWCET conducted by — Osmania University, Hyderabad</div>
+    <div class="pt">Telangana High Court — Hyderabad; separate from AP HC since 1 Jan 2019</div>
+    <div class="pt">Telangana Panchayati Raj Act — 2018</div>
+    <div class="pt">Districts in Telangana — 33 districts</div>
+    <div class="mnemonic"><b>Major law universities in TG:</b> NALSAR (Hyderabad), Osmania University, Kakatiya University, Hyderabad Central University</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Landmark Cases<span class="badge bh">Must Know</span></div>
+    <table>
+      <tr><th>Case</th><th>Year</th><th>Principle</th></tr>
+      <tr><td>Kesavananda Bharati v State of Kerala</td><td>1973</td><td>Basic Structure doctrine — Parliament cannot destroy Constitution's basic features</td></tr>
+      <tr><td>Maneka Gandhi v UOI</td><td>1978</td><td>Art 21 = right to travel abroad; procedure must be fair, just & reasonable</td></tr>
+      <tr><td>Vishaka v State of Rajasthan</td><td>1997</td><td>Sexual harassment at workplace guidelines (led to POSH Act 2013)</td></tr>
+      <tr><td>Indra Sawhney v UOI (Mandal Commission)</td><td>1992</td><td>OBC reservation upheld; 50% ceiling on total reservations</td></tr>
+      <tr><td>S.R. Bommai v UOI</td><td>1994</td><td>Limits on President's Rule; floor test required before dismissing state govt</td></tr>
+      <tr><td>Puttaswamy v UOI</td><td>2017</td><td>Right to Privacy is a Fundamental Right under Art 21</td></tr>
+      <tr><td>Olga Tellis v BEST</td><td>1985</td><td>Right to livelihood is part of Art 21 right to life</td></tr>
+      <tr><td>MC Mehta v UOI</td><td>1986</td><td>Absolute liability — no exceptions for hazardous industries</td></tr>
+      <tr><td>Shayara Bano v UOI</td><td>2017</td><td>Triple talaq (instant talaq) declared unconstitutional</td></tr>
+      <tr><td>Navtej Singh Johar v UOI</td><td>2018</td><td>Decriminalised consensual same-sex relations (struck down Sec 377 IPC partially)</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ========== ENGLISH ========== -->
+<div id="english" class="section">
+  <div class="sec-header"><h2>English Language</h2><p>Grammar, vocabulary, error spotting and comprehension strategy.</p></div>
+
+  <div class="card">
+    <div class="card-title">Grammar — Tenses Quick Reference<span class="badge bh">High Priority</span></div>
+    <table>
+      <tr><th>Tense</th><th>Formula</th><th>Example</th></tr>
+      <tr><td>Simple Present</td><td>V1 / V1+s</td><td>He goes to court daily</td></tr>
+      <tr><td>Present Continuous</td><td>is/am/are + V-ing</td><td>She is arguing the case</td></tr>
+      <tr><td>Present Perfect</td><td>have/has + V3</td><td>He has filed the petition</td></tr>
+      <tr><td>Simple Past</td><td>V2</td><td>The judge pronounced judgment</td></tr>
+      <tr><td>Past Perfect</td><td>had + V3</td><td>He had already appealed</td></tr>
+      <tr><td>Future Simple</td><td>will + V1</td><td>The court will decide tomorrow</td></tr>
+      <tr><td>Future Perfect</td><td>will have + V3</td><td>They will have submitted by then</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Error Spotting — Common Traps<span class="badge bh">High Priority</span></div>
+    <div class="pt"><b>Neither/Either</b> → singular verb: "Neither of them <u>is</u> correct"</div>
+    <div class="pt"><b>Less vs Fewer:</b> Less = uncountable | Fewer = countable: "Fewer lawyers, less justice"</div>
+    <div class="pt"><b>Between vs Among:</b> Between = 2 | Among = 3+</div>
+    <div class="pt"><b>Lay vs Lie:</b> Lay = to place (transitive) | Lie = to recline (intransitive)</div>
+    <div class="pt"><b>Each/Every/None/Anyone</b> → always singular verb</div>
+    <div class="pt"><b>Collective nouns</b> (jury, committee, team) → singular when acting as one unit</div>
+    <div class="pt"><b>One of the + plural noun + singular verb:</b> "One of the judges <u>was</u> present"</div>
+    <div class="pt"><b>Who/Whom:</b> Who = subject | Whom = object: "To whom it may concern"</div>
+    <div class="mnemonic"><b>FANBOYS</b> (coordinating conjunctions): For, And, Nor, But, Or, Yet, So</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Legal Vocabulary — Must Know<span class="badge bm">Medium</span></div>
+    <div class="grid2">
+      <div>
+        <div class="pt">Plaintiff — files civil suit</div>
+        <div class="pt">Defendant — defends in civil suit</div>
+        <div class="pt">Prosecution — criminal proceedings</div>
+        <div class="pt">Accused — in criminal case</div>
+        <div class="pt">Litigant — party in lawsuit</div>
+        <div class="pt">Affidavit — sworn written statement</div>
+        <div class="pt">Subpoena — court summons to witness</div>
+        <div class="pt">Bail — temporary release from custody</div>
+      </div>
+      <div>
+        <div class="pt">Parole — conditional release from prison</div>
+        <div class="pt">Decree — civil court final order</div>
+        <div class="pt">Judgment — reasoning behind order</div>
+        <div class="pt">Injunction — court order to stop action</div>
+        <div class="pt">Estoppel — prevented from denying earlier statement</div>
+        <div class="pt">Indemnity — compensation for loss</div>
+        <div class="pt">Caveat — "beware" — notice to court</div>
+        <div class="pt">Amicus Curiae — friend of the court</td></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Comprehension Strategy<span class="badge bm">Medium</span></div>
+    <div class="mnemonic"><b>Method:</b> Read questions FIRST → skim passage → find answers → re-read only relevant parts</div>
+    <div class="pt">Main idea — usually in first or last paragraph (topic sentence)</div>
+    <div class="pt">Tone words: critical, sympathetic, ironic, objective, sarcastic, admiring, cynical</div>
+    <div class="pt">Inference questions: answer must be supported by passage, not outside knowledge</div>
+    <div class="pt">Title questions: pick the one that covers the WHOLE passage, not just one part</div>
+    <div class="tip-box">Time saver: For 5-question passages, spend max 4 minutes total. Skip and return if stuck.</div>
+  </div>
+</div>
+
+<!-- ========== MENTAL ABILITY ========== -->
+<div id="mental" class="section">
+  <div class="sec-header"><h2>Mental Ability</h2><p>Reasoning, series, coding, directions, syllogisms — all quick-solve tricks here.</p></div>
+
+  <div class="card">
+    <div class="card-title">Coding-Decoding<span class="badge bh">High Priority</span></div>
+    <div class="mnemonic"><b>EJOTY trick:</b> E=5, J=10, O=15, T=20, Y=25 → instantly know any letter's position!</div>
+    <div class="pt">Opposite letter pair: A↔Z, B↔Y, C↔X... (pair sum always = 27)</div>
+    <div class="pt">Letter position: A=1, B=2... Z=26 | Reverse: A=26, B=25... Z=1</div>
+    <div class="pt">If +3 shift: A→D, B→E, C→F (Caesar cipher)</div>
+    <div class="mnemonic"><b>Check: is it number coding, letter coding, symbol coding or mixed?</b> Identify pattern type first.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Blood Relations — Strategy<span class="badge bh">High Priority</span></div>
+    <div class="mnemonic"><b>Golden rule: ALWAYS draw a family tree on paper. Never solve in your head.</b></div>
+    <div class="pt">Mother's brother = Maternal uncle | Father's sister = Paternal aunt</div>
+    <div class="pt">Assign gender immediately: "wife" → female, "husband" → male, "son" → male</div>
+    <div class="pt">Generation indicators: parent (1 up), grandparent (2 up), child (1 down), grandchild (2 down)</div>
+    <div class="pt">If A is B's mother's only brother's daughter → A is B's maternal uncle's daughter = cousin</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Directions & Sitting Arrangements<span class="badge bm">Medium</span></div>
+    <div class="mnemonic"><b>Compass:</b> "Never Eat Stale Wheat" → N, E, S, W (clockwise)</div>
+    <div class="pt">Sunrise = East shadow points West | Sunset = West shadow points East</div>
+    <div class="pt">If facing North: left = West, right = East</div>
+    <div class="pt">If facing South: left = East, right = West (reversed!)</div>
+    <div class="pt">Circular arrangement: face centre → left/right same as straight line. Back to centre → reversed.</div>
+    <div class="mnemonic"><b>Sitting tip:</b> Draw a circle/row diagram for every arrangement question. Never visualise mentally.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Syllogisms<span class="badge bm">Medium</span></div>
+    <div class="mnemonic"><b>Combination rules:</b> All+All=All | All+No=No | Some+All=Some | Some+No=Some Not | No+All=No</div>
+    <div class="pt">"All A are B" → some B are A (conversion) but NOT all B are A</div>
+    <div class="pt">"Some A are B" → some B are A (always true)</div>
+    <div class="pt">"No A is B" → No B is A (always reversible)</div>
+    <div class="pt">Venn diagram method: draw circles for all terms, check if conclusion is possible/definite/impossible</div>
+    <div class="tip-box">In "either-or" conclusions: both must be individually false but their combination true. Check carefully.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Analogies & Odd One Out<span class="badge bm">Medium</span></div>
+    <div class="pt">Find relationship: tool→use, part→whole, cause→effect, worker→product, word→synonym</div>
+    <div class="pt">For number analogies: try +, −, ×, ÷, squares, cubes, prime numbers</div>
+    <div class="pt">Odd one out: find what's common among 3, the different one is answer</div>
+    <div class="pt">Check multiple properties: shape, colour, function, category — odd one could be on any dimension</div>
+  </div>
+</div>
+
+<!-- ========== FLASH CARDS ========== -->
+<div id="flash" class="section">
+  <div class="sec-header"><h2>Flash Cards (24 cards)</h2><p>Tap any card to flip. Try to answer before flipping!</p></div>
+  <div class="fc-grid" id="fc-grid"></div>
+</div>
+
+<!-- ========== QUIZ ========== -->
+<div id="quiz" class="section">
+  <div class="sec-header"><h2>Practice Quiz — 35 Questions</h2><p>All subjects covered. Select an answer to see explanation.</p></div>
+  <div class="score-bar">
+    <div>
+      <div class="score-num" id="sc-num">0</div>
+      <div class="score-label">correct answers</div>
+    </div>
+    <div class="progress">
+      <div style="font-size:12px;color:var(--text-dim);margin-bottom:4px" id="sc-label">0 of 35 attempted</div>
+      <div class="prog-track"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
+    </div>
+    <button onclick="resetQuiz()" style="font-size:13px;padding:8px 16px;border-radius:999px;border:1px solid var(--border);background:transparent;color:var(--text-dim);cursor:pointer;font-family:'DM Sans',sans-serif">Reset</button>
+  </div>
+  <div id="quiz-container"></div>
+</div>
+
+<!-- ========== LAST MINUTE ========== -->
+<div id="lastmin" class="section">
+  <div class="sec-header"><h2>Last-Minute Checklist</h2><p>Read this right before you sleep and again tomorrow morning.</p></div>
+
+  <div class="card">
+    <div class="card-title">Exam-Day Strategy<span class="badge bh">Read tonight</span></div>
+    <div class="mnemonic"><b>GOLDEN RULE for Legal Principles:</b> Apply ONLY the given principle. Ignore your outside knowledge completely.</div>
+    <div class="pt">Read the principle → identify key elements → match to facts → pick closest answer</div>
+    <div class="pt">Watch trigger words in principles: "only if", "provided that", "unless", "subject to"</div>
+    <div class="pt">Negative questions ("Which is NOT true?") → eliminate correct statements; what remains = answer</div>
+    <div class="pt">If stuck between 2 options after 90 seconds → mark, move on, come back</div>
+    <div class="pt">Attempt order: Legal Aptitude → Mental Ability → English → GK (highest to lowest confidence)</div>
+    <div class="tip-box">120 questions in 90 minutes = 45 seconds per question. Target 100+ attempts minimum.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Commonly Confused Pairs<span class="badge bm">Medium</span></div>
+    <table>
+      <tr><th>Term A</th><th>Term B</th><th>Key difference</th></tr>
+      <tr><td>Bail</td><td>Parole</td><td>Bail = before conviction (release pending trial) | Parole = after conviction (conditional release)</td></tr>
+      <tr><td>Cognizable</td><td>Non-cognizable</td><td>Cognizable = police arrest without warrant | Non-cognizable = warrant needed</td></tr>
+      <tr><td>Bailable</td><td>Non-bailable</td><td>Bailable = bail as of right | Non-bailable = court's discretion</td></tr>
+      <tr><td>Void</td><td>Voidable</td><td>Void = invalid from beginning | Voidable = valid until one party avoids it</td></tr>
+      <tr><td>Plaintiff</td><td>Prosecution</td><td>Plaintiff = civil case | Prosecution = criminal case (State vs accused)</td></tr>
+      <tr><td>Decree</td><td>Order</td><td>Decree = final determination of rights (civil) | Order = interlocutory/procedural</td></tr>
+      <tr><td>Murder (302)</td><td>Culpable homicide (304)</td><td>Murder = intention to kill with premeditation | CHnM = without premeditation</td></tr>
+      <tr><td>Promissory note</td><td>Bill of exchange</td><td>Prom. note = 2 parties | Bill of exchange = 3 parties (drawer, drawee, payee)</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Memory Pegs — 5-minute revision<span class="badge bl">Quick review</span></div>
+    <div class="grid2">
+      <div>
+        <div class="mnemonic"><b>Part III = FRs | Part IV = DPSPs | Part IVA = FDs</b></div>
+        <div class="pt">Art 14 = Equality | Art 21 = Life | Art 32 = Remedies</div>
+        <div class="pt">IPC 302 = Murder | 376 = Rape | 420 = Cheating | 498A = Matrimonial cruelty</div>
+        <div class="pt">FIR = Sec 154 CrPC | Arrest without warrant = Sec 41</div>
+        <div class="pt">Res judicata = Sec 11 CPC | Injunction = Order 39</div>
+      </div>
+      <div>
+        <div class="mnemonic"><b>Kesavananda (1973) = Basic Structure | Maneka (1978) = Fair procedure</b></div>
+        <div class="pt">NALSAR, OU, KU — top law schools in Telangana</div>
+        <div class="pt">Telangana = 2 June 2014 = 29th state</div>
+        <div class="pt">Consumer forum: District (1cr) | State (1–10cr) | National (10cr+)</div>
+        <div class="pt">Bar Council of India → Advocates Act 1961</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /content -->
+
+<div class="footer">TG LAWCET Fast-Track Guide 2025 — Best of luck on your exam tomorrow!</div>
+
+<script>
+// ===== NAVIGATION =====
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.target.classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+// ===== FLASH CARDS =====
+const flashCards = [
+  { q: "What is the 'Basic Structure' doctrine and which case established it?", a: "Parliament cannot amend the Constitution to destroy its basic structure. Established in Kesavananda Bharati v State of Kerala (1973). Basics include: judicial review, democracy, federalism, secularism, fundamental rights." },
+  { q: "Section 498A IPC — what does it cover?", a: "Cruelty by husband or relatives of husband. Cognizable, non-bailable, non-compoundable offence. Punishment: up to 3 years + fine. Widely used in matrimonial disputes." },
+  { q: "What is 'Mens Rea'?", a: "Guilty mind — the mental element/criminal intention required for a crime. Without mens rea, generally no crime (except strict liability offences like NDPS Act, POCSO)." },
+  { q: "POCSO Act — year, full form, key feature", a: "Protection of Children from Sexual Offences Act, 2012. Applies to victims below 18 years. Establishes Special Courts. Presumes accused guilty (reverse burden of proof)." },
+  { q: "What is Lok Adalat?", a: "Alternative dispute resolution under Legal Services Authorities Act 1987. Award has same force as civil court decree. No court fee; refunded if case transferred from court. No appeal against Lok Adalat award." },
+  { q: "Art 32 vs Art 226 — difference?", a: "Art 32 = Supreme Court (FRs only; right itself is a FR — Dr. Ambedkar: 'Heart & Soul'). Art 226 = High Court (broader — FR + other legal rights; even wider in scope than Art 32)." },
+  { q: "Define 'Consideration' in Contract Law (Sec 2(d))", a: "Something of value given by both parties. 'Price of a promise.' Can be past, present or future. Must be real but need not be adequate. Without consideration, contract is void (except under Sec 25 exceptions)." },
+  { q: "What is Habeas Corpus?", a: "Writ meaning 'produce the body.' Issued to release a person from unlawful detention. Can be filed by the detained or anyone on their behalf. Most immediate personal liberty protection." },
+  { q: "Consumer Forum — 3 tiers and their pecuniary limits", a: "District Consumer Commission: up to ₹1 crore | State Consumer Commission: ₹1 crore–₹10 crore | National Consumer Commission: above ₹10 crore. Under Consumer Protection Act 2019." },
+  { q: "What is 'Vicarious Liability'?", a: "Liability of a person for wrongful acts of another due to their relationship. Employer liable for torts of employee in course of employment. Also applies to principal-agent relationships." },
+  { q: "Voting age in India — current age and which amendment changed it?", a: "18 years. Lowered from 21 to 18 by the 61st Constitutional Amendment Act, 1989, effective for 1989 general elections." },
+  { q: "What is Rylands v Fletcher rule?", a: "Strict liability rule: A person who brings onto his land something likely to do mischief if it escapes must keep it in at his peril. Exceptions: Act of God, Act of plaintiff, consent, statutory authority, natural use of land." },
+  { q: "What are the 6 Freedoms under Article 19?", a: "(1) Speech & expression (2) Peaceful assembly without arms (3) Form associations/unions (4) Move freely throughout India (5) Reside & settle anywhere in India (6) Practice any profession/occupation/trade/business." },
+  { q: "Difference between IPC Section 299 and Section 300?", a: "Sec 299 = Culpable Homicide (CHnM): causing death with intention or knowledge. Sec 300 = Murder: CHnM becomes murder when: 1) Intention to cause death, 2) intention to cause BI likely to cause death, 3) knowledge that act is imminently dangerous. Murder is a subset of CHnM." },
+  { q: "What is the Special Marriage Act 1954?", a: "Governs inter-religion/civil marriages in India (secular). Allows marriage between any two persons regardless of religion/caste. Notice must be given 30 days before marriage. Divorce governed by same Act." },
+  { q: "What is 'Doctrine of Promissory Estoppel'?", a: "A party who makes a representation and the other party relies on it to their detriment cannot go back on that representation. Protects the promisee even without formal consideration. Used against government departments too." },
+  { q: "What is the Limitation Act — and the basic period for money suits?", a: "Limitation Act 1963. Prescribes time limits for filing suits. Money recovery suits = 3 years. Immovable property = 12 years. Starts from the date 'cause of action' arises." },
+  { q: "What is 'Res Judicata' (Sec 11 CPC)?", a: "A matter once finally decided by a competent court cannot be re-litigated between the same parties on the same subject matter. Prevents multiplicity of proceedings. Both civil and criminal applications." },
+  { q: "Which Article deals with President's Rule and when can it be imposed?", a: "Article 356. Imposed when the constitutional machinery in a state breaks down (Governor's report or President's satisfaction). Requires Parliamentary approval every 6 months. Max 3 years (44th Amendment limit)." },
+  { q: "What is NALSA?", a: "National Legal Services Authority — established under Legal Services Authorities Act 1987. Provides free legal services to marginalized sections. Every High Court and District Court has a Legal Services Committee." },
+  { q: "Distinguish: Void contract vs Voidable contract", a: "Void contract: never had legal effect from the beginning; no remedy (e.g., agreement with minor, unlawful consideration). Voidable contract: valid until avoided by the aggrieved party (e.g., contract by coercion, fraud, misrepresentation)." },
+  { q: "What is the Puttaswamy judgment (2017)?", a: "Justice K.S. Puttaswamy v Union of India (2017). 9-judge bench unanimously held that Right to Privacy is a Fundamental Right under Article 21. Overruled earlier ADM Jabalpur and Kharak Singh views on privacy." },
+  { q: "Hindu Succession Act 2005 Amendment — what changed?", a: "Daughters given equal coparcenary rights as sons in Hindu Undivided Family (HUF) property. Applies to daughters born before or after 2005. A landmark change in inheritance law for Hindu women." },
+  { q: "What is Absolute Liability? How does it differ from Strict Liability?", a: "MC Mehta v UOI (1986): Absolute Liability — no exceptions. Industries engaged in hazardous/inherently dangerous activities are absolutely liable for harm. Differs from Rylands v Fletcher (Strict Liability) which has exceptions like Act of God, consent, etc." }
+];
+
+function buildFlashCards() {
+  const grid = document.getElementById('fc-grid');
+  grid.innerHTML = '';
+  flashCards.forEach((card, i) => {
+    const div = document.createElement('div');
+    div.className = 'fc';
+    div.innerHTML = `<div class="fc-q">${card.q}</div><div class="fc-a" id="fca${i}">${card.a}</div><div class="fc-hint">tap to flip</div>`;
+    div.onclick = () => {
+      div.classList.toggle('flipped');
+      div.querySelector('.fc-hint').textContent = div.classList.contains('flipped') ? 'tap to hide' : 'tap to flip';
+    };
+    grid.appendChild(div);
+  });
+}
+
+// ===== QUIZ =====
+const quizData = [
+  // Legal Aptitude
+  { q: "Which Article of the Constitution is called the 'Heart and Soul' of the Constitution by Dr. B.R. Ambedkar?", opts: ["Article 19", "Article 21", "Article 32", "Article 14"], ans: 2, exp: "Article 32 — Right to Constitutional Remedies — was called the 'Heart and Soul' by Dr. Ambedkar because it gives the right to enforce all other Fundamental Rights." },
+  { q: "Under which section of IPC is the offence of murder punishable?", opts: ["Section 299", "Section 300", "Section 302", "Section 304"], ans: 2, exp: "Section 302 IPC prescribes punishment for murder (death penalty or life imprisonment + fine). Section 300 defines murder while Section 302 is the punishment provision." },
+  { q: "The maxim 'Audi alteram partem' means:", opts: ["Let the buyer beware", "Hear the other side", "The thing speaks for itself", "No one is above the law"], ans: 1, exp: "Audi alteram partem is a principle of natural justice meaning 'hear the other side.' No person should be condemned unheard — they must be given a fair opportunity to present their case." },
+  { q: "Which of the following is a valid contract essential under the Indian Contract Act 1872?", opts: ["Consideration need not exist", "Parties must be of sound mind and major", "Oral contracts are always void", "Illegal objects are permitted if both parties agree"], ans: 1, exp: "Under Sec 10 & 11, parties must be of sound mind, have attained majority (18 years), and not be disqualified by law. Consideration must exist (Sec 25 exceptions aside)." },
+  { q: "In which case was the 'neighbour principle' in tort law established?", opts: ["Rylands v Fletcher", "Donoghue v Stevenson", "MC Mehta v UOI", "Olga Tellis v BEST"], ans: 1, exp: "Donoghue v Stevenson (1932) — Lord Atkin held that a manufacturer owes a duty of care to the ultimate consumer (neighbour principle). Foundation of modern negligence law." },
+  { q: "FIR is registered under which section of CrPC?", opts: ["Section 41", "Section 144", "Section 154", "Section 173"], ans: 2, exp: "Section 154 CrPC deals with the First Information Report (FIR). It is the first step in the criminal justice process and must be registered by the officer in charge of the police station." },
+  { q: "The doctrine of 'Res Ipsa Loquitur' means:", opts: ["The defendant is always liable", "The thing speaks for itself", "No injury to one who consents", "Ignorance of law is no excuse"], ans: 1, exp: "Res Ipsa Loquitur means 'the thing speaks for itself' — negligence is inferred from the very nature of the accident. The mere happening of the accident establishes prima facie negligence." },
+  { q: "Which writ is issued to release a person from illegal detention?", opts: ["Mandamus", "Certiorari", "Habeas Corpus", "Quo Warranto"], ans: 2, exp: "Habeas Corpus ('produce the body') is issued to release a person from unlawful detention. It is the most immediate protection of personal liberty and can be filed by anyone on behalf of the detainee." },
+  { q: "Section 498A IPC deals with:", opts: ["Theft of property", "Cruelty by husband or his relatives", "Criminal trespass", "Attempt to murder"], ans: 1, exp: "Section 498A IPC — 'Matrimonial cruelty' — deals with cruelty by husband or relatives of husband. It is cognizable, non-bailable, and non-compoundable. Punishment: up to 3 years + fine." },
+  { q: "Under the Indian Contract Act, which of the following makes a contract voidable?", opts: ["Agreement to do illegal act", "Agreement without consideration", "Contract obtained by coercion or fraud", "Contract with a minor"], ans: 2, exp: "Contracts obtained by coercion (Sec 15), undue influence (Sec 16), fraud (Sec 17), or misrepresentation (Sec 18) are voidable at the option of the aggrieved party. Contracts with minors are void ab initio." },
+  // Maths
+  { q: "A shopkeeper buys an article for ₹500 and sells it at a 20% profit. What is the selling price?", opts: ["₹560", "₹580", "₹600", "₹620"], ans: 2, exp: "SP = CP × (100 + P%)/100 = 500 × 120/100 = ₹600. Profit = ₹100." },
+  { q: "If the principal is ₹10,000, rate is 10% p.a., time is 2 years, what is the Compound Interest?", opts: ["₹2,000", "₹2,100", "₹1,900", "₹2,200"], ans: 1, exp: "CI = P(1 + R/100)ᵀ − P = 10000(1.1)² − 10000 = 12100 − 10000 = ₹2,100. SI would be ₹2,000. Difference = ₹100 = P×(R/100)² = 10000×0.01 = 100 ✓" },
+  { q: "A train 200m long passes a pole in 10 seconds. What is its speed in km/h?", opts: ["60 km/h", "72 km/h", "80 km/h", "90 km/h"], ans: 1, exp: "Speed = 200/10 = 20 m/s. Convert to km/h: 20 × 18/5 = 72 km/h." },
+  { q: "What is the next number in the series: 1, 4, 9, 16, 25, __?", opts: ["30", "36", "49", "32"], ans: 1, exp: "These are perfect squares: 1²=1, 2²=4, 3²=9, 4²=16, 5²=25, 6²=36. Answer: 36." },
+  { q: "Two pipes A and B fill a tank in 20 and 30 minutes respectively. How long to fill together?", opts: ["10 min", "12 min", "15 min", "25 min"], ans: 1, exp: "Combined rate = 1/20 + 1/30 = 3/60 + 2/60 = 5/60 = 1/12. So tank fills in 12 minutes." },
+  // Amendments & Constitution
+  { q: "Which Constitutional Amendment added the words 'Socialist' and 'Secular' to the Preamble?", opts: ["24th Amendment 1971", "42nd Amendment 1976", "44th Amendment 1978", "52nd Amendment 1985"], ans: 1, exp: "42nd Constitutional Amendment 1976 (during Emergency under Indira Gandhi) added 'Socialist', 'Secular' to the Preamble and also added Fundamental Duties (Art 51A) with originally 10 duties." },
+  { q: "The Anti-Defection Law is contained in which Schedule of the Constitution?", opts: ["7th Schedule", "9th Schedule", "10th Schedule", "12th Schedule"], ans: 2, exp: "10th Schedule of the Constitution contains the Anti-Defection Law, added by the 52nd Constitutional Amendment Act, 1985. It disqualifies members who voluntarily give up party membership or vote against party whip." },
+  { q: "Which Amendment gave constitutional status to Panchayati Raj institutions?", opts: ["61st Amendment", "73rd Amendment", "74th Amendment", "86th Amendment"], ans: 1, exp: "73rd Constitutional Amendment 1992 gave constitutional status to Panchayati Raj institutions (Part IX, Art 243). The 74th Amendment (1992) did the same for urban local bodies (municipalities)." },
+  { q: "Article 21A, which provides free and compulsory education for children aged 6–14 years, was inserted by the:", opts: ["86th Amendment 2002", "93rd Amendment 2005", "73rd Amendment 1992", "61st Amendment 1989"], ans: 0, exp: "86th Constitutional Amendment Act, 2002 inserted Article 21A providing free and compulsory education for children between 6–14 years. It also added the 11th Fundamental Duty." },
+  // GK & Judiciary
+  { q: "The 'Basic Structure' doctrine of the Constitution was propounded in which case?", opts: ["Maneka Gandhi v UOI", "Indra Sawhney v UOI", "Kesavananda Bharati v State of Kerala", "S.R. Bommai v UOI"], ans: 2, exp: "Kesavananda Bharati v State of Kerala (1973) — 13-judge bench (7:6) held that Parliament can amend any provision but cannot alter the 'basic structure' of the Constitution. This remains the most significant constitutional case." },
+  { q: "How many Fundamental Duties are currently listed in Article 51A of the Constitution?", opts: ["10", "11", "12", "9"], ans: 1, exp: "There are 11 Fundamental Duties. Originally 10 were added by 42nd Amendment (1976). The 11th — duty of parents to provide education to children aged 6–14 years — was added by 86th Amendment (2002)." },
+  { q: "Telangana was formed as the __ state of India on __.", opts: ["28th state, 1 June 2014", "29th state, 2 June 2014", "30th state, 2 June 2014", "29th state, 2 January 2014"], ans: 1, exp: "Telangana became the 29th state of India on 2 June 2014, carved out of Andhra Pradesh under the Andhra Pradesh Reorganisation Act, 2014. Hyderabad serves as the joint capital." },
+  { q: "The Right to Privacy as a Fundamental Right was upheld in which landmark case?", opts: ["Vishaka v Rajasthan (1997)", "Puttaswamy v UOI (2017)", "Maneka Gandhi v UOI (1978)", "Navtej Singh Johar v UOI (2018)"], ans: 1, exp: "Justice K.S. Puttaswamy (Retd.) v Union of India (2017) — 9-judge bench unanimously held that Right to Privacy is a Fundamental Right under Art 21. Overruled M.P. Sharma (1954) and Kharak Singh (1962)." },
+  // English
+  { q: "Choose the grammatically correct sentence:", opts: ["Neither of the lawyers were present", "Neither of the lawyers was present", "Neither of the lawyers are present", "Neither of the lawyers have been present"], ans: 1, exp: "Neither/Either takes a singular verb: 'Neither of the lawyers WAS present.' Rule: Neither/either + of + plural noun → singular verb (was, is, has)." },
+  { q: "Which word is the correct antonym of 'Plaintiff'?", opts: ["Appellant", "Defendant", "Witness", "Litigant"], ans: 1, exp: "Defendant is the opposing party to the Plaintiff in a civil case. The plaintiff files the suit; the defendant defends against it. (In criminal cases: Prosecution vs Accused.)" },
+  { q: "Identify the error: 'Between you and I, the judgment was unfair.'", opts: ["Between you", "and I", "the judgment", "was unfair"], ans: 1, exp: "'I' is incorrect — it should be 'me' (object form). 'Between' is a preposition and requires the objective case: 'Between you and ME.' This is one of the most common grammar errors." },
+  // Mental Ability
+  { q: "If COURT is coded as DPVSU, how is JUDGE coded?", opts: ["KVEHF", "KVEGF", "KVEIF", "LVEIF"], ans: 0, exp: "Each letter is moved forward by +1: C→D, O→P, U→V, R→S, T→U. So JUDGE → J+1=K, U+1=V, D+1=E, G+1=H, E+1=F = KVEHF." },
+  { q: "Pointing to a woman, a man says 'Her mother is the only daughter of my mother.' How is the woman related to the man?", opts: ["Sister", "Niece", "Daughter", "Mother"], ans: 2, exp: "My mother's only daughter = my sister. So the woman's mother is the man's sister. Therefore the woman is the man's niece. Draw: Man → Sister = Woman's Mother → Woman (niece)." },
+  { q: "A is 40 m south of B. C is 30 m east of A. What is the distance between B and C?", opts: ["50 m", "60 m", "70 m", "35 m"], ans: 0, exp: "B is at origin. A is 40m south of B → A is at (0, −40). C is 30m east of A → C is at (30, −40). BC = √(30² + 40²) = √(900+1600) = √2500 = 50 m. (3-4-5 triplet: 30-40-50)" },
+  { q: "Statements: All lawyers are judges. Some judges are magistrates. Conclusion I: Some lawyers are magistrates. Conclusion II: All magistrates are lawyers.", opts: ["Only I follows", "Only II follows", "Both follow", "Neither follows"], ans: 3, exp: "All lawyers→judges. Some judges→magistrates. But 'all lawyers' doesn't mean 'all judges.' The magistrates could be among the judges who are NOT lawyers. Neither conclusion necessarily follows. Answer: Neither." },
+  // Mixed
+  { q: "The Consumer Protection Act 2019 replaced which earlier Act?", opts: ["Consumer Protection Act 1978", "Consumer Protection Act 1986", "Consumer Protection Act 1990", "Consumer Protection Act 2000"], ans: 1, exp: "Consumer Protection Act 2019 replaced the Consumer Protection Act 1986. The 2019 Act introduced e-commerce coverage, product liability provisions, and Central Consumer Protection Authority (CCPA)." },
+  { q: "Under Limitation Act 1963, what is the limitation period for filing a suit to recover immovable property?", opts: ["3 years", "6 years", "10 years", "12 years"], ans: 3, exp: "The Limitation Act 1963 prescribes 12 years for suits relating to immovable property (Art 65). For money recovery suits, it is 3 years." },
+  { q: "Which of the following best describes 'Injuria Sine Damno'?", opts: ["Damage without legal injury", "Legal injury without actual damage", "No injury to one who consents", "The act speaks for itself"], ans: 1, exp: "Injuria Sine Damno = legal injury without actual damage. A legal right is violated but no actual loss results. The plaintiff can still sue (Ashby v White). Opposite: Damnum Sine Injuria = actual damage without legal injury (no remedy)." },
+  { q: "The POCSO Act 2012 applies to victims below which age?", opts: ["14 years", "16 years", "18 years", "21 years"], ans: 2, exp: "POCSO (Protection of Children from Sexual Offences) Act 2012 applies to all persons below 18 years of age. It establishes Special Courts and reverses the burden of proof — accused is presumed guilty." },
+  { q: "Which of the following Acts governs the legal profession and Bar Council in India?", opts: ["Legal Services Authorities Act 1987", "Advocates Act 1961", "Court Fees Act 1870", "Criminal Procedure Code 1973"], ans: 1, exp: "Advocates Act 1961 governs the legal profession in India and established the Bar Council of India. It regulates the enrollment of advocates, professional standards, and disciplinary proceedings." }
+];
+
+let score = 0;
+let attempted = 0;
+
+function buildQuiz() {
+  const container = document.getElementById('quiz-container');
+  container.innerHTML = '';
+  quizData.forEach((q, i) => {
+    const div = document.createElement('div');
+    div.className = 'q-card';
+    div.id = 'qc' + i;
+    const optsHtml = q.opts.map((opt, j) =>
+      `<button class="q-opt" id="qo${i}_${j}" onclick="selectAnswer(${i},${j})">${String.fromCharCode(65+j)}. ${opt}</button>`
+    ).join('');
+    div.innerHTML = `<div class="q-text">Q${i+1}. ${q.q}</div><div class="q-options">${optsHtml}</div><div class="q-explanation" id="qexp${i}">${q.exp}</div>`;
+    container.appendChild(div);
+  });
+}
+
+function selectAnswer(qi, oi) {
+  const q = quizData[qi];
+  const allOpts = document.querySelectorAll(`[id^="qo${qi}_"]`);
+  let alreadyAnswered = false;
+  allOpts.forEach(o => { if (o.disabled) alreadyAnswered = true; });
+  if (alreadyAnswered) return;
+
+  attempted++;
+  allOpts.forEach((o, j) => {
+    o.disabled = true;
+    if (j === q.ans) o.classList.add('correct');
+    else if (j === oi && oi !== q.ans) o.classList.add('wrong');
+  });
+
+  if (oi === q.ans) score++;
+  document.getElementById('qexp' + qi).classList.add('show');
+  document.getElementById('sc-num').textContent = score;
+  document.getElementById('sc-label').textContent = `${attempted} of ${quizData.length} attempted`;
+  document.getElementById('prog-fill').style.width = (attempted / quizData.length * 100) + '%';
+}
+
+function resetQuiz() {
+  score = 0;
+  attempted = 0;
+  document.getElementById('sc-num').textContent = '0';
+  document.getElementById('sc-label').textContent = `0 of ${quizData.length} attempted`;
+  document.getElementById('prog-fill').style.width = '0%';
+  buildQuiz();
+}
+
+buildFlashCards();
+buildQuiz();
+</script>
+</body>
+</html>
