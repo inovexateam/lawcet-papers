@@ -133,6 +133,7 @@ tr:hover td{background:var(--surface2);}
     <button class="nb"     onclick="show('flash',this)">🃏 Flash Cards</button>
     <button class="nb"     onclick="show('quiz',this)">🎯 Quiz (45 Qs)</button>
     <button class="nb"     onclick="show('strategy',this)">📌 Strategy</button>
+    <button class="nb new-tag" onclick="show('expected',this)">🔮 Expected 2026</button>
   </nav>
 </div>
 
@@ -1008,6 +1009,50 @@ tr:hover td{background:var(--surface2);}
   </div>
 </div>
 
+
+<!-- ═══════════════════ EXPECTED QUESTIONS 2026 ═══════════════════ -->
+<div id="expected" class="sec">
+  <div class="sh">
+    <h2>🔮 Expected Questions for TG LAWCET 2026</h2>
+    <p>Based on TG LAWCET 2025 paper analysis, past trends, and 2024–25 current affairs. These are the most likely question areas and sample MCQs.</p>
+  </div>
+
+  <!-- Trend banner -->
+  <div class="card" style="border-color:#d4a853;background:linear-gradient(135deg,#1c1a10,#15171c)">
+    <div class="ct" style="color:var(--gold)">📊 What TG LAWCET 2025 Taught Us — 2026 Prediction</div>
+    <div class="g2">
+      <div>
+        <div class="pt"><b>Legal Aptitude (60 Qs):</b> Moderately tough — principle+fact questions, IPC sections, contract law, constitutional articles. <span style="color:#f08080">Difficulty likely same or slightly harder in 2026.</span></div>
+        <div class="pt"><b>Current Affairs (30 Qs):</b> Easy–moderate. 2025 asked about ISRO, appointments, SC judgments, awards. <span style="color:#4caf7d">Same pattern expected for 2026.</span></div>
+        <div class="pt"><b>GK & Mental Ability (30 Qs):</b> Easier section. Geography, history, reasoning. Good score = 22+/30.</div>
+      </div>
+      <div>
+        <div class="mna"><b>New for 2026 (very likely):</b><br>
+        • BNS/BNSS/BSA — new section numbers vs old IPC<br>
+        • Sub-classification of SC/ST (2024 SC judgment)<br>
+        • Electoral Bonds case 2024<br>
+        • Waqf Amendment Act 2025<br>
+        • D. Gukesh chess champion<br>
+        • Paris Olympics 2024 medals<br>
+        • Chandrayaan-3 / Aditya-L1 follow-up</div>
+      </div>
+    </div>
+    <div class="tip" style="margin-top:.75rem">A good score = 80+ / 120. Target: 40/60 Legal + 22/30 Current Affairs + 22/30 GK. No negative marking — attempt everything!</div>
+  </div>
+
+  <!-- Quiz engine for expected questions -->
+  <div class="sbar">
+    <div><div class="snum" id="eq-sc">0</div><div style="font-size:13px;color:var(--text-dim)">correct</div></div>
+    <div class="prog">
+      <div style="font-size:12px;color:var(--text-dim);margin-bottom:4px" id="eq-lbl">0 of 50 attempted</div>
+      <div class="ptrack"><div class="pfill" id="eq-fill" style="width:0%"></div></div>
+    </div>
+    <button onclick="resetEQ()" style="font-size:13px;padding:7px 16px;border-radius:999px;border:1px solid var(--border2);background:transparent;color:var(--text-dim);cursor:pointer;font-family:'DM Sans',sans-serif">↺ Reset</button>
+  </div>
+
+  <div id="eq-container"></div>
+</div>
+
 </div><!-- /wrap -->
 <div class="footer">TG LAWCET 2026 Complete Study Guide — All 16 sections. Covers Legal Aptitude, New Criminal Codes, Maths, Amendments, Acts, GK, History, Current Affairs, Economy, Science & Tech, Awards, English, Mental Ability, Flash Cards (30), Quiz (45 Qs), Strategy. Best of luck! 🏛️</div>
 
@@ -1164,6 +1209,356 @@ function resetQuiz(){
 
 buildFC();
 buildQuiz();
+
+// ── EXPECTED QUESTIONS 2026 ──
+const eqdata = [
+  // ── LEGAL APTITUDE (most likely) ──
+  {cat:'l', tag:'Legal — New Codes',
+   q:"Under the new Bharatiya Nyaya Sanhita (BNS) 2023, which section corresponds to the offence of 'Murder' that was previously under Section 302 of the IPC?",
+   opts:["Section 85","Section 100","Section 101","Section 103"],
+   ans:2,
+   exp:"Murder = Section 101 of BNS (Bharatiya Nyaya Sanhita 2023). The BNS replaced the IPC from 1 July 2024. Key mapping: IPC 302 = BNS 101 (murder) | IPC 376 = BNS 63 (rape) | IPC 420 = BNS 318 (cheating) | IPC 498A = BNS 85 (matrimonial cruelty)."},
+
+  {cat:'l', tag:'Legal — New Codes',
+   q:"Which of the following replaced the Code of Criminal Procedure (CrPC) 1973 effective from 1 July 2024?",
+   opts:["Bharatiya Nyaya Sanhita (BNS)","Bharatiya Sakshya Adhiniyam (BSA)","Bharatiya Nagarik Suraksha Sanhita (BNSS)","Bharatiya Dand Sanhita (BDS)"],
+   ans:2,
+   exp:"BNSS (Bharatiya Nagarik Suraksha Sanhita 2023) replaced the CrPC 1973. BNS replaced IPC. BSA replaced the Indian Evidence Act 1872. All three came into force on 1 July 2024. 'Nagarik Suraksha' = Citizen Safety = procedural law."},
+
+  {cat:'l', tag:'Legal — Principle Application',
+   q:"Principle: A person commits theft when they dishonestly take movable property out of the possession of another person without that person's consent. Facts: Ravi took his own umbrella which was mistakenly picked up by his colleague Suresh. Is Ravi guilty of theft?",
+   opts:["Yes, because he took property from Suresh without consent","No, because Ravi had no dishonest intention — he took his own property","Yes, because the physical act of taking is sufficient","No, because umbrellas are not valuable property"],
+   ans:1,
+   exp:"No theft. The principle requires DISHONEST intention. Ravi took his own property which was in Suresh's possession by mistake. There is no dishonest intent — he had every right to his own umbrella. Mens rea (dishonest intent) is absent. Golden rule: apply only the given principle literally."},
+
+  {cat:'l', tag:'Legal — Principle Application',
+   q:"Principle: Every person has the right to defend their body against any offence affecting the human body, provided the harm caused in defence is not more than necessary for that purpose. Facts: Akbar was slapped once by Babu. Akbar pulled out a knife and stabbed Babu fatally. Decide.",
+   opts:["Akbar is protected by right of private defence","Akbar exceeded right of private defence — guilty","Akbar was justified as Babu attacked first","Akbar is not guilty because self-defence is always valid"],
+   ans:1,
+   exp:"Akbar EXCEEDED the right of private defence. The principle specifically limits the response to what is 'necessary.' A single slap does not justify a fatal stabbing with a knife. The force must be proportionate to the threat. Akbar would be guilty (likely culpable homicide), not protected by private defence."},
+
+  {cat:'l', tag:'Legal — Constitutional Law',
+   q:"Under which Article of the Constitution can the President of India impose President's Rule in a state?",
+   opts:["Article 352","Article 354","Article 356","Article 360"],
+   ans:2,
+   exp:"Article 356 — President's Rule (State Emergency). Imposed when Governor reports that constitutional machinery has failed. Requires Parliamentary approval every 6 months. Max 3 years. S.R. Bommai case (1994) held that floor test must be done before dismissing a state government."},
+
+  {cat:'l', tag:'Legal — Contract Law',
+   q:"Which of the following is an essential element of a valid contract under the Indian Contract Act 1872?",
+   opts:["Written form only","Consideration must be adequate","Free consent of parties","Parties must be related"],
+   ans:2,
+   exp:"Free consent (Sec 14) is essential. A contract without free consent (obtained by coercion, fraud, undue influence, misrepresentation, or mistake) is voidable. Other essentials: offer+acceptance, lawful consideration (need not be adequate), capacity to contract, lawful object. Written form is NOT mandatory for all contracts."},
+
+  {cat:'l', tag:'Legal — IPC / BNS',
+   q:"'Culpable homicide' under IPC Section 299 becomes 'Murder' under Section 300 when:",
+   opts:["Death is caused by any act","Death is caused accidentally","There is intention to cause death or knowledge that the act is imminently dangerous","The victim is a public servant"],
+   ans:2,
+   exp:"Murder (Sec 300 IPC / Sec 101 BNS) = Culpable Homicide (Sec 299 / Sec 100) when: (1) there is intention to cause death, OR (2) intention to cause bodily injury likely to cause death, OR (3) knowledge that act is imminently dangerous likely to cause death. Murder is a sub-set of culpable homicide."},
+
+  {cat:'l', tag:'Legal — Tort Law',
+   q:"In which case did the Supreme Court lay down the principle of 'Absolute Liability' for hazardous industries with no exceptions?",
+   opts:["Rylands v Fletcher","Donoghue v Stevenson","MC Mehta v Union of India (1986)","Olga Tellis v BEST Undertaking"],
+   ans:2,
+   exp:"MC Mehta v UOI (1986) — arising from the Oleum gas leak from a Delhi factory. SC held that industries engaged in hazardous/inherently dangerous activities are absolutely liable — no exceptions like Act of God, plaintiff's consent, etc. This is stricter than Rylands v Fletcher which allows exceptions."},
+
+  {cat:'l', tag:'Legal — Constitution',
+   q:"The Supreme Court's judgment in Kesavananda Bharati v State of Kerala (1973) established which doctrine?",
+   opts:["Doctrine of Severability","Doctrine of Basic Structure","Doctrine of Pith and Substance","Doctrine of Eclipse"],
+   ans:1,
+   exp:"Basic Structure doctrine: Parliament can amend the Constitution under Art 368 but CANNOT destroy its basic/essential features. Basic features include: supremacy of Constitution, judicial review, secularism, democracy, federalism, free and fair elections, rule of law. This 13-judge bench (7:6) decision is the most important Constitutional case."},
+
+  {cat:'l', tag:'Legal — New Codes',
+   q:"Under the new BNSS (Bharatiya Nagarik Suraksha Sanhita 2023), which is a NEW feature NOT present in the old CrPC?",
+   opts:["Power of arrest","FIR registration","Zero FIR and mandatory e-FIR","Right to bail"],
+   ans:2,
+   exp:"Zero FIR and e-FIR are new features in BNSS. Zero FIR = can be filed at ANY police station regardless of jurisdiction (then transferred). e-FIR = FIR can be filed electronically. Also new: forensic investigation mandatory for 7+ year offences; trial in absentia for absconders; video recording of search & seizure."},
+
+  {cat:'l', tag:'Legal — Property Law',
+   q:"Which of the following writs can be issued against a private individual?",
+   opts:["Mandamus","Certiorari","Prohibition","Habeas Corpus"],
+   ans:3,
+   exp:"Habeas Corpus can be issued against both government and private individuals who are holding someone in unlawful detention. Mandamus, Certiorari and Prohibition are generally issued against public bodies/officials performing public duties. This is a commonly tested distinction."},
+
+  {cat:'l', tag:'Legal — Maxims',
+   q:"The maxim 'Res Ipsa Loquitur' is applied in cases of:",
+   opts:["Contract disputes","Criminal conspiracy","Negligence in Tort Law","Property disputes"],
+   ans:2,
+   exp:"'Res Ipsa Loquitur' (the thing speaks for itself) is a doctrine in Tort Law — specifically negligence. When an accident itself implies negligence (e.g., a surgical instrument left inside a patient), negligence is inferred without requiring direct proof. Used when the facts of the case speak louder than any evidence."},
+
+  // ── CURRENT AFFAIRS ──
+  {cat:'c', tag:'Current Affairs — 2024',
+   q:"India became the 4th country in the world to achieve space docking technology. This was accomplished through which mission?",
+   opts:["Chandrayaan-3","Aditya-L1","SpaDeX (Space Docking Experiment)","Gaganyaan test flight"],
+   ans:2,
+   exp:"SpaDeX (Space Docking Experiment) — ISRO's mission that made India the 4th country after Russia, USA, and China to achieve space docking technology. The docking was successfully completed in 2025, a critical step for India's Gaganyaan crewed mission and future space station."},
+
+  {cat:'c', tag:'Current Affairs — 2024',
+   q:"In 2024, India committed to achieving net-zero carbon emissions by which year as part of its climate action goals?",
+   opts:["2047","2050","2060","2070"],
+   ans:3,
+   exp:"India's NDC (Nationally Determined Contribution) target is Net Zero by 2070. India also committed to sourcing 50% of its energy from non-fossil fuel sources by 2030 and reducing emissions intensity of GDP by 45% by 2030 (from 2005 levels). Announced at COP26 (Glasgow) and reaffirmed subsequently."},
+
+  {cat:'c', tag:'Current Affairs — 2025',
+   q:"The Waqf (Amendment) Act was passed by Parliament in which year?",
+   opts:["2023","2024","2025","2022"],
+   ans:2,
+   exp:"The Waqf (Amendment) Act 2025 was passed by Parliament in 2025. It made significant amendments to the Waqf Act 1995. Key changes include: non-Muslims can be included in Waqf Boards, enhanced government oversight, changes to property dispute resolution, and audit requirements. It was one of the most debated laws of 2025."},
+
+  {cat:'c', tag:'Current Affairs — 2024',
+   q:"Who was the first Dalit Chief Justice of India, sworn in November 2024?",
+   opts:["Justice D.Y. Chandrachud","Justice Sanjiv Khanna","Justice B.R. Gavai","Justice Surya Kant"],
+   ans:2,
+   exp:"Justice B.R. Gavai became the 51st Chief Justice of India in November 2024. He is historically significant as India's first Dalit Chief Justice. Before him, Justice Sanjiv Khanna served briefly (from November 2023). Justice Gavai's appointment marked a landmark moment for representation in India's judiciary."},
+
+  {cat:'c', tag:'Current Affairs — 2024',
+   q:"The Electoral Bonds Scheme was struck down by the Supreme Court in February 2024 because it violated:",
+   opts:["Art 14 — Right to Equality","Art 19(1)(a) — Right to Information","Art 21 — Right to Life","Art 32 — Right to Remedies"],
+   ans:1,
+   exp:"The 5-judge Constitutional bench struck down the Electoral Bonds Scheme in February 2024 primarily because it violated the Right to Information under Art 19(1)(a). Citizens have a right to know who funds political parties. Anonymous political funding was held unconstitutional. SBI was directed to submit all bond data to the Election Commission."},
+
+  {cat:'c', tag:'Current Affairs — 2024',
+   q:"At the Paris Olympics 2024, Manu Bhaker won two bronze medals in which sport, becoming the first Indian woman with 2 medals in a single Olympics?",
+   opts:["Badminton","Archery","Shooting","Boxing"],
+   ans:2,
+   exp:"Manu Bhaker won 2 bronze medals in Shooting at Paris Olympics 2024 — one in 10m air pistol (individual) and one in 10m air pistol (mixed team, with Sarabjot Singh). She became the first Indian woman to win two medals at a single Olympic Games. Neeraj Chopra won India's only silver in javelin."},
+
+  {cat:'c', tag:'Current Affairs — 2025',
+   q:"Which sub-classification judgment of 2024 allowed states to sub-classify within SC/ST categories for reservation?",
+   opts:["Indra Sawhney v UOI","State of Punjab v Davinder Singh (overruling E.V. Chinnaiah)","Mandal Commission case","Nagaraj v UOI"],
+   ans:1,
+   exp:"A 7-judge Constitutional bench in State of Punjab v Davinder Singh (August 2024) held that states CAN sub-classify within SC/ST categories to ensure the most backward get benefits first. This overruled E.V. Chinnaiah v State of AP (2004). Key impact: states like Telangana may create further categories within SC/ST reservations."},
+
+  {cat:'c', tag:'Current Affairs — 2024',
+   q:"D. Gukesh made history in December 2024 by becoming the youngest ever World Chess Champion. He defeated which opponent?",
+   opts:["Magnus Carlsen","Fabiano Caruana","Ding Liren","Ian Nepomniachtchi"],
+   ans:2,
+   exp:"D. Gukesh (18 years old) defeated China's Ding Liren in the World Chess Championship held in Singapore in December 2024. He became the youngest World Chess Champion ever, breaking records previously held by Garry Kasparov. He is only the second Indian after Viswanathan Anand to win the title."},
+
+  {cat:'c', tag:'Current Affairs — 2024',
+   q:"Uttarakhand became the first Indian state to implement which major legal reform in 2024?",
+   opts:["Right to Property Act","Uniform Civil Code (UCC)","Common Criminal Code","Uniform Education Code"],
+   ans:1,
+   exp:"Uttarakhand became the first state in India to implement the Uniform Civil Code (UCC) in 2024. UCC provides common civil laws for all citizens regardless of religion. It covers marriage, divorce, inheritance, and adoption. Art 44 (DPSP) directs the state to secure a UCC — Uttarakhand became the first to act on this."},
+
+  {cat:'c', tag:'Current Affairs — 2025',
+   q:"George Floyd's 5th death anniversary was observed in May 2025. He died in which year due to police brutality?",
+   opts:["2018","2019","2020","2021"],
+   ans:2,
+   exp:"George Floyd died on May 25, 2020, in Minneapolis, Minnesota, USA, due to police brutality (a white police officer kneeled on his neck for over 9 minutes). His death triggered the global Black Lives Matter movement. His 5th death anniversary was observed in May 2025 — this was directly asked in TG LAWCET 2025!"},
+
+  // ── GK & HISTORY ──
+  {cat:'g', tag:'GK — Geography',
+   q:"Which Indian state is known as the 'Spice Garden of India'?",
+   opts:["Karnataka","Tamil Nadu","Kerala","Andhra Pradesh"],
+   ans:2,
+   exp:"Kerala is called the 'Spice Garden of India' because it produces large quantities of black pepper, cardamom, cinnamon, cloves, nutmeg, and ginger. This was directly asked in TG LAWCET 2025 Shift 1. Kerala's Western Ghats region has ideal conditions for spice cultivation."},
+
+  {cat:'g', tag:'GK — History',
+   q:"Who introduced the silver coin called 'Rupiya' which became the origin of the Indian Rupee?",
+   opts:["Shah Jahan","Akbar","Sher Shah Suri","Aurangzeb"],
+   ans:2,
+   exp:"Sher Shah Suri (1540–1545) introduced the silver coin called 'Rupiya' — this became the basis of the modern Indian Rupee. He also introduced a standardised postal and road system. This was directly asked in TG LAWCET 2025. The word Rupiya comes from Sanskrit 'Rupa' (silver)."},
+
+  {cat:'g', tag:'GK — World',
+   q:"The Magna Carta, a foundational document for constitutional law, was signed in which year?",
+   opts:["1066","1215","1492","1776"],
+   ans:1,
+   exp:"The Magna Carta was signed in 1215 by King John of England. It is considered the world's first constitutional document — limiting royal power and establishing the principle that even the king is subject to law. This was directly asked in TG LAWCET 2025 and is likely to reappear as a foundational legal history question."},
+
+  {cat:'g', tag:'GK — India',
+   q:"National Crime Records Bureau (NCRB) was established in which year?",
+   opts:["1980","1983","1986","1990"],
+   ans:2,
+   exp:"NCRB was established in 1986 under the Ministry of Home Affairs. It functions as a repository of information on crime and criminals. It publishes the annual 'Crime in India' report. This was directly asked in TG LAWCET 2025. NCRB HQ is in New Delhi."},
+
+  {cat:'g', tag:'GK — Geography',
+   q:"Which state shares international boundaries with Bhutan, China, and Nepal?",
+   opts:["Assam","Uttarakhand","Arunachal Pradesh","Sikkim"],
+   ans:3,
+   exp:"Sikkim shares international boundaries with three countries: Bhutan (east), China/Tibet (north and northeast), and Nepal (west). This was directly asked in TG LAWCET 2025 Shift 2. Sikkim is the smallest state in India by area and the least populous."},
+
+  {cat:'g', tag:'GK — Science & Tech',
+   q:"The SpaDeX mission made India the 4th country to achieve space docking. The other three countries are:",
+   opts:["Russia, USA, Japan","Russia, USA, China","USA, China, France","Russia, China, Japan"],
+   ans:1,
+   exp:"Russia, USA, and China had achieved space docking before India. India became the 4th country with ISRO's SpaDeX (Space Docking Experiment) mission in 2025. Space docking is a critical technology for crewed missions, space stations, and satellite servicing."},
+
+  {cat:'g', tag:'GK — Awards',
+   q:"How many recipients were awarded the Bharat Ratna in 2024 — the highest ever in a single year?",
+   opts:["3","4","5","6"],
+   ans:2,
+   exp:"5 Bharat Ratna recipients in 2024: Karpoori Thakur (posthumous), L.K. Advani, P.V. Narasimha Rao (posthumous), M.S. Swaminathan (posthumous), and Chaudhary Charan Singh (posthumous). This was the highest number ever awarded in a single year. All 5 were announced by the Modi government before the 2024 general elections."},
+
+  {cat:'g', tag:'GK — Constitution',
+   q:"Which Part of the Indian Constitution contains the Directive Principles of State Policy (DPSPs)?",
+   opts:["Part II","Part III","Part IV","Part IVA"],
+   ans:2,
+   exp:"DPSPs are in Part IV (Articles 36–51) of the Constitution. They are not justiciable (cannot be enforced in court — Art 37). However, they are fundamental in governance. Part III = FRs | Part IV = DPSPs | Part IVA = Fundamental Duties (Art 51A, added by 42nd Amendment 1976)."},
+
+  {cat:'g', tag:'GK — History',
+   q:"The Quit India Movement was launched by Mahatma Gandhi on which date?",
+   opts:["15 August 1942","8 August 1942","26 January 1942","30 January 1942"],
+   ans:1,
+   exp:"The Quit India Movement was launched on 8 August 1942 at the Bombay session of the All India Congress Committee. Gandhi gave the call 'Do or Die' (Karo ya Maro). Mass arrests followed — Gandhi, Nehru and other leaders were arrested. It significantly accelerated India's path to independence."},
+
+  // ── MENTAL ABILITY ──
+  {cat:'m', tag:'Mental Ability — Series',
+   q:"What is the next number in the series: 1, 1, 2, 3, 5, 8, 13, ___?",
+   opts:["18","20","21","24"],
+   ans:2,
+   exp:"This is the Fibonacci sequence — each number is the sum of the two preceding numbers: 1+1=2, 1+2=3, 2+3=5, 3+5=8, 5+8=13, 8+13=21. Answer = 21. The Fibonacci sequence appears frequently in nature and is a common pattern in reasoning questions."},
+
+  {cat:'m', tag:'Mental Ability — Analogy',
+   q:"Lawyer : Court :: Doctor : ?",
+   opts:["Medicine","Patient","Hospital","Clinic"],
+   ans:2,
+   exp:"Lawyer works in a Court. Similarly, a Doctor works in a Hospital. The relationship is 'professional : place of work.' Medicine is what a doctor prescribes (not where they work). Patient is who they treat. Hospital is the correct parallel to Court as the primary place of professional practice."},
+
+  {cat:'m', tag:'Mental Ability — Coding',
+   q:"If 'COURT' is coded as 'EQWTV' (each letter +2), how is 'LAW' coded?",
+   opts:["NCY","NBZ","NCZ","NBY"],
+   ans:0,
+   exp:"Each letter is shifted forward by +2: L(12)+2=N(14), A(1)+2=C(3), W(23)+2=Y(25). So LAW = NCY. Verification: C(3)+2=E(5)✓, O(15)+2=Q(17)✓, U(21)+2=W(23)✓, R(18)+2=T(20)✓, T(20)+2=V(22)✓. Pattern confirmed — answer is NCY."},
+
+  {cat:'m', tag:'Mental Ability — Blood Relations',
+   q:"Pointing to a man, a woman says, 'His mother is the only daughter of my mother.' How is the woman related to the man?",
+   opts:["Aunt","Sister","Mother","Grandmother"],
+   ans:2,
+   exp:"'Only daughter of my mother' = the woman herself. So 'his mother is this woman.' Therefore, the man is the woman's son. Draw: Woman's mother → Woman (only daughter) = Man's mother → Man (son). Answer = Mother. Classic blood relation trap — 'only daughter of my mother' = me."},
+
+  {cat:'m', tag:'Mental Ability — Direction',
+   q:"Ravi walks 10 km North, then turns East and walks 6 km, then turns South and walks 10 km. How far is he from the starting point?",
+   opts:["4 km","6 km","10 km","16 km"],
+   ans:1,
+   exp:"North 10 km → East 6 km → South 10 km. The North and South movements cancel out (10−10=0). Ravi is now 6 km East of the starting point. Distance from start = 6 km. This is a straightforward direction problem where north/south cancel and he ends up due east."},
+
+  // ── ENGLISH ──
+  {cat:'e', tag:'English — Error Spotting',
+   q:"Identify the error: 'The committee have reached its decision unanimously.'",
+   opts:["The committee","have reached","its decision","unanimously"],
+   ans:1,
+   exp:"'have reached' is incorrect when 'committee' acts as a single unit. When a collective noun acts as one unified body, it takes a singular verb: 'The committee HAS reached its decision.' Note: 'its' (singular) is already correctly used, which confirms the committee is being treated as a unit."},
+
+  {cat:'e', tag:'English — Vocabulary',
+   q:"The legal term 'subpoena' refers to:",
+   opts:["A court order to pay fine","A writ for unlawful detention","A court order compelling a witness to testify","A final court judgment"],
+   ans:2,
+   exp:"Subpoena (from Latin: 'under penalty') is a court order compelling a person to appear in court as a witness or to produce documents. Failure to comply can result in contempt of court. Compare: Habeas Corpus = produce the body (detainee) | Subpoena = produce the person (witness) or document."},
+
+  {cat:'e', tag:'English — Grammar',
+   q:"Choose the correct sentence regarding use of 'between' and 'among':",
+   opts:["The property was divided between the three sons","The property was divided among the three sons","Between all the candidates, she was best","Among you and me, this is confidential"],
+   ans:1,
+   exp:"'Among' is used when referring to three or more people/things: 'divided among the three sons' ✓. 'Between' is used for two: 'between you and me' ✓ (also 'between' is used when things are individually distinct even if more than two). Error in A: three sons = among. Error in C: should be 'Among all' or better 'Of all.' Error in D: should be 'between'."},
+
+  // ── NEW LAW & LEGAL AWARENESS ──
+  {cat:'l', tag:'Legal — 2025 Awareness',
+   q:"The Waqf (Amendment) Act 2025 makes changes to which earlier Act?",
+   opts:["Waqf Act 1954","Waqf Act 1984","Waqf Act 1995","Waqf Act 2013"],
+   ans:2,
+   exp:"The Waqf (Amendment) Act 2025 amends the Waqf Act 1995. Key changes: non-Muslims can now be members of Waqf Boards, enhanced audit and accountability requirements, changes to property dispute resolution mechanisms, and increased government oversight. The amendments were highly debated in Parliament."},
+
+  {cat:'l', tag:'Legal — POCSO',
+   q:"Under the POCSO Act 2012, who bears the burden of proof in trials for sexual offences against children?",
+   opts:["The prosecution must prove guilt","The child victim must testify","The accused is presumed guilty — burden shifts to them to prove innocence","Equal burden on both sides"],
+   ans:2,
+   exp:"POCSO Act 2012 reverses the normal burden of proof. Under Sec 29, once prosecution establishes basic facts, the accused is presumed guilty and must prove their innocence. This is an exception to the general rule in criminal law ('innocent until proven guilty'). Also: the Act is gender-neutral for victims."},
+
+  {cat:'l', tag:'Legal — Consumer Law',
+   q:"Under the Consumer Protection Act 2019, a consumer complaint must be filed within how many years from the cause of action?",
+   opts:["1 year","2 years","3 years","5 years"],
+   ans:1,
+   exp:"Under Sec 69 of the Consumer Protection Act 2019, a complaint must be filed within 2 years from the date the cause of action arose. The District/State/National Commission can admit a complaint after 2 years if sufficient cause is shown. This replaced the 1986 Act which had the same 2-year limit."},
+
+  {cat:'c', tag:'Current Affairs — Telangana',
+   q:"TG LAWCET 2026 is conducted by which university on behalf of TGCHE?",
+   opts:["Kakatiya University","Hyderabad Central University","Osmania University","NALSAR University"],
+   ans:2,
+   exp:"TG LAWCET (Telangana State Law Common Entrance Test) is conducted by Osmania University, Hyderabad on behalf of the Telangana State Council of Higher Education (TGCHE). It is held annually for admission to 3-Year LLB and 5-Year BA LLB / BBA LLB programs in law colleges across Telangana."},
+
+  {cat:'g', tag:'GK — Environment',
+   q:"India committed to achieving net-zero emissions by 2070 and sourcing what percentage of energy from non-fossil fuels by 2030?",
+   opts:["40%","45%","50%","60%"],
+   ans:2,
+   exp:"India's updated NDC (Nationally Determined Contribution) targets: (1) Net zero by 2070, (2) 50% of cumulative electric power capacity from non-fossil fuel sources by 2030, and (3) reduce emission intensity of GDP by 45% from 2005 levels by 2030. These were submitted under the Paris Agreement framework."},
+
+  {cat:'c', tag:'Current Affairs — India',
+   q:"India's first indigenously built aircraft carrier INS Vikrant was commissioned in which year?",
+   opts:["2020","2021","2022","2023"],
+   ans:2,
+   exp:"INS Vikrant was commissioned on 2 September 2022 by Prime Minister Narendra Modi in Kochi, Kerala. It is India's first indigenously designed and built aircraft carrier. It was built by Cochin Shipyard Limited (CSL). With this, India joined a small group of nations capable of building aircraft carriers."},
+
+  {cat:'g', tag:'GK — Polity',
+   q:"The Attorney General of India is appointed under which Article of the Constitution and by whom?",
+   opts:["Art 74 by Prime Minister","Art 76 by President","Art 78 by President","Art 80 by Rajya Sabha"],
+   ans:1,
+   exp:"Art 76 — The Attorney General of India is appointed by the President of India. The AG must be qualified to be a judge of the Supreme Court (i.e., must have been an advocate of HC for 10 years or a judge of HC for 5+ years). The AG is India's highest law officer and represents the Union in courts. Current AG: R. Venkataramani."},
+
+  {cat:'l', tag:'Legal — Evidence',
+   q:"The BSA (Bharatiya Sakshya Adhiniyam 2023) replaced the Indian Evidence Act. A key addition in BSA is:",
+   opts:["Electronic evidence is now inadmissible","Electronic and digital records are explicitly recognised as evidence","CCTV footage needs special permission","DNA evidence is banned"],
+   ans:1,
+   exp:"A key improvement in BSA over the old Evidence Act 1872 is the explicit recognition of electronic and digital records as primary evidence. The old Act had provisions for electronic records but BSA modernises and expands this. Documents include any matter expressed using letters, figures, marks, or in electronic/digital form."},
+
+  {cat:'c', tag:'Current Affairs — Sports',
+   q:"India won the ICC Men's T20 World Cup 2024 defeating South Africa. Where was the final held?",
+   opts:["Port of Spain, Trinidad","Kingston, Jamaica","Bridgetown, Barbados","Nassau, Bahamas"],
+   ans:2,
+   exp:"The ICC Men's T20 World Cup 2024 final was held at Kensington Oval, Bridgetown, Barbados (West Indies) on 29 June 2024. India defeated South Africa by 7 runs in a nail-biting final. Rohit Sharma captained India. It was India's first T20 World Cup title since 2007 (under MS Dhoni)."},
+
+  {cat:'m', tag:'Mental Ability — Syllogism',
+   q:"Statements: All advocates are lawyers. Some lawyers are judges. Conclusion I: Some advocates are judges. Conclusion II: All judges are lawyers.",
+   opts:["Only I follows","Only II follows","Both I and II follow","Neither follows"],
+   ans:3,
+   exp:"Conclusion I: All advocates are lawyers. Some lawyers are judges. But the 'some lawyers' who are judges may NOT be advocates — they could be the other lawyers (non-advocates). So Conclusion I does NOT necessarily follow. Conclusion II: 'All judges are lawyers' — we only know 'some lawyers are judges' not all judges are lawyers. So II also does NOT follow. Answer: Neither."}
+];
+
+let eqScore=0, eqAttempted=0;
+const eqTotal=eqdata.length;
+const eqCatLabel={l:'Legal',m:'Reasoning',g:'GK/History',e:'English',c:'Current Affairs'};
+const eqCatClass={l:'qcat-l',m:'qcat-e',g:'qcat-g',e:'qcat-e',c:'qcat-c'};
+
+function buildEQ(){
+  const c=document.getElementById('eq-container');
+  c.innerHTML='';
+  eqdata.forEach((q,i)=>{
+    const d=document.createElement('div');
+    d.className='qcard';
+    // tag banner
+    const tagSpan=`<span style="font-size:11px;padding:1px 7px;border-radius:999px;background:#1e2535;color:#7fb3f5;margin-left:6px">${q.tag}</span>`;
+    const opts=q.opts.map((o,j)=>`<button class="qo" id="eqo${i}_${j}" onclick="pickEQ(${i},${j})">${String.fromCharCode(65+j)}. ${o}</button>`).join('');
+    d.innerHTML=`<div class="qnum">Q${i+1}<span class="${eqCatClass[q.cat]} qcat">${eqCatLabel[q.cat]}</span>${tagSpan}</div><div class="qt">${q.q}</div><div class="qopts">${opts}</div><div class="qexp" id="eqexp${i}">${q.exp}</div>`;
+    c.appendChild(d);
+  });
+}
+
+function pickEQ(qi,oi){
+  const opts=document.querySelectorAll(`[id^="eqo${qi}_"]`);
+  let done=false;
+  opts.forEach(o=>{if(o.disabled)done=true;});
+  if(done)return;
+  eqAttempted++;
+  opts.forEach((o,j)=>{
+    o.disabled=true;
+    if(j===eqdata[qi].ans)o.classList.add('ok');
+    else if(j===oi)o.classList.add('no');
+  });
+  if(oi===eqdata[qi].ans)eqScore++;
+  document.getElementById('eqexp'+qi).classList.add('on');
+  document.getElementById('eq-sc').textContent=eqScore;
+  document.getElementById('eq-lbl').textContent=`${eqAttempted} of ${eqTotal} attempted`;
+  document.getElementById('eq-fill').style.width=(eqAttempted/eqTotal*100)+'%';
+}
+
+function resetEQ(){
+  eqScore=0; eqAttempted=0;
+  document.getElementById('eq-sc').textContent='0';
+  document.getElementById('eq-lbl').textContent=`0 of ${eqTotal} attempted`;
+  document.getElementById('eq-fill').style.width='0%';
+  buildEQ();
+}
+
+buildEQ();
 </script>
 </body>
 </html>
