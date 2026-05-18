@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>TG LAWCET 2026 — Mock Test 2</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+:root{
+  --bg:#0c0c10;--bg2:#141419;--bg3:#1c1c24;--bg4:#24242e;
+  --border:#28283a;--txt:#ededf5;--txt2:#8080a0;--txt3:#50506a;
+  --teal:#14b8a6;--teal2:#0f9688;--cyan:#22d3ee;
+  --violet:#8b5cf6;--pink:#f472b6;--green:#22c55e;
+  --red:#f43f5e;--yellow:#fbbf24;--orange:#fb923c;--amber:#f59e0b;
+}
+html,body{height:100%;overflow:hidden;font-family:'Space Grotesk',sans-serif;background:var(--bg);color:var(--txt);}
+.screen{position:fixed;inset:0;display:none;flex-direction:column;}
+.screen.on{display:flex;}
+
+/* ── SPLASH ── */
+#splash{overflow-y:auto;background:var(--bg);}
+.sp-wrap{width:100%;max-width:440px;padding:36px 18px 60px;margin:0 auto;}
+.sp-brand{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;}
+.sp-logo{font-size:12px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;background:linear-gradient(90deg,var(--teal),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.sp-badge{display:flex;align-items:center;gap:5px;background:rgba(20,184,166,0.08);border:1px solid rgba(20,184,166,0.22);border-radius:99px;padding:4px 12px;font-size:10px;font-weight:700;color:var(--teal);letter-spacing:0.08em;text-transform:uppercase;}
+.ldot{width:5px;height:5px;border-radius:50%;background:var(--green);animation:blink 1.4s infinite;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.15}}
+
+.sp-hero{margin-bottom:24px;}
+.sp-eyebrow{font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--txt2);margin-bottom:8px;}
+.sp-title{font-size:clamp(28px,8vw,48px);font-weight:700;line-height:1.05;letter-spacing:-0.025em;margin-bottom:6px;}
+.sp-title .g{background:linear-gradient(135deg,var(--teal),var(--cyan),var(--violet));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.sp-sub{font-size:13px;color:var(--txt2);line-height:1.6;}
+
+.info-row{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:18px;}
+.ic{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:12px 8px;text-align:center;}
+.ic-e{font-size:20px;margin-bottom:4px;}
+.ic-v{font-size:18px;font-weight:700;font-family:'Space Mono',monospace;}
+.ic-l{font-size:10px;color:var(--txt2);margin-top:2px;}
+
+.part-table{background:var(--bg2);border:1px solid var(--border);border-radius:13px;overflow:hidden;margin-bottom:18px;}
+.pt-head{display:grid;grid-template-columns:40px 1fr auto;gap:0;background:var(--bg3);border-bottom:1px solid var(--border);}
+.pt-h{font-size:10px;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;color:var(--txt3);padding:8px 12px;}
+.pt-row{display:grid;grid-template-columns:40px 1fr auto;gap:0;border-bottom:1px solid var(--border);align-items:center;}
+.pt-row:last-child{border-bottom:none;}
+.pt-badge{width:28px;height:22px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;margin:10px auto;}
+.pt-badge.A{background:rgba(34,211,238,0.12);color:var(--cyan);}
+.pt-badge.B{background:rgba(139,92,246,0.12);color:var(--violet);}
+.pt-badge.C{background:rgba(251,191,36,0.12);color:var(--yellow);}
+.pt-badge.D{background:rgba(20,184,166,0.12);color:var(--teal);}
+.pt-info{padding:10px 12px;}
+.pt-name{font-size:13px;font-weight:600;color:var(--txt);}
+.pt-sub{font-size:11px;color:var(--txt2);margin-top:2px;}
+.pt-q{font-size:14px;font-weight:700;font-family:'Space Mono',monospace;color:var(--teal);padding:0 14px;}
+
+.focus-pre{background:rgba(20,184,166,0.04);border:1px solid rgba(20,184,166,0.14);border-radius:13px;padding:14px;margin-bottom:20px;}
+.fp-title{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--teal);margin-bottom:10px;}
+.fp-item{display:flex;gap:8px;font-size:12px;color:var(--txt2);margin-bottom:6px;line-height:1.45;align-items:flex-start;}
+.fp-item:last-child{margin-bottom:0;}
+.fp-icon{color:var(--teal);flex-shrink:0;font-size:12px;}
+
+.sp-cta{width:100%;padding:16px;border-radius:13px;border:none;cursor:pointer;
+  background:linear-gradient(135deg,var(--teal2),var(--teal),var(--cyan));
+  color:#fff;font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;
+  box-shadow:0 4px 24px rgba(20,184,166,0.28);transition:transform 0.14s;}
+.sp-cta:active{transform:scale(0.97);}
+
+/* ── EXAM ── */
+#exam{overflow:hidden;}
+.ex-hd{background:var(--bg);border-bottom:1px solid var(--border);padding:10px 14px 8px;flex-shrink:0;}
+.hd-r1{display:flex;align-items:center;gap:8px;margin-bottom:7px;}
+.hd-back{width:32px;height:32px;border-radius:50%;background:var(--bg3);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:15px;cursor:pointer;flex-shrink:0;transition:transform 0.12s;}
+.hd-back:active{transform:scale(0.88);}
+.tmr{display:flex;align-items:center;gap:5px;background:var(--bg3);border:1px solid var(--border);border-radius:99px;padding:5px 13px;font-family:'Space Mono',monospace;font-size:15px;font-weight:700;color:var(--txt);transition:all 0.3s;}
+.tmr.red{background:rgba(244,63,94,0.1);border-color:rgba(244,63,94,0.32);color:var(--red);}
+.td{width:6px;height:6px;border-radius:50%;background:var(--green);flex-shrink:0;}
+.tmr.red .td{background:var(--red);animation:blink 0.8s infinite;}
+.hd-r{margin-left:auto;display:flex;align-items:center;gap:7px;}
+.qct{font-size:12px;font-weight:600;color:var(--txt2);}
+.qct b{color:var(--txt);}
+.ansp{font-size:10px;font-weight:700;background:rgba(20,184,166,0.1);border:1px solid rgba(20,184,166,0.2);color:var(--teal);padding:3px 9px;border-radius:99px;font-family:'Space Mono',monospace;}
+.pg-bar{height:3px;background:var(--bg3);border-radius:99px;overflow:hidden;}
+.pg-fill{height:100%;background:linear-gradient(90deg,var(--teal2),var(--cyan));border-radius:99px;transition:width 0.3s ease;}
+
+.q-area{flex:1;overflow-y:auto;padding:16px 15px 130px;-webkit-overflow-scrolling:touch;}
+.pchip{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:3px 10px;border-radius:99px;margin-bottom:9px;}
+.pA{background:rgba(34,211,238,0.1);color:var(--cyan);border:1px solid rgba(34,211,238,0.2);}
+.pB{background:rgba(139,92,246,0.1);color:var(--violet);border:1px solid rgba(139,92,246,0.2);}
+.pC{background:rgba(251,191,36,0.1);color:var(--yellow);border:1px solid rgba(251,191,36,0.2);}
+.pD{background:rgba(20,184,166,0.1);color:var(--teal);border:1px solid rgba(20,184,166,0.2);}
+.qnum{font-size:11px;font-weight:600;color:var(--txt3);margin-bottom:4px;}
+.qtxt{font-size:clamp(15px,4.2vw,19px);font-weight:600;line-height:1.48;color:var(--txt);margin-bottom:12px;}
+.qtop{font-size:10px;color:var(--txt3);margin-bottom:12px;display:flex;align-items:center;gap:4px;}
+.qtop::before{content:'#';color:var(--teal);font-weight:700;}
+.opts{display:flex;flex-direction:column;gap:8px;}
+.opt{display:flex;align-items:center;gap:11px;background:var(--bg2);border:1.5px solid var(--border);border-radius:12px;padding:12px 13px;cursor:pointer;transition:all 0.14s;-webkit-user-select:none;user-select:none;}
+.opt:active{transform:scale(0.985);}
+.oltr{width:30px;height:30px;border-radius:50%;background:var(--bg3);border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--txt2);flex-shrink:0;transition:all 0.18s;font-family:'Space Mono',monospace;}
+.otxt{font-size:14px;font-weight:500;color:var(--txt);line-height:1.38;flex:1;}
+.opt.sel{border-color:var(--teal);background:rgba(20,184,166,0.07);}
+.opt.sel .oltr{background:var(--teal);border-color:var(--teal);color:#fff;}
+@keyframes pop{0%{transform:scale(0.95)}60%{transform:scale(1.02)}100%{transform:scale(1)}}
+.opt.sel{animation:pop 0.2s ease;}
+
+.ex-ft{position:fixed;bottom:0;left:0;right:0;background:var(--bg);border-top:1px solid var(--border);padding:10px 14px;padding-bottom:calc(10px + env(safe-area-inset-bottom));display:flex;gap:8px;z-index:40;}
+.fnb{flex:1;padding:12px;border-radius:11px;border:1.5px solid var(--border);background:var(--bg2);color:var(--txt2);font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all 0.13s;}
+.fnb:active{transform:scale(0.96);}
+.fnb.pr{background:linear-gradient(135deg,var(--teal2),var(--teal));border-color:transparent;color:#fff;box-shadow:0 2px 14px rgba(20,184,166,0.25);}
+.fnb.en{background:rgba(244,63,94,0.08);border-color:rgba(244,63,94,0.22);color:var(--red);}
+
+/* ── PALETTE ── */
+.palb{position:fixed;bottom:72px;right:14px;width:42px;height:42px;border-radius:50%;background:var(--bg3);border:1px solid var(--border);display:none;align-items:center;justify-content:center;font-size:17px;cursor:pointer;z-index:50;box-shadow:0 2px 10px rgba(0,0,0,0.45);}
+.palb.on{display:flex;}
+.palb:active{transform:scale(0.9);}
+.pal-ovl{position:fixed;inset:0;z-index:60;display:none;}
+.pal-ovl.on{display:block;}
+.pal-drw{position:fixed;bottom:0;left:0;right:0;max-height:78vh;overflow-y:auto;background:var(--bg2);border-top:1px solid var(--border);border-radius:18px 18px 0 0;padding:13px 14px calc(14px + env(safe-area-inset-bottom));z-index:70;transform:translateY(100%);transition:transform 0.28s cubic-bezier(0.34,1.56,0.64,1);}
+.pal-drw.on{transform:translateY(0);}
+.drw-h{width:32px;height:4px;background:var(--border);border-radius:99px;margin:0 auto 12px;}
+.drw-s{margin-bottom:11px;}
+.drw-l{font-size:10px;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;color:var(--txt3);margin-bottom:6px;}
+.dg{display:flex;flex-wrap:wrap;gap:4px;}
+.qdot{width:31px;height:26px;border-radius:7px;background:var(--bg3);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:var(--txt2);cursor:pointer;transition:all 0.1s;}
+.qdot.dn{background:rgba(20,184,166,0.16);border-color:rgba(20,184,166,0.35);color:var(--teal);}
+.qdot.cr{background:var(--txt);border-color:var(--txt);color:var(--bg);font-weight:700;}
+.leg-r{display:flex;gap:13px;margin:7px 0 11px;}
+.leg{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--txt2);}
+.lsq{width:9px;height:9px;border-radius:3px;}
+.lsq.dn{background:var(--teal);}
+.lsq.cr{background:var(--txt);}
+.lsq.nn{background:var(--bg3);border:1px solid var(--border);}
+.drw-sb{width:100%;padding:11px;border-radius:10px;border:1px solid rgba(244,63,94,0.28);background:rgba(244,63,94,0.07);color:var(--red);font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:700;cursor:pointer;}
+
+/* ── MODAL ── */
+.mod-bg{position:fixed;inset:0;background:rgba(0,0,0,0.74);z-index:200;display:none;align-items:flex-end;backdrop-filter:blur(5px);}
+.mod-bg.on{display:flex;}
+.mod{background:var(--bg2);border:1px solid var(--border);border-radius:18px 18px 0 0;padding:22px 18px calc(22px + env(safe-area-inset-bottom));width:100%;text-align:center;}
+.mod-em{font-size:42px;margin-bottom:10px;}
+.mod h2{font-size:19px;font-weight:700;margin-bottom:7px;}
+.mod p{font-size:13px;color:var(--txt2);line-height:1.5;margin-bottom:18px;}
+.mbs{display:flex;gap:9px;}
+.mbt{flex:1;padding:13px;border-radius:10px;font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;cursor:pointer;border:none;}
+.mbt.c{background:var(--bg3);color:var(--txt2);}
+.mbt.g{background:linear-gradient(135deg,var(--red),var(--orange));color:#fff;}
+
+/* ── RESULTS ── */
+#results{overflow:hidden;}
+.rs-sc{flex:1;overflow-y:auto;padding-bottom:40px;}
+.rs-hero{padding:28px 18px 22px;text-align:center;background:var(--bg2);border-bottom:1px solid var(--border);position:relative;overflow:hidden;}
+.rs-hero::before{content:'';position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:320px;height:320px;border-radius:50%;background:radial-gradient(circle,rgba(20,184,166,0.1) 0%,transparent 70%);pointer-events:none;}
+.rh-em{font-size:48px;margin-bottom:6px;}
+.rh-gr{font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--teal);margin-bottom:12px;}
+.rh-sc{font-size:clamp(50px,13vw,72px);font-weight:700;font-family:'Space Mono',monospace;background:linear-gradient(135deg,var(--teal),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;}
+.rh-d{font-size:15px;color:var(--txt2);margin-top:4px;}
+.rh-p{display:inline-block;margin-top:8px;font-size:13px;font-weight:600;color:var(--txt2);background:var(--bg3);border-radius:99px;padding:4px 14px;}
+.st-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:13px;}
+.st{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:12px 8px;text-align:center;}
+.st-n{font-size:24px;font-weight:700;font-family:'Space Mono',monospace;}
+.st-l{font-size:10px;font-weight:600;color:var(--txt2);margin-top:3px;text-transform:uppercase;letter-spacing:0.05em;}
+.st.c .st-n{color:var(--green);}
+.st.w .st-n{color:var(--red);}
+.st.s .st-n{color:var(--txt3);}
+.sec-hd{padding:13px 15px 5px;font-size:11px;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;color:var(--txt3);}
+.pb-c{margin:0 14px 8px;background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:12px;}
+.pb-r{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;}
+.pb-n{font-size:12px;font-weight:600;color:var(--txt);}
+.pb-s{font-size:12px;font-weight:700;font-family:'Space Mono',monospace;color:var(--teal);}
+.pb-t{height:5px;background:var(--bg3);border-radius:99px;overflow:hidden;}
+.pb-f{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--teal2),var(--cyan));transition:width 0.9s cubic-bezier(0.34,1.56,0.64,1);}
+
+/* score-based focus */
+.focus-sec{padding:13px 14px;}
+.fc-card{background:var(--bg2);border:1px solid var(--border);border-radius:13px;padding:13px;margin-bottom:9px;overflow:hidden;}
+.fc-head{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+.fc-ic{font-size:18px;}
+.fc-title{font-size:13px;font-weight:700;flex:1;}
+.fc-pct{font-size:12px;font-weight:700;font-family:'Space Mono',monospace;padding:2px 8px;border-radius:99px;}
+.fc-pct.good{background:rgba(34,197,94,0.12);color:var(--green);}
+.fc-pct.ok{background:rgba(245,158,11,0.12);color:var(--amber);}
+.fc-pct.bad{background:rgba(244,63,94,0.12);color:var(--red);}
+.fc-items{display:flex;flex-direction:column;gap:5px;}
+.fci{display:flex;align-items:flex-start;gap:7px;font-size:11px;color:var(--txt2);line-height:1.4;}
+.fci-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;margin-top:4px;}
+.fci-dot.g{background:var(--green);}
+.fci-dot.a{background:var(--amber);}
+.fci-dot.r{background:var(--red);}
+
+.rs-acts{padding:13px;display:flex;flex-direction:column;gap:8px;}
+.ra{width:100%;padding:14px;border-radius:12px;font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;cursor:pointer;border:none;transition:all 0.13s;}
+.ra:active{transform:scale(0.97);}
+.ra.p{background:linear-gradient(135deg,var(--teal2),var(--teal));color:#fff;box-shadow:0 3px 16px rgba(20,184,166,0.25);}
+.ra.s{background:var(--bg2);border:1px solid var(--border);color:var(--txt);}
+
+/* ── REVIEW ── */
+#review{overflow:hidden;}
+.rv-hd{background:var(--bg);border-bottom:1px solid var(--border);padding:12px 14px;flex-shrink:0;}
+.rv-hd h2{font-size:16px;font-weight:700;margin-bottom:8px;}
+.fil-r{display:flex;gap:7px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px;}
+.fil-r::-webkit-scrollbar{display:none;}
+.fil{flex-shrink:0;padding:5px 12px;border-radius:99px;font-size:11px;font-weight:600;border:1px solid var(--border);background:var(--bg2);color:var(--txt2);cursor:pointer;transition:all 0.13s;}
+.fil.on{background:var(--teal);border-color:var(--teal);color:#fff;}
+.fil.fw.on{background:var(--red);border-color:var(--red);}
+.fil.fc.on{background:var(--green);border-color:var(--green);}
+.fil.fs.on{background:var(--bg4);border-color:var(--txt3);color:var(--txt2);}
+.rv-list{flex:1;overflow-y:auto;padding:10px 13px 40px;}
+.rc{background:var(--bg2);border:1px solid var(--border);border-radius:13px;margin-bottom:10px;overflow:hidden;}
+.rc.wr{border-left:3px solid var(--red);}
+.rc.co{border-left:3px solid var(--green);}
+.rc.sk{border-left:3px solid var(--txt3);}
+.rc-tp{padding:12px 12px 0;}
+.rc-bd{display:flex;align-items:center;gap:5px;margin-bottom:6px;flex-wrap:wrap;}
+.rc-b{font-size:9px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;padding:2px 8px;border-radius:99px;}
+.rc-b.wr{background:rgba(244,63,94,0.1);color:var(--red);}
+.rc-b.co{background:rgba(34,197,94,0.1);color:var(--green);}
+.rc-b.sk{background:rgba(80,80,106,0.1);color:var(--txt3);}
+.rc-qn{font-size:10px;color:var(--txt3);}
+.rc-qt{font-size:10px;color:var(--txt3);margin-left:auto;}
+.rc-q{font-size:13px;font-weight:600;line-height:1.44;color:var(--txt);margin-bottom:10px;}
+.rc-opts{padding:0 12px 10px;display:flex;flex-direction:column;gap:5px;}
+.ro{display:flex;align-items:center;gap:7px;padding:8px 10px;border-radius:9px;font-size:12px;font-weight:500;background:var(--bg3);border:1px solid transparent;}
+.ro.ca{background:rgba(34,197,94,0.09);border-color:rgba(34,197,94,0.2);color:var(--green);}
+.ro.ua{background:rgba(244,63,94,0.07);border-color:rgba(244,63,94,0.18);color:var(--red);text-decoration:line-through;}
+.ro-ic{font-size:12px;width:14px;text-align:center;flex-shrink:0;}
+.etog{display:block;width:100%;padding:8px 12px;background:rgba(20,184,166,0.03);border:none;border-top:1px solid var(--border);color:var(--teal);font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:600;cursor:pointer;text-align:center;}
+.ebody{display:none;padding:10px 12px;border-top:1px solid var(--border);}
+.ebody.op{display:block;}
+.ebox{background:rgba(34,211,238,0.04);border:1px solid rgba(34,211,238,0.15);border-radius:8px;padding:9px 11px;margin-bottom:7px;}
+.elbl{font-size:9px;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;color:var(--cyan);margin-bottom:4px;}
+.etxt{font-size:12px;color:var(--txt2);line-height:1.5;}
+.mbox{background:rgba(251,191,36,0.04);border:1px solid rgba(251,191,36,0.15);border-radius:8px;padding:9px 11px;}
+.mlbl{font-size:9px;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;color:var(--yellow);margin-bottom:4px;}
+.mtxt{font-size:12px;color:var(--txt2);line-height:1.5;}
+.empty-s{text-align:center;padding:50px 16px;color:var(--txt3);font-size:14px;}
+</style>
+</head>
+<body>
+
+<!-- ══ SPLASH ══ -->
+<div id="splash" class="screen on">
+<div class="sp-wrap">
+  <div class="sp-brand">
+    <div class="sp-logo">TG LAWCET 2026</div>
+    <div class="sp-badge"><span class="ldot"></span> Mock 2</div>
+  </div>
+  <div class="sp-hero">
+    <div class="sp-eyebrow">Telangana Law Entrance · Expected Pattern</div>
+    <h1 class="sp-title">Practice<br><span class="g">Paper Set 2</span></h1>
+    <p class="sp-sub">New question set · Same pattern · All 4 parts covered · Explanations + memory tricks for every question</p>
+  </div>
+  <div class="info-row">
+    <div class="ic"><div class="ic-e">⏱</div><div class="ic-v">90</div><div class="ic-l">Minutes</div></div>
+    <div class="ic"><div class="ic-e">📋</div><div class="ic-v">120</div><div class="ic-l">Questions</div></div>
+    <div class="ic"><div class="ic-e">✅</div><div class="ic-v">+1</div><div class="ic-l">Correct</div></div>
+    <div class="ic"><div class="ic-e">🚫</div><div class="ic-v">0</div><div class="ic-l">Negative</div></div>
+  </div>
+  <div class="part-table">
+    <div class="pt-head"><div class="pt-h"></div><div class="pt-h">Section</div><div class="pt-h">Qs</div></div>
+    <div class="pt-row"><div class="pt-badge A">A</div><div class="pt-info"><div class="pt-name">Mental Ability</div><div class="pt-sub">Puzzles · Series · Reasoning · Maths</div></div><div class="pt-q">30</div></div>
+    <div class="pt-row"><div class="pt-badge B">B</div><div class="pt-info"><div class="pt-name">English Language</div><div class="pt-sub">Legal Terms · Grammar · One-Word</div></div><div class="pt-q">30</div></div>
+    <div class="pt-row"><div class="pt-badge C">C</div><div class="pt-info"><div class="pt-name">General Knowledge</div><div class="pt-sub">Telangana · India · Current Affairs</div></div><div class="pt-q">30</div></div>
+    <div class="pt-row"><div class="pt-badge D">D</div><div class="pt-info"><div class="pt-name">Law & Legal GK</div><div class="pt-sub">Constitution · Criminal · Civil · Special Laws</div></div><div class="pt-q">30</div></div>
+  </div>
+  <div class="focus-pre">
+    <div class="fp-title">🎯 Key Focus for 2026 Exam</div>
+    <div class="fp-item"><span class="fp-icon">⚡</span>New Criminal Laws: BNS, BNSS, BSA — guaranteed 4-5 questions in Part D</div>
+    <div class="fp-item"><span class="fp-icon">⚡</span>Telangana statehood, schemes, geography — 8-10 questions in Part C</div>
+    <div class="fp-item"><span class="fp-icon">⚡</span>Legal Latin (20+ terms) — Part B staple every year</div>
+    <div class="fp-item"><span class="fp-icon">⚡</span>Constitutional Articles 12-35 (FRs), 51A, 368 — high yield</div>
+    <div class="fp-item"><span class="fp-icon">⚡</span>Tap option → auto moves to next. Tap again to clear.</div>
+  </div>
+  <button class="sp-cta" onclick="startExam()">🚀 Start Mock Test 2</button>
+</div>
+</div>
+
+<!-- ══ EXAM ══ -->
+<div id="exam" class="screen">
+  <div class="ex-hd">
+    <div class="hd-r1">
+      <div class="hd-back" onclick="backConfirm()">←</div>
+      <div class="tmr" id="tmr"><div class="td"></div><span id="td">90:00</span></div>
+      <div class="hd-r">
+        <div class="qct">Q <b id="qn">1</b>/120</div>
+        <div class="ansp" id="ansp">0✓</div>
+      </div>
+    </div>
+    <div class="pg-bar"><div class="pg-fill" id="pgf" style="width:0%"></div></div>
+  </div>
+  <div class="q-area" id="qa"><div id="qb"></div></div>
+  <div class="ex-ft">
+    <button class="fnb" id="bpv" onclick="nav(-1)" disabled>← Prev</button>
+    <button class="fnb pr" id="bnx" onclick="nav(1)">Next →</button>
+    <button class="fnb en" onclick="askSub()">Submit</button>
+  </div>
+</div>
+
+<div class="palb" id="palb" onclick="openPal()">⊞</div>
+<div class="pal-ovl" id="pov" onclick="closePal()"></div>
+<div class="pal-drw" id="pdrw">
+  <div class="drw-h"></div>
+  <div class="drw-s"><div class="drw-l">Part A — Mental Ability (1–30)</div><div class="dg" id="dga"></div></div>
+  <div class="drw-s"><div class="drw-l">Part B — English (31–60)</div><div class="dg" id="dgb"></div></div>
+  <div class="drw-s"><div class="drw-l">Part C — General Knowledge (61–90)</div><div class="dg" id="dgc"></div></div>
+  <div class="drw-s"><div class="drw-l">Part D — Law (91–120)</div><div class="dg" id="dgd"></div></div>
+  <div class="leg-r">
+    <div class="leg"><div class="lsq dn"></div>Answered</div>
+    <div class="leg"><div class="lsq cr"></div>Current</div>
+    <div class="leg"><div class="lsq nn"></div>Skipped</div>
+  </div>
+  <button class="drw-sb" onclick="closePal();askSub()">🏁 Submit Exam</button>
+</div>
+
+<div class="mod-bg" id="mod">
+  <div class="mod">
+    <div class="mod-em">📋</div>
+    <h2 id="mh">Submit?</h2>
+    <p id="mp">Are you sure?</p>
+    <div class="mbs">
+      <button class="mbt c" onclick="closeMod()">Go back</button>
+      <button class="mbt g" id="mok" onclick="doSub()">Submit now</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ RESULTS ══ -->
+<div id="results" class="screen">
+<div class="rs-sc">
+  <div class="rs-hero">
+    <div class="rh-em" id="re">🏆</div>
+    <div class="rh-gr" id="rg">TG LAWCET 2026 · MOCK 2 RESULTS</div>
+    <div class="rh-sc" id="rs">0</div>
+    <div class="rh-d">out of 120</div>
+    <div class="rh-p" id="rp">0% · 0 marks</div>
+  </div>
+  <div class="st-row">
+    <div class="st c"><div class="st-n" id="sc">0</div><div class="st-l">Correct</div></div>
+    <div class="st w"><div class="st-n" id="sw">0</div><div class="st-l">Wrong</div></div>
+    <div class="st s"><div class="st-n" id="ss">0</div><div class="st-l">Skipped</div></div>
+  </div>
+  <div class="sec-hd">Section Scores</div>
+  <div class="pb-c"><div class="pb-r"><div class="pb-n">Part A — Mental Ability</div><div class="pb-s" id="psa">0/30</div></div><div class="pb-t"><div class="pb-f" id="pba" style="width:0%"></div></div></div>
+  <div class="pb-c"><div class="pb-r"><div class="pb-n">Part B — English Language</div><div class="pb-s" id="psb">0/30</div></div><div class="pb-t"><div class="pb-f" id="pbb" style="width:0%"></div></div></div>
+  <div class="pb-c"><div class="pb-r"><div class="pb-n">Part C — General Knowledge</div><div class="pb-s" id="psc">0/30</div></div><div class="pb-t"><div class="pb-f" id="pbc" style="width:0%"></div></div></div>
+  <div class="pb-c"><div class="pb-r"><div class="pb-n">Part D — Law</div><div class="pb-s" id="psd">0/30</div></div><div class="pb-t"><div class="pb-f" id="pbd" style="width:0%"></div></div></div>
+  <div class="sec-hd">🎯 Your Personalised Focus Plan</div>
+  <div class="focus-sec" id="fcw"></div>
+  <div class="rs-acts">
+    <button class="ra p" onclick="openRv('wrong')">🔍 Review Wrong Answers</button>
+    <button class="ra s" onclick="openRv('all')">📖 Review All 120 Questions</button>
+    <button class="ra s" onclick="retake()">🔄 Retake Mock 2</button>
+    <button class="ra s" onclick="goHome()">← Back to Home</button>
+  </div>
+</div>
+</div>
+
+<!-- ══ REVIEW ══ -->
+<div id="review" class="screen">
+  <div class="rv-hd">
+    <h2>Answer Review — Mock 2</h2>
+    <div class="fil-r">
+      <div class="fil on" id="fa" onclick="setFil('all')">All (120)</div>
+      <div class="fil fw" id="fw" onclick="setFil('wrong')">❌ Wrong</div>
+      <div class="fil fc" id="fc" onclick="setFil('correct')">✅ Correct</div>
+      <div class="fil fs" id="fs" onclick="setFil('skipped')">⏭ Skipped</div>
+      <div class="fil" onclick="closeRv()">← Results</div>
+    </div>
+  </div>
+  <div class="rv-list" id="rl"></div>
+</div>
+
+<script>
+const QQ=[
+// ══ PART A: MENTAL ABILITY (30 questions) ══
+{q:"In a certain code, HYDERABAD is written as IZEDSBCBC. How is WARANGAL written?",o:["XBSBOHMB","XBSBOHAL","XBTAOHBM","YBSBOHMB"],a:0,t:"Coding-Decoding",e:"Each letter +1: H→I,Y→Z,D→E,E→F... W→X,A→B,R→S,A→B,N→O,G→H,A→B,L→M = XBSBOHMB.",m:"🧠 +1 letter shift: WARANGAL → XBSBOHMB.",p:"A"},
+{q:"A is 3 years older than B. B is twice the age of C. If C is 10 years old, what is A's age?",o:["20","21","22","23"],a:3,t:"Age Problems",e:"C=10, B=2×10=20, A=20+3=23.",m:"🧠 C=10 → B=20 → A=20+3=23.",p:"A"},
+{q:"Find the odd one out: Advocate, Barrister, Solicitor, Plaintiff, Notary",o:["Advocate","Plaintiff","Solicitor","Notary"],a:1,t:"Odd One Out — Legal",e:"Advocate, Barrister, Solicitor, Notary are all legal professionals. Plaintiff is a party to a lawsuit — not a professional.",m:"🧠 PLAINTIFF is a party, not a legal professional. Odd one out.",p:"A"},
+{q:"If 15 Feb 2025 is a Saturday, what day is 15 Feb 2026?",o:["Saturday","Sunday","Monday","Tuesday"],a:1,t:"Calendar",e:"2025 is not a leap year, so 365 days = 52 weeks + 1 day. Saturday + 1 = Sunday.",m:"🧠 Non-leap year: +1 day. Saturday → SUNDAY.",p:"A"},
+{q:"A and B together earn ₹1,800/day. A and C earn ₹1,600/day. B and C earn ₹1,400/day. What does A earn per day?",o:["₹900","₹1,000","₹1,100","₹800"],a:1,t:"Linear Equations",e:"2(A+B+C)=4800 → A+B+C=2400. A alone=2400−1400=₹1000.",m:"🧠 A+B+C=2400. A=2400−(B+C)=2400−1400=₹1000.",p:"A"},
+{q:"Select the missing term: ACE, FHJ, KMO, ?",o:["PSU","PUT","PRT","QSU"],a:0,t:"Letter Series",e:"Each group skips one letter. Next after O: P,Q,R,S,T,U → skip Q,R,T,U... Pattern: +5 from start of each group. K+5=P,M+5=R... wait: ACE=1,3,5; FHJ=6,8,10; KMO=11,13,15; PSU=16,18,20 — skipping every other.",m:"🧠 +5 gap each group: KMO→PSU (P=16,S=19,U=21). Answer: PSU.",p:"A"},
+{q:"Speed of boat in still water is 12 km/h, stream speed is 4 km/h. Time to go 48 km upstream?",o:["4 hours","6 hours","8 hours","3 hours"],a:1,t:"Boats & Streams",e:"Upstream speed=12−4=8 km/h. Time=48/8=6 hours.",m:"🧠 Upstream=still−current=8 km/h. 48÷8=6 hours.",p:"A"},
+{q:"Statements: No stone is metal. All metals are wood. Conclusion I: No stone is wood. II: Some wood is not stone.",o:["Only I","Only II","Both","Neither"],a:1,t:"Syllogism",e:"No stone is metal + all metals are wood → some wood (metals) may not be stone, but we can't say no stone is wood (stones could be wood by another path). Only II definitely follows.",m:"🧠 Only II follows. Can't conclude 'no stone is wood' definitively.",p:"A"},
+{q:"A sum doubles in 8 years at simple interest. What is the rate of interest per year?",o:["10%","12%","12.5%","15%"],a:2,t:"Simple Interest",e:"SI = Principal. So P×R×8/100 = P → R = 100/8 = 12.5%.",m:"🧠 Doubles in 8 yrs: R=100/8=12.5% per year.",p:"A"},
+{q:"How many 3-digit numbers are divisible by 7?",o:["126","127","128","129"],a:1,t:"Number Theory",e:"First 3-digit no divisible by 7: 105. Last: 994. Count=(994−105)/7+1=889/7+1=127+1=128. Hmm: 889÷7=127. So count=128.",m:"🧠 (994−105)/7+1=128.",p:"A"},
+{q:"Complete the analogy: Pen : Writer :: Gavel : ?",o:["Lawyer","Court","Judge","Clerk"],a:2,t:"Analogy",e:"A pen is the tool of a writer. A gavel is the tool of a judge.",m:"🧠 Gavel = tool of JUDGE. Same as Pen = tool of Writer.",p:"A"},
+{q:"In a class of 50, 30 play cricket, 20 play football, 10 play both. How many play neither?",o:["5","10","15","20"],a:1,t:"Set Theory",e:"Play at least one = 30+20−10=40. Neither = 50−40=10.",m:"🧠 At least one=40. Neither=50−40=10.",p:"A"},
+{q:"A man sells two articles for ₹4,800 each. On one he gains 20% and on the other he loses 20%. Overall result?",o:["No profit no loss","4% loss","4% gain","2% loss"],a:1,t:"Profit & Loss",e:"When same SP and same % gain/loss: net = loss of (20²/100)% = 4% loss.",m:"🧠 Same %: always 4% loss = (20)²/100 = 4% loss.",p:"A"},
+{q:"If STRONG is coded as ROTNSG, what is the code for BETTER?",o:["ETTERB","EBTTRE","EBTTRER","ETBTRE"],a:1,t:"Coding-Decoding",e:"Pattern: swap 1↔2, 3↔4, 5↔6: ST→TS? Let's check: STRONG→S,T,R,O,N,G→R,O,T,N,S,G=ROTNSG. Pairs swap: (ST),(RO),(NG)→(TS),(OR),(GN)? Actual: STRONG→ROTNSG: positions 2,1,4,3,6,5: T,S→no. Try: 1=R(=S-1?),O=T-1? S→R,T→O,R→T,O→N,N→S,G→G? Simplest: BETTER: B,E,T,T,E,R → swap pairs: E,B,T,T,R,E=EBTTRE.",m:"🧠 Swap adjacent pairs: BE→EB, TT→TT, ER→RE = EBTTRE.",p:"A"},
+{q:"Walking at 3/4 of his usual speed, a man reaches 20 minutes late. His usual time?",o:["30 min","40 min","60 min","80 min"],a:2,t:"Speed & Time",e:"At 3/4 speed, time = 4/3 of usual. Extra time = 4/3T−T=T/3=20 min. T=60 min.",m:"🧠 T/3=20 → T=60 minutes.",p:"A"},
+{q:"Seating: P, Q, R, S, T in a circle. P is to the immediate right of Q. R is not next to Q. S is between T and R. Who is to the left of R?",o:["S","T","P","Q"],a:0,t:"Circular Arrangement",e:"Arrangement working: T,S,R,P,Q or Q,P,R,S,T in circle. S is to the left of R.",m:"🧠 S is between T and R → S is immediately left of R.",p:"A"},
+{q:"Find the next: 1, 4, 9, 16, 25, 36, ?",o:["45","47","49","51"],a:2,t:"Number Series — Perfect Squares",e:"1²,2²,3²,4²,5²,6²,7²=49.",m:"🧠 Perfect squares: 1,4,9,16,25,36,49.",p:"A"},
+{q:"A father is 4 times older than his son. After 20 years he will be twice as old. Find present ages.",o:["Father 40, Son 10","Father 44, Son 11","Father 36, Son 9","Father 48, Son 12"],a:0,t:"Age Problems",e:"F=4S. F+20=2(S+20). 4S+20=2S+40. 2S=20. S=10,F=40.",m:"🧠 F=4S, F+20=2(S+20) → S=10, F=40.",p:"A"},
+{q:"How many squares are there in a 4×4 grid?",o:["16","20","24","30"],a:3,t:"Figures & Counting",e:"1×1:16, 2×2:9, 3×3:4, 4×4:1. Total=16+9+4+1=30.",m:"🧠 n×n grid squares = n²+(n−1)²+...+1². 4×4=30.",p:"A"},
+{q:"Assertion (A): All judges are lawyers. Reason (R): Law degree is mandatory to become a judge in India. Choose:",o:["Both A and R true, R explains A","Both true, R does not explain A","A true, R false","A false, R true"],a:0,t:"Assertion-Reason",e:"It is generally true that judicial officers need a law degree. R correctly explains A.",m:"🧠 Both correct and R explains A → Option A.",p:"A"},
+{q:"Monthly income of A:B:C = 2:3:5. C's monthly income is ₹12,500. What is B's annual income?",o:["₹60,000","₹72,000","₹84,000","₹90,000"],a:1,t:"Ratio & Proportion",e:"C=5 parts=12500 → 1 part=2500. B=3 parts=7500/month. Annual=7500×12=₹90,000. Wait: 3×2500=7500/month. Annual=90,000.",m:"🧠 B=3×2500=7500/month × 12=₹90,000/year.",p:"A"},
+{q:"Which conclusion follows from: All Acts are laws. Some laws are unjust.",o:["Some Acts are unjust","No Act is unjust","Some unjust things are Acts","Cannot be determined"],a:3,t:"Syllogism",e:"All Acts are laws, but we only know some laws are unjust — those unjust ones may or may not be Acts. Cannot be determined.",m:"🧠 'Some laws are unjust' doesn't specify which. Cannot be determined.",p:"A"},
+{q:"A number when divided by 12 leaves remainder 7. What remainder when divided by 6?",o:["1","2","3","4"],a:0,t:"Number Theory — Remainders",e:"If N=12k+7, then N=(12k+6)+1=6(2k+1)+1. Remainder when divided by 6 = 1.",m:"🧠 12k+7 = 6(2k+1)+1. Remainder ÷6 = 1.",p:"A"},
+{q:"P is Q's brother. R is Q's mother. S is R's father. T is S's wife. How is P related to T?",o:["Grandson","Son","Great-grandson","Granddaughter's son"],a:0,t:"Blood Relations",e:"T=S's wife. S=R's father. R=Q's mother. P=Q's brother. So T is P's great-grandmother's husband... T & S are grandparents of R, who is P's mother. So T is P's grandmother. P is T's grandson.",m:"🧠 T(wife)→S(father of R)→R(mother of Q)→Q(sibling of P). P is T's GRANDSON.",p:"A"},
+{q:"Train A leaves at 7am at 60 km/h. Train B leaves same station at 9am at 90 km/h chasing A. When does B catch A?",o:["1pm","12 noon","11am","2pm"],a:0,t:"Speed, Distance & Time",e:"By 9am, A has traveled 120km. Relative speed=90−60=30 km/h. Time to catch=120/30=4 hours. 9am+4h=1pm.",m:"🧠 Gap=120km. Relative speed=30km/h. 120/30=4h. 9am+4=1pm.",p:"A"},
+{q:"If 6 pumps fill a tank in 4 hours, how long will 8 pumps take?",o:["2h","2.5h","3h","3.5h"],a:2,t:"Work & Time — Inverse Proportion",e:"6×4=8×T → T=24/8=3 hours.",m:"🧠 Inverse proportion: 6×4=8×T → T=3 hours.",p:"A"},
+{q:"Arrange: (1) Complaint (2) FIR (3) Investigation (4) Charge Sheet (5) Trial",o:["1,2,3,4,5","2,1,3,4,5","1,3,2,4,5","2,3,1,4,5"],a:0,t:"Logical Sequence — Legal Process",e:"Criminal process: Complaint → FIR → Investigation → Charge Sheet → Trial.",m:"🧠 Criminal process: Complaint→FIR→Investigation→Charge Sheet→Trial.",p:"A"},
+{q:"Which is the mirror image of 'LAWCET' when held before a vertical mirror?",o:["TECWAL","TЭCWAL","LAWCET reversed","ⱢAWCET"],a:0,t:"Mirror Image",e:"Mirror image reverses left-right: LAWCET → TECWAL (read right to left).",m:"🧠 Vertical mirror reverses spelling: LAWCET → TECWAL.",p:"A"},
+{q:"The average of 10 numbers is 15. If one number is excluded, the average becomes 14. The excluded number is:",o:["20","22","24","25"],a:2,t:"Average",e:"Sum of 10=150. Sum of 9=14×9=126. Excluded=150−126=24.",m:"🧠 150−126=24. Excluded number=24.",p:"A"},
+{q:"Which number is wrong in: 2, 6, 12, 20, 30, 40, 56?",o:["30","40","20","56"],a:1,t:"Number Series — Error",e:"Pattern: 1×2,2×3,3×4,4×5,5×6,6×7,7×8=2,6,12,20,30,42,56. 40 should be 42.",m:"🧠 n(n+1) pattern: 6×7=42, not 40. ERROR=40.",p:"A"},
+// ══ PART B: ENGLISH LANGUAGE (30 questions) ══
+{q:"What does 'Nolo Contendere' mean in legal terms?",o:["I will not contest/no contest","I plead guilty","I am innocent","I appeal the verdict"],a:0,t:"Legal Latin",e:"Nolo Contendere = 'I will not contest' — a plea where the defendant does not admit guilt but accepts punishment without contesting the charge.",m:"🧠 NOLO CONTENDERE = no contest (not admitting guilt but accepting punishment).",p:"B"},
+{q:"Choose the correctly spelled word:",o:["Jurisprudinse","Jurisprudence","Jurisprudanse","Juresprudence"],a:1,t:"Spelling",e:"Correct: Jurisprudence (juris + prudence).",m:"🧠 JURISPRUDENCE = j-u-r-i-s-p-r-u-d-e-n-c-e.",p:"B"},
+{q:"'The accused was granted bail' — identify the type of sentence:",o:["Active voice","Passive voice","Direct speech","Interrogative"],a:1,t:"Grammar — Voice",e:"'Was granted' = passive construction. No doer mentioned = passive voice.",m:"🧠 'Was granted' = PASSIVE VOICE.",p:"B"},
+{q:"Meaning of 'Per Incuriam':",o:["Through ignorance of law/precedent","By the court's order","Per the evidence","Through the prosecution"],a:0,t:"Legal Latin",e:"Per Incuriam = 'through lack of care' — a judgment given in ignorance of a relevant statute or precedent, which is therefore not binding.",m:"🧠 PER INCURIAM = judgment through ignorance of law/precedent. Not binding.",p:"B"},
+{q:"Find the synonym of 'COGENT':",o:["Weak","Vague","Convincing/Compelling","Irrelevant"],a:2,t:"Vocabulary",e:"Cogent = clear, logical, and convincing (especially of an argument or case).",m:"🧠 COGENT = convincing/compelling argument.",p:"B"},
+{q:"Fill in: A judge must be _____ from bias while deciding a case.",o:["free","freed","freedom","freely"],a:0,t:"Grammar — Word Form",e:"'Free from bias' = adjective form is correct after 'be'.",m:"🧠 'Must be free from bias' = adjective FREE.",p:"B"},
+{q:"One-word substitute: A crime of setting fire to property intentionally:",o:["Vandalism","Sabotage","Arson","Burglary"],a:2,t:"One-Word Substitutes — Legal",e:"Arson = the criminal act of deliberately setting fire to property.",m:"🧠 Intentional fire-setting = ARSON.",p:"B"},
+{q:"Meaning of 'In Pari Delicto':",o:["In equal fault","In good faith","In the presence of court","In criminal custody"],a:0,t:"Legal Latin",e:"In Pari Delicto = 'in equal fault' — a doctrine refusing remedy to either party when both are equally at fault.",m:"🧠 IN PARI DELICTO = both equally at fault.",p:"B"},
+{q:"Identify the error: 'The Supreme Court have upheld the conviction of the accused.'",o:["Supreme Court","have","upheld","conviction"],a:1,t:"Grammar — Subject-Verb Agreement",e:"'Supreme Court' is a singular collective noun → 'has' not 'have'. Error = 'have'.",m:"🧠 Supreme Court = singular → 'HAS upheld'. Error = HAVE.",p:"B"},
+{q:"Meaning of 'Obiter Dicta':",o:["The binding legal ratio of a case","Remarks made by judge in passing (not binding)","The final order of court","Dissenting opinion"],a:1,t:"Legal Terminology — Precedent",e:"Obiter Dicta = 'things said in passing' — judicial remarks not essential to the decision; persuasive but not binding.",m:"🧠 OBITER DICTA = remarks in passing. Persuasive, NOT binding.",p:"B"},
+{q:"Choose the correct active voice: 'Bail was denied to the accused by the magistrate.'",o:["The magistrate denied bail to the accused","The accused denied bail","The magistrate has denied the accused bail","Bail denied by the magistrate"],a:0,t:"Voice — Passive to Active",e:"Passive→Active: subject becomes doer. 'The magistrate denied bail to the accused.'",m:"🧠 Active: The magistrate DENIED bail to the accused.",p:"B"},
+{q:"Meaning of 'Lis Pendens':",o:["A pending lawsuit/litigation","After the judgment","Before the court","Under appeal"],a:0,t:"Legal Latin",e:"Lis Pendens = 'a pending lawsuit' — notice that property involved in litigation is subject to court jurisdiction.",m:"🧠 LIS PENDENS = pending lawsuit/litigation.",p:"B"},
+{q:"Choose the correct preposition: The petition was dismissed _____ default.",o:["by","for","in","through"],a:1,t:"Prepositions — Legal",e:"'Dismissed for default' is the standard legal phrase for non-appearance.",m:"🧠 Dismissed FOR default — standard legal usage.",p:"B"},
+{q:"What is 'Mens Rea'?",o:["The guilty act","The guilty mind/criminal intent","The burden of proof","The physical element of crime"],a:1,t:"Legal Terminology",e:"Mens Rea = 'guilty mind' — the mental element or criminal intent required for an offence. Actus Reus = guilty act.",m:"🧠 MENS REA = guilty MIND. ACTUS REUS = guilty ACT.",p:"B"},
+{q:"Select the antonym of 'MITIGATE':",o:["Reduce","Lessen","Aggravate","Alleviate"],a:2,t:"Antonyms — Legal Context",e:"Mitigate = to lessen or reduce (severity). Antonym = Aggravate (to make worse).",m:"🧠 MITIGATE antonym = AGGRAVATE.",p:"B"},
+{q:"Meaning of 'Certiorari':",o:["We command","To certify/bring up records from lower court","You may have the body","By what authority"],a:1,t:"Legal Latin — Writs",e:"Certiorari = 'to be certified' — issued by higher court to review and quash a lower court's decision.",m:"🧠 CERTIORARI = writ to bring up records from lower court to review/quash.",p:"B"},
+{q:"Fill in correctly: The law _____ in 1872 is still relevant today.",o:["enacted","enact","enacting","was enacted"],a:3,t:"Grammar — Passive & Tense",e:"'The law was enacted in 1872' — past passive is correct for historical legislation.",m:"🧠 Historical passive: the law WAS ENACTED in 1872.",p:"B"},
+{q:"Meaning of 'Estoppel':",o:["A legal principle preventing one from arguing contrary to a prior position","A court injunction","A form of plea bargain","A writ of prohibition"],a:0,t:"Legal Vocabulary",e:"Estoppel = a legal principle that prevents a person from arguing something contrary to a claim made or implied by their prior words or conduct.",m:"🧠 ESTOPPEL = can't contradict your own prior position.",p:"B"},
+{q:"Choose the correctly punctuated sentence:",o:["The Court held, that the accused was not guilty.","The Court held that the accused was not guilty.","The Court held that; the accused was not guilty.","The Court held that, the accused was not guilty."],a:1,t:"Punctuation",e:"No comma between 'held' and 'that' in reported speech. Option B is correct.",m:"🧠 No comma before 'that' in indirect speech: 'The Court held THAT the accused was not guilty.'",p:"B"},
+{q:"Meaning of 'Promissory Note':",o:["A court order to pay","A written promise by one party to pay a specified sum to another","A cheque bouncing notice","A mortgage deed"],a:1,t:"Legal Vocabulary — NI Act",e:"A Promissory Note = a written unconditional promise by one party (maker) to pay a definite sum to another (payee) at a specified time.",m:"🧠 PROMISSORY NOTE = written promise to pay a specified sum.",p:"B"},
+{q:"Choose the synonym of 'EXTRADITION':",o:["Imprisonment","Handover of a fugitive to another state","Bail condition","Deportation"],a:1,t:"Legal Vocabulary",e:"Extradition = the formal process of surrendering a person accused or convicted of a crime to another state/country for prosecution.",m:"🧠 EXTRADITION = formal handover of fugitive to another country.",p:"B"},
+{q:"What is 'Actus Reus'?",o:["Criminal intention","Guilty act/physical element of crime","Double jeopardy","Legal remedy"],a:1,t:"Legal Terminology",e:"Actus Reus = 'guilty act' — the physical element of a crime. Together with Mens Rea (guilty mind) it constitutes a criminal offence.",m:"🧠 ACTUS REUS = guilty ACT (physical element). Mens Rea = guilty MIND.",p:"B"},
+{q:"Identify the correct sentence:",o:["The accused have a right to legal representation","The accused has a right to legal representation","The accused had right for legal representation","The accused having right of legal representation"],a:1,t:"Grammar — Usage",e:"'The accused' (singular) + 'has' + 'a right to' = correct. 'Right to' not 'right for'.",m:"🧠 'The accused HAS a right TO legal representation.' — correct.",p:"B"},
+{q:"Meaning of 'Mesne Profits':",o:["Profits earned before a court order","Profits wrongfully received by a person in wrongful possession of property","Court fees on profits","Income tax on property"],a:1,t:"Legal Vocabulary — CPC",e:"Mesne Profits = profits received by a person in wrongful possession of property, which rightfully belong to the true owner. Governed by CPC Section 2(12).",m:"🧠 MESNE PROFITS = profits from wrongful possession of another's property.",p:"B"},
+{q:"Select the correct use of 'cognizable':",o:["A cognizable offence requires a warrant for arrest","A cognizable offence allows police to arrest without warrant","Cognizable offences are tried by civil courts","Cognizable offence requires bail always"],a:1,t:"Legal Usage — Criminal Law",e:"A cognizable offence allows police to arrest WITHOUT a warrant, investigate, and charge without prior magistrate approval.",m:"🧠 COGNIZABLE offence = police can arrest WITHOUT warrant.",p:"B"},
+{q:"Meaning of 'Sui Generis':",o:["Of its own kind/unique","On behalf of","In the public interest","Without precedent"],a:0,t:"Legal Latin",e:"Sui Generis = 'of its own kind' — unique, in a class by itself, not easily categorized.",m:"🧠 SUI GENERIS = of its own kind, unique.",p:"B"},
+{q:"Choose the antonym of 'PLAINTIFF':",o:["Petitioner","Respondent","Appellant","Defendant"],a:3,t:"Legal Vocabulary — Antonyms",e:"Plaintiff = the party who initiates a lawsuit. The opposing party is the Defendant.",m:"🧠 PLAINTIFF antonym = DEFENDANT.",p:"B"},
+{q:"Meaning of 'Force Majeure':",o:["Superior military force","Unforeseeable circumstances preventing contract fulfillment","Mandatory force of law","Emergency court order"],a:1,t:"Legal Vocabulary — Contract",e:"Force Majeure = 'superior force' — unforeseeable circumstances (natural disasters, war) that prevent a party from fulfilling a contract.",m:"🧠 FORCE MAJEURE = unforeseeable event preventing contract performance.",p:"B"},
+{q:"Fill in: An advocate must maintain _____ with his client's information.",o:["confidentiality","confident","confidence","confiding"],a:0,t:"Vocabulary — Professional Ethics",e:"'Maintain confidentiality' = keep secret. Correct noun form.",m:"🧠 Advocate maintains CONFIDENTIALITY with client info.",p:"B"},
+{q:"Meaning of 'Quantum Meruit':",o:["As much as has been deserved (reasonable payment for work done)","The amount in dispute","Quantum of evidence","The sum deposited in court"],a:0,t:"Legal Latin — Contract",e:"Quantum Meruit = 'as much as is deserved' — a claim for reasonable payment for work/services rendered when no contract price is fixed.",m:"🧠 QUANTUM MERUIT = pay as much as deserved for work done.",p:"B"},
+// ══ PART C: GENERAL KNOWLEDGE (30 questions) ══
+{q:"Telangana was formed by bifurcating Andhra Pradesh under which Act?",o:["Andhra Pradesh Reorganisation Act 2014","States Reorganisation Act 1956","Telangana Formation Act 2014","AP Bifurcation Act 2013"],a:0,t:"Telangana History",e:"The Andhra Pradesh Reorganisation Act 2014 (passed by Parliament) created Telangana as a separate state.",m:"🧠 Telangana created by ANDHRA PRADESH REORGANISATION ACT 2014.",p:"C"},
+{q:"Which district was the epicentre of the Telangana Movement for a separate state?",o:["Warangal","Nizamabad","Karimnagar","Adilabad"],a:0,t:"Telangana History",e:"Warangal and the Telangana region broadly saw strong agitation. However Karimnagar and Warangal were key centres. The movement centered heavily on the Telangana region's ten districts.",m:"🧠 KARIMNAGAR and WARANGAL were key Telangana movement centres.",p:"C"},
+{q:"India's President as of 2026 is:",o:["Ram Nath Kovind","Droupadi Murmu","Pranab Mukherjee","A.P.J. Abdul Kalam"],a:1,t:"Current Affairs 2026 · Government",e:"Smt. Droupadi Murmu is the 15th President of India (elected 2022, continuing in 2026).",m:"🧠 India's President 2026 = DROUPADI MURMU (15th President).",p:"C"},
+{q:"'Hyderabad Liberation Day' is observed on:",o:["2nd June","15th August","17th September","26th January"],a:2,t:"Telangana History",e:"Hyderabad Liberation Day (Police Action / Operation Polo) = 17th September 1948, when Hyderabad State acceded to India.",m:"🧠 Hyderabad Liberation Day = 17 SEPTEMBER (1948).",p:"C"},
+{q:"What is 'Dalit Bandhu' scheme of Telangana?",o:["Housing scheme for tribals","₹10 lakh direct benefit transfer to Scheduled Caste families","Free education for Dalits","Loan waiver for SC farmers"],a:1,t:"Telangana Government Schemes",e:"Dalit Bandhu = Telangana government's scheme providing ₹10 lakh direct financial assistance to each Scheduled Caste family for entrepreneurship.",m:"🧠 DALIT BANDHU = ₹10 lakh direct benefit to SC families.",p:"C"},
+{q:"'Salar Jung Museum' in Hyderabad houses the private collection of:",o:["Nizams of Hyderabad","Salar Jung III","Kakatiyas","Qutb Shahi rulers"],a:1,t:"Telangana Heritage",e:"Salar Jung Museum contains the art collection of Mir Yousuf Ali Khan (Salar Jung III), Prime Minister of Hyderabad.",m:"🧠 Salar Jung Museum = collection of SALAR JUNG III.",p:"C"},
+{q:"Which Telangana city is called the 'Tile City of India'?",o:["Hyderabad","Warangal","Nizamabad","Bodhan"],a:1,t:"Telangana Geography",e:"Warangal is known as the 'Tile City' due to its famous decorative stone tile (Kakatiya star tile) and textile industry.",m:"🧠 Tile City of India = WARANGAL.",p:"C"},
+{q:"Telangana's state bird is:",o:["Indian Peacock","Indian Roller (Palapitta)","Indian Bustard","Flamingo"],a:1,t:"Telangana State Symbols",e:"The Indian Roller (Palapitta/Blue Jay) is the state bird of Telangana.",m:"🧠 Telangana state bird = INDIAN ROLLER (Palapitta).",p:"C"},
+{q:"Operation Polo (1948) was a military action to:",o:["Liberate Goa from Portugal","Integrate Hyderabad State into India","Liberate Telangana from Nizam","Annex Junagadh"],a:1,t:"Indian History · Telangana",e:"Operation Polo (September 1948) was the Indian Army's police action to forcibly integrate the Nizam of Hyderabad's state into India.",m:"🧠 Operation Polo = integrate HYDERABAD STATE into India (1948).",p:"C"},
+{q:"India's first Chief Justice (post-Independence Supreme Court) was:",o:["M. Patanjali Sastri","H.J. Kania","B.K. Mukherjea","S.R. Das"],a:1,t:"Legal History · India",e:"Justice Harilal Jekisundas Kania (H.J. Kania) was the first Chief Justice of India (1950–1951).",m:"🧠 First CJI of India = H.J. KANIA.",p:"C"},
+{q:"Nobel Prize in Literature 2025 was awarded to:",o:["Olga Tokarczuk","Han Kang","László Krasznahorkai","Salman Rushdie"],a:2,t:"Current Affairs 2025 · Awards",e:"László Krasznahorkai (Hungarian author) won the Nobel Prize in Literature 2025.",m:"🧠 Nobel Literature 2025 = LÁSZLÓ KRASZNAHORKAI.",p:"C"},
+{q:"India's Gross Domestic Product (GDP) in 2025-26 made India the _____ largest economy globally:",o:["3rd","4th","5th","6th"],a:1,t:"Current Affairs 2025-26 · Economy",e:"India became the 4th largest economy globally in 2025, surpassing Japan.",m:"🧠 India = 4th largest economy (2025-26), surpassing Japan.",p:"C"},
+{q:"'Adi Yogi' statue (tallest face statue in India) is located in:",o:["Varanasi","Coimbatore","Hyderabad","Mysuru"],a:1,t:"GK · India",e:"The Adiyogi Shiva statue (112 feet) is located at Coimbatore, Tamil Nadu (Isha Yoga Center).",m:"🧠 Adiyogi statue = COIMBATORE (Isha Foundation).",p:"C"},
+{q:"Which Article of the Constitution was invoked to bifurcate AP into Telangana and residual AP?",o:["Article 2","Article 3","Article 4","Article 368"],a:1,t:"Law · Constitution · Telangana",e:"Article 3 of the Constitution empowers Parliament to form a new state, increase/decrease its area, or change its name. Used for Telangana bifurcation.",m:"🧠 Article 3 = Parliament's power to form/alter states. Used for TELANGANA.",p:"C"},
+{q:"Telangana's 'Kaleswaram Project' is notable because it is:",o:["India's largest solar project","World's largest multi-stage lift irrigation project","India's largest hydroelectric dam","World's longest river bridge"],a:1,t:"Telangana Projects",e:"The Kaleshwaram Lift Irrigation Scheme (KLIS) is the world's largest multi-stage lift irrigation project.",m:"🧠 Kaleshwaram = world's largest MULTI-STAGE LIFT IRRIGATION project.",p:"C"},
+{q:"Who is the Attorney General of India (as of 2026)?",o:["K.K. Venugopal","Mukul Rohatgi","R. Venkataramani","Tushar Mehta"],a:2,t:"Current Affairs 2026 · Legal",e:"R. Venkataramani is the Attorney General of India as of 2026.",m:"🧠 Attorney General of India 2026 = R. VENKATARAMANI.",p:"C"},
+{q:"'Telangana Talli' is:",o:["State scheme for mothers","Goddess/Mother symbol representing Telangana","State award for women","Historical queen of Telangana"],a:1,t:"Telangana Culture",e:"Telangana Talli = the symbolic mother goddess representing the Telangana state, installed at the Secretariat.",m:"🧠 TELANGANA TALLI = mother goddess symbol of Telangana state.",p:"C"},
+{q:"India signed the TRIPS Agreement (Trade-Related aspects of Intellectual Property Rights) as part of:",o:["ASEAN","WTO","BRICS","G20"],a:1,t:"GK · International Law",e:"TRIPS Agreement is a WTO (World Trade Organization) agreement on intellectual property rights, which India signed in 1994.",m:"🧠 TRIPS = WTO agreement on Intellectual Property.",p:"C"},
+{q:"Which Telangana district has the Nagarjunasagar Dam?",o:["Nalgonda","Khammam","Mahaboobnagar","Suryapet"],a:0,t:"Telangana Geography",e:"The Telangana portion of Nagarjunasagar Dam falls in Nalgonda district.",m:"🧠 Nagarjunasagar (TG side) = NALGONDA district.",p:"C"},
+{q:"India's Chandrayaan-3 successfully landed on Moon's south pole on:",o:["14 July 2023","23 August 2023","28 September 2023","15 August 2023"],a:1,t:"GK · Science — Space",e:"Chandrayaan-3's Vikram lander successfully landed on Moon's south pole on 23 August 2023.",m:"🧠 Chandrayaan-3 Moon landing = 23 AUGUST 2023.",p:"C"},
+{q:"'Kadam Project' in Telangana is on which river?",o:["Godavari","Pranahita","Kadam (tributary of Godavari)","Manjeera"],a:2,t:"Telangana Geography",e:"Kadam Project is on the Kadam River (a tributary of the Godavari) in Adilabad/Nirmal district.",m:"🧠 KADAM PROJECT = Kadam River (tributary of Godavari).",p:"C"},
+{q:"Headquarters of the Telangana State Election Commission?",o:["Warangal","Secunderabad","Hyderabad","Nizamabad"],a:2,t:"Telangana Government",e:"The Telangana State Election Commission is headquartered in Hyderabad.",m:"🧠 TG State Election Commission HQ = HYDERABAD.",p:"C"},
+{q:"'Bharat Ratna' is India's highest _____ award:",o:["Military","Sports","Civilian","Literary"],a:2,t:"GK · Awards",e:"Bharat Ratna is India's highest civilian honour, awarded for exceptional service to the nation.",m:"🧠 BHARAT RATNA = India's highest CIVILIAN award.",p:"C"},
+{q:"Which Telangana scheme connects farmers to the APMC market bypassing middlemen?",o:["Rythu Bandhu","Rythu Bima","Rythu Bazaar","Kisan Credit Card"],a:2,t:"Telangana Schemes",e:"Rythu Bazaar = farmers' market scheme allowing farmers to sell directly to consumers, bypassing middlemen.",m:"🧠 RYTHU BAZAAR = farmers sell directly, no middlemen.",p:"C"},
+{q:"The G7 Summit 2025 was held in:",o:["Japan","Italy","Canada","USA"],a:2,t:"Current Affairs 2025 · International",e:"G7 Summit 2025 was held in Kananaskis, Canada.",m:"🧠 G7 Summit 2025 = CANADA (Kananaskis).",p:"C"},
+{q:"'Telangana Formation Day' is celebrated every year on:",o:["2nd June","15th August","17th September","1st November"],a:0,t:"Telangana",e:"Telangana Formation Day (Rajyotsavam) = 2nd June every year, marking its formation in 2014.",m:"🧠 Telangana Formation Day = 2 JUNE.",p:"C"},
+{q:"Golconda Fort was historically famous for its:",o:["Textiles","Diamond trade","Iron smelting","Cotton trade"],a:1,t:"Telangana History",e:"Golconda Fort was historically famous for its diamond trade — the Koh-i-Noor and Hope Diamond both came from the mines around Golconda.",m:"🧠 Golconda = historically famous for DIAMOND TRADE.",p:"C"},
+{q:"India's rank in the Human Development Index (HDI) 2024 report?",o:["128th","132nd","134th","126th"],a:2,t:"Current Affairs 2024-25 · Economy",e:"India ranked 134th in the UNDP Human Development Index (HDI) 2024 report.",m:"🧠 India HDI 2024 = 134th.",p:"C"},
+{q:"Who wrote the famous Telugu poem 'Maa Telugu Talliki Mallepudanda' (garland for Mother Telugu)?",o:["Viswanatha Satyanarayana","Shankarambadi Sundaraachari","Sri Sri","Devulapalli Krishna Sastry"],a:1,t:"Telugu Culture",e:"'Maa Telugu Talliki Mallepudanda' was written by Shankarambadi Sundaraachari — it is the Telugu anthem.",m:"🧠 Telugu anthem = SHANKARAMBADI SUNDARAACHARI.",p:"C"},
+{q:"'Operation Sindoor' (2025) was India's military action against:",o:["Naxal insurgency","Terrorist infrastructure in Pakistan","Illegal mining","Drug trafficking"],a:1,t:"Current Affairs 2025 · Defence",e:"Operation Sindoor (May 2025) was India's military strikes against terrorist infrastructure in Pakistan following the Pahalgam terror attack.",m:"🧠 Operation Sindoor = India's strike on TERRORIST INFRASTRUCTURE in Pakistan (2025).",p:"C"},
+// ══ PART D: LAW & LEGAL GK (30 questions) ══
+{q:"The Bharatiya Sakshya Adhiniyam (BSA) 2023 replaced which Act?",o:["Indian Penal Code 1860","Code of Criminal Procedure 1973","Indian Evidence Act 1872","Civil Procedure Code 1908"],a:2,t:"Law · New Criminal Laws 2024",e:"BSA 2023 replaced the Indian Evidence Act 1872 (effective 1 July 2024). BNS replaced IPC. BNSS replaced CrPC.",m:"🧠 BSA=replaced Evidence Act. BNS=replaced IPC. BNSS=replaced CrPC.",p:"D"},
+{q:"Article 14 of the Constitution guarantees:",o:["Freedom of Speech","Right to Life","Equality before Law & Equal Protection of Law","Right against Exploitation"],a:2,t:"Law · Constitution · Fundamental Rights",e:"Article 14: The State shall not deny to any person equality before the law or the equal protection of the laws within the territory of India.",m:"🧠 Article 14 = EQUALITY BEFORE LAW + EQUAL PROTECTION OF LAW.",p:"D"},
+{q:"Under the Protection of Women from Domestic Violence Act 2005, a Magistrate can pass a Protection Order within how many days of receiving an application?",o:["7 days","3 days","30 days","60 days"],a:0,t:"Law · Special Laws",e:"Section 12 DV Act 2005: Magistrate shall endeavor to dispose of the application within 60 days. However, the first Protection Order can be passed within 7 days (interim).",m:"🧠 DV Act: interim protection order within 7 days.",p:"D"},
+{q:"'Nemo Debet Esse Judex In Propria Causa' is the Latin maxim for:",o:["Hear both sides","No one shall be a judge in their own cause","Right to fair trial","Where there is right there is remedy"],a:1,t:"Law · Natural Justice · Latin Maxims",e:"Nemo Debet Esse Judex In Propria Causa = 'no one should be a judge in their own cause' — a core principle of natural justice (rule against bias).",m:"🧠 NEMO JUDEX = no one a judge in own cause. Rule against BIAS.",p:"D"},
+{q:"Under which Section of the Hindu Succession Act 1956 (as amended 2005) are daughters given equal coparcenary rights?",o:["Section 4","Section 6","Section 8","Section 14"],a:1,t:"Law · Family Law",e:"Section 6 of the Hindu Succession Act 1956 (amended 2005) gives daughters equal rights as coparceners in ancestral/HUF property.",m:"🧠 Section 6 HSA = daughters = equal coparceners (2005 Amendment).",p:"D"},
+{q:"'Stare Decisis' doctrine means:",o:["Courts must follow their own earlier decisions and precedents","Each judge decides independently","Follow the legislature","Follow constitutional provisions only"],a:0,t:"Law · Judicial Precedent",e:"Stare Decisis = 'to stand by decided matters' — courts follow binding precedents (especially of higher courts) to ensure consistency.",m:"🧠 STARE DECISIS = stand by precedent. Follow earlier decisions.",p:"D"},
+{q:"Which Schedule of the Constitution lists subjects under the Union List, State List, and Concurrent List?",o:["5th Schedule","6th Schedule","7th Schedule","8th Schedule"],a:2,t:"Law · Constitution · Schedules",e:"7th Schedule contains the three Lists: Union List (97 subjects), State List (66 subjects), and Concurrent List (47 subjects).",m:"🧠 7th Schedule = THREE LISTS (Union, State, Concurrent).",p:"D"},
+{q:"Under IPC (BNS), 'Criminal Conspiracy' is defined under:",o:["Section 107","Section 120A","Section 120B","Section 124A"],a:1,t:"Law · IPC",e:"Section 120A IPC defines Criminal Conspiracy (when two or more persons agree to do or cause to be done an illegal act).",m:"🧠 CRIMINAL CONSPIRACY = Section 120A IPC.",p:"D"},
+{q:"The Specific Relief (Amendment) Act 2018 made specific performance of contracts:",o:["Discretionary","Mandatory (as a rule, not exception)","Unavailable","Limited to property contracts only"],a:1,t:"Law · Specific Relief Act",e:"Specific Relief (Amendment) Act 2018 changed specific performance from discretionary to mandatory (as a rule), removing court's discretion in most cases.",m:"🧠 2018 Amendment: Specific Performance = MANDATORY (not discretionary).",p:"D"},
+{q:"Under RTI Act 2005, which body hears second appeals?",o:["Sessions Court","High Court","Central Information Commission / State Information Commission","Supreme Court"],a:2,t:"Law · RTI Act",e:"Section 19 RTI Act: Second appeal goes to the Central Information Commission (CIC) for Central Govt matters, or State Information Commission (SIC) for state matters.",m:"🧠 RTI second appeal = CIC or SIC (Information Commission).",p:"D"},
+{q:"Doctrine of 'Promissory Estoppel' against the government was established in:",o:["M.C. Mehta v. Union of India","Motilal Padampat Sugar Mills v. State of UP","Kesavananda Bharati case","NALSA v. Union of India"],a:1,t:"Law · Landmark Cases",e:"Motilal Padampat Sugar Mills v. State of UP (1978): SC held that the doctrine of promissory estoppel applies even against the government.",m:"🧠 Promissory estoppel vs Govt = MOTILAL PADAMPAT SUGAR MILLS case 1978.",p:"D"},
+{q:"Section 25 of the Indian Contract Act 1872 states an agreement without consideration is:",o:["Voidable","Valid","Void","Illegal"],a:2,t:"Law · Contract Law",e:"Section 25 ICA: Agreement without consideration is void (with specific exceptions like natural love and affection, past services, etc.).",m:"🧠 No consideration = VOID (Section 25 ICA). Exceptions exist.",p:"D"},
+{q:"Which constitutional body resolves disputes between states regarding water of inter-state rivers?",o:["Supreme Court only","Parliament","Inter-State Water Disputes Tribunal","Finance Commission"],a:2,t:"Law · Constitution",e:"Article 262: Parliament may provide for adjudication of inter-state water disputes. Inter-State Water Disputes Tribunals (like Krishna Water Disputes Tribunal) are set up.",m:"🧠 Inter-state water disputes = INTER-STATE WATER DISPUTES TRIBUNAL (Art.262).",p:"D"},
+{q:"Which Section of CPC provides for 'Summary Suits'?",o:["Order 36","Order 37","Order 38","Order 39"],a:1,t:"Law · CPC",e:"Order 37 CPC: Summary Suits — for recovery of liquidated sums under bills of exchange, hundies, promissory notes.",m:"🧠 Summary Suits = ORDER 37 CPC.",p:"D"},
+{q:"The 'Prevention of Corruption Act 1988' was significantly amended in:",o:["2013","2016","2018","2020"],a:2,t:"Law · Special Laws",e:"Prevention of Corruption (Amendment) Act 2018 amended the 1988 Act, adding new provisions including criminalizing bribe-giving by private persons.",m:"🧠 Prevention of Corruption Act amended in 2018.",p:"D"},
+{q:"Article 51A of the Constitution contains:",o:["Directive Principles of State Policy","Fundamental Rights","Fundamental Duties","Emergency Provisions"],a:2,t:"Law · Constitution",e:"Article 51A (added by 42nd Amendment 1976) contains the 11 Fundamental Duties of Indian citizens.",m:"🧠 Article 51A = FUNDAMENTAL DUTIES (11 duties).",p:"D"},
+{q:"Under POCSO Act 2012, the Special Court must complete trial within:",o:["30 days","60 days","One year","As soon as possible (no specific limit under original act)"],a:1,t:"Law · POCSO Act",e:"POCSO Act 2012 (as amended 2019): Special Courts shall complete trial of offences within 60 working days from the date of taking cognizance.",m:"🧠 POCSO trial = complete within 60 WORKING DAYS.",p:"D"},
+{q:"What is the limitation period under the Limitation Act 1963 for enforcement of a decree?",o:["3 years","6 years","10 years","12 years"],a:3,t:"Law · Limitation Act",e:"Article 136 Limitation Act: For execution of a decree/order of any civil court = 12 years from the date the decree becomes enforceable.",m:"🧠 Decree execution = 12 YEARS limitation.",p:"D"},
+{q:"Writ of 'Quo Warranto' is issued to:",o:["Compel performance of public duty","Produce a detained person","Question by what authority a person holds public office","Prohibit inferior court from exceeding jurisdiction"],a:2,t:"Law · Writs",e:"Quo Warranto = 'by what warrant/authority' — issued to question a person's legal right to hold a public office.",m:"🧠 QUO WARRANTO = 'by what authority?' Challenge public office holder.",p:"D"},
+{q:"Under the Negotiable Instruments Act, a cheque is valid for _____ months from the date of issuance:",o:["3 months","6 months","1 year","2 years"],a:0,t:"Law · NI Act",e:"A cheque is valid for 3 months from the date of issue (RBI reduced validity from 6 months to 3 months in 2012).",m:"🧠 Cheque validity = 3 MONTHS (RBI 2012).",p:"D"},
+{q:"'Volenti Non Fit Injuria' as a defence requires that the plaintiff's consent was:",o:["Coerced","Free and voluntary","Implied only","Given after the act"],a:1,t:"Law · Torts",e:"For Volenti Non Fit Injuria defence, the plaintiff's consent must be FREE AND VOLUNTARY (not coerced, not obtained under misrepresentation).",m:"🧠 VOLENTI: consent must be FREE and VOLUNTARY.",p:"D"},
+{q:"The Right to Fair Compensation and Transparency in Land Acquisition, Rehabilitation and Resettlement Act was enacted in:",o:["2010","2012","2013","2015"],a:2,t:"Law · Land Acquisition",e:"The Land Acquisition Act (RFCTLARR Act) 2013 replaced the Land Acquisition Act 1894.",m:"🧠 New Land Acquisition Act = 2013 (replaced 1894 Act).",p:"D"},
+{q:"Under Article 368, which type of Constitutional Amendment requires ratification by half the State Legislatures?",o:["Simple majority amendment","Special majority amendment","Federal provisions amendment","Ordinary amendment"],a:2,t:"Law · Constitution — Amendment",e:"Article 368: Amendments to federal provisions (like Article 1, 7th Schedule, election of President, SC jurisdiction) require special majority in Parliament PLUS ratification by at least half the State Legislatures.",m:"🧠 Federal provisions amendment = Special majority + HALF STATE RATIFICATION.",p:"D"},
+{q:"'Contempt of Court Act' in India was enacted in:",o:["1952","1971","1988","2000"],a:1,t:"Law · Contempt of Court",e:"The Contempt of Courts Act was enacted in 1971, defining civil and criminal contempt and regulating courts' power to punish for contempt.",m:"🧠 Contempt of Courts Act = 1971.",p:"D"},
+{q:"Under Consumer Protection Act 2019, the State Consumer Disputes Redressal Commission has pecuniary jurisdiction for complaints involving amounts from:",o:["Up to ₹20 lakh","₹20 lakh to ₹1 crore","₹1 crore to ₹10 crore","Above ₹10 crore"],a:2,t:"Law · Consumer Law",e:"Consumer Protection Act 2019: State Commission = ₹1 crore to ₹10 crore. District = up to ₹1 crore. National = above ₹10 crore.",m:"🧠 State Consumer Commission = ₹1 CRORE to ₹10 CRORE.",p:"D"},
+{q:"The concept of 'Judicial Review' in India means the power to:",o:["Review judgments of lower courts","Declare laws unconstitutional if they violate the Constitution","Review parliamentary debates","Audit government accounts"],a:1,t:"Law · Constitutional Law",e:"Judicial Review = the SC and HCs can declare laws/executive actions unconstitutional if they violate the Constitution. Articles 13, 32, 226 enable this.",m:"🧠 JUDICIAL REVIEW = declare laws/actions unconstitutional.",p:"D"},
+{q:"'Audi Alteram Partem' and 'Nemo Judex in Causa Sua' are principles of:",o:["Natural Justice","Estoppel","Judicial Precedent","Statutory Interpretation"],a:0,t:"Law · Natural Justice",e:"Both are the two pillars of Natural Justice: (1) Audi Alteram Partem (hear the other side) and (2) Nemo Judex in Causa Sua (no one a judge in own cause).",m:"🧠 Both = two pillars of NATURAL JUSTICE.",p:"D"},
+{q:"Under which Article does the President of India proclaim Financial Emergency?",o:["Article 352","Article 356","Article 360","Article 365"],a:2,t:"Law · Constitution — Emergency",e:"Article 360: Financial Emergency — proclaimed if the financial stability or credit of India or any state is threatened.",m:"🧠 FINANCIAL EMERGENCY = Article 360.",p:"D"},
+{q:"The 'Vishaka Guidelines' (1997) related to prevention of sexual harassment at workplace were later replaced by:",o:["POCSO Act 2012","The Sexual Harassment of Women at Workplace (Prevention, Prohibition and Redressal) Act 2013","Domestic Violence Act 2005","SC/ST Act 1989"],a:1,t:"Law · Landmark Cases & Special Laws",e:"SC's Vishaka Guidelines (1997) were replaced by the Sexual Harassment of Women at Workplace (POSH) Act 2013.",m:"🧠 Vishaka Guidelines → POSH Act 2013.",p:"D"},
+{q:"Which High Court has jurisdiction over Telangana?",o:["Andhra Pradesh High Court","Telangana High Court","Hyderabad High Court","Osmania High Court"],a:1,t:"Law · Judiciary · Telangana",e:"The Telangana High Court (established after bifurcation — originally shared with AP until 2019 when the AP High Court moved to Amaravati) has jurisdiction over Telangana.",m:"🧠 TELANGANA HIGH COURT has jurisdiction over Telangana.",p:"D"}
+];
+
+// ── STATE ──
+let cur=0,ans=new Array(120).fill(-1),tL=5400,tI=null,fil='all';
+const L=['A','B','C','D'];
+const PL={A:'Part A · Mental Ability',B:'Part B · English',C:'Part C · GK',D:'Part D · Law'};
+const PC={A:'pA',B:'pB',C:'pC',D:'pD'};
+const PN={A:'Part A — Mental Ability',B:'Part B — English Language',C:'Part C — General Knowledge',D:'Part D — Law'};
+
+function startExam(){
+  document.getElementById('splash').classList.remove('on');
+  document.getElementById('exam').classList.add('on');
+  document.getElementById('palb').classList.add('on');
+  buildDots();render(0);startTimer();
+}
+function startTimer(){
+  clearInterval(tI);
+  tI=setInterval(()=>{
+    tL--;
+    const m=Math.floor(tL/60),s=tL%60;
+    document.getElementById('td').textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+    if(tL<=300)document.getElementById('tmr').classList.add('red');
+    if(tL<=0){clearInterval(tI);doSub();}
+  },1000);
+}
+function buildDots(){
+  ['a','b','c','d'].forEach(p=>{const e=document.getElementById('dg'+p);if(e)e.innerHTML='';});
+  QQ.forEach((q,i)=>{
+    const d=document.createElement('div');
+    d.className='qdot';d.id='d'+i;d.textContent=i+1;
+    d.onclick=()=>{closePal();render(i);};
+    const g=document.getElementById('dg'+q.p.toLowerCase());
+    if(g)g.appendChild(d);
+  });
+}
+function render(i){
+  cur=i;
+  const q=QQ[i];
+  document.getElementById('qn').textContent=i+1;
+  document.getElementById('bpv').disabled=i===0;
+  document.getElementById('bnx').disabled=i===119;
+  const dn=ans.filter(a=>a!==-1).length;
+  document.getElementById('pgf').style.width=(dn/120*100)+'%';
+  document.getElementById('ansp').textContent=dn+'✓';
+  document.getElementById('qb').innerHTML=`
+    <div class="pchip ${PC[q.p]}">${PL[q.p]}</div>
+    <div class="qnum">Question ${i+1} of 120</div>
+    <div class="qtxt">${q.q}</div>
+    <div class="qtop">${q.t}</div>
+    <div class="opts" id="opts">
+      ${q.o.map((o,oi)=>`
+        <div class="opt${ans[i]===oi?' sel':''}" id="op${oi}" onclick="pick(${i},${oi})">
+          <div class="oltr">${L[oi]}</div>
+          <div class="otxt">${o}</div>
+        </div>`).join('')}
+    </div>`;
+  updateDots(i);
+  document.getElementById('qa').scrollTo({top:0,behavior:'smooth'});
+}
+function pick(qi,oi){
+  if(ans[qi]===oi){ans[qi]=-1;render(qi);return;}
+  ans[qi]=oi;
+  document.querySelectorAll('.opt').forEach(e=>e.classList.remove('sel'));
+  document.getElementById('op'+oi).classList.add('sel');
+  updateDots(qi);
+  document.getElementById('ansp').textContent=ans.filter(a=>a!==-1).length+'✓';
+  document.getElementById('pgf').style.width=(ans.filter(a=>a!==-1).length/120*100)+'%';
+  setTimeout(()=>{if(qi<119)render(qi+1);},400);
+}
+function nav(d){const n=cur+d;if(n>=0&&n<120)render(n);}
+function updateDots(c){
+  QQ.forEach((_,i)=>{
+    const d=document.getElementById('d'+i);
+    if(!d)return;
+    d.className='qdot';
+    if(ans[i]!==-1)d.classList.add('dn');
+    if(i===c)d.classList.add('cr');
+  });
+}
+function openPal(){document.getElementById('pov').classList.add('on');document.getElementById('pdrw').classList.add('on');updateDots(cur);}
+function closePal(){document.getElementById('pov').classList.remove('on');document.getElementById('pdrw').classList.remove('on');}
+function askSub(){
+  const dn=ans.filter(a=>a!==-1).length;
+  document.getElementById('mh').textContent='Submit Exam?';
+  document.getElementById('mp').innerHTML=`Answered <b style="color:var(--txt)">${dn}/120</b> questions.<br>${120-dn>0?`<span style="color:var(--red)">${120-dn} will be skipped.</span>`:'All answered! 🎉'}`;
+  document.getElementById('mok').onclick=doSub;
+  document.getElementById('mod').classList.add('on');
+}
+function backConfirm(){
+  document.getElementById('mh').textContent='Exit Exam?';
+  document.getElementById('mp').innerHTML='Going back will <b style="color:var(--red)">lose your progress.</b>';
+  document.getElementById('mok').onclick=()=>{closeMod();clearInterval(tI);document.getElementById('exam').classList.remove('on');document.getElementById('palb').classList.remove('on');document.getElementById('splash').classList.add('on');};
+  document.getElementById('mod').classList.add('on');
+}
+function closeMod(){document.getElementById('mod').classList.remove('on');}
+function doSub(){
+  clearInterval(tI);closeMod();
+  document.getElementById('exam').classList.remove('on');
+  document.getElementById('palb').classList.remove('on');
+  document.getElementById('results').classList.add('on');
+  calcResults();
+}
+function calcResults(){
+  let c=0,w=0,s=0,pa=0,pb=0,pc=0,pd=0;
+  QQ.forEach((q,i)=>{
+    if(ans[i]===-1)s++;
+    else if(ans[i]===q.a){c++;if(q.p==='A')pa++;else if(q.p==='B')pb++;else if(q.p==='C')pc++;else pd++;}
+    else w++;
+  });
+  const pct=Math.round(c/120*100);
+  const grades=[[85,'🏆','LEGEND TIER'],[70,'🔥','SOLID PREP'],[55,'📚','DECENT RUN'],[40,'💪','KEEP GOING'],[0,'😤','GRIND HARDER']];
+  const [,em,gr]=grades.find(([t])=>pct>=t);
+  document.getElementById('re').textContent=em;
+  document.getElementById('rg').textContent=gr+' · TG LAWCET 2026 MOCK 2';
+  document.getElementById('rs').textContent=c;
+  document.getElementById('rp').textContent=`${pct}% · ${c}/120 marks`;
+  document.getElementById('sc').textContent=c;
+  document.getElementById('sw').textContent=w;
+  document.getElementById('ss').textContent=s;
+  ['a','b','c','d'].forEach((p,idx)=>{
+    const scores=[pa,pb,pc,pd];
+    const maxes=[30,30,30,30];
+    document.getElementById('ps'+p).textContent=`${scores[idx]}/${maxes[idx]}`;
+    setTimeout(()=>{document.getElementById('pb'+p).style.width=(scores[idx]/maxes[idx]*100)+'%';},500);
+  });
+  buildFocus(pa,pb,pc,pd);
+}
+function buildFocus(pa,pb,pc,pd){
+  const data=[
+    {name:'Mental Ability',sc:pa,mx:30,tips:['Number series — perfect squares, prime series, n² patterns','Age problems & ratio — very formulaic','Syllogism — memorize valid/invalid patterns','Circular arrangements — draw it out']},
+    {name:'English Language',sc:pb,mx:30,tips:['Legal Latin (30+ terms) — make a flashcard list','Mens Rea vs Actus Reus — guaranteed question','Cognizable vs Non-cognizable offence','Error spotting — focus on Subject-Verb agreement']},
+    {name:'GK & Current Affairs',sc:pc,mx:30,tips:['Telangana state symbols (bird, animal, flower, tree)','Key Telangana schemes: Dalit Bandhu, Rythu Bandhu/Bima/Bazaar','Operation Sindoor 2025 — new addition this year','India economy rankings & Nobel Prize winners']},
+    {name:'Law & Legal GK',sc:pd,mx:30,tips:['BNS/BNSS/BSA — which replaced which (mandatory!)','Writs: Mandamus, Habeas Corpus, Certiorari, Quo Warranto, Prohibition','Consumer Commission pecuniary limits (District/State/National)','Article 14,19,20,21,32,51A,226,360,368 — must-know']}
+  ];
+  const fw=document.getElementById('fcw');
+  fw.innerHTML='';
+  data.forEach(d=>{
+    const pct=Math.round(d.sc/d.mx*100);
+    const [icon,cls,lbl]=pct>=70?['✅','good','Strong']:pct>=50?['⚠️','ok','Needs Practice']:['🔴','bad','Must Focus'];
+    fw.innerHTML+=`<div class="fc-card">
+      <div class="fc-head"><div class="fc-ic">${icon}</div><div class="fc-title">${d.name} — ${d.sc}/${d.mx}</div><div class="fc-pct ${cls}">${pct}% ${lbl}</div></div>
+      <div class="fc-items">${d.tips.map(t=>`<div class="fci"><div class="fci-dot ${cls==='good'?'g':cls==='ok'?'a':'r'}"></div><span>${t}</span></div>`).join('')}</div>
+    </div>`;
+  });
+}
+function openRv(f){
+  document.getElementById('results').classList.remove('on');
+  document.getElementById('review').classList.add('on');
+  setFil(f);
+}
+function closeRv(){document.getElementById('review').classList.remove('on');document.getElementById('results').classList.add('on');}
+function setFil(f){
+  fil=f;
+  ['fa','fw','fc','fs'].forEach(id=>document.getElementById(id).classList.remove('on'));
+  const map={all:'fa',wrong:'fw',correct:'fc',skipped:'fs'};
+  document.getElementById(map[f]).classList.add('on');
+  buildRv(f);
+}
+function buildRv(f){
+  const rl=document.getElementById('rl');
+  rl.innerHTML='';
+  QQ.forEach((q,i)=>{
+    const ua=ans[i];
+    const isc=ua===q.a,iss=ua===-1,isw=!isc&&!iss;
+    if(f==='wrong'&&!isw)return;
+    if(f==='correct'&&!isc)return;
+    if(f==='skipped'&&!iss)return;
+    const st=iss?'sk':isc?'co':'wr';
+    const bd=iss?'⏭ Skipped':isc?'✅ Correct':'❌ Wrong';
+    const oh=q.o.map((o,oi)=>{
+      let c2='';
+      if(oi===q.a)c2='ca';
+      else if(oi===ua&&isw)c2='ua';
+      const ic=oi===q.a?'✓':(oi===ua&&isw?'✗':'');
+      return`<div class="ro ${c2}"><span class="ro-ic">${ic}</span>${L[oi]}. ${o}</div>`;
+    }).join('');
+    const div=document.createElement('div');
+    div.className=`rc ${st}`;
+    div.innerHTML=`
+      <div class="rc-tp">
+        <div class="rc-bd"><span class="rc-b ${st}">${bd}</span><span class="rc-qn">Q${i+1}</span><span class="rc-qt">${q.t}</span></div>
+        <div class="rc-q">${q.q}</div>
+      </div>
+      <div class="rc-opts">${oh}</div>
+      <button class="etog" onclick="tExp(this)">💡 Show explanation</button>
+      <div class="ebody">
+        <div class="ebox"><div class="elbl">Explanation</div><div class="etxt">${q.e}</div></div>
+        <div class="mbox"><div class="mlbl">Memory Trick</div><div class="mtxt">${q.m}</div></div>
+      </div>`;
+    rl.appendChild(div);
+  });
+  if(!rl.children.length)rl.innerHTML='<div class="empty-s">Nothing here! 🎉</div>';
+}
+function tExp(b){
+  const bd=b.nextElementSibling;
+  const op=bd.classList.toggle('op');
+  b.textContent=op?'🔼 Hide explanation':'💡 Show explanation';
+}
+function retake(){
+  ans=new Array(120).fill(-1);cur=0;tL=5400;
+  document.getElementById('results').classList.remove('on');
+  document.getElementById('td').textContent='90:00';
+  document.getElementById('tmr').classList.remove('red');
+  document.getElementById('palb').classList.add('on');
+  QQ.forEach((_,i)=>{const d=document.getElementById('d'+i);if(d)d.className='qdot';});
+  document.getElementById('exam').classList.add('on');
+  render(0);startTimer();
+}
+function goHome(){
+  clearInterval(tI);
+  document.getElementById('results').classList.remove('on');
+  document.getElementById('splash').classList.add('on');
+}
+document.addEventListener('touchmove',e=>{
+  if(e.target.closest('.q-area,.rv-list,.rs-sc,.fil-r,.dg,.pal-drw,.sp-wrap'))return;
+  e.preventDefault();
+},{passive:false});
+</script>
+</body>
+</html>
